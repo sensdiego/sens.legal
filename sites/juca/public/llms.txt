@@ -1,0 +1,83 @@
+# Juca
+
+> Juca is the frontend hub for the sens.legal legal AI ecosystem — a conversational interface built with Next.js 16 and React 19 that orchestrates specialized backend agents (Valter for STJ jurisprudence, Leci for legislation) to help Brazilian legal professionals research case law, analyze cases, and produce structured legal documents.
+
+Important notes:
+- Juca is a **frontend hub**, not a fullstack application. Backend intelligence (search, LLM pipeline, knowledge graph) lives in Valter and Leci.
+- The codebase is in active transition from monolith to hub architecture. Many internal API routes are **transitional** and being migrated to Valter.
+- The UI is built on a **Block System** (11 typed blocks) with a 4-phase **Briefing Progressivo** progressive disclosure pattern.
+- Auth uses NextAuth v5. In development, set `ENABLE_DEV_AUTH=true` to bypass.
+- Never run `next build` locally — push to branch and let CI handle builds.
+
+## Home
+
+- [Juca Documentation](https://juca.sens.legal/): Juca is the frontend hub for the sens.legal ecosystem — a conversational interface that orchestrates specialized legal AI agents for Brazilian legal research.
+
+## Getting Started
+
+- [Introduction](https://juca.sens.legal/getting-started/introduction): What Juca is, why it exists, and how it fits into the sens.legal legal AI ecosystem.
+- [Quickstart](https://juca.sens.legal/getting-started/quickstart): Get Juca running locally in under 5 minutes with minimal configuration.
+- [Installation](https://juca.sens.legal/getting-started/installation): Complete setup guide including all optional services, data stores, and development tools.
+
+## Architecture
+
+- [Overview](https://juca.sens.legal/architecture/overview): High-level architecture of Juca as a frontend hub orchestrating legal AI agents via the Block System.
+- [Technology Stack](https://juca.sens.legal/architecture/stack): Complete technology stack with versions, justifications, and transition status for each dependency.
+- [Architecture Decisions](https://juca.sens.legal/architecture/decisions): Key architectural decisions in Juca with context, rationale, and consequences.
+- [Diagrams](https://juca.sens.legal/architecture/diagrams): Visual diagrams of Juca's architecture, data flows, and component relationships using Mermaid.
+- [Ecosystem](https://juca.sens.legal/architecture/ecosystem): Overview of the three-project sens.legal ecosystem — Juca, Valter, and Leci.
+
+## Features
+
+- [Feature Inventory](https://juca.sens.legal/features/): Complete feature inventory with implementation status, milestone assignments, and links to detailed documentation.
+- [Block System](https://juca.sens.legal/features/block-system): The Block System is Juca's core UI composition unit — 11 typed blocks that render all structured legal content.
+- [Composer & Orchestration](https://juca.sens.legal/features/composer): The Composer input component and the orchestration layer that detects intent, fills slots, and routes queries to tools.
+- [Session Management](https://juca.sens.legal/features/session-management): How Juca manages user sessions, persists blocks in SQLite, and handles the session sidebar.
+- [PDF Export](https://juca.sens.legal/features/pdf-export): How Juca generates PDF documents from briefing sessions using jsPDF.
+- [Authentication](https://juca.sens.legal/features/auth): Authentication system using NextAuth v5 with Google OAuth, magic links, and dev bypass.
+- [Feature Flags](https://juca.sens.legal/features/feature-flags): Feature flag system for progressive rollout with URL parameter and localStorage support.
+
+## Features — Briefing Progressivo
+
+- [Briefing Overview](https://juca.sens.legal/features/briefing/): Four-phase progressive disclosure system for delivering structured legal analysis incrementally.
+- [Phase 1: Diagnosis](https://juca.sens.legal/features/briefing/phase-1-diagnosis): Interactive diagnostic card that captures the user's legal situation and provides initial context from Valter.
+- [Phase 2: Precedents](https://juca.sens.legal/features/briefing/phase-2-precedents): Interactive precedent selection with cards powered by Valter's STJ jurisprudence search.
+- [Phase 3: Risks](https://juca.sens.legal/features/briefing/phase-3-risks): Visual risk-opportunity balance powered by Valter's graph analysis and adversarial argument endpoints.
+- [Phase 4: Delivery](https://juca.sens.legal/features/briefing/phase-4-delivery): Four adaptive delivery modes that present the final analysis tailored to the user's legal situation.
+
+## Configuration
+
+- [Environment Variables](https://juca.sens.legal/configuration/environment): Complete reference of all 30+ environment variables organized by category with descriptions and defaults.
+- [Settings & Config Files](https://juca.sens.legal/configuration/settings): Reference for all configuration files in the project root and their key settings.
+- [External Integrations](https://juca.sens.legal/configuration/integrations): Configuration guide for all external services Juca connects to, including Valter, LLM providers, and auth.
+
+## Development
+
+- [Development Setup](https://juca.sens.legal/development/setup): How to set up a local development environment and the daily workflow for contributing to Juca.
+- [Coding Conventions](https://juca.sens.legal/development/conventions): Coding standards, naming patterns, auth patterns, and commit conventions used in the Juca codebase.
+- [Testing Guide](https://juca.sens.legal/development/testing): How to write and run tests in Juca — unit tests with Vitest, component tests with Testing Library, and E2E with Playwright.
+- [Contributing Guide](https://juca.sens.legal/development/contributing): How to contribute to Juca — branching strategy, PR process, and guidelines for human and AI contributors.
+
+## API Reference
+
+- [API Reference](https://juca.sens.legal/api/): Overview of Juca's API surface — internal routes, Valter adapter, and server actions.
+- [Valter API Adapter](https://juca.sens.legal/api/valter-adapter): How Juca communicates with the Valter backend agent via the adapter layer.
+- [Unified Endpoints](https://juca.sens.legal/api/unified): Core hub API endpoints for session management, analysis, and orchestration.
+- [Briefing Endpoints](https://juca.sens.legal/api/briefing): API endpoints and server actions specific to the Briefing Progressivo flow.
+- [Export Endpoints](https://juca.sens.legal/api/export): API endpoints for exporting briefing sessions as PDF and other formats.
+
+## Roadmap
+
+- [Roadmap](https://juca.sens.legal/roadmap/): Product roadmap overview with current milestone status and strategic direction.
+- [Milestones](https://juca.sens.legal/roadmap/milestones): Detailed breakdown of each milestone with features, criteria, and dependencies.
+- [Changelog](https://juca.sens.legal/roadmap/changelog): History of significant changes, milestones, and architectural shifts.
+
+## Reference
+
+- [Glossary](https://juca.sens.legal/reference/glossary): Definitions of legal, technical, and domain-specific terms used throughout Juca.
+- [FAQ](https://juca.sens.legal/reference/faq): Frequently asked questions about Juca, its architecture, and development.
+- [Troubleshooting](https://juca.sens.legal/reference/troubleshooting): Common problems and their solutions when working with Juca.
+
+## Meta
+
+- [Content Map](https://juca.sens.legal/content-map): Maps every documentation file to its content source, priority, and status.

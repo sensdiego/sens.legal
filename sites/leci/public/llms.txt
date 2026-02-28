@@ -1,0 +1,67 @@
+# Leci
+> Leci is a Brazilian federal legislation platform focused on structured legal retrieval, revision traceability, and AI-ready consumption.
+
+Important notes:
+- The current implementation is database-first: schema, indexing, and revision audit are implemented, while API and ingestion layers are roadmap work.
+- Legal text integrity is a hard invariant: never update `document_nodes.content_text` directly; use controlled revision flows.
+
+## Home
+- [Leci Documentation Home](https://leci.sens.legal/): Navigation hub for Leci architecture, setup, roadmap, and operations for humans and AI agents.
+
+## Getting Started
+- [Introduction to Leci](https://leci.sens.legal/getting-started/introduction): What Leci is, who it serves, and what is implemented today versus planned.
+- [Quickstart](https://leci.sens.legal/getting-started/quickstart): Run Leci locally with the minimum commands and verify the baseline environment.
+- [Installation](https://leci.sens.legal/getting-started/installation): Complete installation guide for local, CI-like, and reproducible Leci environments.
+
+## Architecture
+- [Architecture Overview](https://leci.sens.legal/architecture/overview): System architecture summary for current components, data flow, and planned evolution boundaries.
+- [Technology Stack](https://leci.sens.legal/architecture/stack): Versioned stack reference for runtime, database, tooling, and external integration dependencies.
+- [Architecture Decisions](https://leci.sens.legal/architecture/decisions): Current and pending architecture decisions with rationale, status, and impact boundaries.
+- [Architecture Diagrams](https://leci.sens.legal/architecture/diagrams): Mermaid diagrams for system context, data model, and planned end-to-end lifecycle flows.
+- [Project Diagnostic Snapshot](https://leci.sens.legal/architecture/PROJECT_MAP): Technical baseline snapshot of the codebase structure, stack, risks, and maturity at analysis time.
+
+## Features
+- [Features Index](https://leci.sens.legal/features): Catalog of implemented, in-progress, and planned Leci features mapped to product milestones.
+- [Core Data Model and Migrations](https://leci.sens.legal/features/core-data-model-and-migrations): How legal entities, hierarchy, and migration execution provide the foundation for all Leci capabilities.
+- [Legal Search Foundation](https://leci.sens.legal/features/legal-search-foundation): Current search data foundations and planned evolution toward user-facing retrieval APIs.
+- [Revision and Audit Trail](https://leci.sens.legal/features/revision-and-audit-trail): Controlled legal text correction workflow with immutable revision records and governance constraints.
+- [Web Interface](https://leci.sens.legal/features/web-interface): Current UI baseline and planned product experience for legal discovery and document reading.
+- [Data Ingestion Pipeline](https://leci.sens.legal/features/data-ingestion-pipeline): Planned ingestion lifecycle for collecting, normalizing, and validating legal source content.
+- [Temporal Trust Layer](https://leci.sens.legal/features/temporal-trust-layer): Proposed innovation for time-aware legal retrieval with verifiable evidence receipts.
+
+## Configuration
+- [Environment Variables](https://leci.sens.legal/configuration/environment): Canonical environment variable reference for local development, CI workflows, and secure operations.
+- [Project Settings Files](https://leci.sens.legal/configuration/settings): Reference for build, runtime, lint, and database settings that control Leci behavior.
+- [External Integrations](https://leci.sens.legal/configuration/integrations): Current and planned external integrations, with setup, reliability, and security considerations.
+
+## Development
+- [Development Setup](https://leci.sens.legal/development/setup): Contributor setup workflow for running, validating, and iterating on Leci safely.
+- [Development Conventions](https://leci.sens.legal/development/conventions): Coding and project conventions for naming, integrity, and contribution consistency in Leci.
+- [Testing Strategy](https://leci.sens.legal/development/testing): Current testing baseline and roadmap for establishing robust quality gates across Leci layers.
+- [Contributing Guide](https://leci.sens.legal/development/contributing): Process and expectations for contributing code, schema, and documentation changes to Leci.
+
+## Roadmap
+- [Product Roadmap](https://leci.sens.legal/roadmap): Strategic roadmap overview connecting milestones, priorities, and risk-aware execution constraints.
+- [Milestones](https://leci.sens.legal/roadmap/milestones): Detailed milestone objectives, scope boundaries, dependencies, and completion criteria.
+- [Roadmap Changelog](https://leci.sens.legal/roadmap/changelog): Change history for roadmap scope, sequencing, and rationale across planning iterations.
+
+## Reference
+- [Glossary](https://leci.sens.legal/reference/glossary): Shared definitions of legal-domain and technical terms used across Leci documentation.
+- [FAQ](https://leci.sens.legal/reference/faq): Frequent questions about scope, setup, roadmap status, and integration expectations in Leci.
+- [Troubleshooting](https://leci.sens.legal/reference/troubleshooting): Troubleshooting guide for setup, migration, runtime, and workflow issues in Leci.
+
+## Planning Artifacts
+- [Planning Roadmap Artifact](https://leci.sens.legal/planning/ROADMAP): Working planning artifact describing feature priorities, milestones, and risk-mitigation sequencing.
+- [Planning Premortem Artifact](https://leci.sens.legal/planning/PREMORTEM): Risk stress-test artifact describing failure scenarios, critical risks, and mitigation requirements.
+- [Innovation Layer Artifact](https://leci.sens.legal/planning/INNOVATION_LAYER): Strategic innovation proposal artifact for high-leverage legal trust capabilities under consideration.
+- [Repository Reorganization Plan Artifact](https://leci.sens.legal/planning/REORG_PLAN): Working artifact for repository structure, docs governance, and simplify-scope decisions.
+
+## Documentation Operations
+- [ADR Guide](https://leci.sens.legal/adr/README): How to write and maintain Architecture Decision Records for Leci.
+- [Documentation Content Map](https://leci.sens.legal/CONTENT_MAP): Source map for every documentation page, with priority and evidence inputs for content production.
+- [Documentation Directory Guide](https://leci.sens.legal/README): Guide to the docs folder structure and where architecture, planning, and reference artifacts live.
+
+## Portuguese (pt-BR)
+- [Introdução ao Leci](https://leci.sens.legal/pt-br/getting-started/introduction): O que é o Leci, para quem ele serve e o que já está implementado versus planejado.
+- [Quickstart (pt-BR)](https://leci.sens.legal/pt-br/getting-started/quickstart): Suba o Leci localmente com os comandos mínimos e valide o baseline do ambiente.
+- [Instalação](https://leci.sens.legal/pt-br/getting-started/installation): Guia completo de instalação para ambientes local, validação tipo-CI e execução reproduzível do Leci.

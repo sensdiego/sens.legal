@@ -1,0 +1,1677 @@
+---
+# docs/CONTENT_MAP.md
+---
+
+# Documentation Content Map
+
+## What this file is for
+This file defines the documentation production plan for Leci and makes content sourcing explicit. It exists to prevent undocumented assumptions and to keep docs tied to code, roadmap, and owner inputs.
+
+## Priority model used in this map
+- `P0` means mandatory content for shipping a usable docs site.
+- `P1` means important content for maintainability and stakeholder confidence.
+- `P2` means deferred content that can be published after core documentation stabilizes.
+
+## Canonical documentation pages
+| File | Planned content focus | Source of truth | Priority |
+|---|---|---|---|
+| `docs/index.md` | Audience-oriented entry point and navigation strategy. | `docs/architecture/PROJECT_MAP.md`, `docs/planning/ROADMAP.md`, owner input | P0 |
+| `docs/getting-started/introduction.md` | Product purpose, scope boundaries, and positioning. | `PROJECT_MAP`, `ROADMAP`, owner input | P0 |
+| `docs/getting-started/quickstart.md` | Minimum working setup path and baseline checks. | scripts, `.env.example`, `README.md` | P0 |
+| `docs/getting-started/installation.md` | Full reproducible installation and validation workflows. | configs, `PROJECT_MAP`, owner input | P0 |
+| `docs/architecture/overview.md` | Current and target architecture with boundaries and flow. | `PROJECT_MAP`, `ROADMAP`, `PREMORTEM` | P0 |
+| `docs/architecture/stack.md` | Versions, responsibilities, and update policy for stack components. | `package.json`, lockfile, configs | P0 |
+| `docs/architecture/decisions.md` | Active and pending architectural decisions and ADR workflow. | `ROADMAP`, `PREMORTEM`, owner input | P1 |
+| `docs/architecture/diagrams.md` | Mermaid diagrams for system, data model, and workflows. | `PROJECT_MAP`, schema/migrations, roadmap | P1 |
+| `docs/features/index.md` | Feature catalog with implementation status and milestone mapping. | `ROADMAP`, `PROJECT_MAP`, owner input | P0 |
+| `docs/features/core-data-model-and-migrations.md` | Schema and migration behavior as a product capability. | `src/db/schema.ts`, `drizzle/0001_init.sql`, `scripts/migrate.ts` | P0 |
+| `docs/features/legal-search-foundation.md` | FTS/vector foundations and planned API search behavior. | schema and roadmap | P0 |
+| `docs/features/revision-and-audit-trail.md` | Edit governance and revision audit integrity. | SQL function, `AGENTS.md`, roadmap | P0 |
+| `docs/features/web-interface.md` | Current UI state and planned user journeys. | `src/app/*`, roadmap | P1 |
+| `docs/features/data-ingestion-pipeline.md` | Planned ingestion lifecycle and reliability model. | roadmap, premortem, owner input | P1 |
+| `docs/features/temporal-trust-layer.md` | Innovation proposal for temporal legal trustability. | `INNOVATION_LAYER`, `PREMORTEM`, owner input | P2 |
+| `docs/configuration/environment.md` | Environment variable reference and handling rules. | `.env.example`, scripts/workflows | P0 |
+| `docs/configuration/settings.md` | Project config file reference and governance policy. | runtime/build configs | P1 |
+| `docs/configuration/integrations.md` | External service setup and reliability constraints. | workflows, roadmap, owner input | P1 |
+| `docs/development/setup.md` | Contributor setup and daily operation workflow. | commands, conventions, roadmap mitigations | P0 |
+| `docs/development/conventions.md` | Naming, typing, and integrity conventions. | `AGENTS.md`, code patterns | P0 |
+| `docs/development/testing.md` | Current test baseline and quality-gate evolution path. | scripts, roadmap, premortem | P0 |
+| `docs/development/contributing.md` | End-to-end contribution process and review checklist. | repo workflow and conventions | P1 |
+| `docs/roadmap/index.md` | Strategic roadmap context and governance model. | planning roadmap artifact | P1 |
+| `docs/roadmap/milestones.md` | Milestone-level scopes, dependencies, and exit criteria. | planning roadmap artifact | P1 |
+| `docs/roadmap/changelog.md` | Trace of roadmap changes and planning decisions. | planning governance process | P2 |
+| `docs/reference/glossary.md` | Shared legal and technical vocabulary. | schema terminology, owner input | P1 |
+| `docs/reference/faq.md` | Recurring setup/product/integration questions. | all docs and support patterns | P2 |
+| `docs/reference/troubleshooting.md` | Operational troubleshooting for common failure modes. | scripts, setup docs, CI behavior | P1 |
+
+## Supporting source artifacts kept in this repository
+| File | Role in documentation pipeline |
+|---|---|
+| `docs/architecture/PROJECT_MAP.md` | Baseline technical diagnosis snapshot used for evidence-based writing. |
+| `docs/planning/ROADMAP.md` | Master planning input for status labels and milestone pages. |
+| `docs/planning/PREMORTEM.md` | Risk input source for mitigations and sequencing guidance. |
+| `docs/planning/INNOVATION_LAYER.md` | Strategic innovation candidate input. |
+| `docs/planning/REORG_PLAN.md` | Repository structure and documentation governance plan. |
+| `docs/README.md` | Internal docs-folder orientation page. |
+| `docs/adr/README.md` | ADR folder usage and format reference. |
+
+## Authoring notes for subsequent documentation phases
+- Fill P0 pages first when publishing to a new environment.
+- Label planned behavior explicitly and avoid presenting roadmap items as implemented.
+- Keep human readability and AI-agent parseability balanced in every section.
+
+---
+# docs/README.md
+---
+
+# Documentation Directory Guide
+
+## Purpose of this page
+This page explains how the `docs/` directory is organized and where each category of documentation should be updated. It is intended for maintainers and contributors who need to quickly locate the correct source file.
+
+## Architecture documents
+Architecture-focused content is stored under `docs/architecture/`.
+
+Key files:
+- `overview.md`
+- `stack.md`
+- `decisions.md`
+- `diagrams.md`
+- `PROJECT_MAP.md` (diagnostic input artifact)
+
+## Planning documents
+Planning and strategy artifacts are stored under `docs/planning/`.
+
+Key files:
+- `ROADMAP.md`
+- `PREMORTEM.md`
+- `INNOVATION_LAYER.md`
+- `REORG_PLAN.md`
+
+## ADR documents
+Architecture Decision Records live under `docs/adr/`.
+
+Current status:
+- `docs/adr/README.md` defines ADR structure and naming conventions.
+- Individual ADR entries should be added as numbered files.
+
+## Localization structure
+Portuguese localized pages live under `docs/pt-br/` and should mirror English slugs and section structure. Every new en-US page should receive a pt-BR counterpart in the same documentation update cycle.
+
+---
+# docs/adr/README.md
+---
+
+# ADR Guide
+
+## Why ADRs are required in this project
+Architecture Decision Records capture irreversible or high-impact technical decisions with explicit rationale. They reduce context loss when roadmap priorities, owners, or implementation details change.
+
+## Naming convention
+Create ADR files using incremental numeric prefixes:
+- `0001-short-title.md`
+- `0002-short-title.md`
+
+## Required ADR structure
+Each ADR should contain:
+1. Context
+2. Decision
+3. Alternatives considered
+4. Consequences
+
+## Status model
+Recommended status values:
+- Proposed
+- Accepted
+- Superseded
+- Rejected
+
+## Update policy
+When a decision changes:
+- do not rewrite history in-place;
+- create a new ADR that supersedes the old one;
+- cross-link both files.
+
+---
+# docs/architecture/PROJECT_MAP.md
+---
+
+# Project Diagnostic Snapshot
+
+## What this snapshot represents
+This page captures the technical diagnosis that was used to bootstrap documentation and planning. It is intentionally static and should be treated as a dated baseline, not as a live source of truth.
+
+## Observed maturity at snapshot time
+The repository was assessed as an early-stage product with:
+- strong database foundations;
+- minimal user-facing UI;
+- no implemented internal API routes;
+- roadmap-heavy planned capabilities.
+
+## Key verified technical facts
+At snapshot time, the following were code-verified:
+- Next.js + React + TypeScript stack in a monorepo-style single app repository.
+- PostgreSQL schema `leci` with legal entities and revision audit model.
+- FTS support via generated `tsvector` and GIN index.
+- Vector search foundation via `pgvector` and IVFFlat indexing.
+- Migration runner in `scripts/migrate.ts` applying ordered SQL files.
+
+## Known constraints captured in the snapshot
+The snapshot emphasized several constraints:
+- the `document_nodes.content_text` integrity invariant through `leci.apply_revision()`;
+- missing test suites despite a test command baseline;
+- documentation and implementation drift risk for roadmap-defined features.
+
+## How to use this artifact today
+Use this page when you need historical context for why current docs/roadmap shape exists. For current implementation status, prefer:
+- code in `src/`, `drizzle/`, and `scripts/`;
+- live docs pages under architecture/features/configuration;
+- latest planning artifacts.
+
+---
+# docs/architecture/decisions.md
+---
+
+# Architecture Decisions
+
+## This page records high-impact technical choices
+Architecture decisions in Leci should be explicit because legal data correctness is hard to recover after inconsistent implementation. This page summarizes current accepted decisions and pending decisions that influence roadmap sequencing.
+
+## Accepted decisions
+### DB-first product evolution
+**Decision:** prioritize schema integrity and revision safety before advanced UI/API features.
+
+**Why:** legal products degrade quickly when data correctness and traceability are weak.
+
+**Impact:** database and migration artifacts are mature earlier than product endpoints.
+
+### Controlled legal text mutation
+**Decision:** legal text edits must flow through `leci.apply_revision()`.
+
+**Why:** audit history is mandatory for trust, rollback analysis, and governance.
+
+**Impact:** contributors must avoid direct SQL updates to critical text fields.
+
+### Monolithic repository boundary
+**Decision:** keep application, schema, scripts, and docs in one repository at current stage.
+
+**Why:** team velocity and context-sharing are better while core model is still evolving.
+
+**Impact:** future decomposition should happen only after API contracts stabilize.
+
+## Pending decisions
+These decisions remain open and block medium-term planning clarity:
+- canonical roadmap source of truth (GitHub vs Linear vs hybrid)
+- MVP search strategy scope (FTS-only vs hybrid from day one)
+- ingestion depth for first production datasets
+- MCP/agent integration timing and gating criteria
+
+> ⚠️ **Unverified** — Final ownership and decision authority for cross-project sens.legal integrations need explicit confirmation.
+
+<!-- NEEDS_INPUT: Confirm final governance model for roadmap source-of-truth and cross-project integration ownership. -->
+
+## ADR workflow
+Use `docs/adr/` for full decision records and keep this page as the summary index. When an accepted decision changes, add a superseding ADR rather than rewriting historical records.
+
+---
+# docs/architecture/diagrams.md
+---
+
+# Architecture Diagrams
+
+## System context diagram
+This diagram represents currently implemented runtime boundaries plus immediate planned extensions.
+
+```mermaid
+flowchart TD
+  Dev[Developer] -->|npm run dev| Web[Next.js App Shell]
+  Dev -->|npx tsx scripts/migrate.ts| Migrator[Migration Script]
+  Migrator --> PG[(PostgreSQL schema: leci)]
+
+  PG --> RT[regulation_types]
+  PG --> R[regulations]
+  PG --> DN[document_nodes]
+  PG --> E[embeddings]
+  PG --> S[suggestions]
+  PG --> RV[revisions]
+
+  CI[GitHub Actions] --> Discord[PR Review Webhook]
+
+  Web -. planned .-> API[Internal Search API]
+  API -. planned .-> Agents[AI Agent Integrations]
+```
+
+## Data model relationship diagram
+This diagram shows core table relationships used by legal retrieval and revision auditing.
+
+```mermaid
+erDiagram
+  REGULATION_TYPES ||--o{ REGULATIONS : classifies
+  REGULATIONS ||--o{ DOCUMENT_NODES : contains
+  DOCUMENT_NODES ||--o{ DOCUMENT_NODES : parent_child
+  DOCUMENT_NODES ||--o{ EMBEDDINGS : vectorizes
+  DOCUMENT_NODES ||--o{ SUGGESTIONS : receives
+  DOCUMENT_NODES ||--o{ REVISIONS : records
+  SUGGESTIONS o|--o{ REVISIONS : links
+```
+
+## Revision lifecycle diagram
+This sequence diagram highlights the integrity path for legal text updates.
+
+```mermaid
+sequenceDiagram
+  participant User
+  participant App
+  participant DB
+
+  User->>App: submit correction suggestion
+  App->>DB: insert into suggestions
+  App->>DB: call leci.apply_revision(...)
+  DB->>DB: insert revision record
+  DB->>DB: update document_nodes field
+  DB->>DB: mark suggestion as applied (if linked)
+  DB-->>App: revision id
+  App-->>User: revision applied confirmation
+```
+
+## Planned end-to-end flow diagram
+This view shows the intended target lifecycle once roadmap capabilities are implemented.
+
+```mermaid
+flowchart LR
+  Sources[Planalto / LexML] --> Ingestion[Ingestion Pipeline]
+  Ingestion --> Normalize[Normalize + Validate]
+  Normalize --> PG[(PostgreSQL leci)]
+  PG --> SearchAPI[Search/API Layer]
+  SearchAPI --> UI[Web UI: search/browse/read]
+  SearchAPI --> AgentConsumers[AI Agents / External Consumers]
+  PG --> RevisionGov[Revision Governance]
+```
+
+---
+# docs/architecture/overview.md
+---
+
+# Architecture Overview
+
+## Leci uses a DB-first monolithic architecture
+Leci currently runs as a single Next.js repository where PostgreSQL is the core system of record and the app layer is intentionally lightweight. This architecture prioritizes legal data integrity and traceability before expanding product surfaces.
+
+## Current implemented components
+The codebase currently includes these operational components:
+- Next.js App Router shell (`src/app/layout.tsx`, `src/app/page.tsx`)
+- Drizzle schema definitions (`src/db/schema.ts`)
+- SQL migrations (`drizzle/*.sql`)
+- migration execution script (`scripts/migrate.ts`)
+- CI notification workflow (`.github/workflows/pr-review-notify.yml`)
+
+## Current data flow
+The current runtime flow is straightforward:
+1. migrations are applied to PostgreSQL via `npx tsx scripts/migrate.ts`;
+2. app server starts via `next dev`/`next start`;
+3. homepage renders static UI copy;
+4. legal-domain operations are represented at data layer, not exposed through API routes yet.
+
+## Data model responsibilities
+The schema separates legal concerns into explicit tables:
+- `regulation_types` and `regulations` for top-level legal documents;
+- `document_nodes` for hierarchical legal text and search vector generation;
+- `embeddings` for semantic search groundwork;
+- `suggestions` and `revisions` for controlled correction and auditability.
+
+## Architectural invariants
+The most important invariant is revision safety for legal text changes.
+
+:::danger
+Never mutate `document_nodes.content_text` directly. Apply legal text changes through `leci.apply_revision()` to preserve revision history integrity.
+:::
+
+## Planned architecture expansion
+> 🚧 **Planned Feature** — Internal API and search service layers are planned but not implemented in current code.
+
+> 🚧 **Planned Feature** — Source ingestion automation and richer UI workflows are roadmap milestones, not current runtime behavior.
+
+## Operational constraints
+Current architecture carries practical constraints:
+- migration rerun safety depends on SQL idempotence (no migrations history table in script);
+- testing coverage is not yet implemented at suite level;
+- production-grade observability and SLO enforcement are roadmap work.
+
+---
+# docs/architecture/stack.md
+---
+
+# Technology Stack
+
+## Stack choices optimize legal data integrity first
+The selected stack emphasizes reliable schema evolution, explicit typing, and compatibility with both human-facing and AI-agent-facing layers.
+
+## Runtime and language stack
+Core runtime components:
+- Node.js `>=20.0.0`
+- npm `>=10.0.0`
+- TypeScript (strict mode)
+- Next.js 16 + React 19
+
+## Primary dependencies and roles
+| Dependency | Role in project |
+|---|---|
+| `next` | Web runtime and routing shell |
+| `react`, `react-dom` | UI rendering |
+| `drizzle-orm` | Type-safe schema modeling |
+| `pg` | PostgreSQL client for scripts/runtime integration |
+| `drizzle-kit` | Schema/migration tooling support |
+| `tsx` | TypeScript script execution (migrations and tooling) |
+| `eslint`, `eslint-config-next` | Linting baseline |
+| `tailwindcss`, `@tailwindcss/postcss` | Styling pipeline |
+
+## Database and indexing stack
+Database layer uses PostgreSQL with `pgvector` enabled. Search and retrieval foundations include:
+- generated `tsvector` index for Portuguese full-text search;
+- IVFFlat vector index for embedding similarity workflows.
+
+## Build and quality toolchain
+Key commands from `package.json`:
+- `npm run dev`
+- `npm run build`
+- `npm run start`
+- `npm run lint`
+- `npm test`
+
+## External services currently referenced
+- Railway PostgreSQL (connection through `DATABASE_URL`)
+- GitHub Actions workflow using `DISCORD_PR_REVIEW_WEBHOOK`
+
+## Upgrade posture
+Dependency updates should be staged by risk:
+1. patch upgrades for low-risk runtime/tooling;
+2. minor upgrades after lint/build/test validation;
+3. major upgrades only with explicit compatibility testing.
+
+:::caution
+Keep migration and schema tooling compatible before bumping DB-related dependencies. Stack upgrades that break migration flow have high operational impact.
+:::
+
+---
+# docs/configuration/environment.md
+---
+
+# Environment Variables
+
+## Environment variables define runtime and operational boundaries
+Leci currently uses a small but critical environment variable surface. Correct configuration is required for migrations, DB access, and CI webhook behavior.
+
+## Variable catalog
+| Variable | Required | Used by | Purpose |
+|---|---|---|---|
+| `DATABASE_URL` | Yes (local + CI for migrations) | `scripts/migrate.ts`, Drizzle config | PostgreSQL connection string |
+| `DISCORD_PR_REVIEW_WEBHOOK` | Optional local, required in CI workflow context | GitHub Actions workflow | PR review notification webhook |
+
+## Local configuration flow
+1. copy `.env.example` to `.env`;
+2. set `DATABASE_URL`;
+3. run migrations and validation commands.
+
+```bash
+cp .env.example .env
+npx tsx scripts/migrate.ts
+```
+
+## Safety and handling rules
+- never commit filled `.env` files;
+- treat DB credentials and webhook secrets as sensitive;
+- use dedicated credentials per environment where possible.
+
+## Validation behavior
+If `DATABASE_URL` is missing, migration script fails fast with explicit error:
+
+```ts
+if (!databaseUrl) {
+  throw new Error("DATABASE_URL is not set");
+}
+```
+
+---
+# docs/configuration/integrations.md
+---
+
+# External Integrations
+
+## Integrations are intentionally minimal in current implementation
+Leci currently integrates with a small set of external systems and keeps most complexity inside the repository until core reliability stabilizes.
+
+## Active integrations
+### PostgreSQL provider (Railway context)
+Database connectivity is provided through `DATABASE_URL` and used by migration/tooling paths.
+
+### GitHub Actions + Discord webhook
+PR workflow sends review notifications using `DISCORD_PR_REVIEW_WEBHOOK`.
+
+## Planned integrations
+> 🚧 **Planned Feature** — Legal source ingestion providers (e.g., Planalto, LexML) are roadmap-defined but not yet integrated in code.
+
+> 🚧 **Planned Feature** — Broader agent/API consumer integrations are roadmap work and require stable contracts first.
+
+## Security expectations
+- store secrets in CI secret stores and local `.env` only;
+- do not hardcode credentials;
+- validate least-privilege DB credentials per environment.
+
+## Reliability expectations
+Integration reliability should include:
+- explicit failure visibility;
+- freshness/status metadata for ingestion-related integrations;
+- fallback behavior and operator guidance in troubleshooting docs.
+
+---
+# docs/configuration/settings.md
+---
+
+# Project Settings Files
+
+## Settings files define reproducibility and runtime consistency
+Leci uses explicit configuration files for runtime, build, linting, and migration behavior. Understanding these files is essential for safe changes.
+
+## Core runtime/build configuration
+- `package.json`: scripts, dependencies, engine constraints
+- `next.config.ts`: Next.js runtime config entrypoint
+- `tsconfig.json`: TypeScript compiler behavior and path aliases
+
+## Styling and linting configuration
+- `postcss.config.mjs`: Tailwind plugin integration
+- `eslint.config.mjs`: lint rules using Next.js presets
+
+## Database and migration configuration
+- `drizzle.config.ts`: schema path, output folder, dialect, DB credentials env binding
+- `drizzle/*.sql`: migration files executed by migration script
+
+## Governance guidance
+Configuration changes should include:
+- rationale in PR description;
+- validation command output (`lint`, `test`, `build`);
+- docs updates when developer workflow changes.
+
+---
+# docs/development/contributing.md
+---
+
+# Contributing Guide
+
+## Contributions must preserve legal data trust and traceability
+Every contribution should improve the project without weakening schema integrity, auditability, or documentation consistency.
+
+## Before starting work
+- confirm scope is aligned with current roadmap priorities;
+- ensure local setup is working;
+- identify affected docs pages before coding.
+
+## Standard contribution workflow
+1. create branch (`feat/SEN-XXX-description`)
+2. implement code/docs changes
+3. run validation commands (`lint`, `test`, optionally `build`)
+4. open PR to `main`
+5. include context and impact summary in PR description
+
+## Schema and legal-text safety checklist
+- avoid direct legal-text edits outside revision function;
+- keep migration artifacts explicit and reviewable;
+- ensure changes to schema behavior are documented.
+
+## Documentation expectations
+Contributors must update docs when changing:
+- setup commands
+- configuration
+- feature status
+- architecture assumptions
+
+## Review checklist
+A high-quality PR should answer:
+- What changed?
+- Why was it necessary?
+- What validation was run?
+- What docs were updated?
+
+---
+# docs/development/conventions.md
+---
+
+# Development Conventions
+
+## Conventions reduce ambiguity in legal-domain software
+Leci conventions are designed to keep legal data handling predictable while preserving contributor velocity.
+
+## Language and typing conventions
+- TypeScript strict mode is required.
+- Prefer explicit types in domain-critical code paths.
+
+## Naming conventions
+- Use `kebab-case` for file names.
+- Use `PascalCase` for React components.
+- Keep database naming aligned with existing schema patterns.
+
+## Data integrity conventions
+The legal text mutation path is constrained by invariant:
+
+:::danger
+Do not update `document_nodes.content_text` directly. Always route edits through `leci.apply_revision()`.
+:::
+
+## Workflow conventions
+- Branch naming: `feat/SEN-XXX-description`
+- Commit messages should include `SEN-XXX`
+- PR target branch: `main`
+
+## Documentation conventions
+- Clearly separate implemented behavior from planned behavior.
+- Mark roadmap-only scope with planned-feature callouts.
+- Keep en-US and pt-BR pages in structural parity.
+
+---
+# docs/development/setup.md
+---
+
+# Development Setup
+
+## Development setup must be reproducible and explicit
+Leci contribution flow depends on reproducible environment setup because database and migration behavior are central to product correctness.
+
+## Toolchain requirements
+Required baseline:
+- Node.js `>=20`
+- npm `>=10`
+- PostgreSQL connection URL via `DATABASE_URL`
+
+Recommended command checks:
+
+```bash
+node -v
+npm -v
+```
+
+## First-time setup workflow
+```bash
+npm install
+cp .env.example .env
+# set DATABASE_URL
+npx tsx scripts/migrate.ts
+npm run lint
+npm test
+npm run dev
+```
+
+## Daily developer loop
+A standard daily loop should include:
+1. pull latest changes;
+2. reinstall only if lockfile changed;
+3. apply migrations;
+4. run lint/test;
+5. run app in dev mode.
+
+## Database-sensitive workflow guidance
+When changing schema-related code:
+- update Drizzle schema and/or SQL migrations intentionally;
+- verify migration rerun behavior;
+- document any non-idempotent assumptions.
+
+## Documentation update rule
+Any change affecting commands, config, or feature behavior must update corresponding docs pages in the same branch.
+
+---
+# docs/development/testing.md
+---
+
+# Testing Strategy
+
+## Testing is currently a baseline command with roadmap expansion
+The repository currently exposes `npm test` via Node's built-in test runner, but test suites are not yet implemented. This is a known maturity gap tracked in planning.
+
+## Current state
+- command exists: `npm test`
+- suites implemented: none yet
+- lint gate available: `npm run lint`
+
+## Planned quality evolution
+> 🚧 **Planned Feature** — Full test coverage across schema, API, and UI is roadmap-defined and not yet implemented.
+
+Planned priorities:
+1. migration and schema integrity tests;
+2. core flow integration tests;
+3. API contract tests (once API exists);
+4. UI behavior tests for product flows.
+
+## Minimum quality gates for contributors
+Even before full suites are available, every contribution should run:
+
+```bash
+npm run lint
+npm test
+npm run build
+```
+
+## Risk perspective
+Lack of tests is not only a technical debt item; it is a product risk in legal systems where correctness has trust impact.
+
+---
+# docs/features/core-data-model-and-migrations.md
+---
+
+# Core Data Model and Migrations
+
+## This feature is the backbone of the product
+The legal data model and migration system define the reliability envelope for every present and future feature in Leci. Without schema integrity and predictable migrations, search, revisions, and integrations cannot be trusted.
+
+## Implemented scope in current code
+The implemented core model includes:
+- `regulation_types` and `regulations` for legal document metadata;
+- `document_nodes` for hierarchical legal structure and searchable text;
+- `embeddings` for semantic retrieval preparation;
+- `suggestions` and `revisions` for controlled edits and audit history.
+
+## Migration execution behavior
+Migrations are executed by `scripts/migrate.ts`, which:
+1. reads SQL files in `drizzle/`;
+2. sorts them by numeric prefix;
+3. executes each file sequentially;
+4. logs applied file names.
+
+```ts
+const migrations = getMigrationFiles();
+for (const migrationPath of migrations) {
+  const sql = fs.readFileSync(migrationPath, "utf8");
+  await client.query(sql);
+  process.stdout.write(`Applied ${path.basename(migrationPath)}\n`);
+}
+```
+
+## Why this design matters
+This design keeps database evolution explicit and reviewable, which is essential in legal-domain systems where accidental data drift can invalidate downstream outputs.
+
+## Operational caveats
+:::caution
+The migration runner does not track applied migrations in a dedicated table. New SQL files should be idempotent or carefully guarded to avoid rerun failures.
+:::
+
+## Planned enhancements
+> 🚧 **Planned Feature** — Formal migration governance and rollback policy documentation are roadmap items and not fully codified yet.
+
+> 🚧 **Planned Feature** — Automated schema parity checks between Drizzle schema and SQL migration artifacts are planned but not implemented.
+
+---
+# docs/features/data-ingestion-pipeline.md
+---
+
+# Data Ingestion Pipeline
+
+## Ingestion is a roadmap-critical but not yet implemented feature
+The project vision depends on continuous and reliable ingestion of legal source content, but the current repository does not yet implement this pipeline.
+
+> 🚧 **Planned Feature** — End-to-end ingestion from external legal sources is approved in planning but not present in code.
+
+## Planned pipeline stages
+Expected stages:
+1. fetch source payloads from official providers;
+2. normalize and parse legal structure;
+3. persist into canonical schema (`regulations`, `document_nodes`, etc.);
+4. validate integrity and hierarchy consistency;
+5. emit freshness and failure telemetry.
+
+## Reliability requirements
+Ingestion quality should include:
+- idempotent retries;
+- explicit freshness timestamping;
+- deterministic handling of partial failures.
+
+## Edge cases to handle
+Known legal edge cases include:
+- future-validity norms (vacatio legis);
+- partial vs total revocation chains;
+- overlapping amendments affecting the same article.
+
+## Success criteria for first production iteration
+A credible first ingestion release should prove:
+- reproducible runs;
+- no duplicate legal nodes under canonical keys;
+- measurable source freshness reporting.
+
+---
+# docs/features/index.md
+---
+
+# Features Index
+
+## This index maps feature status to reality and planning
+This page consolidates feature status across code and roadmap so readers can separate implemented capabilities from strategic intent.
+
+## Status legend
+- `Implemented`: available in current codebase.
+- `In Progress`: partially implemented or scaffolded.
+- `Planned`: approved roadmap scope, not yet in code.
+- `Idea`: exploratory concept pending prioritization.
+
+## Feature inventory
+| Feature | Status | Milestone alignment |
+|---|---|---|
+| Core data model and migrations | Implemented | Foundation API (v0.1) baseline |
+| Legal search foundation (FTS + vector schema) | In Progress | Foundation API / Intelligence |
+| Revision and audit trail primitive | Implemented | Governance & Quality |
+| Web interface (search/browse/read product UX) | In Progress | Product Beta |
+| Data ingestion pipeline | Planned | Product Beta / Governance |
+| Temporal trust layer | Idea / Proposed | Intelligence / Ecosystem |
+
+## Cross-cutting capabilities
+These capabilities affect every feature area:
+- testing and quality gates;
+- data integrity governance;
+- documentation parity (en-US and pt-BR);
+- LLM-oriented metadata assets (`llms.txt`, `llms-full.txt`).
+
+## Scope discipline rule
+A feature should be marked as implemented only when code paths are present and testable in this repository. Roadmap presence alone is not implementation evidence.
+
+---
+# docs/features/legal-search-foundation.md
+---
+
+# Legal Search Foundation
+
+## Search foundations are implemented at the data layer
+Leci already includes structural prerequisites for legal search, even though full API/product search flows are still roadmap work. This allows incremental implementation without redesigning the core schema.
+
+## Implemented search primitives
+Current code provides:
+- generated Portuguese `tsvector` on `document_nodes`;
+- GIN index for full-text search performance;
+- embeddings table with `vector(768)` column;
+- IVFFlat vector index for similarity retrieval.
+
+## Practical implication today
+The database is ready for full-text and semantic query strategies, but no internal API route currently exposes a production search contract.
+
+> 🚧 **Planned Feature** — Endpoint-level search contracts, ranking strategies, and pagination semantics are part of roadmap milestones.
+
+## Relevance and quality direction
+Planned relevance model should include:
+- lexical precision baseline (FTS);
+- optional semantic reranking where data quality supports it;
+- explicit traceability of match origin for legal confidence.
+
+## Performance considerations
+Search performance risk grows with ingestion scale and combined lexical/vector querying.
+
+:::note
+Before enabling broad production traffic, benchmark query latency against realistic corpus size and tune index strategy accordingly.
+:::
+
+---
+# docs/features/revision-and-audit-trail.md
+---
+
+# Revision and Audit Trail
+
+## This feature protects legal text integrity over time
+Leci includes a dedicated revision path to ensure legal content changes are traceable and attributable. This avoids silent edits that would undermine trust in legal outputs.
+
+## Current implemented mechanism
+The SQL function `leci.apply_revision(...)` performs controlled updates and logs revision records. It restricts editable fields to legal text-sensitive columns and records old/new values, actor, reason, and optional suggestion linkage.
+
+## Suggestion-to-revision lifecycle
+The intended flow is:
+1. suggestion submitted against a node;
+2. revision applied via `apply_revision`;
+3. revision persisted in `revisions`;
+4. linked suggestion status updated to `applied`.
+
+## Non-negotiable invariant
+:::danger
+Never update `document_nodes.content_text`, `heading`, or `number` directly in application or SQL scripts. Use `leci.apply_revision()`.
+:::
+
+## Governance status
+> 🚧 **Planned Feature** — Reviewer roles, approval policy, and SLA-based governance workflow are roadmap-defined and not fully implemented yet.
+
+## Audit quality checks
+Recommended checks for operational maturity:
+- every legal text update has a revision record;
+- revision actor and reason are not null in governed flows;
+- suggestion state transitions are consistent when linked.
+
+---
+# docs/features/temporal-trust-layer.md
+---
+
+# Temporal Trust Layer
+
+## This is a strategic proposal, not implemented functionality
+The temporal trust layer is a proposed innovation to return legal text as valid at a specific date and pair answers with verifiable evidence artifacts.
+
+> 🚧 **Planned Feature** — This feature is on the roadmap strategy layer but not yet implemented in current code.
+
+## Proposed capability
+The proposal combines:
+- date-aware legal retrieval;
+- diff visibility between historical and current legal text;
+- evidence manifest and hash-based verification.
+
+## Why it matters
+If implemented well, this capability could shift product value from generic legal search to trustable legal evidence infrastructure.
+
+## Preconditions before implementation
+This proposal should be gated by:
+- stable core API contracts;
+- baseline operational SLOs;
+- validated demand from pilot users.
+
+## Key risks
+Main risks include:
+- historical legal source inconsistency;
+- temporal modeling complexity;
+- execution overhead before core product stability.
+
+:::caution
+Prioritize core reliability first. Shipping this layer too early can reduce trust if temporal outputs are inconsistent.
+:::
+
+---
+# docs/features/web-interface.md
+---
+
+# Web Interface
+
+## The current UI is intentionally minimal
+Leci currently ships a minimal homepage that validates runtime wiring and branding but does not yet implement full legal discovery workflows.
+
+## Current implemented behavior
+Current page (`src/app/page.tsx`) renders:
+- product title (`Leci`)
+- concise product subtitle in Portuguese
+- centered minimal layout using Tailwind utility classes
+
+## Planned product UX
+> 🚧 **Planned Feature** — Search, browse, and legal reading interfaces are roadmap scope and not yet implemented.
+
+Planned user journeys include:
+- searching legal text by terms and metadata;
+- navigating legal hierarchy structures;
+- reading node-level legal content with context.
+
+## Data dependencies for future UI
+Future UI layers require:
+- stable search API contracts;
+- pagination and sorting semantics;
+- explicit revision provenance display for trust-sensitive contexts.
+
+## UX quality constraints
+Legal users need predictability and source clarity.
+
+:::caution
+Do not present generated or inferred legal answers without clear evidence context once advanced UI flows are introduced.
+:::
+
+---
+# docs/getting-started/installation.md
+---
+
+# Installation
+
+> This page provides the full installation process for reproducible local and validation environments.
+
+## Installation should prioritize reproducibility over speed
+A successful installation is not only "the app runs once"; it is also deterministic across contributors and CI contexts. This guide standardizes tool versions, environment variables, migration behavior, and validation checks.
+
+## System requirements are defined by runtime and tooling
+Leci currently requires:
+- Node.js `>=20.0.0`
+- npm `>=10.0.0`
+- PostgreSQL instance reachable via `DATABASE_URL`
+
+Recommended verification commands:
+
+```bash
+node -v
+npm -v
+```
+
+If you use `nvm`, the repository includes:
+
+```bash
+cat .nvmrc
+# expected: 20
+```
+
+## Environment variables are required for database and workflows
+The project ships `.env.example` with currently recognized variables:
+
+```env
+DATABASE_URL=
+DISCORD_PR_REVIEW_WEBHOOK=
+```
+
+### Variable purpose and usage
+- `DATABASE_URL` is required for local migration and Drizzle tooling.
+- `DISCORD_PR_REVIEW_WEBHOOK` is used by GitHub Actions and is optional for local app development.
+
+:::tip
+For local development, set `DATABASE_URL` first. You can leave `DISCORD_PR_REVIEW_WEBHOOK` empty unless you are validating CI notification behavior.
+:::
+
+## Standard local installation flow
+Use this flow for developer machines.
+
+```bash
+# Clone and enter repository
+git clone https://github.com/sensdiego/leci.git
+cd leci
+
+# Ensure correct Node version (if using nvm)
+nvm use || nvm install
+
+# Install dependencies
+npm install
+
+# Prepare env
+cp .env.example .env
+
+# Edit .env and set DATABASE_URL
+
+# Run migrations
+npx tsx scripts/migrate.ts
+
+# Run baseline checks
+npm run lint
+npm test
+
+# Start app
+npm run dev
+```
+
+## Migration internals and operational implications
+The migration workflow is SQL-file based and currently simple by design.
+
+### How migration order is computed
+`script/migrate.ts` sorts migration files by numeric prefix before execution (e.g., `0001_`, `0002_`, ...).
+
+### How migration execution works
+For each SQL file in order, the script:
+1. reads file contents;
+2. executes SQL against the configured PostgreSQL connection;
+3. prints `Applied <filename>` on success.
+
+### Current safety profile
+The initial migration (`drizzle/0001_init.sql`) uses mostly idempotent DDL patterns (`IF NOT EXISTS`) and `ON CONFLICT DO NOTHING` for seed values.
+
+:::caution
+The migration runner does not maintain a dedicated migrations history table. If future SQL files are not idempotent, reruns can fail or behave unexpectedly.
+:::
+
+## Installation mode: CI-like validation
+Use this mode to emulate pipeline checks before opening a PR.
+
+```bash
+npm ci
+cp .env.example .env
+# set DATABASE_URL for validation environment
+npx tsx scripts/migrate.ts
+npm run lint
+npm test
+npm run build
+```
+
+Why this mode matters:
+- `npm ci` catches lockfile drift.
+- `build` catches production-compile issues not visible in dev mode.
+
+## Installation mode: production-like smoke
+This mode validates the artifact lifecycle locally.
+
+```bash
+npm ci
+cp .env.example .env
+# set DATABASE_URL
+npx tsx scripts/migrate.ts
+npm run build
+npm run start
+```
+
+Expected result:
+- server starts successfully;
+- homepage loads;
+- metadata/title aligns with Leci branding.
+
+## Deterministic validation checklist
+Use this checklist to confirm installation quality.
+
+- [ ] Node and npm versions satisfy `engines`.
+- [ ] Dependencies install without lockfile conflicts.
+- [ ] `.env` exists and `DATABASE_URL` is valid.
+- [ ] Migration command completes and prints applied files.
+- [ ] `npm run lint` passes.
+- [ ] `npm test` executes successfully.
+- [ ] `npm run build` succeeds.
+- [ ] `npm run dev` serves the homepage on port 3000.
+
+## Upgrade and clean reinstall procedure
+Use this when switching branches, resolving dependency drift, or onboarding after major updates.
+
+```bash
+# Optional cleanup
+rm -rf node_modules
+
+# Reinstall dependencies
+npm ci
+
+# Re-verify environment variables
+cp .env.example .env   # if needed
+
+# Re-run schema migrations
+npx tsx scripts/migrate.ts
+
+# Re-run quality checks
+npm run lint
+npm test
+npm run build
+```
+
+:::note
+If you are installing for roadmap-only features (search API, ingestion, agent integrations), remember these are not fully implemented in current code.
+:::
+
+> 🚧 **Planned Feature** — Internal API endpoint groups are roadmap-defined but not present in `src/app/api` yet.
+
+> 🚧 **Planned Feature** — Source ingestion pipeline is a roadmap workstream and not part of current repository runtime.
+
+## Known unknowns requiring owner confirmation
+Some installation/operations details need explicit owner decisions.
+
+> ⚠️ **Unverified** — Official production deployment topology and secret management platform beyond current repository context.
+
+<!-- NEEDS_INPUT: Confirm production hosting model, database backup policy, and deployment environment matrix (staging/prod). -->
+
+---
+# docs/getting-started/introduction.md
+---
+
+# Introduction to Leci
+
+> This page explains what Leci is, why it exists, who should use it, and how to interpret its current maturity.
+
+## Leci solves legal retrieval trust and structure problems
+Leci is a legal-information platform focused on Brazilian federal legislation, designed to make legal text retrieval more structured, traceable, and ready for both human and AI-agent consumption. The codebase already reflects this goal in the data model: regulations are represented as hierarchical document nodes, with full-text and vector-search foundations plus a revision audit trail.
+
+In practical terms, Leci addresses three common pain points:
+- Finding the right legal content quickly in a structured format, not only as raw pages.
+- Preserving traceability when legal text is corrected or revised.
+- Preparing legal content for downstream systems (APIs, agents, and product surfaces) without rebuilding the data layer every time.
+
+## Leci exists to become trustable legal infrastructure, not just a UI
+The current architecture indicates a deliberate "DB-first" strategy: schema design, indexing, and revision safety were prioritized before rich product surfaces. This is visible in the implemented artifacts:
+- `src/db/schema.ts` defines core entities such as `regulations`, `document_nodes`, `embeddings`, `suggestions`, and `revisions`.
+- `drizzle/0001_init.sql` creates the same core model in PostgreSQL and includes indexing for FTS and vectors.
+- `scripts/migrate.ts` provides deterministic migration execution using ordered SQL files.
+
+This design choice matters because legal products fail quickly when data integrity is weak. Leci is currently optimizing for integrity and future evolvability.
+
+## What is implemented today (code-verified)
+The current implementation is intentionally narrow and verifiable from source code.
+
+### Database foundation is implemented
+The PostgreSQL schema in the `leci` namespace is in place, including:
+- canonical regulation types;
+- regulation metadata;
+- hierarchical legal text nodes;
+- full-text index support (`tsvector` + GIN);
+- vector embedding storage (`vector(768)` + IVFFlat index);
+- suggestions and revision history.
+
+### Revision safety primitive is implemented
+A key invariant exists at database level: legal text updates must go through `leci.apply_revision(...)`, which logs old/new values and updates revision history.
+
+:::danger
+Do not update `document_nodes.content_text` directly in SQL or application code. The project invariant requires using `leci.apply_revision(...)` so edits stay auditable.
+:::
+
+### Web application surface is minimal
+The Next.js application currently renders a minimal homepage (`src/app/page.tsx`) and does not yet expose internal API routes for legal search.
+
+### Tooling baseline is available
+`package.json` includes scripts for development, build, lint, and tests (`node --test`, currently with no test files yet).
+
+## What is planned versus already available
+The roadmap contains significant planned capabilities that are not implemented in this repository yet.
+
+> 🚧 **Planned Feature** — Internal search/API layer for legal retrieval is roadmap scope, not current code.
+
+> 🚧 **Planned Feature** — Rich web flows (search, browse, read) are planned milestones, while current UI is only a landing page.
+
+> 🚧 **Planned Feature** — Ingestion from legal source providers (e.g., Planalto/LexML) is discussed in planning documents but not implemented in this codebase.
+
+When writing or consuming technical docs, always separate:
+- **current behavior** (code-verified), and
+- **planned behavior** (roadmap-approved, future work).
+
+## Who this documentation is for
+This documentation is written for four audiences with different goals.
+
+### Project owner and decision-makers
+You need execution clarity: what is implemented, what is risky, and what should be prioritized next.
+
+### Investors and strategic stakeholders
+You need credible signal: technical foundations, roadmap discipline, and risk controls.
+
+### Future developers
+You need reproducible setup, architecture constraints, and contribution-safe workflows.
+
+### AI agents and automation systems
+You need machine-parseable, stable, and explicit docs that distinguish facts from plans.
+
+:::tip
+If you are integrating an AI agent, start from code-verified sections first (setup, schema, invariants), then add planned capabilities incrementally.
+:::
+
+## Relationship with the sens.legal ecosystem
+Leci is part of a 3-project sens.legal domain according to project context, and is positioned as the legal-data layer in that ecosystem.
+
+> ⚠️ **Unverified** — The exact integration contracts, sequencing, and ownership boundaries across the other two projects need confirmation from the project owner.
+
+<!-- NEEDS_INPUT: Provide official names and integration contracts for the other two sens.legal projects, including ownership boundaries and data/API responsibilities. -->
+
+Until those contracts are confirmed, this documentation treats Leci as a standalone product with planned multi-project integration.
+
+## How to use this docs section
+Use the `getting-started` section in this order:
+1. `quickstart.md` for the fastest local run.
+2. `installation.md` for full setup, CI-style validation, and troubleshooting.
+3. `development/setup.md` for daily contribution workflow.
+
+---
+# docs/getting-started/quickstart.md
+---
+
+# Quickstart
+
+> This page gives you the fastest reliable path to run Leci locally and confirm your setup works.
+
+## Quickstart is optimized for first successful run
+The goal of this quickstart is to validate the repository baseline in minutes, not to explain every option. You will install dependencies, configure environment variables, run migrations, and start the app.
+
+## Prerequisites are explicit and minimal
+You need the following before running commands:
+- Node.js `>=20.0.0` (from `package.json` engines)
+- npm `>=10.0.0` (from `package.json` engines)
+- Access to a PostgreSQL database URL for `DATABASE_URL`
+
+The project currently uses:
+- Next.js for the app runtime
+- `pg` for database connectivity in migration script
+- Drizzle schema/migration conventions via SQL files in `drizzle/`
+
+## Run these commands in order
+Use the exact command sequence below from the repository root.
+
+```bash
+# 1) Install dependencies
+npm install
+
+# 2) Create local env file
+cp .env.example .env
+
+# 3) Set DATABASE_URL in .env
+# Example format:
+# DATABASE_URL=postgresql://user:password@host:5432/database
+
+# 4) Apply SQL migrations
+npx tsx scripts/migrate.ts
+
+# 5) Start the dev server
+npm run dev
+```
+
+Then open:
+- `http://localhost:3000`
+
+Expected UI baseline:
+- title text `Leci`
+- subtitle `Plataforma de busca de legislação brasileira federal`
+
+## Verify baseline quality commands
+After the app starts, run the quality checks below.
+
+```bash
+# Lint checks
+npm run lint
+
+# Test runner (currently no suites yet, but command must execute)
+npm test
+```
+
+Expected current test output includes zero suites/tests; this is normal for the current roadmap stage.
+
+:::note
+`npm test` is intentionally present as a quality-gate command even before full test suites are implemented.
+:::
+
+## Understand migration behavior before rerunning
+The migration runner (`scripts/migrate.ts`) reads every `.sql` file in `drizzle/`, sorts by numeric prefix, and executes each file in sequence every run.
+
+```ts
+const files = fs.readdirSync(drizzleDir)
+  .filter((file) => file.endsWith(".sql"))
+  .sort((a, b) => {
+    const aNum = Number.parseInt(a.split("_")[0] ?? "0", 10);
+    const bNum = Number.parseInt(b.split("_")[0] ?? "0", 10);
+    return aNum - bNum;
+  });
+```
+
+:::caution
+Because there is no migration-history table in the runner, future non-idempotent SQL files can fail on reruns. Keep migration SQL idempotent when possible and document assumptions per migration.
+:::
+
+## Common quickstart failures and immediate fixes
+These are the most likely first-run issues.
+
+### Error: `DATABASE_URL is not set`
+Cause: `.env` missing or variable unset.
+
+Fix:
+1. Confirm `.env` exists.
+2. Confirm `DATABASE_URL=` is present and non-empty.
+3. Re-run migration command.
+
+### Error: PostgreSQL connection refused / timeout
+Cause: database host unreachable or wrong credentials.
+
+Fix:
+1. Verify host/port/user/password in `DATABASE_URL`.
+2. Confirm network access (VPN/firewall) if using hosted DB.
+3. Test URL with a DB client, then rerun.
+
+### Error while applying migration SQL
+Cause: schema permissions, extension availability, or non-idempotent statements.
+
+Fix:
+1. Ensure target DB user can create schema/extensions as needed.
+2. Check `drizzle/0001_init.sql` requirements (`vector` extension).
+3. Inspect the failing SQL statement and validate target DB state.
+
+### App starts but page is not what you expected
+Cause: current UI is intentionally minimal.
+
+> 🚧 **Planned Feature** — Search/browse/read product flows are roadmap items and not implemented yet.
+
+## What to do after quickstart
+After baseline run succeeds, continue with:
+1. `docs/getting-started/installation.md` for full setup and reproducible environment standards.
+2. `docs/development/setup.md` for contributor workflow.
+3. `docs/features/index.md` to understand implementation status by capability.
+
+---
+# docs/index.md
+---
+
+# Leci Documentation Home
+
+## What this documentation covers
+This documentation explains how Leci works today, what is planned next, and how to contribute safely to a legal-data-first platform. It is designed for developers, project stakeholders, and AI agents that consume project context.
+
+## Who should start here
+Use this page as the entry point if you are:
+- a contributor setting up the project for the first time;
+- a reviewer validating architecture and roadmap consistency;
+- an integration owner evaluating API-readiness and legal data reliability;
+- an AI agent requiring structured, explicit, and machine-parseable context.
+
+## Recommended reading paths
+### Fast onboarding path
+1. `getting-started/introduction`
+2. `getting-started/quickstart`
+3. `development/setup`
+
+### Architecture and implementation path
+1. `architecture/overview`
+2. `architecture/stack`
+3. `features/index`
+
+### Planning and risk path
+1. `roadmap/index`
+2. `roadmap/milestones`
+3. `planning/PREMORTEM.md`
+
+## Current maturity in one paragraph
+Leci currently provides strong database and migration foundations for Brazilian federal legislation, including structured legal entities, search indexes, and revision audit primitives. Product-facing capabilities such as richer UI flows, internal API groups, and ingestion automation are roadmap-driven and should be treated as planned scope until code is present.
+
+## Source-of-truth policy
+When docs and implementation diverge, trust this order:
+1. Source code (`src/`, `drizzle/`, `scripts/`)
+2. Configuration files (`package.json`, `.env.example`, build configs)
+3. Planning artifacts (`docs/planning/*`)
+4. Narrative pages in docs
+
+:::caution
+Do not infer implementation status from roadmap language alone. Always verify against code paths and migration artifacts.
+:::
+
+---
+# docs/planning/INNOVATION_LAYER.md
+---
+
+# Innovation Layer Artifact
+
+## Purpose of this artifact
+This artifact documents strategic innovation proposals that could materially increase product value if sequenced correctly.
+
+## Current innovation candidate
+The current highlighted proposal is a temporal trust layer that combines:
+- date-aware legal retrieval;
+- verifiable evidence receipts;
+- replayable trust semantics.
+
+## Why this is not committed scope yet
+Innovation proposals can create execution drag if introduced before core reliability. They should remain conditional on objective readiness criteria.
+
+## Readiness requirements for promotion
+Promote proposal to committed milestone scope only when:
+- core API and data reliability are validated;
+- demand signals are confirmed;
+- quality and governance controls are in place.
+
+---
+# docs/planning/PREMORTEM.md
+---
+
+# Planning Premortem Artifact
+
+## Purpose of this artifact
+This premortem captures pessimistic failure analysis to proactively shape sequencing and quality priorities. It should inform milestone order and not be treated as optional commentary.
+
+## Core failure themes identified
+Main high-impact risk areas include:
+- weak product-market validation before core reliability;
+- inconsistent temporal/legal correctness;
+- insufficient testing and quality gates;
+- governance fragmentation across planning tools;
+- ingestion staleness and silent data drift.
+
+## How to use premortem findings
+Teams should convert risk statements into explicit controls:
+- gating criteria before advanced feature investment;
+- quality checks tied to milestone exits;
+- owners and deadlines for mitigation tasks.
+
+## Premortem governance rule
+If roadmap scope changes, reassess premortem assumptions in the same planning cycle and update mitigation commitments accordingly.
+
+---
+# docs/planning/REORG_PLAN.md
+---
+
+# Repository Reorganization Plan Artifact
+
+## Purpose of this artifact
+This plan captures structural cleanup recommendations that improve maintainability and documentation scalability without unnecessary refactor risk.
+
+## Main recommendations captured
+The plan emphasizes moderate, high-value adjustments:
+- reduce root-level document sprawl;
+- standardize environment and setup metadata;
+- improve docs governance and source-of-truth clarity;
+- avoid deep architecture refactors too early.
+
+## Execution safeguards
+Reorganization should preserve:
+- migration compatibility;
+- legal text revision invariants;
+- contributor onboarding reliability.
+
+## Current status
+This artifact is a planning reference and should be updated when structure-level decisions are approved or superseded.
+
+---
+# docs/planning/ROADMAP.md
+---
+
+# Planning Roadmap Artifact
+
+## Purpose of this artifact
+This planning document stores roadmap assumptions and milestone structure that feed the public-facing roadmap pages. It is intended as a working artifact for planning updates.
+
+## Current strategic direction
+The roadmap targets evolution from DB-first foundation to a trustworthy legal retrieval platform with:
+- operational search API surfaces;
+- richer user-facing legal exploration;
+- ingestion reliability;
+- governance and quality hardening.
+
+## Milestone sequence summary
+- `v0.1`: foundation API and setup reliability
+- `v0.2`: product beta experience and ingestion baseline
+- `v0.3`: governance and quality reinforcement
+- `v0.4`: intelligence features and selective advanced integrations
+- `v1.0`: ecosystem-level stability and contracts
+
+## Priority model summary
+Priorities use a practical risk/value model:
+- P0 for blockers and core foundation;
+- P1 for near-term product value;
+- P2 for strategic medium-term differentiation;
+- P3 for long-horizon opportunities.
+
+## Source-of-truth caveat
+> ⚠️ **Unverified** — Final source-of-truth governance between GitHub and Linear requires explicit owner confirmation.
+
+<!-- NEEDS_INPUT: Confirm canonical planning source of truth (GitHub, Linear, or synchronized hybrid process). -->
+
+---
+# docs/reference/faq.md
+---
+
+# FAQ
+
+## Is Leci already a full legal search product?
+No. Leci currently provides strong database and migration foundations plus a minimal UI shell. Rich search APIs and product workflows are roadmap scope.
+
+## Can I trust the legal data mutation path?
+Yes, as long as changes follow the revision invariant. Legal text updates should pass through `leci.apply_revision()` to preserve auditability.
+
+## Is there a production API available today?
+Not in this repository at the moment.
+
+> 🚧 **Planned Feature** — API endpoint groups are roadmap-defined and not yet implemented.
+
+## Are tests already comprehensive?
+No. The test command exists, but comprehensive suites are still planned.
+
+## Where should I start as a contributor?
+Start with:
+1. `getting-started/quickstart`
+2. `getting-started/installation`
+3. `development/setup`
+4. `development/conventions`
+
+## Why are some sections marked planned or unverified?
+This labeling is intentional to prevent roadmap assumptions from being interpreted as implemented behavior.
+
+---
+# docs/reference/glossary.md
+---
+
+# Glossary
+
+## This glossary standardizes terminology across teams and agents
+Consistent terms reduce misunderstandings in legal-data and architecture discussions.
+
+## Legal-domain terms
+### Regulation
+Top-level legal document entity represented in `regulations`.
+
+### Document node
+Hierarchical legal text unit stored in `document_nodes` (article, section, etc.).
+
+### Revision
+Audit record of a controlled legal text change stored in `revisions`.
+
+### Suggestion
+Proposed correction submitted before or alongside revision application.
+
+## Search and data terms
+### Full-text search (FTS)
+Lexical search approach backed by PostgreSQL `tsvector` and GIN indexing.
+
+### Embedding
+Vector representation of text used for semantic similarity workflows.
+
+### IVFFlat index
+Vector index strategy used for approximate nearest-neighbor style retrieval.
+
+## Process terms
+### Planned feature
+A roadmap-approved capability not yet implemented in current code.
+
+### Unverified
+Information that requires explicit owner confirmation before being treated as fact.
+
+---
+# docs/reference/troubleshooting.md
+---
+
+# Troubleshooting
+
+## Dependency installation issues
+If dependency install fails:
+1. verify Node/npm versions match repository engine constraints;
+2. remove `node_modules` and reinstall with `npm ci`;
+3. ensure lockfile is not conflicting with local tooling.
+
+## Environment variable issues
+If migration reports missing DB URL, verify `.env` exists and contains `DATABASE_URL`.
+
+```bash
+cp .env.example .env
+# then set DATABASE_URL
+```
+
+## Migration failures
+Common migration failure causes:
+- invalid DB credentials
+- insufficient permissions
+- extension requirements not available
+- non-idempotent SQL assumptions in future migration files
+
+## Runtime startup issues
+If `npm run dev` fails:
+- run `npm run lint` and `npm test` first;
+- check dependency installation integrity;
+- check for TypeScript or config-level errors in terminal output.
+
+## CI workflow issues
+If CI review notifications fail:
+- confirm `DISCORD_PR_REVIEW_WEBHOOK` is configured in repository secrets;
+- verify workflow trigger event and permissions.
+
+## Escalation guidance
+Escalate when issues involve:
+- potential legal text corruption risk;
+- migration inconsistencies across environments;
+- repeated integration failures affecting roadmap milestones.
+
+---
+# docs/roadmap/changelog.md
+---
+
+# Roadmap Changelog
+
+## This changelog preserves planning traceability
+Roadmap updates should be logged to keep strategic shifts auditable and understandable over time.
+
+## Entry format
+Each changelog entry should include:
+- date
+- change summary
+- rationale
+- approver/owner
+- impacted milestone(s)
+
+## Initial baseline entry
+- **2026-02-28** — Initial structured roadmap and risk mitigation sections established from technical diagnosis and premortem outputs.
+
+## Future update policy
+When priorities or milestone order changes, update this page in the same PR that modifies roadmap source artifacts.
+
+---
+# docs/roadmap/index.md
+---
+
+# Product Roadmap
+
+## The roadmap defines strategic sequence, not implementation proof
+Leci roadmap documents target outcomes and sequencing decisions. Code-level status must still be verified in repository artifacts.
+
+## Roadmap vision
+Leci is planned to evolve into a trustworthy legal retrieval platform with:
+- structured legal data ingestion and normalization;
+- search and reading product surfaces;
+- auditable legal revision workflows;
+- optional agent-facing integration layers.
+
+## Priority model
+Roadmap priorities follow `P0` to `P3`:
+- `P0`: blocking and critical for delivery baseline
+- `P1`: important for near-term product value
+- `P2`: desirable medium-term enhancements
+- `P3`: optional or long-term opportunities
+
+## Risk-aware sequencing
+Roadmap sequence should remain responsive to critical risk findings from premortem analysis, especially around:
+- quality gates and testing;
+- ingestion reliability;
+- source-of-truth governance.
+
+---
+# docs/roadmap/milestones.md
+---
+
+# Milestones
+
+## Milestones translate strategy into executable chunks
+Each milestone should define scope, dependencies, and a clear completion definition to avoid ambiguity in delivery status.
+
+## v0.1 — Foundation API
+Objective: convert DB-first foundation into product-usable interfaces and reproducible setup.
+
+Expected scope:
+- API/search baseline contracts
+- onboarding and environment hardening
+- command and docs alignment
+
+## v0.2 — Product Beta
+Objective: deliver first useful legal discovery UX and ingestion baseline.
+
+Expected scope:
+- user-facing search/browse/read flows
+- initial ingestion path
+- UI-to-data integration stabilization
+
+## v0.3 — Governance and Quality
+Objective: strengthen correctness, process governance, and confidence.
+
+Expected scope:
+- revision governance workflow
+- test strategy expansion
+- operational quality criteria
+
+## v0.4 — Intelligence
+Objective: add differentiation through advanced retrieval and integration patterns.
+
+Expected scope:
+- semantic/hybrid retrieval improvements
+- conditionally approved integration surfaces
+
+## v1.0 — Ecosystem
+Objective: stabilize contracts and operations for broader multi-consumer adoption.
+
+Expected scope:
+- durable integration contracts
+- operational hardening
+- supportable release governance
+
+## Sequencing caveat
+Milestone ordering may change when critical risk mitigations require earlier investment in quality or reliability infrastructure.

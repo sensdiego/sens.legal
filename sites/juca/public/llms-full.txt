@@ -1,0 +1,4188 @@
+---
+# docs/CONTENT_MAP.md
+---
+
+
+# Content Map
+
+> Maps every documentation file to its content, source, and priority for the content-writing phase.
+
+## Priority Legend
+
+| Priority | Meaning |
+|----------|---------|
+| **P0** | Essential — must be complete before docs site goes live |
+| **P1** | Important — should be complete for a useful docs site |
+| **P2** | Can wait — nice to have, not blocking |
+
+---
+
+## Home & Getting Started
+
+| File | Content | Source | Priority |
+|------|---------|--------|----------|
+| `index.md` | Project overview, key capabilities, ecosystem diagram, quick links | ROADMAP.md, PROJECT_MAP.md | **P0** |
+| `getting-started/introduction.md` | What is Juca, why it exists, ecosystem context, key concepts | ROADMAP.md "Visao do Produto", PROJECT_MAP.md §1, §5 | **P0** |
+| `getting-started/quickstart.md` | 5-minute setup: clone, minimal .env, npm run dev, first interaction | README.md, PROJECT_MAP.md §4 | **P0** |
+| `getting-started/installation.md` | Full setup: all services, Docker, Git hooks, troubleshooting | README.md, PROJECT_MAP.md §3-§4, docker-compose.yml | **P1** |
+
+## Architecture
+
+| File | Content | Source | Priority |
+|------|---------|--------|----------|
+| `architecture/overview.md` | Hub architecture, entry points, data flow, responsibility matrix | PROJECT_MAP.md §5, ROADMAP.md | **P0** |
+| `architecture/stack.md` | Full dependency table with versions, status, justifications | PROJECT_MAP.md §3, REORG_PLAN.md §2.3 | **P1** |
+| `architecture/decisions.md` | 7 ADRs: Unified Home, SQLite, KG adapter, orchestrator decomp, briefing, hub pivot, Liquid Legal | PROJECT_MAP.md §8, ROADMAP.md decisions, docs/ui-reference.tsx | **P1** |
+| `architecture/diagrams.md` | 6 Mermaid diagrams: ecosystem, components, query lifecycle, briefing flow, block types, deployment | PROJECT_MAP.md §5 diagrams, ROADMAP.md ecosystem | **P1** |
+| `architecture/ecosystem.md` | sens.legal 3-project overview: Juca, Valter, Leci | ROADMAP.md ecosystem, Valter/Leci project exploration | **P0** |
+
+## Features
+
+| File | Content | Source | Priority |
+|------|---------|--------|----------|
+| `features/index.md` | Feature inventory with status badges (implemented/in-progress/planned/deprecated) | ROADMAP.md features tables | **P0** |
+| `features/block-system.md` | 11 block types, lifecycle, factory pattern, component reference, "adding new block" guide | PROJECT_MAP.md §2 §5, src/lib/blocks/types.ts, src/components/blocks/ | **P0** |
+| `features/briefing/index.md` | Briefing Progressivo overview, phase flow, PhaseRail, implementation approach | ROADMAP.md, Issues #283-289 | **P0** |
+| `features/briefing/phase-1-diagnosis.md` | F1 detail: diagnosis card, Valter endpoints, UX flow | Issue #285, src/actions/briefing.ts | **P1** |
+| `features/briefing/phase-2-precedents.md` | F2 detail: precedent cards, selection, Valter search | Issue #286 | **P1** |
+| `features/briefing/phase-3-risks.md` | F3 detail: risk balance, Contradição Estratégica, Valter graph | Issue #287, INNOVATION_LAYER.md | **P1** |
+| `features/briefing/phase-4-delivery.md` | F4 detail: 4 delivery modes, exit card, PDF integration | Issue #288 | **P1** |
+| `features/composer.md` | Composer UI, intent detection, tool registry, SSE streaming, clarification flow | PROJECT_MAP.md §2 §5, src/lib/unified/ | **P1** |
+| `features/session-management.md` | Sessions, SQLite persistence, sidebar, server actions, known issues | PROJECT_MAP.md §2, src/lib/db/ | **P1** |
+| `features/pdf-export.md` | PDF generation, API endpoint, future briefing PDF | src/lib/pdf/generator.ts, Issue #289 | **P2** |
+| `features/auth.md` | NextAuth v5, Google OAuth, magic links, dev bypass, known issues | PROJECT_MAP.md §3 §4, src/lib/auth.ts | **P2** |
+| `features/feature-flags.md` | Flag system, available flags, usage patterns | src/lib/featureFlags.ts | **P2** |
+
+## Configuration
+
+| File | Content | Source | Priority |
+|------|---------|--------|----------|
+| `configuration/environment.md` | All 30+ env vars organized by category with descriptions and defaults | PROJECT_MAP.md §4 complete table | **P0** |
+| `configuration/settings.md` | 11 config files reference: next.config, tsconfig, tailwind, vitest, playwright, etc. | REORG_PLAN.md §2.2, root config files | **P1** |
+| `configuration/integrations.md` | External service setup: Valter, LLM providers, auth providers, Neo4j, Railway | PROJECT_MAP.md §3, ROADMAP.md | **P1** |
+
+## Development
+
+| File | Content | Source | Priority |
+|------|---------|--------|----------|
+| `development/setup.md` | Dev environment setup, scripts, multi-agent workflow, important rules | README.md, CLAUDE.md, package.json | **P0** |
+| `development/conventions.md` | Code style, naming, auth patterns, block creation, commit format, animations | patterns.md, CLAUDE.md | **P0** |
+| `development/testing.md` | Test stack, running tests, organization, writing unit/E2E tests, coverage status | PROJECT_MAP.md §9, patterns.md "Test Patterns" | **P1** |
+| `development/contributing.md` | Branching, PR guidelines, AI agent rules, architecture principles | CLAUDE.md, agent_docs/ | **P1** |
+
+## API Reference
+
+| File | Content | Source | Priority |
+|------|---------|--------|----------|
+| `api/index.md` | API architecture overview, route groups table, auth pattern | PROJECT_MAP.md §2 | **P1** |
+| `api/valter-adapter.md` | Valter adapter layer, endpoints table, auth, request/response mapping | ROADMAP.md, Valter API exploration | **P0** |
+| `api/unified.md` | Unified endpoints: sessions CRUD, analyze, SSE stream | src/app/api/unified/, src/app/api/v2/ | **P1** |
+| `api/briefing.md` | Briefing server actions, PDF export, transitional endpoints list | src/actions/briefing.ts | **P2** |
+| `api/export.md` | PDF export endpoint detail, generation internals | src/app/api/export/, src/lib/pdf/ | **P2** |
+
+## Roadmap
+
+| File | Content | Source | Priority |
+|------|---------|--------|----------|
+| `roadmap/index.md` | Strategic direction, current milestone, overview table, pending decisions | ROADMAP.md | **P0** |
+| `roadmap/milestones.md` | Detailed v0.3–v1.0 milestone breakdowns with features and criteria | ROADMAP.md milestones | **P1** |
+| `roadmap/changelog.md` | History: rewrite (Waves 0-5), cleanup, KG migration, auth, origins | MEMORY.md, REORG_PLAN.md, PROJECT_MAP.md | **P2** |
+
+## Reference
+
+| File | Content | Source | Priority |
+|------|---------|--------|----------|
+| `reference/glossary.md` | Legal terms (STJ, sumula, acordao, etc.) + technical terms (block, hub, etc.) | Codebase, Brazilian legal system | **P1** |
+| `reference/faq.md` | Common questions about architecture, development, troubleshooting | All docs sources | **P2** |
+| `reference/troubleshooting.md` | Install issues, runtime errors, test failures, build rules | Common issues, PROJECT_MAP.md §10 | **P1** |
+
+---
+
+## Summary
+
+| Priority | Count | Description |
+|----------|-------|-------------|
+| **P0** | 12 | Essential for docs launch — overview, architecture, key features, setup, config |
+| **P1** | 17 | Important for completeness — detailed features, ADRs, testing, integrations |
+| **P2** | 7 | Can wait — PDF export, auth details, FAQ, changelog, briefing endpoints |
+| **Total** | **36** | |
+
+---
+
+## Legacy Docs — Resolution
+
+| File | Status | Resolution |
+|------|--------|------------|
+| `docs/SEMANTIC_SEARCH_SETUP.md` | Archived | Moved to `_archive/docs/`. Transitional content (local embedding service being replaced by Valter). |
+| `docs/LOGGER_USAGE.md` | Archived | Moved to `_archive/docs/`. Logger usage documented in conventions. |
+| `docs/truncation-audit.md` | Archived | Previously archived. Historical — no longer relevant post-Valter migration. |
+| `docs/ANALYZER_CONSOLIDATED_SPEC.md` | Absorbed | Key parts absorbed into `features/composer.md` (analyzer section). |
+| `docs/api-response.md` | Absorbed | Absorbed into `api/index.md` (Response Envelope section). Archived. |
+| `docs/orchestrator-diagnostics.md` | Archived | Moved to `_archive/docs/`. Transitional (orchestrator pipeline moving to Valter). |
+| `docs/database-architecture-decisions.md` | Absorbed | Content absorbed into `architecture/decisions.md` (ADR-002). |
+| `docs/ui-reference.tsx` | Kept | Design reference — referenced by ADR-007 and features docs. |
+
+---
+# docs/api/briefing.md
+---
+
+
+# Briefing Endpoints
+
+> API endpoints and server actions specific to the Briefing Progressivo 4-phase flow.
+
+## Server Actions
+
+All briefing mutations use Server Actions defined in `src/actions/briefing.ts`. Each action:
+- Is marked with `'use server'`
+- Uses `requireActionAuth()` for authentication
+- Returns a `BriefingFlowState` object (or an extended variant)
+
+### Phase 1 — Diagnosis
+
+| Action | Signature | Purpose |
+|--------|-----------|---------|
+| `updateDiagnosis` | `(sessionId, fields) → BriefingFlowState` | Update diagnosis fields (situation, area, tema, tese). Advances from Phase 0 → Phase 1 if needed. |
+| `chooseSituation` | `(sessionId, situation) → { state, phase2Blocks }` | Set user situation. Derives delivery mode and generates Phase 2 blocks. |
+| `addAdditionalContext` | `(sessionId, text) → BriefingFlowState` | Store free-text additional context in briefing state. |
+
+**Situation → Delivery Mode mapping:**
+
+| Situation | Delivery Mode | Description |
+|-----------|--------------|-------------|
+| `pesquisando` | `sintese` | User is researching — gets a concise synthesis |
+| `avaliando` | `parecer` | User is evaluating — gets a formal legal opinion |
+| `atuando` | `estrategia` | User is acting — gets a strategic plan |
+| `estudando` | `mapa` | User is studying — gets a conceptual map |
+
+### Phase 2 — Precedents
+
+| Action | Signature | Purpose |
+|--------|-----------|---------|
+| `evaluatePrecedent` | `(sessionId, processoId, evaluation) → BriefingFlowState` | Rate a precedent as `'useful'` or `'not_useful'`. Advances to Phase 2 if needed. |
+
+### Phase 3 — Risks
+
+| Action | Signature | Purpose |
+|--------|-----------|---------|
+| `advanceToPhase3` | `(sessionId) → { state, phase3Blocks }` | Generate risk blocks (risk_balance + chart) from existing case analysis. |
+| `resolveRisk` | `(sessionId, riskId) → BriefingFlowState` | Mark a risk as handled. Updates the `risk_balance` block in the database. |
+
+### Phase 4 — Delivery
+
+| Action | Signature | Purpose |
+|--------|-----------|---------|
+| `generateDelivery` | `(sessionId) → { state, phase4Blocks }` | Generate delivery blocks based on the selected delivery mode. Requires `deliveryMode` to be set. |
+| `choosePath` | `(sessionId, pathId) → BriefingFlowState` | Set chosen strategic path in the `estrategia` delivery block. Generates next steps. |
+| `setFaseProcessual` | `(sessionId, fase) → BriefingFlowState` | Update `faseProcessual` field in the `estrategia` delivery block. |
+
+### Session Finalization
+
+| Action | Signature | Purpose |
+|--------|-----------|---------|
+| `finalizeSession` | `(sessionId) → BriefingFlowState` | Mark session as finalized. Updates `exit_card` block to `selected: 'concluir'`. |
+| `handleExitAction` | `(sessionId, action) → { state, action }` | Handle exit card selection. If `action === 'concluir'`, sets `finalized = true`. |
+
+---
+
+## PDF Export
+
+### GET /api/export/pdf/[sessionId]
+
+Generate and download a PDF document for a briefing session.
+
+**Source:** `src/app/api/export/pdf/[sessionId]/route.ts`
+
+**Auth:** `auth()` session check. Bypassed when `ENABLE_DEV_AUTH=true`.
+
+**Path parameters:** `sessionId: string`
+
+**Response `200`:**
+
+| Header | Value |
+|--------|-------|
+| Content-Type | `application/pdf` |
+| Content-Disposition | `attachment; filename="briefing-{sessionId.slice(0,8)}.pdf"` |
+
+Body: raw PDF bytes generated by `generateBriefingPDF()` from `src/lib/pdf/generator.ts`.
+
+**Error responses:**
+- `401` — `{ error: 'Unauthorized' }`
+- `404` — `{ error: 'Session not found' }` (no blocks exist for the sessionId)
+
+**PDF generation details:**
+- Uses jsPDF for PDF creation
+- Extracts blocks by type from the session database
+- Manual Y-position tracking with `checkPage()` for page overflow
+- Text wrapping via `doc.splitTextToSize(text, maxWidth)`
+- Output: `new Uint8Array(doc.output('arraybuffer'))`
+
+---
+
+## Transitional Endpoints
+
+These endpoints exist in Juca but are being migrated to Valter. They will be removed in v0.4 after migration is complete:
+
+| Group | Path | Endpoints | Migration Target |
+|-------|------|-----------|-----------------|
+| Analyzer | `/api/analyzer/*` | 8 | Valter `/v1/factual/*`, `/v1/retrieve` |
+| Chat | `/api/chat/*` | 6 | Valter LLM pipeline |
+| KG | `/api/kg/*` | 14 | Valter `/v1/graph/*` |
+| Reasoning | `/api/reasoning/*` | 4 | Valter IRAC extraction |
+| Search | `/api/search/*` | 2 | Valter `/v1/retrieve` |
+| Comparator | `/api/comparator/*` | 2 | Valter multi-model comparison |
+
+:::danger
+Do not build new features against transitional endpoints. Use the Valter adapter (v0.3) or Server Actions instead.
+:::
+
+---
+# docs/api/export.md
+---
+
+
+# Export Endpoints
+
+> API endpoints for exporting briefing sessions as PDF documents and future formats.
+
+## GET /api/export/pdf/[sessionId]
+
+Generate and download a PDF document from a completed briefing session.
+
+**Source:** `src/app/api/export/pdf/[sessionId]/route.ts`
+
+### Request
+
+| Parameter | Location | Type | Required | Description |
+|-----------|----------|------|----------|-------------|
+| `sessionId` | Path | string | Yes | The briefing session ID to export |
+
+**Authentication:** Required via `auth()` from `@/lib/auth`. Bypassed when `ENABLE_DEV_AUTH=true`.
+
+### Response
+
+**Success `200`:**
+
+| Header | Value |
+|--------|-------|
+| Content-Type | `application/pdf` |
+| Content-Disposition | `attachment; filename="briefing-{short-id}.pdf"` |
+
+Body: raw PDF binary data.
+
+**Errors:**
+
+| Status | Body | Cause |
+|--------|------|-------|
+| 401 | `{ error: 'Unauthorized' }` | Missing or invalid auth session |
+| 404 | `{ error: 'Session not found' }` | No blocks exist for the given sessionId |
+
+### Example
+
+```bash
+# Download briefing PDF (requires auth cookie)
+curl -o briefing.pdf \
+  -H "Cookie: next-auth.session-token=..." \
+  http://localhost:3000/api/export/pdf/abc-12345
+```
+
+In the browser, the download is triggered by navigating to the URL or using `window.open()`:
+
+```typescript
+window.open(`/api/export/pdf/${sessionId}`, '_blank');
+```
+
+## PDF Generation Pipeline
+
+The PDF is generated server-side by `generateBriefingPDF()` in `src/lib/pdf/generator.ts`:
+
+1. **Load blocks** — Fetches all blocks for the session from SQLite via `getBlocksDB()`
+2. **Extract by type** — Finds `delivery`, `diagnosis`, `risk_balance`, `precedent`, and other block types
+3. **Build document** — Creates a jsPDF instance with A4 page size
+4. **Render sections** — Renders each block type into PDF sections with appropriate formatting
+5. **Handle overflow** — Uses `checkPage()` to detect when content exceeds page height and adds new pages
+6. **Text wrapping** — Uses `doc.splitTextToSize(text, maxWidth)` for long text content
+7. **Return bytes** — Outputs `new Uint8Array(doc.output('arraybuffer'))`
+
+:::note
+The PDF reflects the user's selections through all 4 briefing phases — diagnosis fields, evaluated precedents, resolved risks, and the chosen delivery mode content.
+:::
+
+## Future: DOCX Export
+
+Planned for v0.5 (Issue #158):
+
+- Export briefing as a professional legal memo in both PDF and DOCX formats
+- DOCX will use a template with proper legal document formatting
+- Will support the same block-to-section rendering pipeline as PDF
+
+---
+# docs/api/index.md
+---
+
+
+# API Reference
+
+> Overview of Juca's API surface — internal routes, Valter adapter layer, and server actions.
+
+## API Architecture
+
+Juca's API surface has three layers:
+
+1. **Internal API Routes** — ~55 endpoints in `src/app/api/` serving the frontend. Many are transitional and will be replaced by direct Valter API calls.
+2. **Valter Adapter** (planned for v0.3) — abstraction layer for calling Valter and future backend agents via a unified interface.
+3. **Server Actions** — `src/actions/` for client-to-server mutations (briefing phase transitions, session management).
+
+:::caution
+The internal API routes under `/api/chat/*`, `/api/analyzer/*`, `/api/kg/*`, `/api/reasoning/*`, and `/api/search/*` are **transitional**. Their backend logic is being migrated to Valter. Do not build new features against these endpoints — use the Valter adapter instead (once available in v0.3).
+:::
+
+## Route Groups
+
+| Group | Path | Endpoints | Status | Purpose |
+|-------|------|-----------|--------|---------|
+| **Unified** | `/api/unified/*` | 4 | Active | Hub session management and analysis |
+| **Export** | `/api/export/*` | 1 | Active | PDF export |
+| **Auth** | `/api/auth/*` | 1 | Active | NextAuth handler |
+| **Health** | `/api/health` | 1 | Active | System health check |
+| **Metrics** | `/api/metrics` | 1 | Active | Application metrics |
+| **Feedback** | `/api/feedback/*` | 2 | Active | User feedback |
+| **Chat** | `/api/chat/*` | 6 | Transitional | Chat pipeline (SSE) |
+| **Analyzer** | `/api/analyzer/*` | 8 | Transitional | Case analysis pipeline |
+| **Search** | `/api/search/*` | 2 | Transitional | Hybrid jurisprudence search |
+| **KG** | `/api/kg/*` | 14 | Transitional | Knowledge graph queries |
+| **Reasoning** | `/api/reasoning/*` | 4 | Transitional | IRAC extraction |
+| **Comparator** | `/api/comparator/*` | 2 | Transitional | Multi-model comparison |
+| **Reference** | `/api/reference/*` | 2 | Transitional | Reference data |
+| **Citations** | `/api/citations/*` | 1 | Transitional | Citation statistics |
+
+## Authentication
+
+All API routes (except `/api/health`) require authentication:
+
+**Production:** NextAuth JWT session via `auth()` from `@/lib/auth`.
+
+**Development:** Set `ENABLE_DEV_AUTH=true` in `.env.local` to bypass authentication with a dev user.
+
+```typescript
+// Standard pattern in every API route
+import { auth } from '@/lib/auth';
+
+export async function GET() {
+  const session = await auth();
+  if (!session?.user) return new Response('Unauthorized', { status: 401 });
+  // ...
+}
+```
+
+:::tip
+Server Actions use a different auth pattern — `requireActionAuth()` from `@/actions/utils`. See [Coding Conventions](/development/conventions) for details.
+:::
+
+## Response Envelope
+
+All JSON API responses follow a standard envelope pattern defined in `src/types/api.ts`:
+
+**Success:**
+
+```json
+{
+  "success": true,
+  "data": { },
+  "metadata": { "timestamp": "2026-02-28T...", "duration_ms": 123 }
+}
+```
+
+**Error:**
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Parameter X is required",
+    "details": { }
+  }
+}
+```
+
+**Standard error codes:** `VALIDATION_ERROR`, `NOT_FOUND`, `UNAUTHORIZED`, `INTERNAL_ERROR`, `SERVICE_UNAVAILABLE`, `RATE_LIMITED`, `TIMEOUT`.
+
+**SSE streaming routes** use a different convention:
+- `event: stage` — free-form progress payload (does not use the envelope)
+- `event: result` — uses the `ApiSuccess` envelope
+- `event: error` — uses the `ApiError` envelope
+
+The API client at `src/lib/api/client.ts` automatically unwraps the envelope: success returns `data`, failure throws `ApiClientError` with `code` and `details`.
+
+## Detailed References
+
+- [Valter Adapter](/api/valter-adapter) — How Juca communicates with Valter
+- [Unified Endpoints](/api/unified) — Core hub operations (sessions, analysis)
+- [Briefing Endpoints](/api/briefing) — Briefing-specific server actions and routes
+- [Export Endpoints](/api/export) — PDF and document export
+
+---
+# docs/api/unified.md
+---
+
+
+# Unified Endpoints
+
+> Core hub API endpoints that handle session management, unified analysis, and orchestration.
+
+## Endpoint Summary
+
+| Method | Path | Purpose |
+|--------|------|---------|
+| GET | `/api/unified/sessions` | List all sessions for current user |
+| POST | `/api/unified/sessions` | Migrate sessions from localStorage |
+| POST | `/api/unified/session` | Create a new session |
+| GET | `/api/unified/session/[sessionId]` | Load a specific session |
+| PUT | `/api/unified/session/[sessionId]` | Update/upsert a session (full snapshot) |
+| DELETE | `/api/unified/session/[sessionId]` | Delete a session |
+| POST | `/api/unified/analyze` | Submit query for analysis (SSE stream) |
+
+All endpoints require authentication via `auth()` from `@/lib/auth`.
+
+---
+
+## GET /api/unified/sessions
+
+List all sessions for the authenticated user.
+
+**Source:** `src/app/api/unified/sessions/route.ts`
+
+**Query parameters:**
+
+| Param | Type | Default | Description |
+|-------|------|---------|-------------|
+| `limit` | number | 50 | Maximum sessions to return |
+
+**Response `200`:**
+
+```json
+{
+  "sessions": [
+    { "id": "abc-123", "title": "...", "createdAt": "..." }
+  ],
+  "stats": {}
+}
+```
+
+**Error responses:** `401`, `500`
+
+---
+
+## POST /api/unified/sessions
+
+Migrate sessions from client-side localStorage to the server database.
+
+**Source:** `src/app/api/unified/sessions/route.ts`
+
+**Request body:**
+
+```json
+{
+  "sessions": [ { /* UnifiedSessionContext objects */ } ]
+}
+```
+
+**Response `200`:**
+
+```json
+{ "migrated": 3, "total": 3 }
+```
+
+**Error responses:** `400`, `401`, `500`
+
+---
+
+## POST /api/unified/session
+
+Create a new unified session.
+
+**Source:** `src/app/api/unified/session/route.ts`
+
+**Request body:**
+
+```json
+{ "title": "Optional session title" }
+```
+
+**Response `200`:** Returns the created `UnifiedSessionContext` object.
+
+**Error responses:** `400`, `401`, `500`
+
+---
+
+## GET /api/unified/session/[sessionId]
+
+Load a specific session with all context and analyzer state.
+
+**Source:** `src/app/api/unified/session/[sessionId]/route.ts`
+
+**Path parameters:** `sessionId: string`
+
+**Auth:** Requires authentication + ownership check. Returns `403` if the session belongs to another user.
+
+**Response `200`:** Returns `UnifiedSessionContextWithAnalyzer`.
+
+**Error responses:** `400`, `401`, `403`, `404`, `500`
+
+---
+
+## PUT /api/unified/session/[sessionId]
+
+Full snapshot replace or upsert of a session.
+
+**Source:** `src/app/api/unified/session/[sessionId]/route.ts`
+
+**Path parameters:** `sessionId: string`
+
+**Request body:** `UnifiedSessionContextWithAnalyzer` — the `session.id` field must match the `sessionId` path parameter.
+
+**Behavior:**
+- If session exists and belongs to user: updates it → `{ updated: true, sessionId }`
+- If session does not exist: creates via migration → `{ created: true, sessionId }`
+
+**Error responses:** `400` (id mismatch or validation), `401`, `403`, `500`
+
+---
+
+## DELETE /api/unified/session/[sessionId]
+
+Delete a session and its associated data.
+
+**Source:** `src/app/api/unified/session/[sessionId]/route.ts`
+
+**Path parameters:** `sessionId: string`
+
+**Response `200`:**
+
+```json
+{ "deleted": true, "sessionId": "abc-123" }
+```
+
+**Error responses:** `400`, `401`, `403`, `404`, `500`
+
+---
+
+## POST /api/unified/analyze
+
+Submit a query for unified analysis. Returns results via Server-Sent Events (SSE).
+
+**Source:** `src/app/api/unified/analyze/route.ts`
+
+**Configuration:**
+- `maxDuration`: 300 seconds (5 minutes)
+- Rate limit: 5 requests/minute (`rateLimitPresets.analyze`)
+
+**Request body:**
+
+```json
+{
+  "query": "responsabilidade civil por dano moral",
+  "search_results": [ { "ementa": "...", "processo": "..." } ],
+  "total_in_database": 1556,
+  "pipeline_mode": "standard"
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `query` | string | Yes | Non-empty search query |
+| `search_results` | SearchResult[] | Yes | 1-10 items (standard/light) or 1-30 (deep) |
+| `total_in_database` | number | Yes | Total matching results in corpus |
+| `pipeline_mode` | `'standard'` \| `'light'` \| `'deep'` | No | Default: `standard` |
+
+**Validation rules:**
+- Each `SearchResult.ementa` must be at least 100 characters (shorter items are filtered out)
+- Pipeline mode determines max results: `standard`/`light` = 10, `deep` = 30
+
+**SSE events:**
+
+```text
+event: stage
+data: { "stage": "searching", ... }
+
+event: result
+data: {
+  "success": true,
+  "data": {
+    "response": "Analysis text...",
+    "claims": [],
+    "unknowns": [],
+    "confidence": 0.85,
+    "sources": [],
+    "audit_trail": {
+      "query": "...",
+      "julgados_ids": [],
+      "pipeline_mode": "standard",
+      "models_used": {
+        "generator": "claude-sonnet-4-20250514",
+        "critics": ["qwen/qwen3-32b"],
+        "revisor": "claude-sonnet-4-20250514"
+      },
+      "timestamp": "2026-02-28T...",
+      "duration_ms": 12345
+    },
+    "follow_up_questions": [],
+    "suggested_paths": [{ "label": "...", "query": "..." }]
+  }
+}
+
+event: error
+data: { "success": false, "error": { "code": "...", "message": "..." } }
+```
+
+**Non-SSE error responses:** `400`, `401`, `422` (no usable content), `503` (service unavailable)
+
+---
+
+## Orchestrator
+
+The `/api/unified/analyze` endpoint delegates to the `UnifiedOrchestratorService` (`src/lib/unified/orchestrator.ts`), which:
+
+1. **Detects intent** from the user query
+2. **Checks for clarification needs** (slot-filling policy)
+3. **Resolves artifact references** in the query text
+4. **Routes to the appropriate tool** via the Tool Registry
+5. **Streams progress** back to the client via SSE
+
+The orchestrator output includes a `transparency` field exposing the detected intent, resolved references, and routing decision — useful for debugging and auditing.
+
+---
+# docs/api/valter-adapter.md
+---
+
+
+# Valter API Adapter
+
+> The adapter layer that enables Juca to communicate with Valter's REST API for jurisprudence search, verification, and graph analysis.
+
+## Overview
+
+Valter is Juca's primary backend agent — a FastAPI service hosting 23,400+ STJ decisions with search, verification, knowledge graph, and LLM capabilities.
+
+Currently, Juca communicates with Valter indirectly through its own internal API routes that replicate some of Valter's logic locally. The **adapter layer** (planned for v0.3) will provide a unified interface for calling any backend agent (Valter, Leci, future agents) directly from the orchestrator.
+
+:::note
+The adapter layer is planned for v0.3. This page documents the target Valter API surface that the adapter will consume. Until the adapter is implemented, Juca's internal routes handle the backend logic locally.
+:::
+
+## Valter API Endpoints
+
+| Endpoint | Method | Purpose | Used By |
+|----------|--------|---------|---------|
+| `/v1/retrieve` | POST | Jurisprudence search (BM25 + semantic + KG) | Briefing F1, F2; Search |
+| `/v1/verify` | POST | Citation verification (sumulas, processos, ministros) | Validation pipeline |
+| `/v1/graph/optimal-argument` | POST | Adversarial analysis (risks and opportunities) | Briefing F3 |
+| `/v1/graph/divergencias` | GET/POST | Minister divergences on specific themes | Briefing F3; future comparison views |
+| `/v1/graph/temporal-evolution` | GET | Temporal trends in jurisprudence | Future analytics |
+| `/v1/similar_cases` | POST | Find cases similar to a given case | Briefing F2 |
+| `/v1/factual/*` | Various | Factual analysis endpoints | Briefing F1 |
+| `/health` | GET | Health check (should return 200) | Monitoring, `/api/health` |
+
+## Authentication
+
+Valter uses API key authentication via the `X-API-Key` header:
+
+| Setting | Value |
+|---------|-------|
+| **Auth method** | `X-API-Key` header |
+| **Env variable** | `VALTER_API_KEY` |
+| **Base URL variable** | `VALTER_API_URL` |
+| **Production URL** | `https://valter-api-production.up.railway.app` |
+
+**Verify connectivity:**
+
+```bash
+curl -H "X-API-Key: $VALTER_API_KEY" \
+  https://valter-api-production.up.railway.app/health
+```
+
+:::caution
+**Pending decision #1:** The auth model for production is not finalized. Options: (A) single server-side key in Juca, (B) per-user key pass-through, (C) service-to-service token. Option A is the current approach and simplest.
+:::
+
+## Request/Response Mapping
+
+When the adapter is implemented, Valter responses will map to Juca blocks:
+
+| Valter Endpoint | Juca Block Type | Transformation |
+|-----------------|----------------|----------------|
+| `/v1/retrieve` → results | `precedent` | Each result becomes a precedent block with processo, ementa, ministro, turma |
+| `/v1/retrieve` → summary | `summary` | Aggregated search summary |
+| `/v1/verify` → verification | Block metadata | Verification status added to existing blocks |
+| `/v1/graph/optimal-argument` → risks | `risk_balance` | Risk/opportunity pairs with weights |
+| `/v1/similar_cases` → matches | `precedent_picker` | Selectable precedent cards |
+
+## Error Handling
+
+The adapter will implement a standard error handling strategy:
+
+| Valter Error | Juca Behavior |
+|-------------|---------------|
+| 401 Unauthorized | Log error, show "Backend configuration error" to user |
+| 404 Not Found | Return empty results with appropriate message |
+| 429 Rate Limited | Retry with exponential backoff (Valter uses Redis-based rate limiting) |
+| 500+ Server Error | Show fallback error block, log to OTel |
+| Network timeout | Cancel via AbortController (#238), show timeout message |
+
+## Planned Adapter API
+
+The target adapter interface for v0.3:
+
+```typescript
+// Planned — src/lib/adapters/valter.ts
+interface ValterAdapter {
+  retrieve(params: RetrieveParams): Promise<RetrieveResponse>
+  verify(params: VerifyParams): Promise<VerifyResponse>
+  graphOptimalArgument(params: GraphParams): Promise<GraphResponse>
+  graphDivergencias(params: DivergenciaParams): Promise<DivergenciaResponse>
+  similarCases(params: SimilarParams): Promise<SimilarResponse>
+  health(): Promise<HealthResponse>
+}
+```
+
+The adapter will handle authentication, error mapping, response transformation, retry logic, and timeout management in a single place — keeping route handlers and server actions clean.
+
+---
+# docs/architecture/decisions.md
+---
+
+
+# Architecture Decision Records
+
+Every significant architectural choice in Juca is documented here with context, alternatives considered, and consequences. ADRs are numbered chronologically and never deleted — superseded decisions are marked as such.
+
+## ADR-001: Unified Home over Tab-Based Navigation
+
+| | |
+|---|---|
+| **Status** | Accepted — implemented in rewrite (Waves 0-5) |
+| **Date** | 2026-02 |
+| **Issue** | [#162](https://github.com/sensdiego/juca/issues/162) |
+
+**Context:** Original Juca had 6 separate tabs (Chat, Juris, Ratio, Compare, Insights, Semantic), each with its own state management, SSE connection, and rendering logic. Adding a feature to one tab had no effect on others. Maintenance cost was O(n) per feature per tab.
+
+**Decision:** Unify into a single Home view with a Block System. Extend the Home orchestrator (tool registry, artifacts) instead of maintaining parallel tab codebases.
+
+**Consequences:**
+- 11 block types replaced 6 separate panels
+- Single WorkCanvas renders all content types
+- State management simplified from 11 Zustand stores to React `useState` + Server Actions
+- Tool Registry pattern enables adding new capabilities without UI changes
+
+---
+
+## ADR-002: SQLite for Session Persistence
+
+| | |
+|---|---|
+| **Status** | Accepted — will be revisited at v0.6+ |
+| **Date** | 2026-01 |
+| **Issue** | [#169](https://github.com/sensdiego/juca/issues/169) |
+
+**Context:** Juca needed session and block persistence. Options: JSON files, SQLite, PostgreSQL.
+
+**Decision:** SQLite via `better-sqlite3` with WAL mode and foreign key cascading.
+
+**Rationale:** JSON files at 100K documents would consume ~2.6GB RAM. SQLite is zero-config, file-based, supports FTS5 for full-text search, and `sqlite-vec` for vector operations. PostgreSQL was overkill for a single-developer project.
+
+**Consequences:**
+- Zero additional infrastructure for persistence
+- Synchronous API blocks the Node.js event loop under load (~50 concurrent users)
+- Migration to PostgreSQL planned for v0.6+ ([#231](https://github.com/sensdiego/juca/issues/231))
+
+**Schema:**
+
+```sql
+-- Sessions table
+CREATE TABLE chat_sessions (
+  id TEXT PRIMARY KEY,
+  user_id TEXT,
+  title TEXT,
+  status TEXT,
+  created_at TEXT,
+  updated_at TEXT,
+  message_count INTEGER,
+  metadata TEXT
+);
+
+-- Messages/blocks table
+CREATE TABLE chat_messages (
+  id TEXT PRIMARY KEY,
+  session_id TEXT REFERENCES chat_sessions(id) ON DELETE CASCADE,
+  role TEXT,
+  content TEXT,
+  timestamp TEXT,
+  metadata TEXT
+);
+```
+
+---
+
+## ADR-003: Knowledge Graph with Adapter Pattern
+
+| | |
+|---|---|
+| **Status** | Accepted — transitioning to Valter-only |
+| **Date** | 2026-02 |
+| **Issue** | [#253](https://github.com/sensdiego/juca/issues/253) |
+
+**Context:** Knowledge graph data needed both local dev (JSON files, ~1M edges) and production (Neo4j Aura, 6K+ nodes, 104K+ relationships) access paths.
+
+**Decision:** Feature flag `KG_PROVIDER=json|neo4j` with adapter pattern. Same interface (`KGAdapter`), swappable backend via environment variable.
+
+**Consequences:**
+- Enabled incremental migration from JSON to Neo4j without code changes
+- Now transitioning to Valter API (`/v1/graph/*`) for all KG queries — both local adapters will be deprecated
+
+---
+
+## ADR-004: Orchestrator Decomposition
+
+| | |
+|---|---|
+| **Status** | Accepted — implemented |
+| **Date** | 2026-02 |
+| **Issue** | [#252](https://github.com/sensdiego/juca/issues/252) |
+
+**Context:** `orchestrator.ts` had grown to 1,225 lines handling intent detection, tool selection, evidence building, critique collection, revision, and prompt construction.
+
+**Decision:** Decompose into focused modules: `intent-detector`, `tool-registry`, `clarification-policy`, `slot-filling`, and individual tool implementations (`juris.tool.ts`, `ratio.tool.ts`, `analyzer.tool.ts`, etc.).
+
+**Consequences:**
+- Each tool is a self-contained class extending `BaseTool` with declared capabilities and artifact types
+- Tool selection is priority-based: AnalyzerTool (9) > JurisTool (8) > RatioTool (7) > CompareTool (5) > InsightsTool (4)
+- New tools can be added by implementing the `BaseTool` interface and registering in `src/lib/unified/tools/index.ts`
+
+---
+
+## ADR-005: Briefing Progressivo Design
+
+| | |
+|---|---|
+| **Status** | In progress |
+| **Date** | 2026-02 |
+| **Issue** | [#283](https://github.com/sensdiego/juca/issues/283) |
+
+**Context:** The original analysis flow dumped all results at once — users received a wall of text with precedents, risks, and recommendations mixed together. Feedback indicated this was overwhelming and difficult to act on.
+
+**Decision:** Four-phase progressive disclosure system (Briefing Progressivo):
+1. **Phase 1 — Diagnosis:** Capture situation, area, theme, thesis
+2. **Phase 2 — Precedents:** Interactive precedent cards with user evaluation
+3. **Phase 3 — Risks:** Visual risk-opportunity balance
+4. **Phase 4 — Delivery:** Four adaptive modes (Síntese, Parecer, Estratégia, Mapa)
+
+**Key principle:** No mandatory interaction. Each phase produces standalone value. Implement one phase at a time — test until stable, then proceed to next.
+
+**Consequences:**
+- Each phase maps to specific block types and Valter API endpoints
+- Situation selection in Phase 1 determines the delivery mode in Phase 4 (pesquisando→síntese, avaliando→parecer, atuando→estratégia, estudando→mapa)
+- Phase transitions managed by server actions in `src/actions/briefing.ts`
+
+---
+
+## ADR-006: Pivot to Frontend Hub
+
+| | |
+|---|---|
+| **Status** | Accepted — v0.3 in progress |
+| **Date** | 2026-02 |
+
+**Context:** Juca was a fullstack monolith: search engine, LLM pipeline (5 providers), knowledge graph, validation — all embedded in the Next.js app. Meanwhile, Valter was built as a specialized STJ backend with the same capabilities but better: 23.4K decisions (vs Juca's 1.5K), 28 MCP tools, Neo4j Aura + Qdrant + Redis, deployed on Railway. Maintaining identical backend logic in both projects was wasteful.
+
+**Decision:** Transform Juca into a lightweight frontend hub. Delegate all backend intelligence to Valter (and future agents like Leci). Juca keeps: UI, session management, lightweight orchestration, SSE streaming, authentication.
+
+**Consequences:**
+- ~55 API routes to gradually deprecate (replaced by Valter API calls via adapter)
+- ~60 ingest/pipeline scripts become obsolete
+- `data/` directory (~270MB of local legal data) becomes redundant
+- `src/lib/backend/` (search, LLM, KG, reasoning, chat-pipeline) will be removed after migration
+- Dependency on Valter API availability — need health checks and fallback strategy
+
+---
+
+## ADR-007: UI Design Language ("Liquid Legal")
+
+| | |
+|---|---|
+| **Status** | Accepted — v0.3 implementation pending |
+| **Date** | 2026-02 |
+
+**Context:** The existing UI was deemed inadequate by the project owner. A complete visual reset was needed. The owner provided a React reference component (`docs/ui-reference.tsx`) establishing the target design language.
+
+**Decision:** Custom design system called "Liquid Legal" with these tokens:
+
+| Token | Value |
+|-------|-------|
+| `--bg-paper` | `#F0F0EE` |
+| `--ink-primary` | `#1A161F` |
+| `--ink-secondary` | `#4A4452` |
+| `--surface-white` | `#FFFFFF` |
+| `--radius-xl` | `32px` |
+| `--radius-l` | `24px` |
+
+**Layout:** NavIsland (80px dark vertical rail) + ChatIsland (main content, flex 1.2) + ContextIsland (document panel, flex 1).
+
+**Consequences:**
+- No third-party component library (no shadcn, no Radix) — custom Tailwind v4 implementation
+- Message styles: AI = white rounded with shadow, User = dark rounded, Citation = bordered italic
+- Composer: pill-shaped with circular send button
+- Full UI rewrite required for v0.3
+
+---
+# docs/architecture/diagrams.md
+---
+
+
+# Architecture Diagrams
+
+All diagrams use Mermaid syntax and render natively in Starlight. Each diagram focuses on one aspect of the system.
+
+## Ecosystem Overview
+
+The three-project sens.legal ecosystem:
+
+```mermaid
+graph LR
+    subgraph "User-Facing"
+        Juca["🖥️ Juca<br/>Frontend Hub<br/>Next.js 16 · React 19"]
+    end
+    subgraph "Backend Agents"
+        Valter["⚖️ Valter<br/>STJ Jurisprudence<br/>FastAPI · 23.4K decisions"]
+        Leci["📜 Leci<br/>Federal Legislation<br/>Next.js · Drizzle"]
+    end
+    subgraph "Infrastructure"
+        Railway["Railway<br/>(hosting)"]
+        Neo4j["Neo4j Aura<br/>(KG)"]
+        Qdrant["Qdrant<br/>(vectors)"]
+        PG["PostgreSQL"]
+        Redis["Redis<br/>(cache)"]
+    end
+
+    Juca -->|"/v1/retrieve<br/>/v1/verify<br/>/v1/graph/*"| Valter
+    Juca -.->|"future"| Leci
+    Valter --> Neo4j
+    Valter --> Qdrant
+    Valter --> PG
+    Valter --> Redis
+    Leci -.-> PG
+    Juca --> Railway
+    Valter --> Railway
+```
+
+## Query Lifecycle
+
+What happens when a user submits a query:
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant C as Composer
+    participant SA as Server Action
+    participant ID as Intent Detector
+    participant TR as Tool Registry
+    participant V as Valter API
+    participant BF as Block Factory
+    participant DB as SQLite
+    participant SSE as SSE Stream
+    participant WC as WorkCanvas
+
+    U->>C: Types legal query
+    C->>SA: Submit via Server Action
+    SA->>ID: Classify intent
+    ID->>TR: Route to tool (e.g., JurisTool)
+    TR->>V: POST /v1/retrieve
+    V-->>TR: Search results
+    TR->>BF: Transform to blocks
+    BF->>DB: Persist blocks
+    BF->>SSE: Stream block events
+    SSE-->>WC: Real-time render
+    WC-->>U: Sees structured results
+```
+
+## Briefing Progressivo Flow
+
+The 4-phase progressive disclosure system:
+
+```mermaid
+flowchart TD
+    P0["Phase 0: Chat<br/>message blocks"]
+    P1["Phase 1: Diagnosis<br/>diagnosis + action_prompt blocks"]
+    P2["Phase 2: Precedents<br/>precedent + precedent_picker blocks"]
+    P3["Phase 3: Risks<br/>risk_balance block"]
+    P4["Phase 4: Delivery<br/>delivery + exit_card blocks"]
+
+    P0 -->|"User describes case"| P1
+    P1 -->|"chooseSituation()"| P2
+    P2 -->|"evaluatePrecedent()"| P3
+    P3 -->|"advanceToPhase3()"| P4
+    P4 -->|"generateDelivery()"| PDF["PDF Export"]
+
+    V1["/v1/retrieve"] -.-> P1
+    V2["/v1/retrieve<br/>/v1/similar_cases"] -.-> P2
+    V3["/v1/graph/optimal-argument<br/>/v1/graph/divergencias"] -.-> P3
+
+    style P0 fill:#f5f5f5,stroke:#333
+    style P1 fill:#e8f4fd,stroke:#0066cc
+    style P2 fill:#e8f4fd,stroke:#0066cc
+    style P3 fill:#e8f4fd,stroke:#0066cc
+    style P4 fill:#e8f4fd,stroke:#0066cc
+```
+
+## Block System Type Hierarchy
+
+The 11 block types and which briefing phase produces them:
+
+```mermaid
+graph TD
+    BS["Block System<br/>(11 types)"]
+
+    BS --> Chat["Chat Blocks"]
+    BS --> Briefing["Briefing Blocks"]
+    BS --> Meta["Meta Blocks"]
+
+    Chat --> message["message"]
+    Chat --> progress["progress"]
+
+    Briefing --> diagnosis["diagnosis<br/>(Phase 1)"]
+    Briefing --> action_prompt["action_prompt<br/>(Phase 1)"]
+    Briefing --> precedent["precedent<br/>(Phase 2)"]
+    Briefing --> precedent_picker["precedent_picker<br/>(Phase 2)"]
+    Briefing --> risk_balance["risk_balance<br/>(Phase 3)"]
+    Briefing --> chart["chart<br/>(Phase 3)"]
+    Briefing --> delivery["delivery<br/>(Phase 4)"]
+
+    Meta --> summary["summary"]
+    Meta --> exit_card["exit_card<br/>(Phase 4)"]
+```
+
+## Deployment Architecture
+
+```mermaid
+graph LR
+    Dev["Developer"]
+    GH["GitHub"]
+    CI["GitHub Actions<br/>lint + build + test"]
+    Rail["Railway<br/>Docker Deploy"]
+    Prod["Production<br/>juca on Railway"]
+    VProd["Valter API<br/>Railway"]
+
+    Dev -->|"git push"| GH
+    GH -->|"on push/PR"| CI
+    GH -->|"on merge to main"| Rail
+    Rail --> Prod
+    Prod -->|"REST API"| VProd
+```
+
+## Tool Registry Priority
+
+How the orchestrator selects which tool handles a query:
+
+```mermaid
+graph LR
+    Query["User Query"] --> ID["Intent Detector"]
+    ID --> TR["Tool Registry"]
+    TR --> A["AnalyzerTool<br/>priority: 9"]
+    TR --> J["JurisTool<br/>priority: 8"]
+    TR --> R["RatioTool<br/>priority: 7"]
+    TR --> C["CompareTool<br/>priority: 5"]
+    TR --> I["InsightsTool<br/>priority: 4"]
+
+    style A fill:#ff6b6b,color:#fff
+    style J fill:#ffa94d,color:#fff
+    style R fill:#ffd43b,color:#333
+    style C fill:#69db7c,color:#333
+    style I fill:#74c0fc,color:#333
+```
+
+---
+# docs/architecture/ecosystem.md
+---
+
+
+# sens.legal Ecosystem
+
+sens.legal is a legal AI platform composed of three specialized projects. Each project has a distinct responsibility, and they communicate via REST APIs.
+
+## Architecture
+
+```mermaid
+graph TB
+    subgraph "Frontend Layer"
+        Juca["Juca<br/>Frontend Hub<br/>Next.js 16 · React 19<br/>Block System · SSE · Auth"]
+    end
+    subgraph "Backend Layer"
+        Valter["Valter<br/>STJ Jurisprudence Agent<br/>FastAPI · Python 3.12+<br/>23.4K decisions · 28 MCP tools"]
+        Leci["Leci<br/>Federal Legislation Agent<br/>Next.js · Drizzle ORM<br/>PostgreSQL + pgvector"]
+    end
+
+    Juca -->|"X-API-Key<br/>REST API"| Valter
+    Juca -.->|"Future<br/>REST API"| Leci
+
+    Valter --- VDB["PostgreSQL · Qdrant<br/>Neo4j Aura · Redis<br/>Cloudflare R2"]
+    Leci --- LDB["PostgreSQL + pgvector"]
+```
+
+## Juca (This Project)
+
+| Attribute | Value |
+|-----------|-------|
+| **Role** | Frontend hub + lightweight orchestrator |
+| **Stack** | Next.js 16, React 19, TypeScript 5, Tailwind v4 |
+| **Status** | Active development — targeting v0.3 |
+| **Hosting** | Railway (Docker) |
+
+**Responsibilities:**
+- Render all UI via the Block System (11 block types)
+- Manage user sessions (SQLite)
+- Detect user intent and route to appropriate backend agent
+- Stream real-time progress via SSE
+- Handle authentication (NextAuth v5 — Google OAuth + magic links)
+- Generate PDF exports from briefing sessions
+
+**Does NOT handle:**
+- Legal document search (delegated to Valter)
+- LLM processing (delegated to Valter)
+- Knowledge graph queries (delegated to Valter)
+- Citation verification (delegated to Valter)
+- Legislation lookup (will be delegated to Leci)
+
+## Valter
+
+| Attribute | Value |
+|-----------|-------|
+| **Role** | Backend agent for STJ jurisprudence |
+| **Stack** | Python 3.12+, FastAPI, PostgreSQL, Qdrant, Neo4j Aura, Redis |
+| **Status** | Production — fully deployed |
+| **URL** | `https://valter-api-production.up.railway.app` |
+| **Auth** | `X-API-Key` header with scopes (read/write/admin) |
+| **Repository** | Separate repo (`/Dev/Valter/`) |
+
+**Key capabilities:**
+- **23,400+ STJ decisions** indexed and searchable
+- **28 MCP tools** across 3 categories (7 knowledge, 13 graph, 8 workflow)
+- **Knowledge Graph:** 28.5K nodes, 207K edges in Neo4j Aura
+- **4 runtimes:** REST API (port 8000), MCP stdio, MCP HTTP/SSE (port 8001), ARQ worker
+- **Full ingest pipeline:** Download → Extract → Transform → Enrich → Index
+
+**Key API endpoints used by Juca:**
+
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `/v1/retrieve` | POST | Search STJ jurisprudence (hybrid: BM25 + semantic + KG) |
+| `/v1/verify` | POST | Verify citation accuracy against source documents |
+| `/v1/graph/optimal-argument` | POST | Generate optimal legal arguments (for/against) |
+| `/v1/graph/divergencias` | GET/POST | Analyze minister/court divergences |
+| `/v1/graph/temporal-evolution` | GET | Temporal trends in decision patterns |
+| `/v1/similar_cases` | POST | Find similar cases based on features |
+| `/v1/factual/*` | Various | Factual analysis endpoints |
+| `/health` | GET | Health check (returns 200 when operational) |
+
+## Leci
+
+| Attribute | Value |
+|-----------|-------|
+| **Role** | Backend agent for federal legislation |
+| **Stack** | TypeScript, Next.js 16, Drizzle ORM, PostgreSQL + pgvector |
+| **Status** | v0.1-pre — DB schema only, no API routes |
+| **Repository** | Separate repo (`/Dev/leci/`) |
+
+**Current state:** Leci has a database schema with 6 tables but no API surface yet:
+
+| Table | Purpose |
+|-------|---------|
+| `regulation_types` | Types of legal regulations |
+| `regulations` | Regulation metadata |
+| `document_nodes` | Structural nodes of legal documents |
+| `embeddings` | Vector embeddings for semantic search |
+| `suggestions` | AI-generated suggestions |
+| `revisions` | Revision history (the only sanctioned way to mutate legal text) |
+
+**Key design principle:** `apply_revision()` is the only function that can modify legal text, ensuring a complete audit trail.
+
+**Integration timeline:** Planned for Juca v0.6+, contingent on Leci developing its REST API.
+
+## Communication Patterns
+
+**Current approach:** Juca communicates with Valter via direct REST API calls. The adapter layer (`src/lib/adapters/`) provides a unified interface so the orchestrator doesn't need to know which backend agent it's calling.
+
+**Authentication:** Valter uses API key authentication via the `X-API-Key` header. Juca stores the key in `VALTER_API_KEY` environment variable. The auth model for multi-user scenarios is a [pending decision](/roadmap/#pending-decisions).
+
+> 🚧 **Planned Feature** — MCP (Model Context Protocol) integration is planned for richer tool interaction between Juca and backend agents. Valter already supports MCP with 28 tools.
+
+## Shared Conventions
+
+All three projects follow these conventions:
+
+| Convention | Value |
+|-----------|-------|
+| Branch naming | `feature/[issue]-[description]-[agent]` (e.g., `-claude`, `-codex`) |
+| Commit format | `feat(scope):`, `fix(scope):`, `docs:`, `chore:` |
+| AI agents | Claude Code (local) + Codex (cloud) — never on the same branch |
+| Local builds | **Prohibited** — delegate to CI/Railway |
+| Documentation | Starlight (Astro) with en-US + pt-BR |
+
+---
+# docs/architecture/overview.md
+---
+
+
+# Architecture Overview
+
+Juca follows a **hub architecture** — a thin frontend with a lightweight orchestrator that delegates backend intelligence to external agents. The UI is composed entirely of typed Blocks rendered in a WorkCanvas.
+
+## Architectural Model
+
+Juca is built on five key patterns:
+
+| Pattern | Implementation | Purpose |
+|---------|---------------|---------|
+| **Server Components + Server Actions** | Next.js 16 App Router | Data fetching and mutations without client-side state management |
+| **Block System** | 11 typed blocks, factory functions | Uniform UI composition — every piece of content is a Block |
+| **Tool Registry** | `src/lib/unified/tools/` | Routes user intents to specialized handler functions |
+| **Adapter Pattern** | `src/lib/adapters/` (planned) | Unified interface for calling any backend agent (Valter, Leci, future) |
+| **Feature Flags** | `src/lib/featureFlags.ts` | Progressive rollout of features via URL params or localStorage |
+
+The pre-pivot architecture was a fullstack monolith where Juca contained its own search engine, LLM pipeline, knowledge graph, and validation logic. That backend is being migrated to the Valter API, leaving Juca as a lean frontend hub.
+
+## System Architecture
+
+```mermaid
+graph TB
+    subgraph "Frontend — React 19"
+        AppShell["AppShell"]
+        Sidebar["SessionSidebar"]
+        PhaseRail["PhaseRail"]
+        Canvas["WorkCanvas"]
+        Composer["Composer"]
+        Blocks["Block Components<br/>(11 types)"]
+        SlideOver["SlideOver<br/>(Integra viewer)"]
+    end
+
+    subgraph "Server Layer — Next.js 16"
+        Actions["Server Actions<br/>briefing · session · message"]
+        Routes["API Routes<br/>(~55 endpoints)"]
+        SSE["SSE Stream<br/>/api/v2/stream"]
+        Auth["NextAuth v5<br/>Google OAuth + Email"]
+    end
+
+    subgraph "Orchestration"
+        Intent["Intent Detector"]
+        Tools["Tool Registry<br/>juris · ratio · analyzer<br/>compare · insights"]
+        Clarify["Clarification Policy"]
+    end
+
+    subgraph "External Agents"
+        Valter["Valter API<br/>STJ Jurisprudence<br/>Search · KG · LLM · Verify"]
+        Leci["Leci API<br/>Federal Legislation<br/>(future)"]
+    end
+
+    subgraph "Data Layer"
+        SQLite["SQLite<br/>Sessions · Blocks"]
+    end
+
+    AppShell --> Sidebar
+    AppShell --> PhaseRail
+    AppShell --> Canvas
+    Canvas --> Blocks
+    Canvas --> Composer
+    Canvas --> SlideOver
+
+    Composer --> Actions
+    Actions --> Intent
+    Intent --> Clarify
+    Intent --> Tools
+    Tools -->|"REST API"| Valter
+    Tools -.->|"REST API (future)"| Leci
+    Tools --> SSE
+
+    Actions --> SQLite
+    SSE --> Canvas
+    Auth --> Actions
+    Auth --> Routes
+```
+
+## Entry Points
+
+Juca has six entry points into the application:
+
+| Entry Point | Location | Purpose |
+|-------------|----------|---------|
+| **Web App** | `src/app/page.tsx` | Server Component that loads sessions and renders `AppClient` |
+| **API Routes** | `src/app/api/*/route.ts` | ~55 REST endpoints (many transitional, moving to Valter) |
+| **SSE Stream** | `src/app/api/v2/stream/route.ts` | Real-time progress streaming via Server-Sent Events |
+| **Server Actions** | `src/actions/` | Briefing, session, message, and recalculate mutations |
+| **Instrumentation** | `src/instrumentation.ts` | Pre-warms caches (KG, Corpus, BM25) + OTel setup on startup |
+| **Docker** | `scripts/entrypoint.sh` | Container bootstrap for Railway deployment |
+
+## Data Flow
+
+A typical user interaction follows this path:
+
+```text
+User types query in Composer
+  → Server Action receives input
+    → Intent Detector classifies the query
+      → Tool Registry selects handler (e.g., JurisTool, AnalyzerTool)
+        → Tool calls Valter REST API (/v1/retrieve, /v1/verify, etc.)
+        → Response transformed by Block Factory
+          → createDiagnosisData(), createPrecedentData(), etc.
+        → Blocks persisted to SQLite via getBlocksDB().addBlock()
+      → SSE streams block events to client
+    → WorkCanvas renders new blocks in real-time
+```
+
+## Responsibility Matrix
+
+With the hub pivot, responsibilities are clearly split:
+
+| Concern | Owner | Notes |
+|---------|-------|-------|
+| UI rendering | **Juca** (React 19) | Block System, WorkCanvas, Composer |
+| Session persistence | **Juca** (SQLite) | Sessions, blocks, user preferences. Will migrate to Postgres. |
+| Orchestration | **Juca** (lightweight) | Intent Detection, Tool Registry, Clarification Policy |
+| SSE streaming | **Juca** | Real-time progress via `/api/v2/stream` |
+| Authentication | **Juca** | NextAuth v5 (Google OAuth + magic links) |
+| Legal search | **Valter** | `/v1/retrieve`, `/v1/similar_cases` |
+| LLM processing | **Valter** | Multi-model Generate → Criticize → Revise pipeline |
+| Knowledge Graph | **Valter** | `/v1/graph/*` (Neo4j Aura, 28.5K nodes, 207K edges) |
+| Citation verification | **Valter** | `/v1/verify` |
+| Federal legislation | **Leci** (future) | Not yet available — DB schema only |
+
+## Key Decisions
+
+The architecture reflects several deliberate decisions. See [Architecture Decision Records](/architecture/decisions) for full context:
+
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| Frontend hub over monolith | Hub + external agents | Avoid duplicating Valter's capabilities in Juca |
+| Block System over panels | 11 typed blocks | Uniform composition, easier to test, works with SSE |
+| SQLite over Postgres | SQLite for now | Zero-config for single-dev; migrate at v0.6+ |
+| Server Actions over API calls | Next.js Server Actions | Fewer network hops, built-in auth, TypeScript end-to-end |
+| Tailwind v4 CSS-first | Design tokens in `globals.css` | Aligns with Tailwind v4 best practices |
+
+---
+# docs/architecture/stack.md
+---
+
+
+# Technology Stack
+
+Every dependency in Juca is here for a reason. This page lists the complete stack with versions, purposes, and current status — including which packages are transitional (will be removed when the Valter migration completes).
+
+## Core Framework
+
+| Library | Version | Purpose | Status |
+|---------|---------|---------|--------|
+| Next.js | ^16.1.6 | App Router, Server Components, Server Actions | **Active** |
+| React | 19.2.3 | UI framework (concurrent features, use() hook) | **Active** |
+| React DOM | 19.2.3 | React renderer | **Active** |
+| TypeScript | ^5 | Type safety across the full stack | **Active** |
+| Tailwind CSS | ^4.1.18 | CSS-first utility framework (v4) | **Active** |
+| @tailwindcss/postcss | ^4.1.18 | PostCSS integration for Tailwind | **Active** |
+
+:::note
+Tailwind v4 uses a **CSS-first** approach. Design tokens are defined in `src/app/globals.css` as CSS custom properties, not in `tailwind.config.ts`. See [Conventions](/development/conventions) for details.
+:::
+
+## LLM Providers
+
+These SDKs power the local multi-LLM pipeline. They are **transitional** — LLM processing is moving to the Valter API.
+
+| Library | Version | Purpose | Status |
+|---------|---------|---------|--------|
+| @anthropic-ai/sdk | ^0.71.2 | Claude (Sonnet 4, Opus 4, Haiku 3.5) — generator and revisor | **Transitional** |
+| openai | ^6.16.0 | OpenAI (GPT-5.x, o3) + DeepSeek (shared SDK) | **Transitional** |
+| @google/generative-ai | ^0.24.1 | Gemini (2.5 Flash/Pro) | **Transitional** |
+| groq-sdk | ^0.37.0 | Groq (Qwen 3 32B, Llama 3.3 70B) — critics for fast inference | **Transitional** |
+
+## Database
+
+| Library | Version | Purpose | Status |
+|---------|---------|---------|--------|
+| better-sqlite3 | ^12.6.2 | Session and block persistence (WAL mode, foreign keys) | **Active** — will migrate to Postgres at v0.6+ |
+| sqlite-vec | ^0.1.7-alpha.2 | Vector search extension for SQLite | **Transitional** |
+| neo4j-driver | ^6.0.1 | Knowledge Graph via adapter pattern (JSON or Neo4j) | **Transitional** — KG moving to Valter |
+
+## Authentication
+
+| Library | Version | Purpose | Status |
+|---------|---------|---------|--------|
+| next-auth | ^5.0.0-beta.30 | NextAuth v5 — Google OAuth + Resend magic links, JWT sessions | **Active** |
+
+## UI Libraries
+
+| Library | Version | Purpose | Status |
+|---------|---------|---------|--------|
+| lucide-react | ^0.563.0 | Icon library | **Active** |
+| swr | ^2.3.8 | Data fetching (minimal usage — only `useHealthCheck`) | **Under review** |
+
+## Utilities
+
+| Library | Version | Purpose | Status |
+|---------|---------|---------|--------|
+| jspdf | ^4.2.0 | PDF generation from briefing sessions | **Active** |
+| pdf-parse | ^2.4.5 | Parse uploaded PDF files for analysis | **Transitional** |
+| uuid | ^13.0.0 | ID generation (minimal usage — only health checks) | **Under review** |
+| yauzl | ^3.2.0 | ZIP extraction (ingest scripts only) | **Transitional** |
+
+## Observability
+
+| Library | Version | Purpose | Status |
+|---------|---------|---------|--------|
+| @opentelemetry/api | ^1.9.0 | Distributed tracing API | **Active** (opt-in) |
+| @opentelemetry/sdk-node | ^0.211.0 | Node.js OTel SDK | **Active** (opt-in) |
+| @opentelemetry/exporter-trace-otlp-http | ^0.211.0 | OTLP HTTP exporter | **Active** (opt-in) |
+
+## Development Tools
+
+| Library | Version | Purpose |
+|---------|---------|---------|
+| vitest | ^4.0.18 | Unit and integration testing |
+| @vitest/coverage-v8 | ^4.0.18 | V8 coverage reports |
+| @playwright/test | ^1.58.0 | E2E testing (Chromium only) |
+| @testing-library/react | ^16.3.2 | Component testing utilities |
+| @testing-library/jest-dom | ^6.9.1 | DOM assertion matchers |
+| @testing-library/user-event | ^14.6.1 | User interaction simulation |
+| jsdom | ^28.0.0 | Browser environment for Vitest |
+| eslint | ^9 | Linting with Next.js rules |
+| @next/bundle-analyzer | ^16.1.4 | Bundle size analysis |
+| dotenv | ^17.2.3 | Environment variable loading |
+
+## Build and Deploy
+
+| Tool | Purpose |
+|------|---------|
+| Turbopack | Dev server (via Next.js 16) |
+| Docker (multi-stage) | Production builds with standalone output |
+| GitHub Actions | CI pipeline (lint + build + unit tests) |
+| Railway | Production hosting (auto-deploy from `main`) |
+| Git LFS | Large file storage for data files |
+| Custom git hooks (`.githooks/`) | Pre-commit lint, pre-push tests |
+
+## Dependency Health
+
+After the structural cleanup (2026-02-28), the dependency tree is clean:
+
+- **4 phantom dependencies removed:** zustand, @tanstack/react-virtual, next-pwa, resend
+- **2 dependencies under review:** uuid and swr (minimal usage, candidates for removal)
+- **All remaining dependencies** are actively imported and used in production code
+- **Zero hardcoded secrets** — all API keys and URLs via environment variables
+
+---
+# docs/configuration/environment.md
+---
+
+
+# Environment Variables
+
+Juca uses 30+ environment variables configured via `.env.local`. Copy `.env.example` as a starting point:
+
+```bash
+cp .env.example .env.local
+```
+
+## Quick Start (Minimum Required)
+
+```bash
+ANTHROPIC_API_KEY=sk-ant-...
+GROQ_API_KEY=gsk_...
+ENABLE_DEV_AUTH=true
+```
+
+## LLM API Keys
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `ANTHROPIC_API_KEY` | Anthropic API key for Claude (Sonnet 4, Opus 4, Haiku 3.5) | **Yes** |
+| `GROQ_API_KEY` | Groq API key for fast inference critics (Qwen 3 32B, Llama 3.3 70B) | **Yes** |
+| `OPENAI_API_KEY` | OpenAI API key (GPT-5.x, o3, o1, GPT-4.1) | No |
+| `DEEPSEEK_API_KEY` | DeepSeek API key (R1, Chat) | No |
+| `GEMINI_API_KEY` | Google Gemini API key (2.5 Flash/Pro) | No |
+| `OLLAMA_BASE_URL` | Ollama base URL for local models (comparator only) | No |
+
+:::note
+LLM provider SDKs are **transitional** — LLM processing is moving to the Valter API. These keys are only needed if running the local backend pipeline.
+:::
+
+## Valter Integration
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `VALTER_API_URL` | Valter REST API base URL | **Yes** (hub mode) |
+| `VALTER_API_KEY` | Valter API key (`X-API-Key` header) | **Yes** (hub mode) |
+
+## Database Paths
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `DATA_PATH` | Root data directory | `./data` |
+| `INTEGRAS_PATH` | Full decision texts directory | `./data/integras` |
+| `SESSIONS_PATH` | Session persistence directory | `./data/sessions` |
+| `FEEDBACK_PATH` | User feedback storage path | — |
+| `SQLITE_PATH` | Main SQLite database file | `./data/juca.db` |
+| `SEARCH_DB_PATH` | Search index database file | — |
+| `SQLITE_VEC_PATH` | sqlite-vec extension path | — |
+
+## Knowledge Graph
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `KG_PROVIDER` | KG backend: `json` (local files) or `neo4j` (Neo4j Aura) | `json` |
+| `NEO4J_URI` | Neo4j connection URI (`neo4j+s://...`) | — |
+| `NEO4J_USERNAME` | Neo4j username | — |
+| `NEO4J_PASSWORD` | Neo4j password | — |
+
+:::note
+KG variables are **transitional** — knowledge graph queries are moving to Valter API (`/v1/graph/*`).
+:::
+
+## Authentication
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `ENABLE_DEV_AUTH` | Set to `true` to bypass auth for local dev | No |
+| `ENABLE_TEST_AUTH` | Mock auth for automated tests | No |
+| `GOOGLE_CLIENT_ID` | Google OAuth 2.0 client ID | Production only |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth 2.0 client secret | Production only |
+| `AUTH_SECRET` | NextAuth JWT secret (generate with `openssl rand -base64 32`) | Production only |
+| `RESEND_API_KEY` | Resend API key for magic link emails | Production only |
+| `AUTH_EMAIL_FROM` | Sender email for magic links | Production only |
+| `ADMIN_EMAILS` | Comma-separated admin email whitelist (case-insensitive) | No |
+
+## Embedding Service
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `EMBEDDING_SERVICE_URL` | External embedding service URL | — |
+| `EMBEDDING_MODEL` | Embedding model name | `rufimelo/Legal-BERTimbau-sts-base` |
+
+## Observability
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | OpenTelemetry OTLP endpoint | — (disabled) |
+| `OTEL_EXPORTER_OTLP_HEADERS` | OTLP authentication headers | — |
+| `VITE_LOG_ENDPOINT` | Remote structured logging endpoint | — |
+
+## Application
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `NEXT_PUBLIC_APP_URL` | Public application URL | `http://localhost:3000` |
+| `NEXT_PUBLIC_API_URL` | API base URL (client-side) | `''` (same origin) |
+| `ANALYZE` | Enable Next.js bundle analyzer | — (disabled) |
+
+---
+# docs/configuration/integrations.md
+---
+
+
+# External Integrations
+
+Juca connects to several external services. This page documents how to configure each one.
+
+## Valter API (Primary Backend)
+
+Valter is Juca's primary backend agent, providing STJ jurisprudence search, citation verification, and knowledge graph analysis.
+
+| Setting | Value |
+|---------|-------|
+| **Base URL** | `https://valter-api-production.up.railway.app` |
+| **Auth** | `X-API-Key` header |
+| **Env vars** | `VALTER_API_URL`, `VALTER_API_KEY` |
+
+**Key endpoints consumed by Juca:**
+
+| Endpoint | Method | Used For |
+|----------|--------|----------|
+| `/v1/retrieve` | POST | Jurisprudence search (Briefing F1, F2) |
+| `/v1/verify` | POST | Citation verification |
+| `/v1/graph/optimal-argument` | POST | Adversarial analysis (Briefing F3) |
+| `/v1/graph/divergencias` | GET/POST | Minister divergences (Briefing F3) |
+| `/v1/similar_cases` | POST | Similar case search (Briefing F2) |
+| `/health` | GET | Health check (should return 200) |
+
+**Verify connectivity:**
+
+```bash
+curl -H "X-API-Key: $VALTER_API_KEY" \
+  https://valter-api-production.up.railway.app/health
+```
+
+## LLM Providers
+
+Each provider requires its own API key. These are **transitional** — LLM processing is moving to Valter.
+
+| Provider | Env Variable | Models | Sign Up |
+|----------|-------------|--------|---------|
+| **Anthropic** | `ANTHROPIC_API_KEY` | Claude Sonnet 4, Opus 4, Haiku 3.5 | console.anthropic.com |
+| **OpenAI** | `OPENAI_API_KEY` | GPT-5.x, o3, o1, GPT-4.1 | platform.openai.com |
+| **Google** | `GEMINI_API_KEY` | Gemini 2.5 Flash/Pro | aistudio.google.com |
+| **Groq** | `GROQ_API_KEY` | Qwen 3 32B, Llama 3.3 70B | console.groq.com |
+| **DeepSeek** | `DEEPSEEK_API_KEY` | DeepSeek R1, Chat | platform.deepseek.com |
+
+:::tip
+At minimum, configure **Anthropic** (primary generator) and **Groq** (fast critics). The other providers are optional and provide model diversity for the Generate → Criticize → Revise pipeline.
+:::
+
+## Authentication Providers
+
+### Google OAuth
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/) → APIs & Services → Credentials
+2. Create OAuth 2.0 client ID (Web application)
+3. Add authorized redirect URI: `{NEXT_PUBLIC_APP_URL}/api/auth/callback/google`
+4. Set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`
+
+### Resend (Magic Links)
+
+1. Sign up at [resend.com](https://resend.com)
+2. Create an API key
+3. Verify your sending domain
+4. Set `RESEND_API_KEY` and `AUTH_EMAIL_FROM`
+
+## Neo4j Aura (Transitional)
+
+For direct KG access (being replaced by Valter API):
+
+| Environment | Setup |
+|-------------|-------|
+| **Local dev** | `docker compose up -d` (starts Neo4j Community 5) |
+| **Production** | Neo4j Aura Free tier — set `NEO4J_URI`, `NEO4J_USERNAME`, `NEO4J_PASSWORD` |
+
+Enable with `KG_PROVIDER=neo4j` (default is `json` for local JSON files).
+
+## Observability (OpenTelemetry)
+
+OTel tracing is opt-in. Configure via:
+
+```bash
+OTEL_EXPORTER_OTLP_ENDPOINT=https://your-otel-collector.example.com
+OTEL_EXPORTER_OTLP_HEADERS=Authorization=Bearer your-token
+```
+
+Tracing is initialized in `src/instrumentation.ts` on server startup.
+
+## Railway (Hosting)
+
+Juca is deployed on Railway with automatic deploys from the `main` branch:
+
+- Docker-based deployment using the multi-stage `Dockerfile`
+- Persistent volume for SQLite data (sessions, blocks)
+- Environment variables configured in the Railway dashboard
+- Health check endpoint: `/api/health`
+
+---
+# docs/configuration/settings.md
+---
+
+
+# Configuration Files
+
+Juca has 11 configuration files at the project root. This page documents each one's purpose and key settings.
+
+## File Inventory
+
+| File | Purpose |
+|------|---------|
+| `next.config.ts` | Next.js framework configuration |
+| `tsconfig.json` | TypeScript compiler options |
+| `tailwind.config.ts` | Tailwind CSS v4 (minimal — tokens in CSS) |
+| `postcss.config.mjs` | PostCSS with Tailwind plugin |
+| `vitest.config.ts` | Unit test configuration |
+| `playwright.config.ts` | E2E test configuration |
+| `eslint.config.mjs` | ESLint flat config with Next.js rules |
+| `.env.example` | Environment variables template |
+| `.env.local` | Local environment (gitignored) |
+| `Dockerfile` | Multi-stage production build |
+| `docker-compose.yml` | Local Neo4j dev service |
+
+## Next.js Configuration
+
+Key settings in `next.config.ts`:
+
+| Setting | Value | Purpose |
+|---------|-------|---------|
+| `output` | `'standalone'` | Optimized Docker builds |
+| `serverExternalPackages` | `['better-sqlite3']` | Native module support |
+| Console removal | Production only (keeps warn/error/info) | Cleaner production logs |
+| Security headers | X-Frame-Options, X-Content-Type-Options, etc. | OWASP best practices |
+| API cache | `no-store, max-age=0` | Prevent stale API responses |
+
+## Tailwind v4 (CSS-First)
+
+Tailwind v4 uses a CSS-first configuration approach. Design tokens are defined in `src/app/globals.css` as CSS custom properties, not in `tailwind.config.ts`:
+
+```css
+/* src/app/globals.css — design tokens */
+:root {
+  --color-primary: #000000;
+  --color-accent: #fff06d;
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f5f5f5;
+  --color-text-primary: #000000;
+  --color-text-secondary: #666a6f;
+  --radius-sm: 4px;
+  --radius-full: 9999px;
+  /* ... 50+ tokens for IRAC colors, confidence levels, KG themes, shadows */
+}
+```
+
+The `tailwind.config.ts` file is minimal — it exists primarily for plugin registration.
+
+## TypeScript Path Aliases
+
+The `tsconfig.json` configures a single path alias:
+
+```json
+{
+  "compilerOptions": {
+    "paths": { "@/*": ["./src/*"] }
+  }
+}
+```
+
+All imports throughout the codebase use `@/` instead of relative paths:
+
+```typescript
+import { auth } from '@/lib/auth';
+import { getBlocksDB } from '@/lib/db/sessions';
+```
+
+## Git Hooks
+
+Custom hooks in `.githooks/`:
+
+| Hook | Action |
+|------|--------|
+| `pre-commit` | Runs ESLint on staged files |
+| `pre-push` | Runs the full Vitest test suite |
+| `post-checkout` | Cleanup tasks |
+| `post-commit` | Cleanup tasks |
+| `post-merge` | Cleanup tasks |
+
+Configured via `package.json`:
+
+```json
+{ "scripts": { "prepare": "git config core.hooksPath .githooks" } }
+```
+
+## Docker
+
+The `Dockerfile` uses a 3-stage build:
+
+1. **deps** — `npm ci` with production dependencies
+2. **build** — `next build` with standalone output
+3. **runtime** — Minimal Node.js image with only production artifacts
+
+The `docker-compose.yml` provides a local Neo4j Community 5 instance for development. This will be deprecated after the Valter migration is complete.
+
+---
+# docs/development/contributing.md
+---
+
+
+# Contributing Guide
+
+Juca accepts contributions from both human developers and AI code agents. This page covers the branching strategy, PR process, and rules that apply to all contributors.
+
+## Before You Start
+
+1. Follow the [Installation guide](/getting-started/installation) for full setup
+2. Read the [Coding Conventions](/development/conventions) for standards
+3. Read the [Testing Guide](/development/testing) for test requirements
+4. Read `CLAUDE.md` at the project root for AI agent instructions
+
+## Branching Strategy
+
+| Branch | Purpose | Protection |
+|--------|---------|------------|
+| `main` | Stable branch, all PRs target here | CI must pass |
+| `feature/[issue]-[description]-claude` | Claude Code feature branches | — |
+| `feature/[issue]-[description]-codex` | Codex feature branches | — |
+
+**Rules:**
+- Always branch from `main`
+- Include the GitHub issue number in the branch name
+- Append `-claude` or `-codex` suffix to identify the agent
+- Never work on a branch owned by the other agent
+
+```bash
+# Example: creating a branch for issue #285
+git checkout main
+git pull
+git checkout -b feature/285-briefing-phase1-claude
+```
+
+## Making Changes
+
+1. Create your feature branch from `main`
+2. Make changes following the [conventions](/development/conventions)
+3. Write tests for new functionality
+4. The `pre-push` hook runs tests automatically on push
+5. CI runs lint + build + unit tests on the remote
+
+## Pull Request Guidelines
+
+When creating a PR:
+
+- **Title:** Short, descriptive (< 70 characters)
+- **Body:** Summary of changes, link to related issue(s)
+- **Tests:** All tests must pass in CI
+- **No new lint errors**
+- **Follow existing patterns** — don't introduce new abstractions without justification
+
+## Rules for AI Agent Contributors
+
+These rules from `CLAUDE.md` are mandatory:
+
+| Rule | Rationale |
+|------|-----------|
+| Never run builds/bundlers locally | Saves CPU, uses CI instead |
+| Prefer editing existing code | Prevents abstraction bloat |
+| Don't add features beyond what's asked | Keeps changes focused |
+| Don't add comments, docstrings, or types to unchanged code | Reduces diff noise |
+| Default to simplest reversible solution | Maximizes flexibility |
+| Never skip git hooks | Ensures code quality |
+
+**Priority order when principles conflict:**
+
+1. Correctness (especially security, data integrity)
+2. Simplicity and clarity
+3. Maintainability over time
+4. Reversibility of decisions
+5. Performance and optimization
+
+## What NOT to Do
+
+- Don't create abstractions for one-time operations
+- Don't add error handling for scenarios that can't happen
+- Don't design for hypothetical future requirements
+- Don't add backwards-compatibility shims — just change the code
+- Don't create documentation files unless explicitly requested
+
+---
+# docs/development/conventions.md
+---
+
+
+# Coding Conventions
+
+This page documents all coding patterns enforced in the Juca codebase. Following these conventions ensures consistency and makes the codebase predictable for both human and AI contributors.
+
+## Naming Conventions
+
+| Context | Convention | Example |
+|---------|-----------|---------|
+| Components | PascalCase | `WorkCanvas.tsx`, `PhaseRail.tsx` |
+| Hooks | camelCase with `use` prefix | `useFeatureFlag`, `useSSEStream` |
+| Server Actions | camelCase | `updateDiagnosis`, `evaluatePrecedent` |
+| API routes | kebab-case directories | `document-metadata/`, `validate-processo/` |
+| Block types | snake_case | `risk_balance`, `exit_card`, `action_prompt` |
+| Feature flags | camelCase | `unifiedHome`, `deepMode` |
+| CSS tokens | kebab-case with `--` prefix | `--color-primary`, `--radius-xl` |
+
+## Authentication Patterns
+
+The codebase uses two auth patterns. Never mix them:
+
+**Server Actions** — Use `requireActionAuth()`:
+
+```typescript
+// src/actions/briefing.ts
+'use server';
+import { requireActionAuth } from '@/actions/utils';
+
+export async function updateDiagnosis(sessionId: string, fields: object) {
+  const user = await requireActionAuth(); // throws if unauthorized
+  // ...
+}
+```
+
+**API Routes** — Use `auth()` directly:
+
+```typescript
+// src/app/api/unified/sessions/route.ts
+import { auth } from '@/lib/auth';
+
+export async function GET() {
+  const session = await auth();
+  if (!session?.user) return new Response('Unauthorized', { status: 401 });
+  // ...
+}
+```
+
+:::caution
+Never use `getServerSession()` — always use `auth()` from `@/lib/auth`. The codebase has 100% consistency on this pattern.
+:::
+
+## Block Creation Pattern
+
+Always use factory helpers to create blocks:
+
+```typescript
+import { createDiagnosisData } from '@/lib/blocks/types';
+import { getBlocksDB } from '@/lib/db/sessions';
+
+const blockData = createDiagnosisData(analysis);
+await getBlocksDB().addBlock({
+  sessionId,
+  type: 'diagnosis',
+  data: blockData
+});
+```
+
+## Next.js 16 Route Params
+
+Route parameters in Next.js 16 are `Promise`-based:
+
+```typescript
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;  // Must await!
+  // ...
+}
+```
+
+## Commit Conventions
+
+```text
+feat(scope): description        # New feature
+fix(scope): description         # Bug fix
+docs: description               # Documentation only
+chore: description              # Maintenance, dependencies
+```
+
+Scopes: `rewrite`, `briefing`, `deploy`, `lint`, `test`, `auth`, etc.
+
+All commits include a co-author header:
+
+```text
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+```
+
+## CSS and Animations
+
+Tailwind v4 CSS-first approach — tokens in `src/app/globals.css`:
+
+```css
+:root {
+  --color-primary: #000000;
+  --color-accent: #fff06d;
+  --color-bg-primary: #ffffff;
+}
+```
+
+Available animation utilities:
+
+| Class | Effect |
+|-------|--------|
+| `animate-fade-in` | 300ms fadeIn (translateY 10px→0, opacity 0→1) |
+| `spring-transition` | `cubic-bezier(0.34, 1.56, 0.64, 1)` for spring feel |
+| `animate-pulse` | Built-in Tailwind pulse |
+| `scroll-smooth-block` | Smooth scroll behavior |
+
+For staggered animations:
+
+```tsx
+<div style={{
+  animationDelay: `${index * 100}ms`,
+  animationFillMode: 'backwards'
+}}>
+```
+
+## Import Organization
+
+All imports use the `@/` alias. Order:
+
+```typescript
+// 1. React / Next.js
+import React, { useState } from 'react';
+import { NextResponse } from 'next/server';
+
+// 2. External libraries
+import { jsPDF } from 'jspdf';
+
+// 3. Internal libraries
+import { auth } from '@/lib/auth';
+import { getBlocksDB } from '@/lib/db/sessions';
+
+// 4. Components
+import { WorkCanvas } from '@/components/canvas/WorkCanvas';
+
+// 5. Types
+import type { Block, BlockType } from '@/types/blocks';
+```
+
+## Code Style
+
+- **TypeScript strict mode** — all code must pass `tsc` without errors
+- **ESLint** with Next.js rules (flat config in `eslint.config.mjs`)
+- **No Prettier** — ESLint handles formatting
+- **No console.log** in production code — use the centralized logger at `src/lib/logger.ts`
+
+---
+# docs/development/setup.md
+---
+
+
+# Development Setup
+
+This page covers the daily development workflow after initial installation. For first-time setup, see [Installation](/getting-started/installation).
+
+## Development Workflow
+
+The standard development cycle:
+
+1. **Pull latest** from `main`
+2. **Create feature branch:** `git checkout -b feature/[issue]-description-claude`
+3. **Start dev server:** `npm run dev` (Turbopack)
+4. **Make changes** following [coding conventions](/development/conventions)
+5. **Run tests locally:** `npm test` (or let pre-push hook handle it)
+6. **Push** — pre-push hook runs tests, CI runs lint + build + tests
+7. **Create PR** targeting `main`
+
+## Available Scripts
+
+| Script | Command | Purpose |
+|--------|---------|---------|
+| `npm run dev` | `next dev` | Start Turbopack dev server at localhost:3000 |
+| `npm test` | `vitest run` | Run all Vitest unit tests |
+| `npm run test:watch` | `vitest` | Watch mode — re-runs on file changes |
+| `npm run test:coverage` | `vitest run --coverage` | Generate V8 coverage report |
+| `npm run test:e2e` | `playwright test` | Run Playwright E2E tests |
+| `npm run test:e2e:ui` | `playwright test --ui` | Playwright UI mode (visual debugging) |
+| `npm run test:e2e:headed` | `playwright test --headed` | E2E with visible browser |
+| `npm run lint` | `eslint` | ESLint check |
+| `npm run analyze` | `ANALYZE=true next build` | Bundle size analysis |
+| `npm run prepare` | `git config core.hooksPath .githooks` | Configure git hooks |
+
+## Multi-Agent Development
+
+This project uses two AI code agents working in parallel:
+
+| Agent | Environment | Branch Suffix |
+|-------|------------|--------------|
+| **Claude Code** | Local execution | `-claude` |
+| **Codex** (OpenAI) | Cloud execution | `-codex` |
+
+:::danger
+**Never work on a Codex branch.** Before starting work, always check:
+```bash
+git branch -a | grep codex
+```
+If a `-codex` branch exists for your feature, do not touch the same files.
+:::
+
+## Important Rules
+
+These rules come from `CLAUDE.md` and apply to all contributors (human and AI):
+
+1. **Never run `next build`, `webpack`, `docker build`, or any build that consumes >50% CPU locally.** Push to your branch and let CI handle it.
+2. **Prefer editing existing code** over creating new abstractions.
+3. **When unsure:** ask, propose minimal approach, default to simplest reversible solution.
+4. **Priority order:** Correctness > Simplicity > Maintainability > Reversibility > Performance.
+5. **Never skip git hooks** (`--no-verify`) unless explicitly instructed.
+
+---
+# docs/development/testing.md
+---
+
+
+# Testing Guide
+
+Juca uses Vitest for unit/integration tests, Testing Library for component tests, and Playwright for E2E tests. This page covers running tests, writing tests, and the project's test conventions.
+
+## Test Stack
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| Vitest | ^4.0.18 | Unit and integration test runner |
+| @vitest/coverage-v8 | ^4.0.18 | V8 coverage provider |
+| Playwright | ^1.58.0 | E2E testing (Chromium only) |
+| Testing Library | ^16.3.2 | React component test utilities |
+| jest-dom | ^6.9.1 | DOM assertion matchers |
+| user-event | ^14.6.1 | User interaction simulation |
+| jsdom | ^28.0.0 | Browser environment for unit tests |
+
+## Running Tests
+
+```bash
+# Unit tests (single run)
+npm test
+
+# Watch mode (re-runs on file changes)
+npm run test:watch
+
+# Coverage report
+npm run test:coverage
+
+# E2E tests
+npm run test:e2e
+
+# E2E with visible browser
+npm run test:e2e:headed
+
+# E2E with UI mode (visual debugger)
+npm run test:e2e:ui
+```
+
+## Test File Organization
+
+Tests live alongside the code they test:
+
+| Code Location | Test Location | Example |
+|---|---|---|
+| `src/app/api/unified/sessions/route.ts` | `src/app/api/unified/sessions/__tests__/route.test.ts` | API route test |
+| `src/lib/blocks/types.ts` | `src/lib/blocks/__tests__/types.test.ts` | Library test |
+| `src/components/blocks/DiagnosisBlock.tsx` | `src/components/blocks/__tests__/DiagnosisBlock.test.tsx` | Component test |
+| `src/actions/briefing.ts` | `src/actions/__tests__/briefing.test.ts` | Server action test |
+| (E2E flows) | `e2e/*.spec.ts` | End-to-end specs |
+| (E2E data) | `e2e/fixtures/briefing-blocks.ts` | Shared fixtures |
+
+## Environment Directives
+
+Vitest test files can specify their environment:
+
+```typescript
+// @vitest-environment node
+// Use for: server-side code (jsPDF, SQLite, file system)
+
+// @vitest-environment jsdom
+// Use for: component tests (React, DOM manipulation)
+```
+
+Default environment is `jsdom` (configured in `vitest.config.ts`).
+
+## Writing Unit Tests
+
+### Block Factory Tests
+
+```typescript
+import { createDiagnosisData } from '@/lib/blocks/types';
+import { makeBlock } from './helpers';
+
+describe('createDiagnosisData', () => {
+  it('creates diagnosis block from analysis', () => {
+    const analysis = { /* mock CaseAnalysis */ };
+    const data = createDiagnosisData(analysis);
+    expect(data).toHaveProperty('situation');
+    expect(data).toHaveProperty('area');
+  });
+});
+```
+
+### Using `makeBlock()` Helper
+
+The `makeBlock()` test helper creates block fixtures with type and data overrides:
+
+```typescript
+const block = makeBlock({
+  type: 'diagnosis',
+  data: { situation: 'pesquisando', area: 'civil' }
+});
+```
+
+## Writing E2E Tests
+
+E2E tests use Playwright with API mocking via `page.route()`:
+
+```typescript
+import { test, expect } from '@playwright/test';
+
+test('renders briefing blocks', async ({ page }) => {
+  // Mock the API response
+  await page.route('/api/unified/analyze', async route => {
+    await route.fulfill({
+      json: { success: true, data: { blocks: mockBlocks } }
+    });
+  });
+
+  await page.goto('/');
+  await expect(page.getByTestId('work-canvas')).toBeVisible();
+});
+```
+
+**Playwright configuration highlights:**
+
+| Setting | Value |
+|---------|-------|
+| Browser | Chromium only (Desktop Chrome) |
+| Parallel | `true` |
+| Retries | 2 in CI, 0 locally |
+| Screenshots | On failure only |
+| Traces | On first retry |
+| Base URL | `http://localhost:3000` |
+
+## Coverage Status
+
+| Area | Test Files | Coverage |
+|------|-----------|----------|
+| API Routes (`src/app/api/`) | 51 | Good |
+| Backend lib (`src/lib/`) | 48 | Good |
+| Components (`src/components/`) | 24 | Partial (ui/ and blocks/ covered) |
+| Server Actions (`src/actions/`) | 2 | Partial |
+| E2E specs (`e2e/`) | 8 | Main flows covered |
+
+:::caution
+**Known issue:** 72 test files are currently failing ([#270](https://github.com/sensdiego/juca/issues/270)). Many test backend code that is being migrated to Valter. These need re-evaluation before the v0.3 milestone.
+:::
+
+## CI Integration
+
+GitHub Actions runs on every push to `main`/`develop` and on PRs to `main`:
+
+1. **lint-and-build** job: `npm ci` → `npm run lint` → `npm run build`
+2. **test-unit** job: `npm ci` → `npm test` → `npm run test:coverage`
+
+Coverage artifacts are uploaded with 14-day retention.
+
+:::note
+E2E tests do **not** run in CI yet. Playwright integration with GitHub Actions is planned for v0.5.
+:::
+
+---
+# docs/features/auth.md
+---
+
+
+# Authentication
+
+Juca uses NextAuth v5 (Auth.js) for authentication with JWT-based sessions. Two authentication providers are configured: Google OAuth and Resend magic links (email).
+
+## Configuration
+
+The auth system is defined in `src/lib/auth.ts`:
+
+```typescript
+// Exports
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  providers: [Google, Resend],
+  session: { strategy: 'jwt' },
+  pages: { signIn: '/auth/signin' },
+  // ...
+});
+```
+
+**Required environment variables for production:**
+
+| Variable | Purpose |
+|----------|---------|
+| `GOOGLE_CLIENT_ID` | Google OAuth client ID |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret |
+| `AUTH_SECRET` | NextAuth JWT secret |
+| `RESEND_API_KEY` | Resend API key for magic link emails |
+| `AUTH_EMAIL_FROM` | Sender email for magic links |
+| `ADMIN_EMAILS` | Comma-separated admin email whitelist |
+
+## Dev Bypass
+
+For local development, set `ENABLE_DEV_AUTH=true` to skip authentication entirely. This returns a hardcoded dev user:
+
+```typescript
+// Dev user returned when ENABLE_DEV_AUTH=true
+{ id: 'dev-user', email: 'dev@localhost', name: 'Dev User', role: 'admin' }
+```
+
+## Auth Patterns in Code
+
+Juca uses two distinct auth patterns depending on context:
+
+### Server Actions
+
+```typescript
+// src/actions/utils.ts
+import { requireActionAuth } from '@/actions/utils';
+
+// In any server action:
+const user = await requireActionAuth();
+// Throws if not authenticated (unless ENABLE_DEV_AUTH=true)
+```
+
+### API Routes
+
+```typescript
+// In any API route handler:
+import { auth } from '@/lib/auth';
+
+export async function GET(request: Request) {
+  const session = await auth();
+  if (!session?.user) return new Response('Unauthorized', { status: 401 });
+  // ...
+}
+```
+
+:::caution
+**Never use `getServerSession()`** — always use `auth()` from `src/lib/auth`. The codebase is 100% consistent on this pattern.
+:::
+
+## Admin Role
+
+Admin users are determined by the `ADMIN_EMAILS` environment variable (comma-separated, case-insensitive). The `isAdmin()` function checks membership, and the JWT callback adds a `role` field to the token.
+
+## Middleware
+
+Auth middleware (`src/middleware.ts`) protects all routes except static assets and the health endpoint:
+
+```typescript
+// src/middleware.ts
+export { auth as middleware } from '@/lib/auth';
+
+export const config = {
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|icons|manifest.json|sw.js).*)']
+};
+```
+
+## Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| `AuthProvider` | `src/components/auth/AuthProvider.tsx` | NextAuth SessionProvider wrapper |
+| Sign-in page | `src/app/auth/signin/page.tsx` | Custom sign-in UI |
+
+---
+# docs/features/block-system.md
+---
+
+
+# Block System
+
+The Block System is Juca's fundamental UI architecture. Every piece of content rendered in the WorkCanvas — from chat messages to legal diagnoses to strategic recommendations — is a **Block**: a typed data structure with a corresponding React component.
+
+## Why Blocks?
+
+The Block System replaced a tab-based panel architecture where each feature (Chat, Juris, Ratio, Compare, Insights, Semantic) had its own isolated rendering logic. Blocks solve three problems:
+
+1. **Uniform composition** — Any content type can be rendered in the same canvas
+2. **SSE-friendly** — Blocks stream incrementally as they're created
+3. **Testable** — Each block type has a factory function (pure) and a component (isolated)
+
+## The 11 Block Types
+
+| Type | Component | Briefing Phase | Purpose |
+|------|-----------|---------------|---------|
+| `message` | MessageBlock | Phase 0 (Chat) | User and AI chat messages |
+| `progress` | ProgressBlock | Any | Loading indicators during processing |
+| `diagnosis` | DiagnosisBlock | Phase 1 | Diagnostic card with situation, area, theme, thesis |
+| `action_prompt` | ActionPromptBlock | Phase 1 | Interactive prompts suggesting next actions |
+| `precedent` | PrecedentBlock | Phase 2 | Individual STJ precedent card with details |
+| `precedent_picker` | PrecedentPickerBlock | Phase 2 | Selection interface for evaluating precedents |
+| `summary` | SummaryBlock | Any | Summary of analysis state |
+| `risk_balance` | RiskBalanceBlock | Phase 3 | Visual risk-vs-opportunity balance |
+| `chart` | ChartBlock | Phase 3 | Data visualization of risk analysis |
+| `delivery` | DeliveryBlock | Phase 4 | Final output in one of 4 adaptive modes |
+| `exit_card` | ExitCardBlock | Phase 4 | Session completion with summary + export |
+
+## Block Lifecycle
+
+Every block follows this lifecycle from creation to rendering:
+
+```text
+1. Intent detected → Tool selected
+2. Tool calls Valter API or processes data
+3. Block Factory creates typed data:
+   createDiagnosisData(analysis)
+   createPrecedentData(precedent)
+   createRiskBalanceData(analysis, situation, evaluations)
+4. Block persisted: getBlocksDB().addBlock(input)
+5. SSE streams block event to client
+6. WorkCanvas renders block component based on block.type
+```
+
+## Block Factory Functions
+
+All factory functions live in `src/lib/blocks/types.ts`. Each returns a strongly-typed data object:
+
+```typescript
+// Phase 1 factories
+createDiagnosisData(analysis: CaseAnalysis): DiagnosisBlockData
+createSituationPromptData(): ActionPromptBlockData
+createContextPromptData(): ActionPromptBlockData
+
+// Phase 2 factories
+createPrecedentData(p: Precedent): PrecedentBlockData
+createPrecedentPickerData(total, precedentBlockIds): PrecedentPickerBlockData
+
+// Phase 3 factories
+createSummaryData(total): SummaryBlockData
+createRiskBalanceData(analysis, situation, evaluatedUseful): RiskBalanceBlockData
+createChartData(analysis, riskBalance): ChartBlockData
+
+// Phase 4 factories
+createDeliveryData(analysis, state): DeliveryBlockData
+createExitCardData(): ExitCardBlockData
+```
+
+### Risk Weight Calculation
+
+The `risk_balance` block uses a weighted scoring system:
+
+```typescript
+// Risk severity × probability → weighted score
+const weights = {
+  alta:  { provavel: 90, possivel: 75, improvavel: 60 },
+  media: { provavel: 60, possivel: 45, improvavel: 30 },
+  baixa: { provavel: 40, possivel: 25, improvavel: 15 }
+};
+```
+
+### Delivery Mode Selection
+
+The `delivery` block adapts based on the user's situation selected in Phase 1:
+
+| Situation | Delivery Mode | Content Generator |
+|-----------|--------------|-------------------|
+| `pesquisando` (researching) | Síntese (Synthesis) | `buildSinteseContent()` |
+| `avaliando` (evaluating) | Parecer (Opinion) | `buildParecerContent()` |
+| `atuando` (acting) | Estratégia (Strategy) | `buildEstrategiaContent()` |
+| `estudando` (studying) | Mapa (Map) | `buildMapaContent()` |
+
+## Block Components
+
+Block components live in `src/components/blocks/`. Each receives typed props matching its data shape and renders independently. The WorkCanvas maps `block.type` to the correct component:
+
+```typescript
+// Simplified WorkCanvas rendering logic
+{blocks.map(block => {
+  switch (block.type) {
+    case 'message':    return <MessageBlock data={block.data} />
+    case 'diagnosis':  return <DiagnosisBlock data={block.data} />
+    case 'precedent':  return <PrecedentBlock data={block.data} />
+    // ... etc for all 11 types
+  }
+})}
+```
+
+## Adding a New Block Type
+
+To add a 12th block type:
+
+1. **Define the type** in `src/types/blocks.ts` — add to the `BlockType` union and create the `YourBlockData` interface
+2. **Create the factory** in `src/lib/blocks/types.ts` — add `createYourBlockData()` function
+3. **Build the component** in `src/components/blocks/YourBlock.tsx` — React component that renders the data
+4. **Register in WorkCanvas** — add the `case` to the block type switch in `src/components/canvas/WorkCanvas.tsx`
+5. **Write tests** — unit test for the factory function and component test for the React component
+
+:::tip
+Use the `makeBlock()` test helper (from test utilities) with type and data overrides to quickly create block fixtures in tests.
+:::
+
+---
+# docs/features/briefing/index.md
+---
+
+
+# Briefing Progressivo
+
+The Briefing Progressivo is Juca's signature feature — a 4-phase progressive disclosure system that transforms raw legal analysis into structured, interactive deliverables. Instead of dumping all results at once, each phase reveals a deeper layer of analysis, building on the user's input and selections.
+
+## Design Philosophy
+
+Three principles guide the Briefing:
+
+1. **Progressive disclosure** — Reveal complexity gradually, not all at once
+2. **No mandatory interaction** — Each phase produces standalone value; the user can stop at any point
+3. **Incremental implementation** — Build one phase at a time, test until stable, then proceed
+
+## Phase Overview
+
+```mermaid
+flowchart LR
+    P0["Phase 0<br/>Chat"] --> P1["Phase 1<br/>Diagnosis"]
+    P1 --> P2["Phase 2<br/>Precedents"]
+    P2 --> P3["Phase 3<br/>Risks"]
+    P3 --> P4["Phase 4<br/>Delivery"]
+    P4 --> PDF["PDF Export"]
+```
+
+| Phase | Name | Block Types | Valter Endpoints | Status |
+|-------|------|------------|-----------------|--------|
+| 0 | Chat | `message` | — | ✅ Implemented |
+| 1 | [Diagnosis](/features/briefing/phase-1-diagnosis) | `diagnosis`, `action_prompt` | `/v1/retrieve` (context) | 🔨 In Progress |
+| 2 | [Precedents](/features/briefing/phase-2-precedents) | `precedent`, `precedent_picker` | `/v1/retrieve`, `/v1/similar_cases` | 📋 Planned |
+| 3 | [Risks](/features/briefing/phase-3-risks) | `risk_balance`, `chart` | `/v1/graph/optimal-argument`, `/v1/graph/divergencias` | 📋 Planned |
+| 4 | [Delivery](/features/briefing/phase-4-delivery) | `delivery`, `exit_card` | Aggregation of all phases | 📋 Planned |
+
+## Implementation Architecture
+
+### Server Actions
+
+All briefing state transitions are managed by server actions in `src/actions/briefing.ts`:
+
+| Phase | Action | Purpose |
+|-------|--------|---------|
+| 1 | `updateDiagnosis(sessionId, fields)` | Update diagnosis card fields |
+| 1 | `chooseSituation(sessionId, situation)` | Select user situation → determines delivery mode |
+| 1 | `addAdditionalContext(sessionId, text)` | Append context information |
+| 2 | `evaluatePrecedent(sessionId, processoId, evaluation)` | Rate a precedent (useful/not) |
+| 3 | `resolveRisk(sessionId, riskId)` | Mark a risk as resolved |
+| 3 | `advanceToPhase3(sessionId)` | Transition from P2 → P3 |
+| 4 | `generateDelivery(sessionId)` | Generate the final deliverable |
+| 4 | `choosePath(sessionId, pathId)` | Select a strategic path |
+| 4 | `setFaseProcessual(sessionId, fase)` | Set procedural stage |
+| 4 | `finalizeSession(sessionId)` | Complete the session |
+| 4 | `handleExitAction(sessionId, action)` | Handle exit card actions |
+
+### State Management
+
+Briefing state is stored as JSON in the session's `metadata` field. The `loadBriefingState()` helper loads or initializes the state:
+
+```typescript
+// State is loaded per-session, not globally
+const state = await loadBriefingState(sessionId);
+// Returns BriefingFlowState with: phase, situation, diagnosis, precedentEvaluations, risks, etc.
+```
+
+### PhaseRail Component
+
+The `PhaseRail` (`src/components/shell/PhaseRail.tsx`) is a vertical navigation rail showing:
+
+- Current active phase (highlighted)
+- Completed phases (clickable for navigation)
+- Future phases (dimmed)
+
+It sits alongside the WorkCanvas in the AppShell layout.
+
+## Situation-to-Delivery Mapping
+
+The user's situation, selected in Phase 1, determines which delivery mode Phase 4 produces:
+
+| Situation (Phase 1) | Delivery Mode (Phase 4) | Content |
+|---------------------|------------------------|---------|
+| `pesquisando` (researching) | Síntese (Synthesis) | Concise summary of favorable/unfavorable precedents |
+| `avaliando` (evaluating) | Parecer (Opinion) | Formal legal opinion with favorability percentage |
+| `atuando` (acting) | Estratégia (Strategy) | 2-3 strategic paths with actionable steps |
+| `estudando` (studying) | Mapa (Map) | Temporal evolution + divergent currents |
+
+## PDF Integration
+
+After Phase 4, users can export the entire briefing as a PDF. The PDF reflects selections made across all four phases. See [PDF Export](/features/pdf-export) for details.
+
+---
+# docs/features/briefing/phase-1-diagnosis.md
+---
+
+
+# Phase 1: Diagnosis
+
+Phase 1 is the first analytical step after the initial chat (Phase 0). It presents an interactive diagnosis card that captures the user's legal situation and enriches it with context from the Valter API.
+
+## What Happens
+
+1. User describes their legal question in the Composer
+2. Intent detection identifies a case analysis need
+3. A `diagnosis` block appears with pre-filled fields extracted from the query
+4. User edits and refines the fields (situation, legal area, theme, thesis)
+5. User selects their **situation** (researching, evaluating, acting, or studying)
+6. System calls Valter `/v1/retrieve` for initial context enrichment
+7. `action_prompt` blocks suggest next steps
+8. Phase 2 becomes available
+
+## Block Types Produced
+
+| Block Type | Purpose |
+|-----------|---------|
+| `diagnosis` | Main card with editable fields: situation description, legal area, theme, thesis |
+| `action_prompt` | Interactive buttons for situation selection and additional context |
+
+## Server Actions
+
+```typescript
+// Update diagnosis fields
+updateDiagnosis(sessionId: string, fields: Partial<DiagnosisFields>)
+  → Returns: BriefingFlowState
+
+// Select user situation (determines Phase 4 delivery mode)
+chooseSituation(sessionId: string, situation: Situation)
+  → Returns: { state: BriefingFlowState, phase2Blocks: Block[] }
+
+// Add context information
+addAdditionalContext(sessionId: string, text: string)
+  → Returns: BriefingFlowState
+```
+
+## Valter API Integration
+
+Phase 1 calls Valter to enrich the diagnosis with relevant context:
+
+| Endpoint | Purpose |
+|----------|---------|
+| `/v1/retrieve` | Search for initial precedents matching the legal area and theme |
+
+> 🚧 **Planned Feature** — The Valter integration for Phase 1 is being implemented as part of v0.3 (adapter layer) and v0.4 (briefing phases).
+
+## Situation Selection
+
+The situation selection in Phase 1 is critical because it cascades to Phase 4:
+
+| Selection | Label | Meaning | Phase 4 Output |
+|-----------|-------|---------|----------------|
+| `pesquisando` | Researching | Gathering information | Síntese (Synthesis) |
+| `avaliando` | Evaluating | Analyzing a specific case | Parecer (Opinion) |
+| `atuando` | Acting | Taking legal action | Estratégia (Strategy) |
+| `estudando` | Studying | Academic study | Mapa (Map) |
+
+---
+# docs/features/briefing/phase-2-precedents.md
+---
+
+
+# Phase 2: Precedents
+
+Phase 2 presents relevant STJ precedents as interactive cards. Users evaluate each precedent (useful or not useful) and select the ones most relevant to their case. These selections directly influence the risk analysis in Phase 3.
+
+## What Happens
+
+1. Diagnosis context from Phase 1 is sent to Valter
+2. Valter returns relevant precedents via `/v1/retrieve` and `/v1/similar_cases`
+3. Precedent cards appear in the WorkCanvas
+4. User evaluates each precedent (relevant / not relevant)
+5. A `precedent_picker` block provides a selection interface
+6. Selected precedents feed into Phase 3 (Risks)
+
+## Block Types Produced
+
+| Block Type | Purpose |
+|-----------|---------|
+| `precedent` | Individual STJ precedent card with case details, ementa, and key reasoning |
+| `precedent_picker` | Selection interface showing total precedents and selected count |
+
+## Server Actions
+
+```typescript
+// Evaluate a single precedent
+evaluatePrecedent(sessionId: string, processoId: string, evaluation: PrecedentEvaluation)
+  → Returns: BriefingFlowState
+```
+
+## Valter API Integration
+
+| Endpoint | Purpose |
+|----------|---------|
+| `/v1/retrieve` | Primary search for precedents matching the Phase 1 diagnosis |
+| `/v1/similar_cases` | Find cases similar to the user's selected precedents |
+
+## Block Factory
+
+```typescript
+// Create a precedent block from Valter search results
+createPrecedentData(precedent: Precedent): PrecedentBlockData
+
+// Create the picker interface
+createPrecedentPickerData(total: number, precedentBlockIds: string[]): PrecedentPickerBlockData
+```
+
+> 🚧 **Planned Feature** — Phase 2 is planned for v0.4 milestone.
+
+---
+# docs/features/briefing/phase-3-risks.md
+---
+
+
+# Phase 3: Risks & Opportunities
+
+Phase 3 synthesizes the diagnosis (Phase 1) and selected precedents (Phase 2) into a visual risk-opportunity balance. It uses Valter's graph analysis endpoints for adversarial argument generation and divergence analysis.
+
+## What Happens
+
+1. Diagnosis + selected precedents sent to Valter graph endpoints
+2. Valter returns adversarial analysis (arguments for and against)
+3. A `risk_balance` block renders the visual balance
+4. A `chart` block provides data visualization
+5. Progressive reveal: risks shown first, then opportunities
+6. User can explore details of each risk/opportunity
+7. Phase 4 delivery options become available
+
+## Block Types Produced
+
+| Block Type | Purpose |
+|-----------|---------|
+| `risk_balance` | Visual balance showing weighted risks vs. opportunities |
+| `chart` | Data visualization of risk analysis results |
+
+## Server Actions
+
+```typescript
+// Advance from Phase 2 to Phase 3
+advanceToPhase3(sessionId: string)
+  → Returns: { state: BriefingFlowState, phase3Blocks: Block[] }
+
+// Mark a specific risk as resolved/acknowledged
+resolveRisk(sessionId: string, riskId: string)
+  → Returns: BriefingFlowState
+```
+
+## Valter API Integration
+
+| Endpoint | Purpose |
+|----------|---------|
+| `/v1/graph/optimal-argument` | Adversarial analysis — generates strongest arguments both for and against |
+| `/v1/graph/divergencias` | Analyzes divergences between ministers and court divisions |
+| `/v1/graph/temporal-evolution` | Temporal trends in how decisions on this topic have evolved |
+
+## Risk Weight System
+
+The risk balance uses a weighted scoring model defined in the Block Factory:
+
+```typescript
+// Severity × Probability → Weighted Score (0-100)
+const weights = {
+  alta:  { provavel: 90, possivel: 75, improvavel: 60 },
+  media: { provavel: 60, possivel: 45, improvavel: 30 },
+  baixa: { provavel: 40, possivel: 25, improvavel: 15 }
+};
+```
+
+Each risk is scored, and the aggregate determines the overall balance visualization.
+
+## Innovation: Contradição Estratégica
+
+Phase 3 is designed to support an adversarial dual-view feature ("Contradição Estratégica"):
+
+1. Call Valter `/v1/graph/optimal-argument` twice — once for the "for" side, once for "against"
+2. Call `/v1/graph/divergencias` for minister-level disagreements
+3. Render a 3-zone strategic balance visualization
+
+This provides lawyers with both sides of the argument in a single view — a capability no commercial legal AI currently offers.
+
+> 🚧 **Planned Feature** — Phase 3 is planned for v0.4 milestone.
+
+---
+# docs/features/briefing/phase-4-delivery.md
+---
+
+
+# Phase 4: Contextual Delivery
+
+Phase 4 is the culmination of the Briefing — it aggregates all previous phases into a tailored deliverable. The delivery mode is determined by the user's situation selected in Phase 1.
+
+## Delivery Modes
+
+| Mode | Situation | Content | Generator Function |
+|------|-----------|---------|-------------------|
+| **Síntese** (Synthesis) | `pesquisando` | Concise summary of favorable and unfavorable precedents | `buildSinteseContent()` |
+| **Parecer** (Opinion) | `avaliando` | Formal legal opinion with favorability percentage | `buildParecerContent()` |
+| **Estratégia** (Strategy) | `atuando` | 2-3 strategic paths with actionable steps | `buildEstrategiaContent()` |
+| **Mapa** (Map) | `estudando` | Temporal evolution map + divergent current analysis | `buildMapaContent()` |
+
+## What Happens
+
+1. All phase data aggregated (diagnosis + precedents + risks)
+2. Delivery mode automatically selected based on Phase 1 situation
+3. AI generates the tailored deliverable
+4. A `delivery` block renders the output
+5. An `exit_card` block appears with session summary + PDF export option
+
+## Block Types Produced
+
+| Block Type | Purpose |
+|-----------|---------|
+| `delivery` | Final analysis output in one of the 4 adaptive modes |
+| `exit_card` | Session completion card with summary and export options |
+
+## Server Actions
+
+```typescript
+// Generate the delivery based on accumulated briefing state
+generateDelivery(sessionId: string)
+  → Returns: { state: BriefingFlowState, phase4Blocks: Block[] }
+
+// Select a strategic path (Strategy mode)
+choosePath(sessionId: string, pathId: string)
+  → Returns: BriefingFlowState
+
+// Set the procedural stage
+setFaseProcessual(sessionId: string, fase: string)
+  → Returns: BriefingFlowState
+
+// Finalize the session
+finalizeSession(sessionId: string)
+  → Returns: BriefingFlowState
+
+// Handle exit card actions (export, new session, etc.)
+handleExitAction(sessionId: string, action: string)
+  → Returns: { state: BriefingFlowState, action: string }
+```
+
+## PDF Export
+
+After delivery, the `exit_card` offers PDF export. The generated PDF reflects the user's journey through all four phases:
+
+- Phase 1 diagnosis summary
+- Phase 2 selected precedents
+- Phase 3 risk balance visualization
+- Phase 4 delivery content in the chosen mode
+
+See [PDF Export](/features/pdf-export) for technical details.
+
+> 🚧 **Planned Feature** — Phase 4 is planned for v0.4 milestone. Briefing PDF with phase selections is tracked in [#289](https://github.com/sensdiego/juca/issues/289).
+
+---
+# docs/features/composer.md
+---
+
+
+# Composer & Intent Detection
+
+The Composer is Juca's input component — a pill-shaped text field where users type legal queries. Behind it, the orchestration layer detects intent, fills required slots, and routes queries to specialized tools that call the Valter API.
+
+## Composer Component
+
+The Composer lives in `src/components/canvas/Composer.tsx` and follows the Liquid Legal design language:
+
+- **Shape:** Pill-shaped container with white background and subtle shadow
+- **Input:** Full-width text field with placeholder
+- **Send button:** Circular, dark (`--ink-primary`), with arrow icon
+- **Behavior:** Submits via Server Action, streams results via SSE
+
+On submit, the Composer calls a Server Action that starts the orchestration pipeline.
+
+## Orchestration Pipeline
+
+The orchestration pipeline lives in `src/lib/unified/` and processes queries in four stages:
+
+```text
+User input
+  → Intent Detector (classify query)
+    → Slot Filling (extract parameters)
+      → Clarification Policy (ask if info is missing)
+        → Tool Registry (execute the right tool)
+```
+
+### Intent Detection
+
+The Intent Detector (`src/lib/unified/`) classifies user queries into categories that map to tools. It considers the query text, conversation context, and any referenced artifacts.
+
+### Slot Filling
+
+Each tool declares required parameters (slots). The slot filler extracts values from the user's query — for example, legal area, court, case number, or topic.
+
+### Clarification Policy
+
+If the intent is ambiguous or required slots are empty, the Clarification Policy determines what to ask. This renders as `action_prompt` blocks in the WorkCanvas, presenting options to the user.
+
+## Tool Registry
+
+The Tool Registry maps intents to tool implementations. Each tool is a class extending `BaseTool`:
+
+| Tool | ID | Priority | Capabilities | Key Artifacts |
+|------|-----|----------|-------------|--------------|
+| AnalyzerTool | `analyzer` | 9 (highest) | case_analysis, search, conversation, follow_up | `case_analysis`, `document` |
+| JurisTool | `juris` | 8 | search, follow_up | `search_results`, `document` |
+| RatioTool | `ratio` | 7 | extraction, follow_up | `irac_extraction` |
+| CompareTool | `compare` | 5 | comparison | `model_comparison` |
+| InsightsTool | `insights` | 4 | statistics | `insights_stats` |
+
+Priority determines which tool handles a query when multiple tools match. The AnalyzerTool (priority 9) handles complex case analysis scenarios; JurisTool (priority 8) handles direct search queries.
+
+### Tool Interface
+
+All tools implement this interface:
+
+```typescript
+interface BaseTool {
+  id: string;
+  priority: number;
+  capabilities: ToolCapability[];
+  producesArtifacts: string[];
+  consumesArtifacts?: string[];
+
+  execute(params: ToolParams, onProgress?: ProgressCallback): Promise<ToolResult>;
+}
+
+type ToolCapability = 'search' | 'extraction' | 'comparison'
+  | 'statistics' | 'conversation' | 'follow_up' | 'case_analysis';
+```
+
+### JurisTool Configuration
+
+The JurisTool uses a hybrid search strategy with configurable weights:
+
+```typescript
+{
+  strategy: 'hybrid',
+  weights: { bm25: 0.6, semantic: 0.4, kg: 1.0 },
+  defaultLimit: 10
+}
+```
+
+## SSE Streaming
+
+Real-time progress is streamed to the client via Server-Sent Events through `/api/v2/stream`:
+
+**Request:** `POST { sessionId, text }`
+
+**Event types:**
+
+| Event | Data | Purpose |
+|-------|------|---------|
+| `stage` | `{ stage, label, tool? }` | Progress update (e.g., "Searching precedents...") |
+| `result` | `{ blocks: Block[] }` | Final blocks to render |
+| `error` | `{ message }` | Error information |
+
+**Client hook:** `useSSEStream()` returns `{ sendStreaming, isStreaming, currentStage, abort }` — providing real-time UI feedback and abort capability.
+
+---
+# docs/features/feature-flags.md
+---
+
+
+# Feature Flags
+
+Juca uses a lightweight feature flag system for progressive rollout of features and conditional enabling of experimental functionality. Flags are evaluated client-side with three priority levels: URL parameters (highest), localStorage, and defaults (lowest).
+
+## Available Flags
+
+| Flag | Default | Purpose |
+|------|---------|---------|
+| `unifiedHome` | `true` | Enable the Unified Home interface (Block System) |
+| `analyzeAfterSearch` | `false` | Automatically trigger analysis after search results |
+| `webSearchFallback` | `false` | Fall back to web search when local corpus has no results |
+| `deepMode` | `false` | Enable deep analysis mode (more thorough, slower) |
+
+## API
+
+The feature flag system is defined in `src/lib/featureFlags.ts`:
+
+```typescript
+import { getFlag, setFlag, clearFlag, toggleFlag } from '@/lib/featureFlags';
+
+// Read a flag (checks URL param → localStorage → default)
+const enabled = getFlag('unifiedHome'); // → true
+
+// Set a flag in localStorage
+setFlag('deepMode', true);
+
+// Toggle a flag, returns new value
+const newValue = toggleFlag('webSearchFallback'); // → true
+
+// Clear a flag (reverts to default)
+clearFlag('analyzeAfterSearch');
+```
+
+**Storage key format:** `juca_ff_{flagName}` in localStorage.
+
+## Client-Side Hook
+
+For React components, use the `useFeatureFlag` hook from `src/hooks/useFeatureFlag.ts`:
+
+```typescript
+import { useFeatureFlag } from '@/hooks/useFeatureFlag';
+
+function MyComponent() {
+  const isDeepMode = useFeatureFlag('deepMode');
+
+  if (isDeepMode) {
+    return <DeepAnalysisUI />;
+  }
+  return <StandardUI />;
+}
+```
+
+The hook is SSR-safe — it returns the default value during server rendering and hydrates from localStorage on the client.
+
+## Override via URL
+
+Any flag can be overridden via URL parameter for testing:
+
+```text
+http://localhost:3000?deepMode=true&webSearchFallback=true
+```
+
+URL parameters take highest priority and are useful for testing feature combinations without modifying localStorage.
+
+---
+# docs/features/index.md
+---
+
+
+# Features
+
+This page inventories every feature in Juca with its current status. Features are organized by lifecycle stage: implemented, in progress, planned, and deprecated.
+
+## Status Legend
+
+| Badge | Meaning |
+|-------|---------|
+| ✅ Implemented | Fully functional in production |
+| 🔨 In Progress | Partially implemented, active development |
+| 📋 Planned | Designed but not yet started |
+| ⚠️ Transitional | Works but will be removed/replaced during Valter migration |
+| ❌ Deprecated | Removed or superseded |
+
+## Core Features
+
+| Feature | Status | Milestone | Docs |
+|---------|--------|-----------|------|
+| [Block System](/features/block-system) (11 types) | ✅ Implemented | — | [Details](/features/block-system) |
+| [Briefing Progressivo](/features/briefing/) (4 phases) | 🔨 In Progress | v0.4 | [Details](/features/briefing/) |
+| [Composer + Intent Detection](/features/composer) | ✅ Implemented | — | [Details](/features/composer) |
+| [Session Management](/features/session-management) | ✅ Implemented | — | [Details](/features/session-management) |
+| [PDF Export](/features/pdf-export) | ✅ Implemented | — | [Details](/features/pdf-export) |
+| [Authentication](/features/auth) (NextAuth v5) | ✅ Implemented | — | [Details](/features/auth) |
+| [Feature Flags](/features/feature-flags) | ✅ Implemented | — | [Details](/features/feature-flags) |
+| SSE Streaming | ✅ Implemented | — | [Composer](/features/composer) |
+| OpenTelemetry tracing | ✅ Implemented | — | [Integrations](/configuration/integrations) |
+| Docker + Railway deploy | ✅ Implemented | — | [Installation](/getting-started/installation) |
+| CI (GitHub Actions) | ✅ Implemented | — | [Testing](/development/testing) |
+
+## Transitional Features (Moving to Valter)
+
+These features exist in Juca's local backend but are being replaced by Valter API calls:
+
+| Feature | Current Location | Valter Replacement | Removal |
+|---------|-----------------|-------------------|---------|
+| Hybrid Search (BM25 + Semantic + KG) | `src/lib/backend/search/` | `/v1/retrieve` | v0.4 |
+| Multi-LLM Pipeline (G,C,R) | `src/lib/backend/llm/`, `chat-pipeline/` | Valter internal pipeline | v0.4 |
+| IRAC Extraction | `src/lib/backend/reasoning/` | Valter internal | v0.4 |
+| Knowledge Graph adapter | `src/lib/backend/kg/` | `/v1/graph/*` | v0.4 |
+| Anti-Hallucination Validation | `src/lib/validation/` | `/v1/verify` | v0.4 |
+| Case Analyzer pipeline | `src/lib/backend/analyzer/` | Adapted to call Valter | v0.4 |
+
+## Planned Features
+
+| Feature | Priority | Milestone | Issue |
+|---------|----------|-----------|-------|
+| UI Reset (Liquid Legal design) | P0 | v0.3 | [#273](https://github.com/sensdiego/juca/issues/273) |
+| Valter adapter layer | P0 | v0.3 | [#292](https://github.com/sensdiego/juca/issues/292) |
+| Juca → Valter integration | P0 | v0.3 | [#293](https://github.com/sensdiego/juca/issues/293) |
+| Fix 72 failing tests | P1 | v0.3 | [#270](https://github.com/sensdiego/juca/issues/270) |
+| Briefing F1–F4 complete | P1 | v0.4 | [#285](https://github.com/sensdiego/juca/issues/285)–[#288](https://github.com/sensdiego/juca/issues/288) |
+| Briefing PDF | P1 | v0.4 | [#289](https://github.com/sensdiego/juca/issues/289) |
+| Remove duplicated backend | P1 | v0.4 | [#295](https://github.com/sensdiego/juca/issues/295) |
+| Divergence comparison | P2 | v0.5 | [#155](https://github.com/sensdiego/juca/issues/155) |
+| Memo export (PDF/DOCX) | P2 | v0.5 | [#158](https://github.com/sensdiego/juca/issues/158) |
+| E2E in CI | P2 | v0.5 | — |
+| Leci integration | P2 | v0.6+ | — |
+| LLM cost ledger | P3 | v0.6+ | [#232](https://github.com/sensdiego/juca/issues/232) |
+| SQLite → PostgreSQL | P3 | v0.6+ | [#231](https://github.com/sensdiego/juca/issues/231) |
+| Skills Platform | P3 | v1.0+ | [#193](https://github.com/sensdiego/juca/issues/193) |
+
+## Deprecated Features
+
+| Feature | Reason | Replaced By |
+|---------|--------|-------------|
+| Tab-based navigation (6 tabs) | Replaced in rewrite | Unified Home + Block System |
+| Panel system (`_panels/`, 8 panels) | Removed in rewrite | Block System |
+| Zustand stores (11 stores) | Removed in rewrite | React `useState` + Server Actions |
+| Juca Semantic (embedding search) | Never production-ready | Valter `/v1/retrieve` |
+| Juca Compare (multi-model) | Low priority with hub focus | May return via Valter |
+| Juca Insights (analytics) | Low priority | Valter graph endpoints |
+| Local backend (search/LLM/KG) | Duplicated by Valter | Valter REST API |
+
+---
+# docs/features/pdf-export.md
+---
+
+
+# PDF Export
+
+Juca generates PDF documents from briefing sessions using jsPDF. The PDF is rendered server-side as a pure function and delivered via a dedicated API endpoint.
+
+## How It Works
+
+The PDF generation pipeline:
+
+1. Client requests PDF via `GET /api/export/pdf/[sessionId]`
+2. API route authenticates the request and loads the session
+3. `generateBriefingPDF(input)` processes session blocks into PDF content
+4. PDF returned as binary (`application/pdf`)
+
+## Implementation
+
+The generator is a pure function in `src/lib/pdf/generator.ts`:
+
+```typescript
+function generateBriefingPDF(input: BriefingPDFInput): Uint8Array {
+  const doc = new jsPDF();
+
+  // Extract blocks by type
+  const diagnosis = blocks.find(b => b.type === 'diagnosis');
+  const precedents = blocks.filter(b => b.type === 'precedent');
+  const riskBalance = blocks.find(b => b.type === 'risk_balance');
+  const delivery = blocks.find(b => b.type === 'delivery');
+
+  // Render sections with manual Y-position tracking
+  let y = 20;
+  // ... render each section, calling checkPage() for overflow
+  // Use doc.splitTextToSize(text, maxWidth) for text wrapping
+
+  return new Uint8Array(doc.output('arraybuffer'));
+}
+```
+
+:::tip
+The generator is a pure function — it takes data in, returns bytes out. This makes it easy to test with `// @vitest-environment node` (jsPDF requires Node, not jsdom).
+:::
+
+## API Endpoint
+
+```text
+GET /api/export/pdf/[sessionId]
+```
+
+| Parameter | Type | Location | Required |
+|-----------|------|----------|----------|
+| `sessionId` | string | URL path | Yes |
+
+**Authentication:** Required. Uses `auth()` from `src/lib/auth`.
+
+**Response:** `application/pdf` binary content.
+
+## Future: Briefing-Aware PDF
+
+> 🚧 **Planned Feature** — The v0.4 PDF ([#289](https://github.com/sensdiego/juca/issues/289)) will reflect user selections across all 4 Briefing phases. The PDF structure will adapt based on the delivery mode (Síntese produces a concise summary; Parecer produces a formal opinion layout).
+
+> 🚧 **Planned Feature** — DOCX export is planned for v0.5 ([#158](https://github.com/sensdiego/juca/issues/158)).
+
+---
+# docs/features/session-management.md
+---
+
+
+# Session Management
+
+Every conversation in Juca is a **session** — a persistent container of ordered blocks. Sessions are stored in SQLite, listed in the SessionSidebar, and loaded into the WorkCanvas.
+
+## Session Structure
+
+A session consists of:
+
+| Field | Type | Purpose |
+|-------|------|---------|
+| `id` | TEXT (PK) | Unique session identifier |
+| `user_id` | TEXT | Owner of the session |
+| `title` | TEXT | Display title (auto-generated or user-set) |
+| `status` | TEXT | Session state |
+| `created_at` | TEXT | Creation timestamp |
+| `updated_at` | TEXT | Last modification timestamp |
+| `message_count` | INTEGER | Number of messages/blocks |
+| `metadata` | TEXT (JSON) | Phase state, preferences, etc. |
+
+Sessions contain **messages** (blocks) in a child table:
+
+| Field | Type | Purpose |
+|-------|------|---------|
+| `id` | TEXT (PK) | Block identifier |
+| `session_id` | TEXT (FK) | Parent session (CASCADE delete) |
+| `role` | TEXT | Block role (user, assistant, system) |
+| `content` | TEXT | Block content (JSON) |
+| `timestamp` | TEXT | Creation time |
+| `metadata` | TEXT (JSON) | Block type, phase, etc. |
+
+## Persistence Layer
+
+Session operations are centralized in `src/lib/db/sessions.ts` (the `SessionsDB` class):
+
+```typescript
+// Database configuration
+const db = new Database(process.env.SQLITE_PATH || './data/juca.db');
+db.pragma('journal_mode = WAL');      // Write-Ahead Logging for concurrency
+db.pragma('foreign_keys = ON');        // Enforce referential integrity
+```
+
+All session access from other parts of the codebase goes through this module — direct SQLite access from components or API routes is not allowed.
+
+## SessionSidebar
+
+The `SessionSidebar` component (`src/components/shell/SessionSidebar.tsx`) displays the user's session history:
+
+- Lists sessions ordered by `updated_at DESC`
+- Shows title, date, and phase status for each session
+- Click loads the session's blocks into the WorkCanvas
+- Supports creating new sessions
+
+## Server Actions
+
+Session mutations happen through Server Actions in `src/actions/`:
+
+| Action File | Key Functions | Purpose |
+|-------------|---------------|---------|
+| `session.ts` | Create, load, delete sessions | CRUD operations |
+| `briefing.ts` | Phase transitions, evaluations | Briefing-specific state |
+| `message.ts` | Add messages/blocks | Content creation |
+
+All actions use `requireActionAuth()` from `src/actions/utils.ts`:
+
+```typescript
+// Every server action starts with auth
+const user = await requireActionAuth();
+// In dev mode (ENABLE_DEV_AUTH=true), returns:
+// { id: 'dev-user', email: 'dev@localhost', name: 'Dev User', role: 'admin' }
+```
+
+## Known Limitations
+
+:::caution
+**BOLA Vulnerability ([#227](https://github.com/sensdiego/juca/issues/227)):** Session API endpoints accept any `sessionId` without verifying that the requesting user owns the session. This is an OWASP #1 vulnerability. Currently acceptable because only the dev uses the system. Fix planned for v0.6+ when multi-user support is added.
+:::
+
+:::caution
+**SQLite Scalability ([#231](https://github.com/sensdiego/juca/issues/231)):** `better-sqlite3` uses synchronous operations that block the Node.js event loop. At approximately 50 concurrent users, the server becomes unresponsive. Migration to PostgreSQL is planned for v0.6+.
+:::
+
+---
+# docs/getting-started/installation.md
+---
+
+
+# Installation
+
+This is the full setup guide. For a minimal 5-minute setup, see [Quickstart](/getting-started/quickstart).
+
+## System Requirements
+
+| Requirement | Version | Notes |
+|-------------|---------|-------|
+| Node.js | 20+ | LTS recommended. Verify: `node -v` |
+| npm | 10+ | Ships with Node 20 |
+| Git | 2.x+ | With Git LFS for large data files |
+| C++ build tools | — | Required for `better-sqlite3` native compilation |
+| Docker | — | Optional, only for local Neo4j |
+
+## Step-by-Step Setup
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/sensdiego/juca.git
+cd juca
+```
+
+If the repository uses Git LFS for data files, also run:
+
+```bash
+git lfs install
+git lfs pull
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+This installs ~670 packages including the `better-sqlite3` native module. If compilation fails:
+
+- **macOS:** `xcode-select --install`
+- **Linux (Debian/Ubuntu):** `sudo apt-get install build-essential python3`
+- **Linux (RHEL/Fedora):** `sudo dnf groupinstall "Development Tools"`
+
+### 3. Environment Configuration
+
+Copy the example file and fill in your values:
+
+```bash
+cp .env.example .env.local
+```
+
+**Required variables (minimum):**
+
+```bash
+# LLM Providers — at least Anthropic + Groq
+ANTHROPIC_API_KEY=sk-ant-...
+GROQ_API_KEY=gsk_...
+
+# Dev auth bypass
+ENABLE_DEV_AUTH=true
+```
+
+**Optional but recommended:**
+
+```bash
+# Valter integration (the primary backend)
+VALTER_API_URL=https://valter-api-production.up.railway.app
+VALTER_API_KEY=your-key
+
+# Additional LLM providers
+OPENAI_API_KEY=sk-...
+GEMINI_API_KEY=...
+DEEPSEEK_API_KEY=sk-...
+
+# Knowledge Graph (local mode by default)
+KG_PROVIDER=json
+```
+
+See [Environment Variables](/configuration/environment) for the complete reference of 30+ variables.
+
+### 4. Local Neo4j (Optional)
+
+If you want to use the Neo4j knowledge graph locally instead of JSON files:
+
+```bash
+docker compose up -d
+```
+
+This starts a Neo4j Community 5 instance. Then configure:
+
+```bash
+KG_PROVIDER=neo4j
+NEO4J_URI=bolt://localhost:7687
+NEO4J_USERNAME=neo4j
+NEO4J_PASSWORD=password
+```
+
+:::note
+Neo4j is not needed if you're using the Valter API for knowledge graph queries, which is the recommended approach going forward.
+:::
+
+### 5. Git Hooks
+
+The project uses custom git hooks in `.githooks/`:
+
+| Hook | Action |
+|------|--------|
+| `pre-commit` | Runs ESLint on staged files |
+| `pre-push` | Runs the full test suite |
+| `post-checkout` | Housekeeping tasks |
+| `post-commit` | Housekeeping tasks |
+| `post-merge` | Housekeeping tasks |
+
+Hooks are configured automatically via the `prepare` script in package.json:
+
+```bash
+npm run prepare  # Runs: git config core.hooksPath .githooks
+```
+
+### 6. Verify Installation
+
+```bash
+# Start the dev server
+npm run dev
+
+# In another terminal, run tests
+npm test
+```
+
+Expected outcomes:
+- Dev server starts at `http://localhost:3000` with no errors
+- Tests execute (some may fail due to known issue [#270](https://github.com/sensdiego/juca/issues/270))
+
+## Docker Setup (Production)
+
+Juca uses a multi-stage Docker build for production deployment:
+
+```bash
+# Build the image (NOTE: for CI/Railway only — do NOT run locally)
+docker build -t juca .
+```
+
+The Dockerfile:
+1. **deps stage** — Installs npm dependencies
+2. **build stage** — Runs `next build` with standalone output
+3. **runtime stage** — Minimal Node.js image with only production artifacts
+
+Deployment to Railway happens automatically on push to `main`.
+
+:::danger
+**Never run `docker build` or `next build` locally.** Per project rules ([CLAUDE.md](/development/contributing)), builds that consume >50% CPU must be delegated to CI. Push to your branch and let GitHub Actions or Railway handle it.
+:::
+
+## Troubleshooting
+
+| Problem | Solution |
+|---------|----------|
+| `better-sqlite3` compilation fails | Install C++ build tools (see step 2) |
+| Git LFS files are pointer files | Run `git lfs pull` |
+| Auth errors on every page | Set `ENABLE_DEV_AUTH=true` in `.env.local` |
+| "No API key configured" | Add at minimum `ANTHROPIC_API_KEY` and `GROQ_API_KEY` |
+
+For more issues, see [Troubleshooting](/reference/troubleshooting).
+
+---
+# docs/getting-started/introduction.md
+---
+
+
+# Introduction
+
+Juca (Jurisprudence Understanding for Contextual Analysis) is the frontend hub for the **sens.legal** platform — a legal AI ecosystem designed to replace fragmented research tools with a single, intelligent interface for Brazilian legal professionals.
+
+## The Problem
+
+Brazilian legal research is fragmented across dozens of disconnected tools. Lawyers spend hours searching court databases, cross-referencing decisions, and manually extracting legal reasoning — only to produce analyses that may miss critical precedents or contain hallucinated citations from AI tools.
+
+Existing AI legal tools either lack domain depth (generic chatbots) or lack usability (dump raw results without structure). None provide adversarial analysis, progressive disclosure, or graph-based reasoning traces.
+
+## The Solution
+
+Juca is a **conversational frontend hub** — not a monolithic application. It provides:
+
+1. **A clean, Fintool/Perplexity-style interface** where lawyers type natural-language queries
+2. **Progressive disclosure** via the Briefing Progressivo (4-phase system that reveals analysis incrementally)
+3. **Orchestration** of specialized backend agents that handle the heavy lifting (search, LLM processing, knowledge graph queries)
+4. **Structured output** through the Block System — 11 typed UI blocks that render diagnoses, precedents, risk analyses, and strategic recommendations
+
+Juca itself is intentionally lightweight. The intelligence lives in the backend agents.
+
+## The Ecosystem
+
+sens.legal consists of three projects, each with a distinct responsibility:
+
+| Project | Role | Stack | Status |
+|---------|------|-------|--------|
+| **Juca** (this project) | Frontend hub + lightweight orchestrator | Next.js 16, React 19, TypeScript, Tailwind v4 | Active development (v0.3) |
+| **Valter** | Backend agent for STJ jurisprudence | Python, FastAPI, PostgreSQL, Qdrant, Neo4j Aura, Redis | Production (`valter-api-production.up.railway.app`) |
+| **Leci** | Backend agent for federal legislation | TypeScript, Next.js, Drizzle ORM, PostgreSQL + pgvector | Early stage (v0.1-pre, DB schema only) |
+
+Juca communicates with Valter via REST API. Leci integration is planned for v0.6+.
+
+## Who Is This For?
+
+This documentation serves four audiences:
+
+- **Legal professionals** — End users who interact with the Juca interface to research case law
+- **Developers** — Engineers contributing to the codebase (human or AI)
+- **AI agents** — Claude Code, Codex, and future agents that operate on the codebase via CLAUDE.md instructions
+- **Stakeholders** — The project owner and potential investors evaluating the platform
+
+## Key Concepts
+
+Before diving deeper, familiarize yourself with these core concepts:
+
+| Concept | Definition |
+|---------|-----------|
+| **Block** | A typed UI content unit. Juca has 11 block types (message, diagnosis, precedent, risk_balance, delivery, etc.). Blocks are the fundamental building unit of the interface. |
+| **Briefing Progressivo** | A 4-phase progressive disclosure system: Diagnosis → Precedents → Risks → Delivery. Each phase produces specific block types. |
+| **WorkCanvas** | The main content area that renders blocks in sequence. |
+| **Composer** | The input component where users type queries. Behind it, an intent detector routes queries to specialized tools. |
+| **PhaseRail** | A visual navigation rail showing the current briefing phase and allowing navigation between completed phases. |
+| **Tool Registry** | A pattern that maps detected user intents to specialized handler functions (juris, ratio, analyzer, compare, insights). |
+| **Hub** | Juca's architectural role — a thin frontend that delegates backend intelligence to external agents (Valter, Leci). |
+
+## Next Steps
+
+- **[Quickstart](/getting-started/quickstart)** — Get Juca running locally in 5 minutes
+- **[Architecture Overview](/architecture/overview)** — Understand how the pieces fit together
+- **[Block System](/features/block-system)** — Learn about the core UI composition unit
+
+---
+# docs/getting-started/quickstart.md
+---
+
+
+# Quickstart
+
+This guide gets Juca running on your machine with the minimum viable configuration. For a complete setup including all optional services, see [Installation](/getting-started/installation).
+
+## Prerequisites
+
+- **Node.js 20+** — verify with `node -v`
+- **npm** — ships with Node.js
+- At least one LLM API key (Anthropic recommended)
+
+## 1. Clone and Install
+
+```bash
+git clone https://github.com/sensdiego/juca.git
+cd juca
+npm install
+```
+
+:::caution
+If you see errors about `better-sqlite3` during install, you may need C++ build tools. On macOS: `xcode-select --install`. On Linux: `apt-get install build-essential`.
+:::
+
+## 2. Configure Environment
+
+Create a `.env.local` file with the minimum required variables:
+
+```bash
+# Required — at least one LLM provider
+ANTHROPIC_API_KEY=sk-ant-your-key-here
+GROQ_API_KEY=gsk_your-key-here
+
+# Skip authentication for local development
+ENABLE_DEV_AUTH=true
+```
+
+:::tip
+For full functionality with Valter integration, also add:
+```bash
+VALTER_API_URL=https://valter-api-production.up.railway.app
+VALTER_API_KEY=your-valter-api-key
+```
+:::
+
+## 3. Start the Dev Server
+
+```bash
+npm run dev
+```
+
+The Turbopack dev server starts at [http://localhost:3000](http://localhost:3000).
+
+:::danger
+**Never run `next build` locally.** This is a project rule — builds consume excessive CPU. Push your code and let CI (GitHub Actions) or Railway handle builds. See [CLAUDE.md](/development/contributing) for details.
+:::
+
+## 4. First Interaction
+
+1. Open [http://localhost:3000](http://localhost:3000) in your browser
+2. You'll see the WorkCanvas with the Composer input at the bottom
+3. Type a legal query, e.g.: *"Qual a jurisprudência do STJ sobre responsabilidade civil por dano moral?"*
+4. Watch as blocks appear in real-time via SSE streaming — the system detects your intent, routes to the appropriate tool, and renders structured results
+
+## Available Scripts
+
+| Script | Command | Purpose |
+|--------|---------|---------|
+| Dev server | `npm run dev` | Start Turbopack dev server |
+| Unit tests | `npm test` | Run Vitest unit tests |
+| E2E tests | `npm run test:e2e` | Run Playwright E2E tests |
+| Lint | `npm run lint` | ESLint check |
+| Coverage | `npm run test:coverage` | Generate V8 coverage report |
+
+## Next Steps
+
+- **[Full Installation](/getting-started/installation)** — Set up all optional services (Neo4j, embedding service, auth providers)
+- **[Environment Variables](/configuration/environment)** — Complete reference for all 30+ env vars
+- **[Architecture Overview](/architecture/overview)** — Understand how Juca's hub model works
+
+---
+# docs/index.md
+---
+
+
+# Juca
+
+Juca is the frontend hub for the **sens.legal** ecosystem — a conversational interface that orchestrates specialized legal AI agents for Brazilian legal research.
+
+Built with Next.js 16 and React 19, Juca provides a Fintool/Perplexity-style interface where lawyers interact with a unified Composer, and the system routes their queries to the right backend agent. Results are rendered as structured **Blocks** — typed UI cards that present diagnoses, precedents, risk analyses, and strategic recommendations.
+
+## Key Capabilities
+
+Juca's core value is **progressive disclosure of legal analysis** through the Briefing Progressivo system:
+
+- **[Block System](/features/block-system)** — 11 typed UI blocks that render structured legal content (diagnoses, precedents, risk balances, deliveries)
+- **[Briefing Progressivo](/features/briefing/)** — 4-phase progressive disclosure: Diagnosis → Precedents → Risks → Delivery
+- **[Valter Integration](/api/valter-adapter)** — Consumes the Valter REST API for STJ jurisprudence search, citation verification, and knowledge graph analysis
+- **[Session Management](/features/session-management)** — Persistent sessions with SQLite, navigable via sidebar
+- **[PDF Export](/features/pdf-export)** — Generate PDF documents from briefing sessions
+- **[Real-time Streaming](/features/composer)** — SSE-based progress streaming during analysis
+
+## The sens.legal Ecosystem
+
+Juca does not work alone. It is the user-facing layer of a three-project ecosystem:
+
+```mermaid
+graph TB
+    subgraph "Frontend"
+        Juca["Juca<br/>Next.js 16 · React 19<br/>Block System · SSE<br/>Lightweight Orchestrator"]
+    end
+    subgraph "Backend Agents"
+        Valter["Valter<br/>FastAPI · Python<br/>23.4K STJ Decisions<br/>KG · Search · LLM Pipeline"]
+        Leci["Leci<br/>Next.js · Drizzle<br/>Federal Legislation<br/>DB-first · v0.1-pre"]
+    end
+    Juca -->|"REST API"| Valter
+    Juca -.->|"REST API (future)"| Leci
+```
+
+See [Architecture → Ecosystem](/architecture/ecosystem) for details on each project.
+
+## Quick Links
+
+| I want to... | Go to |
+|---|---|
+| Run Juca locally in 5 minutes | [Quickstart](/getting-started/quickstart) |
+| Understand the architecture | [Architecture Overview](/architecture/overview) |
+| Learn about the Block System | [Block System](/features/block-system) |
+| See the product roadmap | [Roadmap](/roadmap/) |
+| Configure environment variables | [Environment](/configuration/environment) |
+| Write or run tests | [Testing Guide](/development/testing) |
+
+## Project Status
+
+Juca is currently targeting **v0.3 — "Hub Foundation"**: transforming from a fullstack monolith into a lightweight frontend hub connected to the Valter backend agent. See the [Roadmap](/roadmap/) for milestone details.
+
+---
+# docs/reference/faq.md
+---
+
+
+# Frequently Asked Questions
+
+> Common questions about Juca, its architecture, development workflow, and the sens.legal ecosystem.
+
+## General
+
+### What is Juca?
+
+Juca is a **frontend hub** for the sens.legal legal AI ecosystem. It provides a conversational interface (Fintool/Perplexity-style) that orchestrates specialized backend agents to help legal professionals research jurisprudence, analyze cases, and produce structured legal documents. See [Introduction](/getting-started/introduction) for the full overview.
+
+### How does Juca relate to Valter and Leci?
+
+Juca is the **frontend hub** — it handles UI, session management, and orchestration. **Valter** is the backend agent for STJ jurisprudence (search, verification, knowledge graph, LLM analysis). **Leci** is a planned backend agent for federal legislation. Juca calls their APIs and renders results. See [Ecosystem](/architecture/ecosystem) for details.
+
+### Is Juca open source?
+
+Juca is currently a private project in active development. Licensing and open-source status have not been finalized.
+
+## Architecture
+
+### Why is Juca a "hub" instead of a full application?
+
+Juca originally was a fullstack monolith with embedded search, LLM pipeline, and knowledge graph. This duplicated logic already in Valter. The hub pivot eliminates duplication — Juca focuses on what it does best (UI/UX, orchestration, progressive disclosure) while Valter handles backend intelligence. See [ADR-006](/architecture/decisions#adr-006-hub-pivot).
+
+### Why not just use Valter directly?
+
+Valter is a backend API service — it has no user interface. Juca adds:
+- **Progressive disclosure** — the 4-phase Briefing Progressivo
+- **Session management** — persistent sessions with block history
+- **Multi-agent orchestration** — routes queries to the right backend agent
+- **Rich UI** — interactive blocks, visualizations, PDF export
+- **Authentication** — user accounts, access control
+
+### What happens to the local backend code?
+
+The local backend (`src/lib/backend/`) is being deprecated in v0.3-v0.4. Search, LLM pipeline, and KG queries will move to Valter API calls. The ~55 internal API routes will be gradually removed as each capability migrates. See [Roadmap](/roadmap/milestones#v04--briefing-progressivo).
+
+### Why SQLite instead of PostgreSQL?
+
+SQLite was chosen for simplicity during single-developer development. It requires no external database server, works well for the current user scale, and uses WAL mode for concurrent reads. Migration to PostgreSQL is planned for v0.6+ (Issue #231) to align with the ecosystem (Valter and Leci both use Postgres). See [ADR-002](/architecture/decisions#adr-002-sqlite-for-sessions).
+
+## Development
+
+### Why can't I run `next build` locally?
+
+Project rules (from `CLAUDE.md`) prohibit running builds, bundlers, or any process consuming >50% CPU locally. This saves development machine resources and delegates build validation to CI (GitHub Actions) and deployment (Railway). Push your branch and let CI verify the build.
+
+### How do I add a new block type?
+
+See the step-by-step guide in [Block System — Adding a New Block Type](/features/block-system#adding-a-new-block-type). In summary: define the type in `BlockType`, create a factory function, build a renderer component, and register it in `BlockRenderer`.
+
+### How do I run tests?
+
+```bash
+npm test              # Unit tests (single run)
+npm run test:watch    # Watch mode
+npm run test:coverage # Coverage report
+npm run test:e2e      # E2E tests (Playwright)
+```
+
+See [Testing Guide](/development/testing) for full details.
+
+### What's the branch naming convention?
+
+`feature/[issue]-[description]-claude` for Claude Code branches, `feature/[issue]-[description]-codex` for Codex branches. Always include the GitHub issue number. See [Contributing Guide](/development/contributing).
+
+## Troubleshooting
+
+### Tests are failing — what do I do?
+
+72 test files are currently known to fail (Issue #270). Many test backend code that is being migrated to Valter. Check [Troubleshooting](/reference/troubleshooting) for specific solutions, and note that re-evaluation of which tests are still relevant is planned for v0.3.
+
+### I'm getting auth errors in development
+
+Set `ENABLE_DEV_AUTH=true` in your `.env.local` file to bypass authentication with a dev user. See [Environment Variables](/configuration/environment) for all auth-related variables.
+
+### The app is slow or timing out
+
+Common causes:
+1. **Valter API unreachable** — check `curl -H "X-API-Key: $VALTER_API_KEY" $VALTER_API_URL/health`
+2. **Missing LLM API keys** — at minimum, configure `ANTHROPIC_API_KEY` and `GROQ_API_KEY`
+3. **SQLite lock** — ensure only one dev server is running; check for orphan Node processes
+
+See [Troubleshooting](/reference/troubleshooting) for detailed solutions.
+
+---
+# docs/reference/glossary.md
+---
+
+
+# Glossary
+
+> Definitions of legal, technical, and domain-specific terms used throughout Juca and the sens.legal ecosystem.
+
+## Legal Terms
+
+| Term | Definition |
+|------|-----------|
+| **Acordao** | Appellate court decision — the primary document type in Juca's corpus. Each acordao has an ementa (summary), tese (thesis), and full text (integra). |
+| **Dispositivo Legal** | A specific legal provision or article from legislation (e.g., Art. 927 do Codigo Civil). |
+| **Ementa** | Summary or headnote of a court decision. Used as the primary search field in Juca's hybrid search. |
+| **Integra** | Full text of a court decision. Accessed via SlideOver panel or exported to PDF. |
+| **IRAC** | Issue, Rule, Application, Conclusion — a structured legal analysis framework used by the Ratio tool for extraction. |
+| **Jurisprudencia** | Case law — the body of court decisions that forms binding or persuasive precedent. |
+| **Ministro** | Minister (judge) of the STJ. Juca tracks which ministro authored each decision for divergence analysis. |
+| **Parecer** | Formal legal opinion — one of the 4 delivery modes in the Briefing Progressivo. |
+| **Precedente** | A previous court decision used as authority to support a legal argument. |
+| **Ratio Decidendi** | The core legal reasoning or principle behind a decision — what makes it a precedent. |
+| **STJ** | Superior Tribunal de Justica — Brazil's highest court for non-constitutional federal matters. Juca's corpus contains 23,400+ STJ decisions. |
+| **Sumula** | Binding summary of consolidated jurisprudence issued by the STJ. Validated by Juca's anti-hallucination system. |
+| **Tese** | Legal thesis or argument extracted from a decision. Searchable field in Juca's search engine. |
+| **Turma** | Division or panel of the STJ that decided a case (e.g., 1a Turma, 2a Turma). |
+
+## Technical Terms
+
+| Term | Definition |
+|------|-----------|
+| **Block** | Typed UI content unit — the fundamental building block of Juca's interface. 11 types: `message`, `progress`, `diagnosis`, `action_prompt`, `precedent`, `precedent_picker`, `summary`, `risk_balance`, `chart`, `delivery`, `exit_card`. |
+| **Block Factory** | Pure functions that create typed block data with defaults. Located in `src/lib/blocks/types.ts` (e.g., `createDiagnosisData()`, `createRiskBalanceData()`). |
+| **Briefing Progressivo** | Juca's 4-phase progressive disclosure system: Diagnosis → Precedents → Risks → Delivery. Each phase reveals information incrementally based on user interaction. |
+| **Composer** | Input component where users type queries and submit them. Supports tool hints and pipeline mode selection. |
+| **G,C,R Pipeline** | Generate → Criticize → Revise — Juca's multi-LLM processing pattern where a generator creates content, critics evaluate it, and a revisor produces the final output. |
+| **Hub** | Juca's architectural role: a lightweight frontend that orchestrates backend agents (Valter, Leci) rather than processing data locally. |
+| **Liquid Legal** | The design language for Juca's UI. Palette: `bg-paper` (#F0F0EE), `ink-primary` (#1A161F), `accent` (#FFF06D). |
+| **PhaseRail** | Visual navigation component showing briefing phase progress (4 phases as a vertical rail). |
+| **SlideOver** | Sliding panel for viewing full decision text (integra) without leaving the current context. |
+| **Tool Registry** | Pattern that routes user intents to specialized handler tools. 5 tools registered with priority-based selection: `analyzer` (9), `juris` (8), `ratio` (7), `compare` (5), `insights` (4). |
+| **WorkCanvas** | Main content area that renders blocks in sequence. The primary viewport of the Unified Home interface. |
+
+## Ecosystem Terms
+
+| Term | Definition |
+|------|-----------|
+| **sens.legal** | The parent platform encompassing Juca, Valter, and Leci — an AI-powered legal analysis ecosystem. |
+| **Valter** | Backend agent for STJ jurisprudence. Python/FastAPI service with 23,400+ decisions, 28 MCP tools, BM25 + semantic search, Neo4j knowledge graph, and multi-LLM pipeline. Production URL: `https://valter-api-production.up.railway.app`. |
+| **Leci** | Backend agent for federal legislation. TypeScript/Next.js with Drizzle ORM. Currently in early development (v0.1-pre) with database schema ready but no public API yet. |
+| **MCP** | Model Context Protocol — standardized interface for AI tool interaction. Valter exposes 28 MCP tools for search, verification, graph analysis, and ingestion. |
+| **Adapter Layer** | Planned abstraction (v0.3) that provides a unified interface for Juca to communicate with any backend agent (Valter, Leci, future agents). |
+
+---
+# docs/reference/troubleshooting.md
+---
+
+
+# Troubleshooting
+
+> Common problems and their solutions when developing or running Juca.
+
+## Installation Issues
+
+### better-sqlite3 compilation fails
+
+**Cause:** `better-sqlite3` is a native C++ addon that requires compilation during `npm install`.
+
+**Solution:**
+
+| Platform | Fix |
+|----------|-----|
+| macOS | `xcode-select --install` (installs C++ build tools) |
+| Linux (Debian/Ubuntu) | `sudo apt-get install build-essential python3` |
+| Linux (RHEL/Fedora) | `sudo dnf groupinstall "Development Tools"` |
+
+Also ensure you are using Node.js 20+ (the version specified in the project):
+
+```bash
+node --version  # Should be v20.x or higher
+```
+
+### Git LFS files not downloaded
+
+**Cause:** Git LFS was not installed or initialized before cloning, so data files appear as pointer files.
+
+**Solution:**
+
+```bash
+git lfs install
+git lfs pull
+```
+
+**Verify:** Files in `data/` should be their actual size (not small pointer files of ~130 bytes).
+
+### npm install fails with peer dependency errors
+
+**Cause:** Conflicting package versions or stale lockfile.
+
+**Solution:**
+
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+---
+
+## Runtime Issues
+
+### Authentication errors in development
+
+**Cause:** Missing OAuth configuration (Google Client ID, Auth Secret, etc.).
+
+**Solution:** Add the dev auth bypass to `.env.local`:
+
+```bash
+ENABLE_DEV_AUTH=true
+```
+
+This creates a dev user without requiring external auth providers. For production, configure the full auth stack — see [Environment Variables](/configuration/environment).
+
+### "No API key configured" errors
+
+**Cause:** Missing LLM provider API keys.
+
+**Solution:** Add at minimum these two keys to `.env.local`:
+
+```bash
+ANTHROPIC_API_KEY=sk-ant-...   # Primary generator (required)
+GROQ_API_KEY=gsk_...           # Fast critics (required)
+```
+
+Check `/api/health` to see which providers are configured:
+
+```bash
+curl http://localhost:3000/api/health | jq '.providers'
+```
+
+### Valter API connection failures
+
+**Cause:** Valter API unreachable, wrong URL, or invalid API key.
+
+**Diagnosis:**
+
+```bash
+curl -H "X-API-Key: $VALTER_API_KEY" \
+  https://valter-api-production.up.railway.app/health
+```
+
+Expected: HTTP 200 with status `ok`.
+
+**Solutions:**
+
+| Symptom | Fix |
+|---------|-----|
+| Connection refused | Check `VALTER_API_URL` in `.env.local` |
+| 401 Unauthorized | Check `VALTER_API_KEY` value |
+| Timeout | Valter may be cold-starting on Railway — wait 30s and retry |
+| 503 Service Unavailable | Valter is deploying or overloaded — check Railway dashboard |
+
+### SQLite database lock errors
+
+**Cause:** Multiple processes accessing the SQLite database simultaneously.
+
+**Solution:**
+
+1. Ensure only one dev server is running:
+   ```bash
+   lsof -i :3000  # Check what's using port 3000
+   ```
+2. Kill orphan Node processes:
+   ```bash
+   pkill -f "next dev"
+   ```
+3. If the lock file persists, restart the dev server
+
+:::note
+SQLite uses WAL (Write-Ahead Logging) mode for better concurrency, but it still has limits at ~50 concurrent writers. This is a known limitation tracked in Issue #231 (SQLite → PostgreSQL migration).
+:::
+
+---
+
+## Test Issues
+
+### 72 test files failing
+
+**Cause:** Technical debt from a coverage sprint (Issue #270). Many tests target backend code that is being migrated to Valter.
+
+**What to do:**
+1. Focus on tests relevant to the hub architecture (components, blocks, server actions, unified API)
+2. Tests for `src/lib/backend/` may fail — these are being deprecated
+3. Run specific test files instead of the full suite:
+   ```bash
+   npx vitest run src/components  # Component tests only
+   npx vitest run src/actions     # Server action tests only
+   ```
+
+### E2E tests fail to start
+
+**Cause:** Dev server not running or wrong port.
+
+**Solution:**
+
+1. Start the dev server first:
+   ```bash
+   npm run dev
+   ```
+2. In a separate terminal, run E2E:
+   ```bash
+   npm run test:e2e
+   ```
+
+The Playwright config expects the app at `http://localhost:3000`. If you are using a different port, update `playwright.config.ts`.
+
+### E2E tests are flaky
+
+**Cause:** Timing issues with SSE streams, animation delays, or network conditions.
+
+**Solutions:**
+- Use `npm run test:e2e:headed` to see what's happening in the browser
+- Use `npm run test:e2e:ui` for Playwright's visual debugger
+- Playwright is configured with 2 retries in CI and 0 locally
+- Check `test-results/` for failure screenshots
+
+---
+
+## Build Issues
+
+### "Never run `next build` locally"
+
+This is a **project rule** from `CLAUDE.md`, not a bug. Builds consume >50% CPU and are prohibited locally.
+
+**To verify your changes compile:**
+1. Run `npm run lint` (checks for ESLint errors)
+2. Run `npm test` (runs unit tests)
+3. Push to your branch — GitHub Actions runs lint + build + tests
+
+**To verify deployment:**
+- Push to `main` — Railway auto-deploys with the multi-stage Dockerfile
+
+---
+
+## Getting Help
+
+- **GitHub Issues:** [github.com/sensdiego/juca/issues](https://github.com/sensdiego/juca/issues)
+- Check existing issues before creating new ones
+- Include reproduction steps, error messages, and environment details
+
+---
+# docs/roadmap/changelog.md
+---
+
+
+# Changelog
+
+> History of significant changes, completed milestones, and architectural shifts in the Juca project.
+
+## 2026-02-28 — Structural Cleanup & Documentation
+
+**Strategic planning and cleanup phase:**
+
+- Created `PROJECT_MAP.md` — comprehensive technical diagnostic of the entire codebase
+- Created `ROADMAP.md` — product roadmap with milestones v0.3 through v1.0
+- Created `REORG_PLAN.md` — structural reorganization assessment
+- Created `INNOVATION_LAYER.md` — innovation proposals for future development
+- Removed 4 phantom dependencies: `zustand`, `@tanstack/react-virtual`, `next-pwa`, `resend` (290 packages removed)
+- Deleted empty `src/stores/` directory (leftover from Zustand removal)
+- Removed ~76MB of redundant backup files from `data/`
+- Archived 4 obsolete documentation files to `_archive/`
+- Created standardized documentation structure under `docs/` (36 files)
+
+## 2026-02-25 — Rewrite Complete (Waves 0-5)
+
+**Major architectural rewrite** migrating from tab-based navigation to the Unified Home + Block System:
+
+- **Wave 0 (Foundation):** Block type system, factory functions, database schema
+- **Wave 1 (Core Components):** WorkCanvas, PhaseRail, Composer, SessionSidebar
+- **Wave 2 (Briefing Logic):** Server actions for 4-phase briefing flow, state machine
+- **Wave 3 (Block Renderers):** 11 block type renderers with interactive elements
+- **Wave 4 (Integration):** Unified Home page, SSE streaming, feature flags
+- **Wave 5 (Testing):** 1,722 unit tests across 124 test files, 60 E2E tests across 8 spec files
+
+**Removed:**
+- Tab-based navigation (Chat, Juris, Ratio, Compare, Insights, Semantic)
+- Panel system (`_panels/`, 8 lazy-loaded panels)
+- Zustand state management (11 stores → React `useState` + Server Actions)
+
+**Tags:** `wave-0-foundation` through `wave-5-final`, `pre-kill-switch`
+
+## 2026-02 — Knowledge Graph Migration to Neo4j
+
+- Implemented adapter pattern supporting both JSON and Neo4j backends
+- Feature flag: `KG_PROVIDER=json|neo4j`
+- Neo4j Aura free tier deployed in production
+- 6,000+ nodes, 104,000+ relationships
+- Issue #253
+
+## 2026-01 — Authentication Implementation
+
+- NextAuth v5 with Google OAuth + Resend magic links
+- JWT-based sessions (no database session table)
+- Dev bypass mode (`ENABLE_DEV_AUTH=true`)
+- `isAdmin()` check for administrative operations
+- Issue #226
+
+## Earlier History
+
+**Project origins:** Juca started as a fullstack Next.js application for STJ jurisprudence analysis. The initial corpus contained 1,556 decisions, later expanded to 23,400+ via Valter.
+
+**Original architecture:**
+- Embedded hybrid search (BM25 + semantic + KG fusion)
+- Multi-LLM pipeline (Generate → Criticize → Revise) with 5 providers
+- IRAC extraction (Issue, Rule, Application, Conclusion)
+- Knowledge graph with Neo4j + JSON adapter
+- Anti-hallucination validation (sumulas, ministros, processos)
+
+This architecture is now transitioning to a hub model where Juca focuses on frontend orchestration and Valter handles the backend intelligence.
+
+---
+# docs/roadmap/index.md
+---
+
+
+# Roadmap
+
+> Product roadmap for Juca — the frontend hub of the sens.legal ecosystem.
+
+## Strategic Direction
+
+Juca is pivoting from a fullstack monolith to a **lightweight frontend hub** for the sens.legal ecosystem. Backend intelligence (search, LLM pipeline, knowledge graph, validation) is being delegated to specialized agents: **Valter** for STJ jurisprudence and **Leci** for federal legislation. Juca's role is to provide an elegant, conversational interface (Fintool/Perplexity-style) that orchestrates these agents, manages user sessions, and delivers results through the Briefing Progressivo (4-phase progressive disclosure system).
+
+## Current Milestone
+
+**v0.3 — "Hub Foundation"** is in progress. Key deliverables:
+
+- UI reset with Fintool/Perplexity-style design (Liquid Legal design language)
+- Adapter layer for external agents (Valter, Leci, future agents)
+- Juca → Valter integration (search, verify, graph endpoints)
+- Fix 72 failing test files (#270)
+- Update README.md to reflect hub architecture
+
+See [Milestones](/roadmap/milestones) for full details on all milestones.
+
+## Milestone Overview
+
+| Milestone | Name | Status | Focus |
+|-----------|------|--------|-------|
+| **v0.3** | Hub Foundation | In Progress | UI reset + Valter integration |
+| **v0.4** | Briefing Progressivo | Planned | 4-phase briefing with Valter as backend |
+| **v0.5** | Polish & Expand | Planned | Graph features, memo export, E2E in CI |
+| **v0.6+** | Multi-Agent Platform | Planned | Leci integration, scale preparation |
+| **v1.0** | Platform Release | Planned | Multi-tenancy, billing, public launch |
+
+## Pending Architectural Decisions
+
+| # | Question | Impact | Status |
+|---|----------|--------|--------|
+| 1 | How does Juca authenticate with Valter? (Single key vs per-user vs service token) | Adapter layer (v0.3) | Pending |
+| 3 | What happens with ~55 API routes post-migration? (Remove vs proxy vs fallback) | Codebase size (v0.4) | Pending |
+| 4 | Keep SQLite for sessions or migrate to Postgres? | Aligns with ecosystem | Pending (can wait for v0.6+) |
+| 7 | What to do with local `data/` directory (~80MB)? | Repo size | Pending (keep until v0.4) |
+
+Decisions #2 (UI template), #5 (briefing scope), and #6 (Valter deployment) have been resolved. See [Architecture Decisions](/architecture/decisions) for details.
+
+## Detailed Pages
+
+- [Milestones](/roadmap/milestones) — Detailed milestone breakdowns with features, criteria, and dependencies
+- [Changelog](/roadmap/changelog) — History of significant changes and architectural shifts
+
+---
+# docs/roadmap/milestones.md
+---
+
+
+# Milestones
+
+> Detailed breakdown of each milestone with included features, completion criteria, and dependencies.
+
+## v0.3 — "Hub Foundation"
+
+**Objective:** Transform Juca from a fullstack monolith to a lightweight frontend hub with a professional UI and Valter integration.
+
+**Features:**
+
+| Feature | Issue | Priority | Status |
+|---------|-------|----------|--------|
+| UI reset (Fintool/Perplexity-style, Liquid Legal design) | #273 | P0 | Planned |
+| Adapter layer for external agents | New | P0 | Planned |
+| Juca → Valter integration (search, verify, graph) | New | P0 | Planned |
+| Fix 72 failing test files | #270 | P1 | Planned |
+| Clean phantom dependencies | — | P1 | Done |
+| Update README.md | New | P1 | Planned |
+
+**Completion criteria:**
+- Juca renders results from Valter API (not local backend)
+- UI follows Fintool-inspired design with composer, result cards, citation panel
+- Tests passing in CI (0 failures)
+- README reflects hub architecture
+
+---
+
+## v0.4 — "Briefing Progressivo"
+
+**Objective:** Deliver the full 4-phase briefing flow with the new UI, consuming Valter as backend.
+
+**Features:**
+
+| Feature | Issue | Priority | Valter Endpoint |
+|---------|-------|----------|----------------|
+| F1: Interactive Diagnosis | #285 | P1 | `/v1/factual/*` |
+| F2: Interactive Precedents | #286 | P1 | `/v1/retrieve`, `/v1/similar_cases` |
+| F3: Risks & Opportunities | #287 | P1 | `/v1/graph/optimal-argument` |
+| F4: Contextual Delivery | #288 | P1 | — (client-side generation) |
+| Personalized Briefing PDF | #289 | P1 | — |
+| Remove duplicated backend (`src/lib/backend/`) | New | P1 | — |
+| Timeout + AbortController end-to-end | #238 | P2 | — |
+
+**Completion criteria:**
+- Full F1→F2→F3→F4 flow functional with real Valter data
+- PDF reflects user selections across all 4 phases
+- Zero dependency on local backend for core features
+- E2E tests cover the briefing flow
+
+**Dependencies:** v0.3 (adapter layer and Valter integration must be complete)
+
+---
+
+## v0.5 — "Polish & Expand"
+
+**Objective:** Stabilize, expand graph capabilities, and resolve technical debt.
+
+**Features:**
+
+| Feature | Issue | Priority |
+|---------|-------|----------|
+| Divergence/trend comparison via Valter graph | #155 | P2 |
+| Advanced selection criteria | #160 | P2 |
+| Export legal memo (PDF + DOCX) | #158 | P2 |
+| Post-generation validation via Valter `/v1/verify` | #207 | P2 |
+| Data consistency fixes | #268, #274 | P2 |
+| Hallucination reduction (prompt/schema adjustments) | #210 | P2 |
+| E2E tests in CI (Playwright in GitHub Actions) | — | P2 |
+
+**Completion criteria:**
+- Valter graph features accessible via UI
+- Consistent data (no orphan decisions)
+- E2E running in CI
+
+---
+
+## v0.6+ — "Multi-Agent Platform"
+
+**Objective:** Expand the hub to support multiple agents and prepare for scale.
+
+**Features:**
+
+| Feature | Issue | Priority |
+|---------|-------|----------|
+| Leci integration (federal legislation) | — | P2 |
+| KG exploration screen (MinistroProfile, CompareMinistros) | #281 | P2 |
+| LLM cost ledger | #232 | P3 |
+| SQLite → PostgreSQL migration | #231 | P3 |
+| BOLA fix (session ownership validation) | #227 | P3 |
+| Inject Q7/Q14/Q19 fields | #280 | P3 |
+
+**Completion criteria:**
+- Juca consumes 2+ agents (Valter + Leci)
+- Cost tracking functional
+- Sessions protected by ownership checks
+
+---
+
+## v1.0 — "Platform Release"
+
+**Objective:** Production-ready product for external users.
+
+**Features:**
+
+| Feature | Issue | Priority |
+|---------|-------|----------|
+| Skills Platform (modular legal skills) | #193 | P3 |
+| Multi-tenancy and billing | — | P3 |
+| PWA configuration | — | P3 |
+| Corpus expansion (TJs, TRFs, TST via agents) | — | P3 |
+| Complete public documentation | — | P3 |
+
+**Completion criteria:**
+- External users can sign up and use the product
+- Billing functional
+- Documentation published
+

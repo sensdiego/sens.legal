@@ -1,0 +1,70 @@
+# Valter — Legal Knowledge Backend
+
+> Legal knowledge backend serving Brazilian STJ jurisprudence via REST API and MCP (Model Context Protocol). Transforms raw court decisions into structured, verified, composable legal reasoning — enabling LLMs and lawyers to query precedents, analyze divergences between ministers, and compose arguments backed by a knowledge graph.
+
+Important notes:
+- Valter serves ~23,400 STJ decisions, ~28,500 knowledge graph nodes, ~207,000 graph edges, and 28 MCP tools
+- All legal references are verified against real tribunal data (anti-hallucination)
+- Two protocols: REST API (port 8000) for frontends, MCP (stdio + HTTP/SSE) for LLMs
+- Part of the sens.legal ecosystem alongside Leci (legislation) and Juca (frontend for lawyers)
+- Stack: Python 3.12 + FastAPI + PostgreSQL + Qdrant + Neo4j + Redis
+- Primary language of legal data: Brazilian Portuguese
+
+## Getting Started
+
+- [Introduction](https://valter.sens.legal/getting-started/introduction): What Valter is, why it exists, who it serves, and what makes it different from every other legal tech platform.
+- [Quickstart](https://valter.sens.legal/getting-started/quickstart): Get Valter running locally and make your first API call in under 5 minutes.
+- [Installation](https://valter.sens.legal/getting-started/installation): Complete setup guide for all Valter components: databases, embedding models, Neo4j, Groq, MCP servers, and production configuration.
+
+## Architecture
+
+- [Architecture Overview](https://valter.sens.legal/architecture/overview): Modular monolith with 4 runtimes, layered architecture with dependency injection via protocols.
+- [Technology Stack](https://valter.sens.legal/architecture/stack): Complete technology stack with versions, justifications, and role of each component.
+- [Architecture Decision Records](https://valter.sens.legal/architecture/decisions): Key architectural decisions made during Valter's development, with context, options considered, and rationale.
+- [Architecture Diagrams](https://valter.sens.legal/architecture/diagrams): Visual diagrams of Valter's architecture, data flow, search pipeline, and ingestion workflow.
+
+## Features
+
+- [Features Overview](https://valter.sens.legal/features/): Complete feature matrix of Valter with implementation status, organized by domain.
+- [Hybrid Search](https://valter.sens.legal/features/hybrid-search): Multi-strategy search combining BM25 lexical, semantic vectors, knowledge graph boost, query expansion, and cross-encoder reranking.
+- [Graph Analytics](https://valter.sens.legal/features/graph-analytics): 12 knowledge graph endpoints for legal reasoning -- divergences, optimal arguments, temporal evolution, minister profiles, and structural analysis.
+- [MCP Server](https://valter.sens.legal/features/mcp-server): 28 Model Context Protocol tools enabling Claude and ChatGPT to query legal knowledge, analyze cases, and compose arguments.
+- [Ingestion Workflow](https://valter.sens.legal/features/ingestion-workflow): Full case analysis pipeline from PDF upload through PROJUDI extraction, phase analysis, jurisprudence matching, and human review.
+- [Verification & Enrichment](https://valter.sens.legal/features/verification-enrichment): Anti-hallucination verification of legal references and IRAC-based document enrichment with knowledge graph context.
+- [Legal Reasoning Chain](https://valter.sens.legal/features/reasoning-chain): Planned v1.2 flagship feature -- server-side orchestrator composing verified legal arguments from the knowledge graph with provenance tracking.
+- [Observability](https://valter.sens.legal/features/observability): Structured logging, Prometheus metrics, and OpenTelemetry tracing for monitoring Valter in production.
+
+## Configuration
+
+- [Environment Variables](https://valter.sens.legal/configuration/environment): Complete reference of 50+ environment variables organized by category with defaults and requirements.
+- [Settings & Configuration](https://valter.sens.legal/configuration/settings): Configuration files, runtime modes, and feature flags in Valter.
+- [External Integrations](https://valter.sens.legal/configuration/integrations): How to configure connections to Groq, Cloudflare R2, Railway, Neo4j Aura, and HuggingFace.
+
+## Development
+
+- [Development Setup](https://valter.sens.legal/development/setup): Complete guide to setting up a local development environment for Valter.
+- [Coding Conventions](https://valter.sens.legal/development/conventions): Coding standards, naming patterns, architectural rules, and pre-commit review checklist enforced in Valter.
+- [Testing Guide](https://valter.sens.legal/development/testing): How to run and write tests in Valter — framework, coverage stats, mocking patterns, and test categories.
+- [Contributing Guide](https://valter.sens.legal/development/contributing): How to contribute to Valter — git workflow, PR process, CI/CD pipeline, and multi-agent coordination.
+
+## API Reference
+
+- [API Overview](https://valter.sens.legal/api/): REST API overview — base URL, authentication, rate limiting, error handling, and pagination.
+- [Search Endpoints](https://valter.sens.legal/api/search): API reference for search endpoints — hybrid retrieval, similar cases, feature search, and dual-vector search.
+- [Graph Endpoints](https://valter.sens.legal/api/graph): API reference for 13 knowledge graph analytics endpoints — divergences, optimal arguments, temporal evolution, and more.
+- [Verify & Enrich Endpoints](https://valter.sens.legal/api/verify-enrich): API reference for anti-hallucination verification, IRAC enrichment, and factual extraction.
+- [Ingest Endpoints](https://valter.sens.legal/api/ingest): API reference for ingestion workflow endpoints — PDF analysis, phase processing, artifact management, and human review.
+- [Admin & Utility Endpoints](https://valter.sens.legal/api/admin): API reference for health checks, metrics, session memory, and dataset management.
+- [MCP Tools Reference](https://valter.sens.legal/api/mcp-tools): Complete reference for all 28 MCP tools — parameters, return types, and usage examples for Claude and ChatGPT integration.
+
+## Roadmap
+
+- [Roadmap](https://valter.sens.legal/roadmap/): Product vision, strategic direction, and competitive positioning of Valter as a legal reasoning engine.
+- [Milestones](https://valter.sens.legal/roadmap/milestones): Detailed milestone plan from v1.0 (production stability) through v2.1 (scale and public presence).
+- [Changelog](https://valter.sens.legal/roadmap/changelog): History of significant changes, features shipped, and milestones reached.
+
+## Reference
+
+- [Glossary](https://valter.sens.legal/reference/glossary): Legal domain terms and technical concepts used throughout Valter's documentation and codebase.
+- [FAQ](https://valter.sens.legal/reference/faq): Frequently asked questions about Valter's architecture, design choices, and usage.
+- [Troubleshooting](https://valter.sens.legal/reference/troubleshooting): Common issues and solutions when running Valter locally or in production.
