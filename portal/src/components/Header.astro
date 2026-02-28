@@ -17,15 +17,15 @@ const prefix = lang === 'pt-br' ? '/pt-br' : '';
           <line x1="3" y1="15" x2="17" y2="15" />
         </svg>
       </button>
-      <a href={`${prefix}/`} class="logo-link">
+      <a href="https://sens.legal" class="logo-link">
         <img src="/logo.png" alt="sens" class="logo-img" />
       </a>
     </div>
 
     <nav class="header-nav">
       <a href={`${prefix}/about`}>{lang === 'pt-br' ? 'Sobre' : 'About'}</a>
-      <a href={`${prefix}/projects/valter`}>Projects</a>
-      <a href={`${prefix}/use-cases/search`}>Use Cases</a>
+      <a href={`${prefix}/projects/valter`}>{lang === 'pt-br' ? 'Projetos' : 'Projects'}</a>
+      <a href={`${prefix}/use-cases/search`}>{lang === 'pt-br' ? 'Casos de Uso' : 'Use Cases'}</a>
     </nav>
 
     <div class="header-right">
@@ -34,7 +34,7 @@ const prefix = lang === 'pt-br' ? '/pt-br' : '';
           <circle cx="6.5" cy="6.5" r="5" />
           <line x1="10" y1="10" x2="15" y2="15" />
         </svg>
-        <span class="search-label">Search</span>
+        <span class="search-label">{lang === 'pt-br' ? 'Buscar' : 'Search'}</span>
         <kbd class="search-kbd">
           <abbr title="Command">&#8984;</abbr>K
         </kbd>
