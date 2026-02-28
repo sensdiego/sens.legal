@@ -1,0 +1,168 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Arquitetura" description="Arquitetura do sistema e diagramas de fluxo de dados." lang="pt-br">
+  <h1>Arquitetura</h1>
+
+  <p>
+    sens.legal e composto por tres projetos que se comunicam atraves da REST API
+    e servidor MCP do Valter. Os diagramas abaixo mostram a visao geral do
+    ecossistema, o pipeline de busca e a estrutura do knowledge graph.
+  </p>
+
+  <h2>Visao Geral do Ecossistema</h2>
+
+  <p>
+    Juca (o frontend) e LLMs (Claude, ChatGPT) consomem as capacidades do Valter
+    por diferentes protocolos. A mesma logica de busca, verificacao e graph
+    analytics serve ambos.
+  </p>
+
+  <pre><code class="language-mermaid">graph TB
+    subgraph Consumidores
+        JUCA[Juca Frontend<br/>Next.js]
+        CHATGPT[ChatGPT<br/>MCP Remoto]
+        CLAUDE[Claude Desktop/Code<br/>MCP stdio]
+    end
+
+    subgraph "Valter — Entry Points"
+        API[REST API<br/>FastAPI :8000]
+        MCP_STDIO[MCP Server<br/>stdio]
+        MCP_HTTP[MCP Server<br/>HTTP/SSE :8001]
+    end
+
+    subgraph "Core Layer"
+        RETRIEVER[HybridRetriever<br/>BM25 + Semantic + KG Boost]
+        ENRICHER[DocumentEnricher<br/>IRAC + KG Context]
+        VERIFIER[LegalVerifier<br/>Anti-alucinacao]
+    end
+
+    subgraph "Data Stores"
+        PG[(PostgreSQL 16<br/>Documentos + Metadados)]
+        QD[(Qdrant<br/>Vetores Semanticos)]
+        N4J[(Neo4j<br/>Knowledge Graph)]
+        RD[(Redis 7<br/>Cache)]
+    end
+
+    JUCA --> API
+    CHATGPT --> MCP_HTTP
+    CLAUDE --> MCP_STDIO
+    MCP_STDIO --> API
+    MCP_HTTP --> API
+    API --> RETRIEVER & ENRICHER & VERIFIER
+    RETRIEVER --> PG & QD & N4J & RD
+    ENRICHER --> PG & N4J
+    VERIFIER --> PG & N4J</code></pre>
+
+  <h2>Pipeline de Busca</h2>
+
+  <p>
+    A busca hibrida combina BM25, busca semantica vetorial (embeddings de 768
+    dimensoes via Legal-BERTimbau) e boosting via knowledge graph em um unico
+    conjunto de resultados ranqueado. Resultados sao re-ranqueados por um
+    cross-encoder e cacheados no Redis.
+  </p>
+
+  <pre><code class="language-mermaid">flowchart LR
+    Q[Query] --> CACHE{{"Cache?"}}
+    CACHE -->|hit| RESULT
+    CACHE -->|miss| QE[Query Expansion<br/>Groq LLM]
+    QE --> ENCODE[Encode<br/>Legal-BERTimbau]
+    ENCODE --> PAR{{"Paralelo"}}
+    PAR --> BM25[BM25<br/>PostgreSQL]
+    PAR --> SEM[Semantico<br/>Qdrant cosine]
+    BM25 --> MERGE[Merge<br/>Weighted / RRF]
+    SEM --> MERGE
+    MERGE --> KG{{"KG Boost?"}}
+    KG -->|sim| BOOST[Neo4j Batch]
+    KG -->|nao| RERANK
+    BOOST --> RERANK[Cross-Encoder<br/>Reranking]
+    RERANK --> RESULT[Resposta]</code></pre>
+
+  <h2>Knowledge Graph</h2>
+
+  <p>
+    O knowledge graph do Neo4j usa a ontologia FRBR adaptada para documentos
+    juridicos brasileiros. Contem aproximadamente <strong>28.000 nos</strong>
+    e <strong>207.000+ arestas</strong> representando a estrutura relacional
+    da jurisprudencia do STJ.
+  </p>
+
+  <h3>Tipos de No</h3>
+
+  <table>
+    <thead>
+      <tr><th>No</th><th>Descricao</th><th>Exemplo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>Decision</code></td><td>Decisao do STJ</td><td>REsp 1.234.567/SP</td></tr>
+      <tr><td><code>Criterion</code></td><td>Criterio juridico</td><td>"boa-fe objetiva"</td></tr>
+      <tr><td><code>LegalDevice</code></td><td>Artigo de lei</td><td>Art. 14 do CDC</td></tr>
+      <tr><td><code>Precedent</code></td><td>Precedente citado</td><td>Sumula 297/STJ</td></tr>
+      <tr><td><code>Minister</code></td><td>Ministro do STJ</td><td>Min. Nancy Andrighi</td></tr>
+      <tr><td><code>Category</code></td><td>Area juridica</td><td>Direito do Consumidor</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Tipos de Relacionamento</h3>
+
+  <table>
+    <thead>
+      <tr><th>Relacionamento</th><th>De → Para</th><th>Significado</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>APLICA</code></td><td>Decision → LegalDevice</td><td>Aplica este dispositivo legal</td></tr>
+      <tr><td><code>USA_CRITERIO</code></td><td>Decision → Criterion</td><td>Usa este criterio juridico</td></tr>
+      <tr><td><code>CITA</code></td><td>Decision → Decision</td><td>Cita outra decisao</td></tr>
+      <tr><td><code>CITA_PRECEDENTE</code></td><td>Decision → Precedent</td><td>Cita este precedente</td></tr>
+      <tr><td><code>RELATOR_DE</code></td><td>Minister → Decision</td><td>Ministro relator</td></tr>
+      <tr><td><code>DIVERGE_DE</code></td><td>Decision → Decision</td><td>Resultados divergentes</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    <a href="https://valter.sens.legal/architecture/diagrams/" target="_blank" rel="noopener">
+      Ver documentacao completa de arquitetura nos docs do Valter &rarr;
+    </a>
+  </p>
+</DocsLayout>
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-md) 0 var(--space-lg);
+    font-size: 0.875rem;
+  }
+
+  th, td {
+    text-align: left;
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  th {
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+</style>
+
+<script>
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: false, theme: 'default' });
+
+  document.querySelectorAll('pre:has(code.language-mermaid)').forEach((pre) => {
+    const code = pre.querySelector('code');
+    if (!code) return;
+    const div = document.createElement('div');
+    div.className = 'mermaid';
+    div.textContent = code.textContent;
+    pre.replaceWith(div);
+  });
+
+  mermaid.run();
+</script>

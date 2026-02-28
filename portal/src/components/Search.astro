@@ -1,0 +1,215 @@
+---
+import { routes } from '../data/routes';
+
+interface Props {
+  lang?: 'en' | 'pt-br';
+}
+
+const { lang = 'en' } = Astro.props;
+const prefix = lang === 'pt-br' ? '/pt-br' : '';
+
+// Flatten routes for search index
+const searchItems = routes.flatMap((group) =>
+  group.items.map((item) => ({
+    label: lang === 'pt-br' && item.labelPtBr ? item.labelPtBr : item.label,
+    group: lang === 'pt-br' && group.titlePtBr ? group.titlePtBr : group.title,
+    href: prefix + item.slug,
+  }))
+);
+
+// External docs links
+const externalDocs = [
+  { label: 'Valter Docs', group: 'EXTERNAL', href: 'https://valter.sens.legal' },
+  { label: 'Juca Docs', group: 'EXTERNAL', href: 'https://juca.sens.legal' },
+  { label: 'Leci Docs', group: 'EXTERNAL', href: 'https://leci.sens.legal' },
+];
+
+const allItems = [...searchItems, ...externalDocs];
+---
+
+<div class="search-overlay" id="search-overlay">
+  <div class="search-modal" id="search-modal">
+    <div class="search-input-wrapper">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" class="search-icon">
+        <circle cx="6.5" cy="6.5" r="5" />
+        <line x1="10" y1="10" x2="15" y2="15" />
+      </svg>
+      <input
+        type="text"
+        class="search-input"
+        id="search-input"
+        placeholder={lang === 'pt-br' ? 'Buscar...' : 'Search...'}
+        autocomplete="off"
+      />
+      <kbd class="search-esc">Esc</kbd>
+    </div>
+    <ul class="search-results" id="search-results"></ul>
+  </div>
+</div>
+
+<script define:vars={{ allItems }}>
+  const overlay = document.getElementById('search-overlay');
+  const modal = document.getElementById('search-modal');
+  const input = document.getElementById('search-input');
+  const results = document.getElementById('search-results');
+  const trigger = document.getElementById('search-trigger');
+
+  function openSearch() {
+    overlay.classList.add('open');
+    input.value = '';
+    input.focus();
+    renderResults('');
+  }
+
+  function closeSearch() {
+    overlay.classList.remove('open');
+  }
+
+  function renderResults(query) {
+    const q = query.toLowerCase().trim();
+    const filtered = q
+      ? allItems.filter(
+          (item) =>
+            item.label.toLowerCase().includes(q) ||
+            item.group.toLowerCase().includes(q)
+        )
+      : allItems;
+
+    results.innerHTML = filtered
+      .map(
+        (item) =>
+          `<li><a href="${item.href}" class="search-result-link">
+            <span class="search-result-group">${item.group}</span>
+            <span class="search-result-label">${item.label}</span>
+          </a></li>`
+      )
+      .join('');
+  }
+
+  // Open/close handlers
+  trigger?.addEventListener('click', openSearch);
+
+  overlay?.addEventListener('click', (e) => {
+    if (e.target === overlay) closeSearch();
+  });
+
+  input?.addEventListener('input', (e) => {
+    renderResults(e.target.value);
+  });
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      if (overlay.classList.contains('open')) {
+        closeSearch();
+      } else {
+        openSearch();
+      }
+    }
+    if (e.key === 'Escape' && overlay.classList.contains('open')) {
+      closeSearch();
+    }
+  });
+</script>
+
+<style>
+  .search-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(0, 0, 0, 0.3);
+    justify-content: center;
+    padding-top: 20vh;
+  }
+
+  .search-overlay.open {
+    display: flex;
+  }
+
+  .search-modal {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    width: 32rem;
+    max-width: 90vw;
+    max-height: 24rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    align-self: flex-start;
+  }
+
+  .search-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .search-icon {
+    flex-shrink: 0;
+    color: var(--color-text-muted);
+  }
+
+  .search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 0.9375rem;
+    font-family: var(--font-sans);
+    background: transparent;
+    color: var(--color-text);
+  }
+
+  .search-input::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  .search-esc {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: 0.1em 0.35em;
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+  }
+
+  .search-results {
+    list-style: none;
+    overflow-y: auto;
+    padding: var(--space-sm) 0;
+  }
+
+  .search-results :global(.search-result-link) {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-lg);
+    text-decoration: none;
+    color: var(--color-text);
+    transition: background 0.1s;
+  }
+
+  .search-results :global(.search-result-link:hover) {
+    background: var(--color-bg-secondary);
+  }
+
+  .search-results :global(.search-result-group) {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    min-width: 7rem;
+    text-transform: uppercase;
+  }
+
+  .search-results :global(.search-result-label) {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+</style>

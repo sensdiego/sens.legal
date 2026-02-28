@@ -1,0 +1,109 @@
+---
+import { routes } from '../data/routes';
+
+interface Props {
+  currentPath: string;
+  lang?: 'en' | 'pt-br';
+}
+
+const { currentPath, lang = 'en' } = Astro.props;
+const prefix = lang === 'pt-br' ? '/pt-br' : '';
+
+function isActive(slug: string): boolean {
+  const fullSlug = prefix + slug;
+  // Exact match for home
+  if (slug === '/') return currentPath === fullSlug || currentPath === fullSlug + '/';
+  return currentPath === fullSlug || currentPath === fullSlug + '/' || currentPath.startsWith(fullSlug + '/');
+}
+---
+
+<aside class="sidebar" id="sidebar">
+  <nav class="sidebar-nav" aria-label="Main navigation">
+    {routes.map((group) => (
+      <div class="sidebar-group">
+        <h3 class="sidebar-group-title">
+          {lang === 'pt-br' && group.titlePtBr ? group.titlePtBr : group.title}
+        </h3>
+        <ul class="sidebar-items">
+          {group.items.map((item) => (
+            <li>
+              <a
+                href={`${prefix}${item.slug}`}
+                class:list={['sidebar-link', { active: isActive(item.slug) }]}
+              >
+                {lang === 'pt-br' && item.labelPtBr ? item.labelPtBr : item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </nav>
+</aside>
+
+<style>
+  .sidebar {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    bottom: 0;
+    width: var(--sidebar-width);
+    overflow-y: auto;
+    padding: var(--space-xl) 0 var(--space-xl) var(--space-lg);
+    border-right: 1px solid var(--color-border);
+    background: var(--color-bg);
+    z-index: 50;
+  }
+
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .sidebar-group-title {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    padding-left: var(--space-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  .sidebar-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-link {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    padding: 0.3rem var(--space-md);
+    border-left: 3px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .sidebar-link:hover {
+    color: var(--color-text);
+  }
+
+  .sidebar-link.active {
+    color: var(--color-text);
+    font-weight: 600;
+    border-left-color: var(--color-accent);
+  }
+
+  @media (max-width: 50rem) {
+    .sidebar {
+      transform: translateX(-100%);
+      transition: transform 0.2s ease;
+    }
+
+    .sidebar.open {
+      transform: translateX(0);
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    }
+  }
+</style>

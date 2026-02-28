@@ -1,0 +1,74 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Sobre" description="O que e o sens.legal e quem esta por tras." lang="pt-br">
+  <h1>Sobre</h1>
+
+  <h2>O que e o sens.legal?</h2>
+
+  <p>
+    sens.legal e um hub de solucoes tecnologicas em estagio alpha focado no
+    pipeline completo de atuacao profissional juridica no Brasil. Combina busca
+    semantica sobre dados reais de tribunais, knowledge graph baseado na ontologia
+    FRBR, verificacao anti-alucinacao e integracao nativa com LLMs via Model
+    Context Protocol (MCP).
+  </p>
+
+  <p>
+    A plataforma e composta por tres projetos — <a href="/pt-br/projects/valter">Valter</a>
+    (backend de conhecimento juridico), <a href="/pt-br/projects/juca">Juca</a>
+    (frontend para advogados) e <a href="/pt-br/projects/leci">Leci</a> (backend
+    de legislacao) — desenhados para funcionar juntos como um ecossistema integrado.
+  </p>
+
+  <h2>Quem</h2>
+
+  <p>
+    sens.legal e criado por <strong>Diego Sens</strong>, engenheiro de software
+    construindo ferramentas que tornam pesquisa juridica, analise e argumentacao
+    acessiveis para advogados e LLMs.
+  </p>
+
+  <h2>Visao</h2>
+
+  <p>
+    Tornar todo o pipeline juridico — pesquisa, analise, argumentacao, verificacao —
+    acessivel para advogados e LLMs. Toda alegacao rastreavel a dados reais do
+    tribunal. Todo argumento respaldado por jurisprudencia verificada.
+  </p>
+
+  <h2>O que torna diferente</h2>
+
+  <ul>
+    <li>
+      <strong>Knowledge graph (ontologia FRBR)</strong> — decisoes, criterios,
+      dispositivos legais, precedentes e ministros sao entidades de primeira
+      classe conectadas por 207K+ relacionamentos. Nao e um indice de palavras-chave
+      sobre texto plano.
+    </li>
+    <li>
+      <strong>MCP-nativo</strong> — 28 tools expostas via Model Context Protocol,
+      permitindo que Claude e ChatGPT consultem jurisprudencia, verifiquem alegacoes
+      e componham argumentos diretamente. Nao e um wrapper de chatbot.
+    </li>
+    <li>
+      <strong>Anti-alucinacao</strong> — toda alegacao retornada pelo sistema e
+      verificada contra dados reais do tribunal. Cadeias de citacao sao tracadas
+      no knowledge graph. Sem numeros de processo inventados.
+    </li>
+    <li>
+      <strong>Dados reais do STJ</strong> — 28.000+ decisoes, 810K+ registros de
+      metadados, 2.100+ features classificadas do Superior Tribunal de Justica.
+      Nao sao dados sinteticos ou raspados e esquecidos.
+    </li>
+  </ul>
+
+  <h2>Contato</h2>
+
+  <ul>
+    <li>GitHub: <a href="https://github.com/sensdiego" target="_blank" rel="noopener">@sensdiego</a></li>
+    <li>X: <a href="https://x.com/sensdiego" target="_blank" rel="noopener">@sensdiego</a></li>
+    <li>Email: <a href="mailto:diegomeyersens@gmail.com">diegomeyersens@gmail.com</a></li>
+  </ul>
+</DocsLayout>

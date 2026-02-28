@@ -1,0 +1,72 @@
+---
+import DocsLayout from '../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="About" description="What is sens.legal and who is behind it.">
+  <h1>About</h1>
+
+  <h2>What is sens.legal?</h2>
+
+  <p>
+    sens.legal is a technology hub in alpha stage focused on the complete pipeline
+    of professional legal practice in Brazil. It combines semantic search over real
+    court data, a knowledge graph built on the FRBR ontology, anti-hallucination
+    verification, and native LLM integration via Model Context Protocol (MCP).
+  </p>
+
+  <p>
+    The platform is composed of three projects — <a href="/projects/valter">Valter</a>
+    (legal knowledge backend), <a href="/projects/juca">Juca</a> (frontend for lawyers),
+    and <a href="/projects/leci">Leci</a> (legislation backend) — designed to work
+    together as an integrated ecosystem.
+  </p>
+
+  <h2>Who</h2>
+
+  <p>
+    sens.legal is created by <strong>Diego Sens</strong>, a software engineer building
+    tools that make legal research, analysis, and argumentation accessible to both
+    lawyers and LLMs.
+  </p>
+
+  <h2>Vision</h2>
+
+  <p>
+    Make the entire legal pipeline — research, analysis, argumentation, verification —
+    accessible to lawyers and LLMs alike. Every claim traceable to real court data.
+    Every argument backed by verified jurisprudence.
+  </p>
+
+  <h2>What makes it different</h2>
+
+  <ul>
+    <li>
+      <strong>Knowledge graph (FRBR ontology)</strong> — decisions, criteria, legal
+      devices, precedents, and ministers are first-class entities connected by 207K+
+      relationships. Not a keyword index over flat text.
+    </li>
+    <li>
+      <strong>MCP-native</strong> — 28 tools exposed via Model Context Protocol,
+      letting Claude and ChatGPT query jurisprudence, verify claims, and compose
+      arguments directly. Not a chatbot wrapper.
+    </li>
+    <li>
+      <strong>Anti-hallucination</strong> — every claim returned by the system is
+      verified against real court data. Citation chains are traced in the knowledge
+      graph. No invented case numbers.
+    </li>
+    <li>
+      <strong>Real STJ data</strong> — 28,000+ decisions, 810K+ metadata records,
+      2,100+ classified features from the Superior Tribunal de Justica. Not synthetic
+      or scraped-and-forgotten data.
+    </li>
+  </ul>
+
+  <h2>Contact</h2>
+
+  <ul>
+    <li>GitHub: <a href="https://github.com/sensdiego" target="_blank" rel="noopener">@sensdiego</a></li>
+    <li>X: <a href="https://x.com/sensdiego" target="_blank" rel="noopener">@sensdiego</a></li>
+    <li>Email: <a href="mailto:diegomeyersens@gmail.com">diegomeyersens@gmail.com</a></li>
+  </ul>
+</DocsLayout>

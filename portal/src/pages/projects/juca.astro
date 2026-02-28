@@ -1,0 +1,71 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Juca" description="Frontend for lawyers — the interface for the sens.legal ecosystem.">
+  <h1>Juca</h1>
+  <p class="subtitle">Frontend for lawyers</p>
+
+  <span class="badge badge-alpha">alpha</span>
+
+  <p>
+    Juca is the frontend through which legal professionals interact with the
+    sens.legal ecosystem. It consumes Valter's REST API to provide search,
+    analysis, and case management capabilities in a web interface designed
+    for the workflow of Brazilian lawyers.
+  </p>
+
+  <h2>Stack</h2>
+
+  <ul>
+    <li><strong>Framework:</strong> Next.js 15</li>
+    <li><strong>Language:</strong> TypeScript</li>
+    <li><strong>UI:</strong> React, Tailwind CSS</li>
+    <li><strong>State:</strong> React Server Components + client hooks</li>
+    <li><strong>Deploy:</strong> Vercel</li>
+  </ul>
+
+  <h2>Key Capabilities</h2>
+
+  <ul>
+    <li>Jurisprudence search with filters (minister, date, category, result)</li>
+    <li>Case briefing workflow with guided phase analysis</li>
+    <li>Document viewer with IRAC enrichment</li>
+    <li>Canvas for organizing legal arguments</li>
+    <li>Integration with Valter's anti-hallucination verification</li>
+  </ul>
+
+  <h2>Status</h2>
+
+  <p>
+    Juca is in active development. The rewrite (Waves 0-5) was completed in
+    February 2026, establishing the foundation for the briefing workflow, canvas,
+    and search interface. Authentication and multi-user features are planned but
+    not yet available.
+  </p>
+
+  <h2>Roadmap</h2>
+
+  <ul>
+    <li>User authentication and multi-tenant support</li>
+    <li>Case management dashboard</li>
+    <li>Document annotation and collaboration</li>
+    <li>Mobile-responsive interface</li>
+  </ul>
+
+  <h2>Links</h2>
+
+  <ul>
+    <li><a href="https://juca.sens.legal" target="_blank" rel="noopener">Documentation</a></li>
+    <li><a href="https://github.com/sensdiego/juca" target="_blank" rel="noopener">GitHub</a></li>
+  </ul>
+</DocsLayout>
+
+<style>
+  .subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+    margin-top: -0.5rem;
+    margin-bottom: var(--space-md);
+  }
+</style>

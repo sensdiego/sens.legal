@@ -1,0 +1,52 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Juca" description="Frontend para advogados — a interface do ecossistema sens.legal." lang="pt-br">
+  <h1>Juca</h1>
+  <p class="subtitle">Frontend para advogados</p>
+
+  <span class="badge badge-alpha">alpha</span>
+
+  <p>
+    Juca e o frontend atraves do qual profissionais do direito interagem com o
+    ecossistema sens.legal. Consome a REST API do Valter para fornecer capacidades
+    de busca, analise e gestao de processos em uma interface web desenhada para o
+    fluxo de trabalho de advogados brasileiros.
+  </p>
+
+  <h2>Stack</h2>
+
+  <ul>
+    <li><strong>Framework:</strong> Next.js 15</li>
+    <li><strong>Linguagem:</strong> TypeScript</li>
+    <li><strong>UI:</strong> React, Tailwind CSS</li>
+    <li><strong>Deploy:</strong> Vercel</li>
+  </ul>
+
+  <h2>Capacidades Principais</h2>
+
+  <ul>
+    <li>Busca de jurisprudencia com filtros (ministro, data, categoria, resultado)</li>
+    <li>Workflow de briefing com analise guiada por fases</li>
+    <li>Visualizador de documentos com enriquecimento IRAC</li>
+    <li>Canvas para organizacao de argumentos juridicos</li>
+    <li>Integracao com verificacao anti-alucinacao do Valter</li>
+  </ul>
+
+  <h2>Links</h2>
+
+  <ul>
+    <li><a href="https://juca.sens.legal" target="_blank" rel="noopener">Documentacao</a></li>
+    <li><a href="https://github.com/sensdiego/juca" target="_blank" rel="noopener">GitHub</a></li>
+  </ul>
+</DocsLayout>
+
+<style>
+  .subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+    margin-top: -0.5rem;
+    margin-bottom: var(--space-md);
+  }
+</style>

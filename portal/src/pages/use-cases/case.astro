@@ -1,0 +1,74 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Case Analysis" description="Full case analysis workflow from PDF upload to human-reviewed artifacts.">
+  <h1>Case Analysis</h1>
+  <span class="badge badge-alpha">available in alpha</span>
+
+  <p>
+    Upload a case PDF and get a complete analysis: document segmentation,
+    AI-powered classification, phase-by-phase interpretation, jurisprudence
+    matching, and human-reviewable artifacts. The workflow is managed by a
+    state machine with full audit trail.
+  </p>
+
+  <h2>How it works</h2>
+
+  <ol>
+    <li><strong>Upload:</strong> PDF is submitted to the ingestion pipeline</li>
+    <li><strong>Extraction:</strong> PROJUDI pipeline segments the document, classifying each section</li>
+    <li><strong>Classification:</strong> Groq LLM extracts 21 structured fields (facts, legal thesis, outcome, minister, category...)</li>
+    <li><strong>Phase analysis:</strong> deterministic interpretation of legal proceeding phases with jurisprudence recommendations per phase</li>
+    <li><strong>Matching:</strong> hybrid retriever finds similar cases, generates suggestions</li>
+    <li><strong>Review:</strong> lawyer reviews and approves/rejects each phase</li>
+    <li><strong>Artifacts:</strong> approved analyses are serialized as JSON and PDF, stored in Cloudflare R2</li>
+  </ol>
+
+  <h2>Example</h2>
+
+  <h4>Submit a case</h4>
+
+  <pre><code>POST /api/v1/ingest/case
+Content-Type: multipart/form-data
+
+file: case_document.pdf</code></pre>
+
+  <h4>Check status</h4>
+
+  <pre><code>GET /api/v1/ingest/case/abc-123/status
+
+{"{"}
+  "workflow_id": "abc-123",
+  "status": "analyzing",
+  "current_phase": "phase_analysis",
+  "progress": 0.6,
+  "phases_completed": ["extraction", "classification"],
+  "phases_remaining": ["matching", "review", "artifacts"]
+{"}"}</code></pre>
+
+  <h2>What makes it different</h2>
+
+  <p>
+    The analysis is not a one-shot LLM summary. It is a multi-stage pipeline
+    with deterministic rules, knowledge graph matching, and human review gates.
+    Every state transition is recorded as an auditable event. Rejections trigger
+    reprocessing, not restarting.
+  </p>
+
+  <h2>Available via</h2>
+
+  <ul>
+    <li><code>POST /api/v1/ingest/case</code> — REST API</li>
+    <li><code>SubmitCasePdfAnalysis</code> — MCP tool (submit)</li>
+    <li><code>GetCasePdfAnalysisStatus</code> — MCP tool (check status)</li>
+    <li><code>GetCasePdfAnalysisResult</code> — MCP tool (get result)</li>
+    <li><code>ReviewCasePhase</code> — MCP tool (approve/reject phases)</li>
+  </ul>
+</DocsLayout>
+
+<style>
+  .badge {
+    margin-bottom: var(--space-lg);
+  }
+</style>

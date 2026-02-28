@@ -1,0 +1,53 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Busca Semantica" description="Busca na jurisprudencia do STJ com busca hibrida semantica + keyword + knowledge graph." lang="pt-br">
+  <h1>Busca Semantica</h1>
+  <span class="badge badge-alpha">disponivel em alpha</span>
+
+  <p>
+    Busque em dezenas de milhares de decisoes do STJ usando um pipeline hibrido
+    que combina busca BM25 por palavras-chave, busca semantica vetorial (embeddings
+    Legal-BERTimbau de 768 dimensoes) e boosting via knowledge graph com 207K+
+    relacionamentos.
+  </p>
+
+  <h2>Como funciona</h2>
+
+  <ol>
+    <li>Sua query e expandida em variantes semanticas usando multi-query RAG</li>
+    <li>BM25 (PostgreSQL) e busca semantica (Qdrant) rodam em paralelo</li>
+    <li>Resultados sao mesclados usando fusao ponderada ou Reciprocal Rank Fusion</li>
+    <li>Knowledge graph boost pontua cada candidato baseado em criterios, fatos e dispositivos compartilhados no Neo4j</li>
+    <li>Um cross-encoder re-ranqueia os candidatos finais</li>
+    <li>Resultados sao cacheados no Redis (TTL 180s)</li>
+  </ol>
+
+  <h2>Exemplo</h2>
+
+  <h4>Request</h4>
+
+  <pre><code>POST /api/v1/retrieve/search
+Content-Type: application/json
+
+{"{"}
+  "query": "responsabilidade civil por defeito do produto",
+  "top_k": 5,
+  "kg_boost": true,
+  "filters": {"{"}
+    "ministro": "Nancy Andrighi"
+  {"}"}
+{"}"}</code></pre>
+
+  <h2>Disponivel via</h2>
+
+  <ul>
+    <li><code>POST /api/v1/retrieve/search</code> — REST API</li>
+    <li><code>SearchJurisprudence</code> — tool MCP</li>
+  </ul>
+</DocsLayout>
+
+<style>
+  .badge { margin-bottom: var(--space-lg); }
+</style>

@@ -1,0 +1,84 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Verify Claims" description="Anti-hallucination verification of legal claims against real STJ data.">
+  <h1>Verify Claims</h1>
+  <span class="badge badge-alpha">available in alpha</span>
+
+  <p>
+    Verify legal claims against real court data. The system checks whether a
+    stated legal position is supported by actual STJ decisions, traces the
+    citation chain in the knowledge graph, and returns a confidence score
+    per claim.
+  </p>
+
+  <h2>How it works</h2>
+
+  <ol>
+    <li>The claim is parsed into verifiable components (legal position, cited cases, criteria)</li>
+    <li>Each component is searched against the knowledge graph and document store</li>
+    <li>Citation chains are traced: does decision A actually cite decision B?</li>
+    <li>Case numbers are validated against real STJ metadata (810K+ records)</li>
+    <li>A confidence score is computed based on evidence found</li>
+  </ol>
+
+  <h2>Example</h2>
+
+  <h4>Request</h4>
+
+  <pre><code>POST /api/v1/verify/claims
+Content-Type: application/json
+
+{"{"}
+  "claims": [
+    "O STJ consolidou entendimento de que a responsabilidade
+     do fornecedor por defeito do produto e objetiva,
+     conforme Art. 12 do CDC (REsp 1.234.567/SP)"
+  ]
+{"}"}</code></pre>
+
+  <h4>Response</h4>
+
+  <pre><code>{"{"}
+  "verifications": [
+    {"{"}
+      "claim": "...",
+      "verified": true,
+      "confidence": 0.89,
+      "evidence": {"{"}
+        "case_exists": true,
+        "case_number": "REsp 1.234.567/SP",
+        "legal_device_applied": true,
+        "device": "Art. 12 do CDC",
+        "position_supported": true,
+        "supporting_decisions": 23
+      {"}"},
+      "citation_chain": ["REsp 1.234.567/SP", "REsp 987.654/RJ", "Sumula 297/STJ"]
+    {"}"}
+  ]
+{"}"}</code></pre>
+
+  <h2>What makes it different</h2>
+
+  <p>
+    LLMs can generate convincing legal text with invented case numbers and
+    fabricated legal positions. The verification pipeline checks every
+    component against real data: does this case exist? Does it actually cite
+    that precedent? Does the court actually hold this position? No claim is
+    returned without evidence.
+  </p>
+
+  <h2>Available via</h2>
+
+  <ul>
+    <li><code>POST /api/v1/verify/claims</code> — REST API</li>
+    <li><code>VerifyLegalClaims</code> — MCP tool</li>
+  </ul>
+</DocsLayout>
+
+<style>
+  .badge {
+    margin-bottom: var(--space-lg);
+  }
+</style>

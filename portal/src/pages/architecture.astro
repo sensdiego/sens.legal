@@ -1,0 +1,179 @@
+---
+import DocsLayout from '../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Architecture" description="System architecture and data flow diagrams.">
+  <h1>Architecture</h1>
+
+  <p>
+    sens.legal is composed of three projects that communicate through Valter's REST API
+    and MCP server. The diagrams below show the ecosystem overview, the search pipeline,
+    and the knowledge graph structure.
+  </p>
+
+  <h2>Ecosystem Overview</h2>
+
+  <p>
+    Juca (the frontend) and LLMs (Claude, ChatGPT) consume Valter's capabilities
+    through different protocols. The same search, verification, and graph analytics
+    logic serves both.
+  </p>
+
+  <pre><code class="language-mermaid">graph TB
+    subgraph Consumers
+        JUCA[Juca Frontend<br/>Next.js]
+        CHATGPT[ChatGPT<br/>MCP Remote]
+        CLAUDE[Claude Desktop/Code<br/>MCP stdio]
+    end
+
+    subgraph "Valter — Entry Points"
+        API[REST API<br/>FastAPI :8000]
+        MCP_STDIO[MCP Server<br/>stdio]
+        MCP_HTTP[MCP Server<br/>HTTP/SSE :8001]
+    end
+
+    subgraph "Core Layer"
+        RETRIEVER[HybridRetriever<br/>BM25 + Semantic + KG Boost]
+        ENRICHER[DocumentEnricher<br/>IRAC + KG Context]
+        VERIFIER[LegalVerifier<br/>Anti-hallucination]
+    end
+
+    subgraph "Data Stores"
+        PG[(PostgreSQL 16<br/>Documents + Metadata)]
+        QD[(Qdrant<br/>Semantic Vectors)]
+        N4J[(Neo4j<br/>Knowledge Graph)]
+        RD[(Redis 7<br/>Cache)]
+    end
+
+    JUCA --> API
+    CHATGPT --> MCP_HTTP
+    CLAUDE --> MCP_STDIO
+    MCP_STDIO --> API
+    MCP_HTTP --> API
+    API --> RETRIEVER & ENRICHER & VERIFIER
+    RETRIEVER --> PG & QD & N4J & RD
+    ENRICHER --> PG & N4J
+    VERIFIER --> PG & N4J</code></pre>
+
+  <h2>Search Pipeline</h2>
+
+  <p>
+    The hybrid search combines BM25 keyword search, semantic vector search (768-dim
+    Legal-BERTimbau embeddings), and knowledge graph boosting into a single ranked
+    result set. Results are reranked by a cross-encoder and cached in Redis.
+  </p>
+
+  <pre><code class="language-mermaid">flowchart LR
+    Q[Query] --> CACHE{{"Cache?"}}
+    CACHE -->|hit| RESULT
+    CACHE -->|miss| QE[Query Expansion<br/>Groq LLM]
+    QE --> ENCODE[Encode<br/>Legal-BERTimbau]
+    ENCODE --> PAR{{"Parallel"}}
+    PAR --> BM25[BM25<br/>PostgreSQL]
+    PAR --> SEM[Semantic<br/>Qdrant cosine]
+    BM25 --> MERGE[Merge<br/>Weighted / RRF]
+    SEM --> MERGE
+    MERGE --> KG{{"KG Boost?"}}
+    KG -->|yes| BOOST[Neo4j Batch]
+    KG -->|no| RERANK
+    BOOST --> RERANK[Cross-Encoder<br/>Reranking]
+    RERANK --> RESULT[Response]</code></pre>
+
+  <h2>Knowledge Graph</h2>
+
+  <p>
+    The Neo4j knowledge graph uses the FRBR ontology adapted for Brazilian legal
+    documents. It contains approximately <strong>28,000 nodes</strong> and
+    <strong>207,000+ edges</strong> representing the relational structure of STJ
+    jurisprudence.
+  </p>
+
+  <p>
+    Unlike flat-text search indexes, the graph connects decisions through shared
+    criteria, legal devices, precedents, and ministers. This enables queries like:
+  </p>
+
+  <ul>
+    <li>Which arguments have the highest success rate for this minister in this category?</li>
+    <li>How has the application of this criterion evolved over the last five years?</li>
+    <li>What is the citation chain between these two decisions?</li>
+    <li>Which decisions diverge on the same legal criterion?</li>
+  </ul>
+
+  <h3>Node Types</h3>
+
+  <table>
+    <thead>
+      <tr><th>Node</th><th>Description</th><th>Example</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>Decision</code></td><td>STJ court decision</td><td>REsp 1.234.567/SP</td></tr>
+      <tr><td><code>Criterion</code></td><td>Legal test or criterion</td><td>"boa-fe objetiva"</td></tr>
+      <tr><td><code>LegalDevice</code></td><td>Article of legislation</td><td>Art. 14 do CDC</td></tr>
+      <tr><td><code>Precedent</code></td><td>Cited precedent</td><td>Sumula 297/STJ</td></tr>
+      <tr><td><code>Minister</code></td><td>STJ minister (judge)</td><td>Min. Nancy Andrighi</td></tr>
+      <tr><td><code>Category</code></td><td>Legal subject area</td><td>Direito do Consumidor</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Relationship Types</h3>
+
+  <table>
+    <thead>
+      <tr><th>Relationship</th><th>From → To</th><th>Meaning</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>APLICA</code></td><td>Decision → LegalDevice</td><td>Applies this legal provision</td></tr>
+      <tr><td><code>USA_CRITERIO</code></td><td>Decision → Criterion</td><td>Uses this legal criterion</td></tr>
+      <tr><td><code>CITA</code></td><td>Decision → Decision</td><td>Cites another decision</td></tr>
+      <tr><td><code>CITA_PRECEDENTE</code></td><td>Decision → Precedent</td><td>Cites this precedent</td></tr>
+      <tr><td><code>RELATOR_DE</code></td><td>Minister → Decision</td><td>Reporting judge</td></tr>
+      <tr><td><code>DIVERGE_DE</code></td><td>Decision → Decision</td><td>Divergent outcomes</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    <a href="https://valter.sens.legal/architecture/diagrams/" target="_blank" rel="noopener">
+      View complete architecture documentation on Valter docs &rarr;
+    </a>
+  </p>
+</DocsLayout>
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-md) 0 var(--space-lg);
+    font-size: 0.875rem;
+  }
+
+  th, td {
+    text-align: left;
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  th {
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+</style>
+
+<script>
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: false, theme: 'default' });
+
+  document.querySelectorAll('pre:has(code.language-mermaid)').forEach((pre) => {
+    const code = pre.querySelector('code');
+    if (!code) return;
+    const div = document.createElement('div');
+    div.className = 'mermaid';
+    div.textContent = code.textContent;
+    pre.replaceWith(div);
+  });
+
+  mermaid.run();
+</script>

@@ -1,0 +1,57 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Leci" description="Backend de legislacao — estatutos e normas brasileiras." lang="pt-br">
+  <h1>Leci</h1>
+  <p class="subtitle">Backend de legislacao</p>
+
+  <span class="badge badge-alpha">alpha</span>
+
+  <p>
+    Leci e o componente de legislacao do ecossistema sens.legal. Enquanto o Valter
+    cuida da jurisprudencia (como os tribunais interpretam a lei), o Leci cuidara
+    da legislacao (o que a lei de fato diz) — estatutos, regulamentos e atos
+    normativos brasileiros como fonte de dados estruturada e pesquisavel.
+  </p>
+
+  <p>
+    Quando integrado ao Valter, o Leci permitira cruzar jurisprudencia com os
+    dispositivos legislativos especificos sendo aplicados, fechando o ciclo entre
+    como os tribunais interpretam a lei e o que a lei de fato diz.
+  </p>
+
+  <h2>Stack</h2>
+
+  <ul>
+    <li><strong>Documentacao:</strong> Astro + Starlight</li>
+    <li><strong>Linguagem:</strong> TypeScript</li>
+    <li><strong>Backend planejado:</strong> A definir</li>
+  </ul>
+
+  <h2>Capacidades Planejadas</h2>
+
+  <ul>
+    <li>Base de dados estruturada de legislacao brasileira</li>
+    <li>Rastreamento de versoes de mudancas legislativas ao longo do tempo</li>
+    <li>Referencia cruzada com o knowledge graph de jurisprudencia do Valter</li>
+    <li>Tools MCP para acesso a dados de legislacao por LLMs</li>
+    <li>REST API para consumo pelo frontend</li>
+  </ul>
+
+  <h2>Links</h2>
+
+  <ul>
+    <li><a href="https://leci.sens.legal" target="_blank" rel="noopener">Documentacao</a></li>
+    <li><a href="https://github.com/sensdiego/leci" target="_blank" rel="noopener">GitHub</a></li>
+  </ul>
+</DocsLayout>
+
+<style>
+  .subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+    margin-top: -0.5rem;
+    margin-bottom: var(--space-md);
+  }
+</style>

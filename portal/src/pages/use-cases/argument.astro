@@ -1,0 +1,77 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Optimal Argument" description="Find the strongest legal arguments based on knowledge graph analytics.">
+  <h1>Optimal Argument</h1>
+  <span class="badge badge-alpha">available in alpha</span>
+
+  <p>
+    Find the strongest legal arguments for a given category, criterion, or minister.
+    The system analyzes the knowledge graph to identify which arguments have the
+    highest success rates, which criteria are most frequently applied, and which
+    precedents carry the most weight.
+  </p>
+
+  <h2>How it works</h2>
+
+  <ol>
+    <li>The knowledge graph is queried for decisions matching your category and filters</li>
+    <li>Success rates are computed per criterion, legal device, and argument pattern</li>
+    <li>PageRank scores weight the influence of each precedent</li>
+    <li>Minister-specific analysis reveals preferences and patterns</li>
+    <li>Results are ranked by composite strength score</li>
+  </ol>
+
+  <h2>Example</h2>
+
+  <h4>Request</h4>
+
+  <pre><code>POST /api/v1/graph/optimal-argument
+Content-Type: application/json
+
+{"{"}
+  "category": "Direito do Consumidor",
+  "criterion": "defeito do produto",
+  "ministro": "Nancy Andrighi"
+{"}"}</code></pre>
+
+  <h4>Response</h4>
+
+  <pre><code>{"{"}
+  "optimal_arguments": [
+    {"{"}
+      "argument_pattern": "Responsabilidade objetiva do fornecedor",
+      "success_rate": 0.87,
+      "supporting_decisions": 34,
+      "key_precedents": ["Sumula 297/STJ", "REsp 1.234.567/SP"],
+      "recommended_devices": ["Art. 12 do CDC", "Art. 14 do CDC"],
+      "minister_alignment": 0.92
+    {"}"}
+  ],
+  "total_decisions_analyzed": 156
+{"}"}</code></pre>
+
+  <h2>What makes it different</h2>
+
+  <p>
+    Instead of reading hundreds of decisions to find the best approach, the
+    knowledge graph computes it. Success rates, minister preferences, and
+    precedent weight are derived from the actual structure of 28,000+ decisions
+    and 207K+ relationships — not from summarized text.
+  </p>
+
+  <h2>Available via</h2>
+
+  <ul>
+    <li><code>POST /api/v1/graph/optimal-argument</code> — REST API</li>
+    <li><code>GetOptimalArgument</code> — MCP tool</li>
+    <li><code>GetOptimalArgumentByMinistro</code> — MCP tool (minister-specific)</li>
+  </ul>
+</DocsLayout>
+
+<style>
+  .badge {
+    margin-bottom: var(--space-lg);
+  }
+</style>

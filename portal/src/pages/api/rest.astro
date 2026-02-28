@@ -1,0 +1,140 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="REST API" description="Valter REST API endpoints for search, verification, graph analytics, and ingestion.">
+  <h1>REST API</h1>
+  <span class="badge badge-alpha">alpha</span>
+
+  <p>
+    Valter exposes a REST API via FastAPI with 11 routers covering search,
+    verification, enrichment, graph analytics, ingestion, and more. All
+    endpoints require API key authentication.
+  </p>
+
+  <h2>Base URL</h2>
+
+  <pre><code>https://api.valter.sens.legal/api/v1</code></pre>
+
+  <h2>Authentication</h2>
+
+  <pre><code>Authorization: Bearer YOUR_API_KEY</code></pre>
+
+  <p>
+    API keys are scoped to specific endpoints. Contact us to request access.
+  </p>
+
+  <h2>Endpoints</h2>
+
+  <h3>Search & Retrieval</h3>
+
+  <table>
+    <thead>
+      <tr><th>Method</th><th>Path</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>POST</code></td><td><code>/retrieve/search</code></td><td>Hybrid search (BM25 + semantic + KG boost)</td></tr>
+      <tr><td><code>POST</code></td><td><code>/retrieve/similar</code></td><td>Find similar cases (70% semantic + 30% structural)</td></tr>
+      <tr><td><code>GET</code></td><td><code>/retrieve/document/:id</code></td><td>Get full document with metadata</td></tr>
+      <tr><td><code>GET</code></td><td><code>/retrieve/integra/:id</code></td><td>Get document integra (full text)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Verification</h3>
+
+  <table>
+    <thead>
+      <tr><th>Method</th><th>Path</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>POST</code></td><td><code>/verify/claims</code></td><td>Verify legal claims against real data</td></tr>
+      <tr><td><code>GET</code></td><td><code>/verify/case/:number</code></td><td>Validate case number exists in STJ</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Graph Analytics</h3>
+
+  <table>
+    <thead>
+      <tr><th>Method</th><th>Path</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>POST</code></td><td><code>/graph/optimal-argument</code></td><td>Find strongest arguments by category/criterion</td></tr>
+      <tr><td><code>GET</code></td><td><code>/graph/citation-chain/:id</code></td><td>Trace citation chain from a decision</td></tr>
+      <tr><td><code>GET</code></td><td><code>/graph/pagerank</code></td><td>Top decisions by PageRank score</td></tr>
+      <tr><td><code>GET</code></td><td><code>/graph/communities</code></td><td>Decision clusters by topic</td></tr>
+      <tr><td><code>GET</code></td><td><code>/graph/divergencias</code></td><td>Divergent decisions on same criteria</td></tr>
+      <tr><td><code>POST</code></td><td><code>/graph/shortest-path</code></td><td>Shortest path between two entities</td></tr>
+      <tr><td><code>GET</code></td><td><code>/graph/ministro/:name</code></td><td>Minister profile and decision patterns</td></tr>
+      <tr><td><code>GET</code></td><td><code>/graph/temporal/:criterion</code></td><td>Temporal evolution of a criterion</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Enrichment</h3>
+
+  <table>
+    <thead>
+      <tr><th>Method</th><th>Path</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>POST</code></td><td><code>/enrich/irac</code></td><td>IRAC analysis of a document</td></tr>
+      <tr><td><code>GET</code></td><td><code>/features/search</code></td><td>Search classified document features</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Ingestion</h3>
+
+  <table>
+    <thead>
+      <tr><th>Method</th><th>Path</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>POST</code></td><td><code>/ingest/case</code></td><td>Submit case PDF for analysis</td></tr>
+      <tr><td><code>GET</code></td><td><code>/ingest/case/:id/status</code></td><td>Check workflow status</td></tr>
+      <tr><td><code>GET</code></td><td><code>/ingest/case/:id/result</code></td><td>Get analysis result</td></tr>
+      <tr><td><code>POST</code></td><td><code>/ingest/case/:id/review</code></td><td>Review and approve/reject phases</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Rate Limiting</h2>
+
+  <p>
+    All endpoints are rate-limited using a Redis sliding window. Default limits
+    depend on the API key scope. Rate limit headers are included in every response.
+  </p>
+
+  <h2>Full Documentation</h2>
+
+  <p>
+    <a href="https://valter.sens.legal/api/" target="_blank" rel="noopener">
+      View the complete API documentation on Valter docs &rarr;
+    </a>
+  </p>
+</DocsLayout>
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-md) 0 var(--space-lg);
+    font-size: 0.8125rem;
+  }
+
+  th, td {
+    text-align: left;
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  th {
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  td code {
+    font-size: 0.75rem;
+  }
+</style>

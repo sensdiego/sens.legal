@@ -1,30 +1,30 @@
 ---
-import DocsLayout from '../layouts/DocsLayout.astro';
-import { projects } from '../data/projects';
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import { projects } from '../../data/projects';
 ---
 
-<DocsLayout title="Home" description="Legal intelligence infrastructure for Brazilian law.">
+<DocsLayout title="Inicio" description="Infraestrutura de inteligencia juridica para o direito brasileiro." lang="pt-br">
   <h1>sens.legal</h1>
-  <p class="tagline">Legal intelligence infrastructure</p>
+  <p class="tagline">Infraestrutura de inteligencia juridica</p>
 
   <p>
-    A hub of technology solutions in alpha stage for the complete pipeline of
-    professional legal practice. Combines knowledge graph, semantic search,
-    anti-hallucination verification, and native LLM integration via MCP.
+    Hub de solucoes tecnologicas em estagio alpha para o pipeline completo de
+    atuacao profissional juridica. Combina knowledge graph, busca semantica,
+    verificacao anti-alucinacao e integracao nativa com LLMs via MCP.
   </p>
 
   <hr />
 
-  <h2>Projects</h2>
+  <h2>Projetos</h2>
 
   <div class="project-list">
     {projects.map((project) => (
       <div class="project-item">
         <div class="project-header">
-          <h3><a href={`/projects/${project.subdomain}`}>{project.name}</a></h3>
+          <h3><a href={`/pt-br/projects/${project.subdomain}`}>{project.name}</a></h3>
           <span class="badge badge-alpha">{project.status}</span>
         </div>
-        <p class="project-desc">{project.description}</p>
+        <p class="project-desc">{project.descriptionPtBr}</p>
         <div class="project-stack">
           {project.stack.map((tech) => (
             <code>{tech}</code>
@@ -40,52 +40,52 @@ import { projects } from '../data/projects';
 
   <hr />
 
-  <h2>Why sens.legal?</h2>
+  <h2>Por que sens.legal?</h2>
 
   <div class="comparison">
     <div class="comparison-col">
-      <h4>Before: Ask an LLM directly</h4>
-      <pre><code>User: "What is the STJ's position on
-objective good faith in consumer law?"
+      <h4>Antes: Perguntar direto ao LLM</h4>
+      <pre><code>Usuario: "Qual a posicao do STJ sobre
+boa-fe objetiva no direito do consumidor?"
 
-LLM: "The STJ generally understands that..."
-(no sources, no verification, potential
-hallucination)</code></pre>
+LLM: "O STJ geralmente entende que..."
+(sem fontes, sem verificacao, possivel
+alucinacao)</code></pre>
     </div>
     <div class="comparison-col">
-      <h4>After: Ask with sens.legal MCP</h4>
-      <pre><code>User: same question
+      <h4>Depois: Perguntar com sens.legal MCP</h4>
+      <pre><code>Usuario: mesma pergunta
 
-LLM → calls SearchJurisprudence tool
-    → calls VerifyLegalClaims tool
-    → calls GetCitationChain tool
+LLM → chama SearchJurisprudence
+    → chama VerifyLegalClaims
+    → chama GetCitationChain
 
-Response: verified answer with:
-  - 5 real STJ decisions cited
-  - citation chain traced in knowledge graph
-  - confidence score per claim
-  - minister and date for each source</code></pre>
+Resposta: resposta verificada com:
+  - 5 decisoes reais do STJ citadas
+  - cadeia de citacoes no knowledge graph
+  - score de confianca por alegacao
+  - ministro e data de cada fonte</code></pre>
     </div>
   </div>
 
   <p>
-    The difference is traceability. Every claim is backed by a specific node
-    in the knowledge graph, verified against real court data. No hallucinated
-    case numbers. No invented legal interpretations.
+    A diferenca e a rastreabilidade. Cada alegacao e respaldada por um no
+    especifico no knowledge graph, verificada contra dados reais do tribunal.
+    Sem numeros de processo inventados. Sem interpretacoes juridicas fabricadas.
   </p>
 
   <hr />
 
-  <h2>Architecture</h2>
+  <h2>Arquitetura</h2>
 
   <p>
-    The ecosystem connects three projects through Valter's REST API and MCP server.
-    LLMs like Claude and ChatGPT access the same capabilities as the Juca frontend
-    — search, verification, graph analytics — through 28 MCP tools.
+    O ecossistema conecta tres projetos atraves da REST API e servidor MCP do
+    Valter. LLMs como Claude e ChatGPT acessam as mesmas capacidades que o
+    frontend Juca — busca, verificacao, graph analytics — por meio de 28 tools MCP.
   </p>
 
   <pre><code class="language-mermaid">graph LR
-    subgraph Consumers
+    subgraph Consumidores
         JUCA[Juca Frontend]
         CLAUDE[Claude / ChatGPT]
     end
@@ -107,7 +107,7 @@ Response: verified answer with:
     API --> PG & QD & N4J & RD</code></pre>
 
   <p>
-    <a href="/architecture">View full architecture diagrams &rarr;</a>
+    <a href="/pt-br/architecture">Ver diagramas completos de arquitetura &rarr;</a>
   </p>
 </DocsLayout>
 

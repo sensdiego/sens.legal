@@ -1,0 +1,40 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Analise de Processo" description="Workflow completo de analise de processo, do upload do PDF ate artefatos revisados." lang="pt-br">
+  <h1>Analise de Processo</h1>
+  <span class="badge badge-alpha">disponivel em alpha</span>
+
+  <p>
+    Faca upload de um PDF de processo e obtenha uma analise completa:
+    segmentacao do documento, classificacao por IA, interpretacao fase a fase,
+    matching de jurisprudencia e artefatos revisaveis por humano. O workflow
+    e gerenciado por uma maquina de estados com trilha de auditoria completa.
+  </p>
+
+  <h2>Como funciona</h2>
+
+  <ol>
+    <li><strong>Upload:</strong> PDF e submetido ao pipeline de ingestao</li>
+    <li><strong>Extracao:</strong> pipeline PROJUDI segmenta o documento</li>
+    <li><strong>Classificacao:</strong> Groq LLM extrai 21 campos estruturados</li>
+    <li><strong>Analise de fases:</strong> interpretacao deterministica das fases processuais</li>
+    <li><strong>Matching:</strong> busca hibrida encontra casos similares</li>
+    <li><strong>Revisao:</strong> advogado revisa e aprova/rejeita cada fase</li>
+    <li><strong>Artefatos:</strong> analises aprovadas sao serializadas em JSON e PDF</li>
+  </ol>
+
+  <h2>Disponivel via</h2>
+
+  <ul>
+    <li><code>POST /api/v1/ingest/case</code> — REST API</li>
+    <li><code>SubmitCasePdfAnalysis</code> — tool MCP</li>
+    <li><code>GetCasePdfAnalysisStatus</code> — tool MCP</li>
+    <li><code>ReviewCasePhase</code> — tool MCP</li>
+  </ul>
+</DocsLayout>
+
+<style>
+  .badge { margin-bottom: var(--space-lg); }
+</style>

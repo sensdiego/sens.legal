@@ -1,0 +1,37 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Melhor Argumento" description="Encontre os argumentos juridicos mais fortes usando analytics do knowledge graph." lang="pt-br">
+  <h1>Melhor Argumento</h1>
+  <span class="badge badge-alpha">disponivel em alpha</span>
+
+  <p>
+    Encontre os argumentos juridicos mais fortes para uma dada categoria, criterio
+    ou ministro. O sistema analisa o knowledge graph para identificar quais
+    argumentos tem as maiores taxas de sucesso, quais criterios sao mais
+    frequentemente aplicados e quais precedentes tem mais peso.
+  </p>
+
+  <h2>Como funciona</h2>
+
+  <ol>
+    <li>O knowledge graph e consultado para decisoes que correspondem a sua categoria e filtros</li>
+    <li>Taxas de sucesso sao computadas por criterio, dispositivo legal e padrao de argumento</li>
+    <li>Scores de PageRank ponderam a influencia de cada precedente</li>
+    <li>Analise especifica por ministro revela preferencias e padroes</li>
+    <li>Resultados sao ranqueados por score de forca composto</li>
+  </ol>
+
+  <h2>Disponivel via</h2>
+
+  <ul>
+    <li><code>POST /api/v1/graph/optimal-argument</code> — REST API</li>
+    <li><code>GetOptimalArgument</code> — tool MCP</li>
+    <li><code>GetOptimalArgumentByMinistro</code> — tool MCP (por ministro)</li>
+  </ul>
+</DocsLayout>
+
+<style>
+  .badge { margin-bottom: var(--space-lg); }
+</style>

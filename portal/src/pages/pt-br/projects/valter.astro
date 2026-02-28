@@ -1,0 +1,97 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Valter" description="Backend de conhecimento juridico — jurisprudencia do STJ via REST API e MCP." lang="pt-br">
+  <h1>Valter</h1>
+  <p class="subtitle">Backend de conhecimento juridico</p>
+
+  <span class="badge badge-alpha">alpha</span>
+
+  <p>
+    Valter e um backend especializado que transforma dados juridicos brutos do
+    Superior Tribunal de Justica (STJ) em conhecimento juridico estruturado e
+    verificavel. Combina quatro data stores — PostgreSQL para documentos e
+    metadados, Qdrant para busca semantica vetorial, Neo4j para knowledge graph
+    e Redis para cache — entregando busca hibrida com boosting via knowledge
+    graph, verificacao anti-alucinacao e graph analytics sobre dezenas de milhares
+    de decisoes judiciais.
+  </p>
+
+  <h2>Stack</h2>
+
+  <ul>
+    <li><strong>Linguagem:</strong> Python</li>
+    <li><strong>Framework:</strong> FastAPI</li>
+    <li><strong>Bancos de dados:</strong> PostgreSQL 16, Qdrant, Neo4j / Aura, Redis 7</li>
+    <li><strong>Embeddings:</strong> Legal-BERTimbau (768-dim)</li>
+    <li><strong>LLM:</strong> Groq API (classificacao, expansao de queries)</li>
+    <li><strong>Armazenamento:</strong> Cloudflare R2</li>
+    <li><strong>Deploy:</strong> Railway</li>
+  </ul>
+
+  <h2>Numeros-chave</h2>
+
+  <table>
+    <tbody>
+      <tr><td>Decisoes do STJ no knowledge graph</td><td>~28.000</td></tr>
+      <tr><td>Relacoes entre entidades juridicas</td><td>207.000+</td></tr>
+      <tr><td>Registros de metadados do STJ</td><td>810.225</td></tr>
+      <tr><td>Features classificadas de documentos</td><td>2.119</td></tr>
+      <tr><td>Vetores semanticos (768-dim)</td><td>~3.673</td></tr>
+      <tr><td>Tools MCP para integracao com LLMs</td><td>28</td></tr>
+      <tr><td>Endpoints de graph analytics</td><td>12</td></tr>
+      <tr><td>Routers da REST API</td><td>11</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Capacidades Principais</h2>
+
+  <ul>
+    <li>Busca hibrida: BM25 + semantica + boosting via knowledge graph</li>
+    <li>Anti-alucinacao: toda alegacao verificada contra dados reais do tribunal</li>
+    <li>28 tools MCP para Claude, ChatGPT e outros clientes LLM</li>
+    <li>Graph analytics: PageRank, deteccao de comunidades, cadeias de citacao, analise de divergencia</li>
+    <li>Workflow completo de analise de processos: PDF upload → extracao → classificacao → matching → revisao</li>
+    <li>Busca de melhor argumento por ministro, categoria e criterio</li>
+  </ul>
+
+  <h2>Links</h2>
+
+  <ul>
+    <li><a href="https://valter.sens.legal" target="_blank" rel="noopener">Documentacao</a></li>
+    <li><a href="https://github.com/sensdiego/Valter" target="_blank" rel="noopener">GitHub</a></li>
+    <li><a href="/pt-br/api/rest">Referencia da REST API</a></li>
+    <li><a href="/pt-br/api/mcp">Referencia das Tools MCP</a></li>
+  </ul>
+</DocsLayout>
+
+<style>
+  .subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+    margin-top: -0.5rem;
+    margin-bottom: var(--space-md);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-md) 0 var(--space-lg);
+    font-size: 0.875rem;
+  }
+
+  td {
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  td:first-child {
+    color: var(--color-text-secondary);
+  }
+
+  td:last-child {
+    font-weight: 600;
+    text-align: right;
+  }
+</style>

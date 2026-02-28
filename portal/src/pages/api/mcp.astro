@@ -1,0 +1,122 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+
+const tools = [
+  { name: 'SearchJurisprudence', category: 'Search', desc: 'Hybrid search over STJ jurisprudence' },
+  { name: 'FindSimilarCases', category: 'Search', desc: 'Find semantically and structurally similar cases' },
+  { name: 'GetDocumentIntegra', category: 'Search', desc: 'Get full text of a decision' },
+  { name: 'GetIracAnalysis', category: 'Search', desc: 'Get IRAC-enriched document analysis' },
+  { name: 'SearchFeatures', category: 'Search', desc: 'Search classified document features' },
+  { name: 'VerifyLegalClaims', category: 'Verification', desc: 'Verify legal claims against real data' },
+  { name: 'GetCitationChain', category: 'Graph', desc: 'Trace citation chain from a decision' },
+  { name: 'GetPageRank', category: 'Graph', desc: 'Top decisions by influence score' },
+  { name: 'GetCommunities', category: 'Graph', desc: 'Decision clusters by topic' },
+  { name: 'GetDivergencias', category: 'Graph', desc: 'Divergent decisions on same criteria' },
+  { name: 'GetTurmaDivergences', category: 'Graph', desc: 'Divergences between court panels' },
+  { name: 'GetStructuralSimilarity', category: 'Graph', desc: 'Structural similarity via graph embeddings' },
+  { name: 'GetShortestPath', category: 'Graph', desc: 'Shortest path between two entities' },
+  { name: 'GetGraphEmbeddings', category: 'Graph', desc: 'Graph embedding vectors for entities' },
+  { name: 'GetOptimalArgument', category: 'Analytics', desc: 'Strongest arguments by category/criterion' },
+  { name: 'GetOptimalArgumentByMinistro', category: 'Analytics', desc: 'Strongest arguments for a specific minister' },
+  { name: 'GetMinistroProfile', category: 'Analytics', desc: 'Minister decision patterns and preferences' },
+  { name: 'GetTemporalEvolution', category: 'Analytics', desc: 'How a criterion evolved over time' },
+  { name: 'Remember', category: 'Memory', desc: 'Store a memory for later recall' },
+  { name: 'Recall', category: 'Memory', desc: 'Recall stored memories' },
+  { name: 'SubmitCasePdfAnalysis', category: 'Workflow', desc: 'Submit case PDF for analysis' },
+  { name: 'GetCasePdfAnalysisStatus', category: 'Workflow', desc: 'Check workflow status' },
+  { name: 'GetCasePdfAnalysisResult', category: 'Workflow', desc: 'Get analysis result' },
+  { name: 'ReviewCasePhase', category: 'Workflow', desc: 'Review and approve/reject a phase' },
+  { name: 'ReviewCaseFinal', category: 'Workflow', desc: 'Final review of complete analysis' },
+  { name: 'ReprocessCaseAnalysis', category: 'Workflow', desc: 'Reprocess from a specific phase' },
+  { name: 'GetCaseWorkflowArtifacts', category: 'Workflow', desc: 'List workflow artifacts' },
+  { name: 'GetCaseArtifactSignedUrl', category: 'Workflow', desc: 'Get signed URL for artifact download' },
+];
+
+const categories = [...new Set(tools.map(t => t.category))];
+---
+
+<DocsLayout title="MCP Tools" description="28 MCP tools for LLM integration with Brazilian legal knowledge.">
+  <h1>MCP Tools</h1>
+  <span class="badge badge-alpha">alpha</span>
+
+  <p>
+    Valter exposes 28 tools via Model Context Protocol (MCP), allowing LLMs like
+    Claude and ChatGPT to query jurisprudence, verify claims, analyze graphs, and
+    manage case workflows directly. The same capabilities available through the
+    REST API are accessible as native LLM tools.
+  </p>
+
+  <h2>Connection</h2>
+
+  <h4>Claude Desktop / Claude Code (stdio)</h4>
+
+  <pre><code>{"{"}
+  "mcpServers": {"{"}
+    "valter": {"{"}
+      "command": "python",
+      "args": ["-m", "valter.mcp_server"]
+    {"}"}
+  {"}"}
+{"}"}</code></pre>
+
+  <h4>ChatGPT / Remote (HTTP/SSE)</h4>
+
+  <pre><code>MCP Server URL: https://mcp.valter.sens.legal
+Authentication: HMAC (contact for credentials)</code></pre>
+
+  <h2>Tools</h2>
+
+  {categories.map((category) => (
+    <div>
+      <h3>{category}</h3>
+      <table>
+        <thead>
+          <tr><th>Tool</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          {tools.filter(t => t.category === category).map((tool) => (
+            <tr>
+              <td><code>{tool.name}</code></td>
+              <td>{tool.desc}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ))}
+
+  <h2>Full Documentation</h2>
+
+  <p>
+    <a href="https://valter.sens.legal/api/mcp-tools/" target="_blank" rel="noopener">
+      View complete MCP tools documentation on Valter docs &rarr;
+    </a>
+  </p>
+</DocsLayout>
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-md) 0 var(--space-lg);
+    font-size: 0.8125rem;
+  }
+
+  th, td {
+    text-align: left;
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  th {
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  td code {
+    font-size: 0.75rem;
+  }
+</style>

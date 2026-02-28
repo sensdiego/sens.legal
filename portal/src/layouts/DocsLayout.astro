@@ -1,0 +1,81 @@
+---
+import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
+import Footer from '../components/Footer.astro';
+import Search from '../components/Search.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: 'en' | 'pt-br';
+}
+
+const { title, description = 'Legal intelligence infrastructure', lang = 'en' } = Astro.props;
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<!doctype html>
+<html lang={lang === 'pt-br' ? 'pt-BR' : 'en'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <title>{title} — sens.legal</title>
+    <link rel="icon" type="image/png" href="/logo.png" />
+  </head>
+  <body>
+    <Header lang={lang} />
+    <Sidebar currentPath={currentPath} lang={lang} />
+    <Search lang={lang} />
+
+    <main class="content">
+      <article class="content-inner">
+        <slot />
+      </article>
+    </main>
+
+    <Footer lang={lang} />
+
+    <script>
+      // Mobile sidebar toggle
+      const toggle = document.getElementById('menu-toggle');
+      const sidebar = document.getElementById('sidebar');
+
+      toggle?.addEventListener('click', () => {
+        sidebar?.classList.toggle('open');
+      });
+
+      // Close sidebar on link click (mobile)
+      sidebar?.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          sidebar?.classList.remove('open');
+        });
+      });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/portal.css';
+</style>
+
+<style>
+  .content {
+    margin-left: var(--sidebar-width);
+    min-height: calc(100vh - var(--header-height));
+    padding: var(--space-3xl) var(--space-xl) var(--space-3xl);
+  }
+
+  .content-inner {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+  }
+
+  @media (max-width: 50rem) {
+    .content {
+      margin-left: 0;
+      padding: var(--space-xl) var(--space-lg);
+    }
+  }
+</style>

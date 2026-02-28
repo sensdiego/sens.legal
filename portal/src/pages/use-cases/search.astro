@@ -1,0 +1,85 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Semantic Search" description="Search Brazilian STJ jurisprudence with hybrid semantic + keyword + knowledge graph search.">
+  <h1>Semantic Search</h1>
+  <span class="badge badge-alpha">available in alpha</span>
+
+  <p>
+    Search tens of thousands of STJ decisions using a hybrid pipeline that combines
+    BM25 keyword search, semantic vector search (768-dim Legal-BERTimbau embeddings),
+    and knowledge graph boosting from a 207K+ relationship graph.
+  </p>
+
+  <h2>How it works</h2>
+
+  <ol>
+    <li>Your query is expanded into semantic variants using multi-query RAG</li>
+    <li>BM25 (PostgreSQL) and semantic search (Qdrant) run in parallel</li>
+    <li>Results are merged using weighted fusion or Reciprocal Rank Fusion</li>
+    <li>Knowledge graph boost scores each candidate based on shared criteria, facts, and legal devices in Neo4j</li>
+    <li>A cross-encoder reranks the final candidates</li>
+    <li>Results are cached in Redis (180s TTL)</li>
+  </ol>
+
+  <h2>Example</h2>
+
+  <h4>Request</h4>
+
+  <pre><code>POST /api/v1/retrieve/search
+Content-Type: application/json
+
+{"{"}
+  "query": "responsabilidade civil por defeito do produto",
+  "top_k": 5,
+  "kg_boost": true,
+  "filters": {"{"}
+    "ministro": "Nancy Andrighi"
+  {"}"}
+{"}"}</code></pre>
+
+  <h4>Response</h4>
+
+  <pre><code>{"{"}
+  "results": [
+    {"{"}
+      "id": "REsp_1234567_SP",
+      "score": 0.923,
+      "kg_boost_score": 0.15,
+      "title": "REsp 1.234.567/SP",
+      "ministro": "Min. Nancy Andrighi",
+      "data_julgamento": "2023-03-14",
+      "ementa": "RECURSO ESPECIAL. DIREITO DO CONSUMIDOR. DEFEITO DO PRODUTO...",
+      "criterios": ["boa-fe objetiva", "nexo causal"],
+      "dispositivos": ["Art. 12 do CDC", "Art. 14 do CDC"]
+    {"}"}
+  ],
+  "total": 47,
+  "cached": false,
+  "search_time_ms": 342
+{"}"}</code></pre>
+
+  <h2>What makes it different</h2>
+
+  <p>
+    Traditional legal search relies on keyword matching. sens.legal combines three
+    strategies: keywords catch exact legal terminology, semantic search catches
+    conceptually similar cases even with different wording, and knowledge graph
+    boosting elevates decisions that are structurally connected through shared
+    criteria, legal devices, and precedents.
+  </p>
+
+  <h2>Available via</h2>
+
+  <ul>
+    <li><code>POST /api/v1/retrieve/search</code> — REST API</li>
+    <li><code>SearchJurisprudence</code> — MCP tool</li>
+  </ul>
+</DocsLayout>
+
+<style>
+  .badge {
+    margin-bottom: var(--space-lg);
+  }
+</style>

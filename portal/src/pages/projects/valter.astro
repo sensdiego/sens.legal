@@ -1,0 +1,106 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Valter" description="Legal knowledge backend — Brazilian STJ jurisprudence via REST API and MCP.">
+  <h1>Valter</h1>
+  <p class="subtitle">Legal knowledge backend</p>
+
+  <span class="badge badge-alpha">alpha</span>
+
+  <p>
+    Valter is a specialized backend that transforms raw legal data from Brazil's
+    Superior Tribunal de Justica (STJ) into structured, verifiable legal knowledge.
+    It combines four purpose-built data stores — PostgreSQL for documents and metadata,
+    Qdrant for semantic vector search, Neo4j for a legal knowledge graph, and Redis
+    for caching — delivering hybrid search with knowledge graph boosting,
+    anti-hallucination verification, and graph analytics over tens of thousands of
+    court decisions.
+  </p>
+
+  <h2>Stack</h2>
+
+  <ul>
+    <li><strong>Language:</strong> Python</li>
+    <li><strong>Framework:</strong> FastAPI</li>
+    <li><strong>Databases:</strong> PostgreSQL 16, Qdrant, Neo4j / Aura, Redis 7</li>
+    <li><strong>Embeddings:</strong> Legal-BERTimbau (768-dim)</li>
+    <li><strong>LLM:</strong> Groq API (classification, query expansion)</li>
+    <li><strong>Storage:</strong> Cloudflare R2</li>
+    <li><strong>Deploy:</strong> Railway</li>
+  </ul>
+
+  <h2>Key Numbers</h2>
+
+  <table>
+    <tbody>
+      <tr><td>STJ decisions in knowledge graph</td><td>~28,000</td></tr>
+      <tr><td>Relationships between legal entities</td><td>207,000+</td></tr>
+      <tr><td>STJ metadata records</td><td>810,225</td></tr>
+      <tr><td>Classified document features</td><td>2,119</td></tr>
+      <tr><td>Semantic vectors (768-dim)</td><td>~3,673</td></tr>
+      <tr><td>MCP tools for LLM integration</td><td>28</td></tr>
+      <tr><td>Graph analytics endpoints</td><td>12</td></tr>
+      <tr><td>REST API routers</td><td>11</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Key Capabilities</h2>
+
+  <ul>
+    <li>Hybrid search: BM25 + semantic + knowledge graph boosting</li>
+    <li>Anti-hallucination: every claim verified against real court data</li>
+    <li>28 MCP tools for Claude, ChatGPT, and other LLM clients</li>
+    <li>Graph analytics: PageRank, community detection, citation chains, divergence analysis</li>
+    <li>Full case analysis workflow: PDF upload → extraction → classification → matching → review</li>
+    <li>Optimal argument finder by minister, category, and criterion</li>
+  </ul>
+
+  <h2>Roadmap</h2>
+
+  <ul>
+    <li>Demo/sandbox environment for public testing</li>
+    <li>Expanded knowledge graph with temporal evolution tracking</li>
+    <li>Multi-court support (TJs, TST)</li>
+    <li>Real-time ingestion pipeline</li>
+  </ul>
+
+  <h2>Links</h2>
+
+  <ul>
+    <li><a href="https://valter.sens.legal" target="_blank" rel="noopener">Documentation</a></li>
+    <li><a href="https://github.com/sensdiego/Valter" target="_blank" rel="noopener">GitHub</a></li>
+    <li><a href="/api/rest">REST API Reference</a></li>
+    <li><a href="/api/mcp">MCP Tools Reference</a></li>
+  </ul>
+</DocsLayout>
+
+<style>
+  .subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+    margin-top: -0.5rem;
+    margin-bottom: var(--space-md);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-md) 0 var(--space-lg);
+    font-size: 0.875rem;
+  }
+
+  td {
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  td:first-child {
+    color: var(--color-text-secondary);
+  }
+
+  td:last-child {
+    font-weight: 600;
+    text-align: right;
+  }
+</style>

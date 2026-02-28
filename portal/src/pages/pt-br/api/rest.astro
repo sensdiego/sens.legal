@@ -1,0 +1,59 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="REST API" description="Endpoints da REST API do Valter para busca, verificacao, graph analytics e ingestao." lang="pt-br">
+  <h1>REST API</h1>
+  <span class="badge badge-alpha">alpha</span>
+
+  <p>
+    O Valter expoe uma REST API via FastAPI com 11 routers cobrindo busca,
+    verificacao, enriquecimento, graph analytics, ingestao e mais. Todos os
+    endpoints requerem autenticacao via API key.
+  </p>
+
+  <h2>URL Base</h2>
+  <pre><code>https://api.valter.sens.legal/api/v1</code></pre>
+
+  <h2>Endpoints Principais</h2>
+
+  <table>
+    <thead>
+      <tr><th>Metodo</th><th>Path</th><th>Descricao</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>POST</code></td><td><code>/retrieve/search</code></td><td>Busca hibrida (BM25 + semantica + KG boost)</td></tr>
+      <tr><td><code>POST</code></td><td><code>/verify/claims</code></td><td>Verificar alegacoes contra dados reais</td></tr>
+      <tr><td><code>POST</code></td><td><code>/graph/optimal-argument</code></td><td>Melhores argumentos por categoria/criterio</td></tr>
+      <tr><td><code>GET</code></td><td><code>/graph/citation-chain/:id</code></td><td>Cadeia de citacoes de uma decisao</td></tr>
+      <tr><td><code>POST</code></td><td><code>/ingest/case</code></td><td>Submeter PDF para analise</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    <a href="https://valter.sens.legal/api/" target="_blank" rel="noopener">
+      Ver documentacao completa da API nos docs do Valter &rarr;
+    </a>
+  </p>
+</DocsLayout>
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-md) 0 var(--space-lg);
+    font-size: 0.8125rem;
+  }
+  th, td {
+    text-align: left;
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+  th {
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+</style>

@@ -1,0 +1,65 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Leci" description="Legislation backend — Brazilian statutes and regulations.">
+  <h1>Leci</h1>
+  <p class="subtitle">Legislation backend</p>
+
+  <span class="badge badge-alpha">alpha</span>
+
+  <p>
+    Leci is the legislation component of the sens.legal ecosystem. While Valter
+    handles jurisprudence (how courts interpret the law), Leci will handle
+    legislation (what the law actually says) — Brazilian statutes, regulations,
+    and normative acts as a structured, searchable data source.
+  </p>
+
+  <p>
+    When integrated with Valter, Leci will enable cross-referencing jurisprudence
+    with the specific legislative provisions being applied, closing the loop between
+    how courts interpret the law and what the law actually says.
+  </p>
+
+  <h2>Stack</h2>
+
+  <ul>
+    <li><strong>Documentation:</strong> Astro + Starlight</li>
+    <li><strong>Language:</strong> TypeScript</li>
+    <li><strong>Planned backend:</strong> To be defined</li>
+  </ul>
+
+  <h2>Planned Capabilities</h2>
+
+  <ul>
+    <li>Structured Brazilian legislation database</li>
+    <li>Version tracking of legislative changes over time</li>
+    <li>Cross-reference with Valter's jurisprudence knowledge graph</li>
+    <li>MCP tools for LLM access to legislation data</li>
+    <li>REST API for frontend consumption</li>
+  </ul>
+
+  <h2>Status</h2>
+
+  <p>
+    Leci is in the planning phase. The documentation site is live, but the
+    legislation backend is not yet implemented. Integration with Valter is
+    planned for v2.0 of the ecosystem.
+  </p>
+
+  <h2>Links</h2>
+
+  <ul>
+    <li><a href="https://leci.sens.legal" target="_blank" rel="noopener">Documentation</a></li>
+    <li><a href="https://github.com/sensdiego/leci" target="_blank" rel="noopener">GitHub</a></li>
+  </ul>
+</DocsLayout>
+
+<style>
+  .subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+    margin-top: -0.5rem;
+    margin-bottom: var(--space-md);
+  }
+</style>
