@@ -1,0 +1,169 @@
+/* sens.legal — Shared Design System
+   Mintlify-inspired: clean, professional, readable
+   Imported by each site's custom.css */
+
+/* ─── Color Tokens ─────────────────────────────── */
+:root {
+  /* Primary: deep blue-gray (professional, legal) */
+  --sl-color-accent-low: #1a2332;
+  --sl-color-accent: #3b82f6;
+  --sl-color-accent-high: #93c5fd;
+
+  /* Text hierarchy */
+  --sl-color-white: #f8fafc;
+  --sl-color-gray-1: #e2e8f0;
+  --sl-color-gray-2: #cbd5e1;
+  --sl-color-gray-3: #94a3b8;
+  --sl-color-gray-4: #64748b;
+  --sl-color-gray-5: #475569;
+  --sl-color-gray-6: #1e293b;
+  --sl-color-black: #0f172a;
+
+  /* Typography */
+  --sl-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --sl-font-system-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  /* Sizing */
+  --sl-content-width: 45rem;
+  --sl-sidebar-width: 16rem;
+
+  /* Per-project accent (override in site custom.css) */
+  --sens-accent: #3b82f6;
+}
+
+/* ─── Light Mode ───────────────────────────────── */
+:root[data-theme='light'] {
+  --sl-color-accent-low: #eff6ff;
+  --sl-color-accent: #2563eb;
+  --sl-color-accent-high: #1e40af;
+
+  --sl-color-bg-nav: #ffffff;
+  --sl-color-bg-sidebar: #f8fafc;
+  --sl-color-hairline-light: #e2e8f0;
+}
+
+/* ─── Global ───────────────────────────────────── */
+
+/* Smoother font rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Content area breathing room */
+.sl-markdown-content {
+  line-height: 1.75;
+}
+
+/* Headings: tighter tracking */
+.sl-markdown-content h1,
+.sl-markdown-content h2,
+.sl-markdown-content h3 {
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+.sl-markdown-content h1 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+
+.sl-markdown-content h2 {
+  font-size: 1.5rem;
+  margin-top: 2.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--sl-color-hairline-light);
+}
+
+.sl-markdown-content h3 {
+  font-size: 1.25rem;
+  margin-top: 2rem;
+}
+
+/* ─── Code Blocks ──────────────────────────────── */
+
+/* Tighter code blocks */
+.sl-markdown-content pre {
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* Inline code: subtle background */
+.sl-markdown-content :not(pre) > code {
+  border-radius: 0.25rem;
+  padding: 0.15em 0.35em;
+  font-size: 0.9em;
+}
+
+/* ─── Tables ───────────────────────────────────── */
+
+/* Cleaner tables */
+.sl-markdown-content table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.sl-markdown-content th {
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 2px solid var(--sl-color-hairline-light);
+}
+
+.sl-markdown-content td,
+.sl-markdown-content th {
+  padding: 0.625rem 0.75rem;
+}
+
+.sl-markdown-content tr:not(:last-child) td {
+  border-bottom: 1px solid var(--sl-color-hairline-light);
+}
+
+/* ─── Admonitions ──────────────────────────────── */
+
+/* Slightly rounder admonitions */
+.starlight-aside {
+  border-radius: 0.5rem;
+  border-left-width: 3px;
+}
+
+/* ─── Sidebar ──────────────────────────────────── */
+
+/* Clean sidebar spacing */
+nav.sidebar ul {
+  gap: 0.125rem;
+}
+
+/* Sidebar group labels: smaller and uppercase */
+nav.sidebar .top-level > li > details > summary span,
+nav.sidebar .top-level > li > a span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ─── Links ────────────────────────────────────── */
+
+/* Subtle link underlines */
+.sl-markdown-content a:not(.heading-link) {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.sl-markdown-content a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* ─── Responsive ───────────────────────────────── */
+
+@media (max-width: 50rem) {
+  .sl-markdown-content h1 {
+    font-size: 1.75rem;
+  }
+  .sl-markdown-content h2 {
+    font-size: 1.35rem;
+  }
+}

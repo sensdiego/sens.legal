@@ -1,0 +1,101 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects } from '../data/projects';
+---
+
+<Base title="sens.legal — AI-Powered Legal Documentation">
+  <main>
+    <header class="hero">
+      <div class="container">
+        <h1 class="hero-title">
+          <span class="brand-sens">sens</span><span class="brand-dot">.legal</span>
+        </h1>
+        <p class="hero-subtitle">
+          AI-powered legal documentation platform for Brazilian law.
+          <br />
+          Three specialized agents, one unified ecosystem.
+        </p>
+      </div>
+    </header>
+
+    <section class="projects">
+      <div class="container">
+        <div class="projects-grid">
+          {projects.map((project) => <ProjectCard project={project} />)}
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; {new Date().getFullYear()} sens.legal</p>
+      </div>
+    </footer>
+  </main>
+</Base>
+
+<style>
+  .container {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .hero {
+    padding: 6rem 0 4rem;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+  }
+
+  .brand-sens {
+    color: var(--color-accent);
+  }
+
+  .brand-dot {
+    color: var(--color-text-muted);
+    font-weight: 400;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    max-width: 36rem;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .projects {
+    padding: 2rem 0 6rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 1.5rem;
+  }
+
+  .footer {
+    padding: 2rem 0;
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 50rem) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+    }
+  }
+</style>

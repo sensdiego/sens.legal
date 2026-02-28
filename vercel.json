@@ -1,0 +1,4 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "$comment": "Option B (Pro tier) — single vercel.json at root. Option A uses individual vercel.json in each workspace."
+}
