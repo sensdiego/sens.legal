@@ -9,7 +9,7 @@ const mermaidScript = {
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
     mermaid.initialize({
       startOnLoad: false,
-      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      theme: 'default',
     });
     const observer = new MutationObserver(() => {
       document.querySelectorAll('pre:has(code.language-mermaid)').forEach(pre => {
@@ -43,6 +43,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'Valter',
+      logo: { src: './src/assets/logo.png', alt: 'sens' },
       description: 'Legal knowledge backend serving Brazilian STJ jurisprudence via REST API and MCP.',
       defaultLocale: 'root',
       locales: {

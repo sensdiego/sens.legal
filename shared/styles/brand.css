@@ -1,61 +1,89 @@
 /* sens.legal — Shared Design System
-   Mintlify-inspired: clean, professional, readable
+   Base Web-inspired: B&W, light-only, system font stack
    Imported by each site's custom.css */
 
-/* ─── Color Tokens ─────────────────────────────── */
+/* ─── Color Tokens (Light) ────────────────────── */
 :root {
-  /* Primary: deep blue-gray (professional, legal) */
-  --sl-color-accent-low: #1a2332;
-  --sl-color-accent: #3b82f6;
-  --sl-color-accent-high: #93c5fd;
+  /* Accent: black */
+  --sl-color-accent-low: #f6f6f6;
+  --sl-color-accent: #000000;
+  --sl-color-accent-high: #000000;
 
-  /* Text hierarchy */
-  --sl-color-white: #f8fafc;
-  --sl-color-gray-1: #e2e8f0;
-  --sl-color-gray-2: #cbd5e1;
-  --sl-color-gray-3: #94a3b8;
-  --sl-color-gray-4: #64748b;
-  --sl-color-gray-5: #475569;
-  --sl-color-gray-6: #1e293b;
-  --sl-color-black: #0f172a;
+  /* Grayscale */
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #f6f6f6;
+  --sl-color-gray-2: #e2e2e2;
+  --sl-color-gray-3: #8f8f8f;
+  --sl-color-gray-4: #545454;
+  --sl-color-gray-5: #333333;
+  --sl-color-gray-6: #111111;
+  --sl-color-black: #000000;
 
-  /* Typography */
-  --sl-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --sl-font-system-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  /* Typography — system font stack (Base Web style) */
+  --sl-font: system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --sl-font-system-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 
   /* Sizing */
-  --sl-content-width: 45rem;
+  --sl-content-width: 42rem;
   --sl-sidebar-width: 16rem;
 
-  /* Per-project accent (override in site custom.css) */
-  --sens-accent: #3b82f6;
+  /* Nav backgrounds */
+  --sl-color-bg-nav: #ffffff;
+  --sl-color-bg-sidebar: #ffffff;
+  --sl-color-hairline-light: #e2e2e2;
 }
 
-/* ─── Light Mode ───────────────────────────────── */
+/* ─── Force Light Mode (override dark theme) ──── */
 :root[data-theme='light'] {
-  --sl-color-accent-low: #eff6ff;
-  --sl-color-accent: #2563eb;
-  --sl-color-accent-high: #1e40af;
+  --sl-color-accent-low: #f6f6f6;
+  --sl-color-accent: #000000;
+  --sl-color-accent-high: #000000;
 
   --sl-color-bg-nav: #ffffff;
-  --sl-color-bg-sidebar: #f8fafc;
-  --sl-color-hairline-light: #e2e8f0;
+  --sl-color-bg-sidebar: #ffffff;
+  --sl-color-hairline-light: #e2e2e2;
 }
 
-/* ─── Global ───────────────────────────────────── */
+:root[data-theme='dark'] {
+  --sl-color-accent-low: #f6f6f6;
+  --sl-color-accent: #000000;
+  --sl-color-accent-high: #000000;
 
-/* Smoother font rendering */
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #f6f6f6;
+  --sl-color-gray-2: #e2e2e2;
+  --sl-color-gray-3: #8f8f8f;
+  --sl-color-gray-4: #545454;
+  --sl-color-gray-5: #333333;
+  --sl-color-gray-6: #111111;
+  --sl-color-black: #000000;
+
+  --sl-color-bg-nav: #ffffff;
+  --sl-color-bg-sidebar: #ffffff;
+  --sl-color-hairline-light: #e2e2e2;
+
+  --sl-color-bg: var(--sl-color-white);
+  --sl-color-text: var(--sl-color-black);
+}
+
+/* ─── Hide Theme Toggle ───────────────────────── */
+starlight-theme-select {
+  display: none !important;
+}
+
+/* ─── Global ──────────────────────────────────── */
+
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Content area breathing room */
 .sl-markdown-content {
   line-height: 1.75;
 }
 
-/* Headings: tighter tracking */
+/* ─── Headings ────────────────────────────────── */
+
 .sl-markdown-content h1,
 .sl-markdown-content h2,
 .sl-markdown-content h3 {
@@ -80,9 +108,8 @@ body {
   margin-top: 2rem;
 }
 
-/* ─── Code Blocks ──────────────────────────────── */
+/* ─── Code Blocks ─────────────────────────────── */
 
-/* Tighter code blocks */
 .sl-markdown-content pre {
   border-radius: 0.5rem;
   padding: 1rem;
@@ -90,16 +117,14 @@ body {
   line-height: 1.6;
 }
 
-/* Inline code: subtle background */
 .sl-markdown-content :not(pre) > code {
   border-radius: 0.25rem;
   padding: 0.15em 0.35em;
   font-size: 0.9em;
 }
 
-/* ─── Tables ───────────────────────────────────── */
+/* ─── Tables ──────────────────────────────────── */
 
-/* Cleaner tables */
 .sl-markdown-content table {
   border-collapse: collapse;
   width: 100%;
@@ -121,22 +146,19 @@ body {
   border-bottom: 1px solid var(--sl-color-hairline-light);
 }
 
-/* ─── Admonitions ──────────────────────────────── */
+/* ─── Admonitions ─────────────────────────────── */
 
-/* Slightly rounder admonitions */
 .starlight-aside {
   border-radius: 0.5rem;
   border-left-width: 3px;
 }
 
-/* ─── Sidebar ──────────────────────────────────── */
+/* ─── Sidebar ─────────────────────────────────── */
 
-/* Clean sidebar spacing */
 nav.sidebar ul {
   gap: 0.125rem;
 }
 
-/* Sidebar group labels: smaller and uppercase */
 nav.sidebar .top-level > li > details > summary span,
 nav.sidebar .top-level > li > a span {
   font-size: 0.8rem;
@@ -145,9 +167,8 @@ nav.sidebar .top-level > li > a span {
   letter-spacing: 0.05em;
 }
 
-/* ─── Links ────────────────────────────────────── */
+/* ─── Links ───────────────────────────────────── */
 
-/* Subtle link underlines */
 .sl-markdown-content a:not(.heading-link) {
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
@@ -157,7 +178,7 @@ nav.sidebar .top-level > li > a span {
   text-decoration-thickness: 2px;
 }
 
-/* ─── Responsive ───────────────────────────────── */
+/* ─── Responsive ──────────────────────────────── */
 
 @media (max-width: 50rem) {
   .sl-markdown-content h1 {
