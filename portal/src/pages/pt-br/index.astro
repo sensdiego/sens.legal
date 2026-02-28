@@ -4,13 +4,37 @@ import { projects } from '../../data/projects';
 ---
 
 <DocsLayout title="Inicio" description="Infraestrutura de inteligencia juridica para o direito brasileiro." lang="pt-br">
-  <h1>sens.legal</h1>
+  <img src="/logo-hero.png" alt="sens.legal" class="hero-logo" />
   <p class="tagline">Infraestrutura de inteligencia juridica</p>
 
+  <hr />
+
+  <h2>O que estamos construindo</h2>
+
   <p>
-    Hub de solucoes tecnologicas em estagio alpha para o pipeline completo de
-    atuacao profissional juridica. Combina knowledge graph, busca semantica,
-    verificacao anti-alucinacao e integracao nativa com LLMs via MCP.
+    Profissionais do direito dependem cada vez mais de LLMs que alucinam numeros
+    de processo, inventam precedentes e nao compreendem a estrutura relacional do
+    direito brasileiro. Estamos construindo a infraestrutura para resolver isso.
+  </p>
+
+  <p>
+    Um advogado faz uma pergunta. O <strong>Juca</strong> captura a intencao e
+    inicia um briefing progressivo. A consulta chega ao <strong>Valter</strong>,
+    que pesquisa 28.000 decisoes do STJ usando busca hibrida e um knowledge graph
+    com mais de 207.000 relacoes juridicas. Cada alegacao e verificada contra
+    dados reais do tribunal — sem fontes alucinadas.
+  </p>
+
+  <p>
+    Em breve, a <strong>Leci</strong> adicionara legislacao federal — leis,
+    regulamentos, atos normativos — completando o ciclo de pesquisa da
+    jurisprudencia a legislacao.
+  </p>
+
+  <p>
+    Estamos construindo a infraestrutura para que cada argumento juridico seja
+    respaldado por fontes rastreaveis, cada precedente seja real, e cada advogado
+    tenha acesso a profundidade de pesquisa que hoje exige grandes equipes.
   </p>
 
   <hr />
@@ -37,42 +61,6 @@ import { projects } from '../../data/projects';
       </div>
     ))}
   </div>
-
-  <hr />
-
-  <h2>Por que sens.legal?</h2>
-
-  <div class="comparison">
-    <div class="comparison-col">
-      <h4>Antes: Perguntar direto ao LLM</h4>
-      <pre><code>Usuario: "Qual a posicao do STJ sobre
-boa-fe objetiva no direito do consumidor?"
-
-LLM: "O STJ geralmente entende que..."
-(sem fontes, sem verificacao, possivel
-alucinacao)</code></pre>
-    </div>
-    <div class="comparison-col">
-      <h4>Depois: Perguntar com sens.legal MCP</h4>
-      <pre><code>Usuario: mesma pergunta
-
-LLM → chama SearchJurisprudence
-    → chama VerifyLegalClaims
-    → chama GetCitationChain
-
-Resposta: resposta verificada com:
-  - 5 decisoes reais do STJ citadas
-  - cadeia de citacoes no knowledge graph
-  - score de confianca por alegacao
-  - ministro e data de cada fonte</code></pre>
-    </div>
-  </div>
-
-  <p>
-    A diferenca e a rastreabilidade. Cada alegacao e respaldada por um no
-    especifico no knowledge graph, verificada contra dados reais do tribunal.
-    Sem numeros de processo inventados. Sem interpretacoes juridicas fabricadas.
-  </p>
 
   <hr />
 
@@ -112,11 +100,11 @@ Resposta: resposta verificada com:
 </DocsLayout>
 
 <style>
-  h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    margin-bottom: var(--space-xs);
+  .hero-logo {
+    display: block;
+    max-width: 16rem;
+    height: auto;
+    margin-bottom: var(--space-sm);
   }
 
   .tagline {
@@ -184,29 +172,5 @@ Resposta: resposta verificada com:
 
   .project-links a:hover {
     color: var(--color-text);
-  }
-
-  .comparison {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-lg);
-    margin: var(--space-lg) 0;
-  }
-
-  .comparison h4 {
-    font-size: 0.875rem;
-    margin-bottom: var(--space-sm);
-    color: var(--color-text-secondary);
-  }
-
-  .comparison pre {
-    font-size: 0.8125rem;
-    margin: 0;
-  }
-
-  @media (max-width: 50rem) {
-    .comparison {
-      grid-template-columns: 1fr;
-    }
   }
 </style>
