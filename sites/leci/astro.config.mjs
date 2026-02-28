@@ -70,7 +70,7 @@ export default defineConfig({
             { label: 'Technology Stack', slug: 'architecture/stack' },
             { label: 'Architecture Decisions', slug: 'architecture/decisions' },
             { label: 'Architecture Diagrams', slug: 'architecture/diagrams' },
-            { label: 'Project Diagnostic Snapshot', slug: 'architecture/PROJECT_MAP' },
+            { label: 'Project Diagnostic Snapshot', slug: 'architecture/project_map' },
           ],
         },
         {
@@ -127,16 +127,16 @@ export default defineConfig({
           label: 'Planning',
           translations: { 'pt-BR': 'Planejamento' },
           items: [
-            { label: 'Planning Roadmap', slug: 'planning/ROADMAP' },
-            { label: 'Premortem', slug: 'planning/PREMORTEM' },
-            { label: 'Innovation Layer', slug: 'planning/INNOVATION_LAYER' },
-            { label: 'Repository Reorganization', slug: 'planning/REORG_PLAN' },
+            { label: 'Planning Roadmap', slug: 'planning/roadmap' },
+            { label: 'Premortem', slug: 'planning/premortem' },
+            { label: 'Innovation Layer', slug: 'planning/innovation_layer' },
+            { label: 'Repository Reorganization', slug: 'planning/reorg_plan' },
           ],
         },
         {
           label: 'ADR',
           items: [
-            { label: 'ADR Guide', slug: 'adr/README' },
+            { label: 'ADR Guide', slug: 'adr/readme' },
           ],
         },
       ],
