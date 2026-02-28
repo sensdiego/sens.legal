@@ -49,21 +49,22 @@
   --sl-color-accent: #000000;
   --sl-color-accent-high: #000000;
 
-  --sl-color-white: #ffffff;
-  --sl-color-gray-1: #f6f6f6;
-  --sl-color-gray-2: #e2e2e2;
-  --sl-color-gray-3: #8f8f8f;
-  --sl-color-gray-4: #545454;
-  --sl-color-gray-5: #333333;
-  --sl-color-gray-6: #111111;
-  --sl-color-black: #000000;
+  /* Starlight dark mode inverts the gray scale internally:
+     gray-1 = "lightest foreground", gray-6 = "darkest background".
+     To force a light appearance, we swap our values so dark-mode
+     references still produce dark text on white background. */
+  --sl-color-white: #000000;
+  --sl-color-gray-1: #111111;
+  --sl-color-gray-2: #333333;
+  --sl-color-gray-3: #545454;
+  --sl-color-gray-4: #8f8f8f;
+  --sl-color-gray-5: #e2e2e2;
+  --sl-color-gray-6: #f6f6f6;
+  --sl-color-black: #ffffff;
 
   --sl-color-bg-nav: #ffffff;
   --sl-color-bg-sidebar: #ffffff;
   --sl-color-hairline-light: #e2e2e2;
-
-  --sl-color-bg: var(--sl-color-white);
-  --sl-color-text: var(--sl-color-black);
 }
 
 /* ─── Hide Theme Toggle ───────────────────────── */
