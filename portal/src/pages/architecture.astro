@@ -1,5 +1,57 @@
 ---
 import DocsLayout from '../layouts/DocsLayout.astro';
+
+const ecosystemDiagram = `<pre><code class="language-mermaid">graph TB
+    subgraph Consumers
+        JUCA[Juca Frontend&lt;br/&gt;Next.js]
+        CHATGPT[ChatGPT&lt;br/&gt;MCP Remote]
+        CLAUDE[Claude Desktop/Code&lt;br/&gt;MCP stdio]
+    end
+
+    subgraph "Valter — Entry Points"
+        API[REST API&lt;br/&gt;FastAPI :8000]
+        MCP_STDIO[MCP Server&lt;br/&gt;stdio]
+        MCP_HTTP[MCP Server&lt;br/&gt;HTTP/SSE :8001]
+    end
+
+    subgraph "Core Layer"
+        RETRIEVER[HybridRetriever&lt;br/&gt;BM25 + Semantic + KG Boost]
+        ENRICHER[DocumentEnricher&lt;br/&gt;IRAC + KG Context]
+        VERIFIER[LegalVerifier&lt;br/&gt;Anti-hallucination]
+    end
+
+    subgraph "Data Stores"
+        PG[(PostgreSQL 16&lt;br/&gt;Documents + Metadata)]
+        QD[(Qdrant&lt;br/&gt;Semantic Vectors)]
+        N4J[(Neo4j&lt;br/&gt;Knowledge Graph)]
+        RD[(Redis 7&lt;br/&gt;Cache)]
+    end
+
+    JUCA --&gt; API
+    CHATGPT --&gt; MCP_HTTP
+    CLAUDE --&gt; MCP_STDIO
+    MCP_STDIO --&gt; API
+    MCP_HTTP --&gt; API
+    API --&gt; RETRIEVER &amp; ENRICHER &amp; VERIFIER
+    RETRIEVER --&gt; PG &amp; QD &amp; N4J &amp; RD
+    ENRICHER --&gt; PG &amp; N4J
+    VERIFIER --&gt; PG &amp; N4J</code></pre>`;
+
+const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
+    Q[Query] --&gt; CACHE{{"Cache?"}}
+    CACHE --&gt;|hit| RESULT
+    CACHE --&gt;|miss| QE[Query Expansion&lt;br/&gt;Groq LLM]
+    QE --&gt; ENCODE[Encode&lt;br/&gt;Legal-BERTimbau]
+    ENCODE --&gt; PAR{{"Parallel"}}
+    PAR --&gt; BM25[BM25&lt;br/&gt;PostgreSQL]
+    PAR --&gt; SEM[Semantic&lt;br/&gt;Qdrant cosine]
+    BM25 --&gt; MERGE[Merge&lt;br/&gt;Weighted / RRF]
+    SEM --&gt; MERGE
+    MERGE --&gt; KG{{"KG Boost?"}}
+    KG --&gt;|yes| BOOST[Neo4j Batch]
+    KG --&gt;|no| RERANK
+    BOOST --&gt; RERANK[Cross-Encoder&lt;br/&gt;Reranking]
+    RERANK --&gt; RESULT[Response]</code></pre>`;
 ---
 
 <DocsLayout title="Architecture" description="System architecture and data flow diagrams.">
@@ -19,41 +71,7 @@ import DocsLayout from '../layouts/DocsLayout.astro';
     logic serves both.
   </p>
 
-  <pre><code class="language-mermaid">graph TB
-    subgraph Consumers
-        JUCA[Juca Frontend<br/>Next.js]
-        CHATGPT[ChatGPT<br/>MCP Remote]
-        CLAUDE[Claude Desktop/Code<br/>MCP stdio]
-    end
-
-    subgraph "Valter — Entry Points"
-        API[REST API<br/>FastAPI :8000]
-        MCP_STDIO[MCP Server<br/>stdio]
-        MCP_HTTP[MCP Server<br/>HTTP/SSE :8001]
-    end
-
-    subgraph "Core Layer"
-        RETRIEVER[HybridRetriever<br/>BM25 + Semantic + KG Boost]
-        ENRICHER[DocumentEnricher<br/>IRAC + KG Context]
-        VERIFIER[LegalVerifier<br/>Anti-hallucination]
-    end
-
-    subgraph "Data Stores"
-        PG[(PostgreSQL 16<br/>Documents + Metadata)]
-        QD[(Qdrant<br/>Semantic Vectors)]
-        N4J[(Neo4j<br/>Knowledge Graph)]
-        RD[(Redis 7<br/>Cache)]
-    end
-
-    JUCA --> API
-    CHATGPT --> MCP_HTTP
-    CLAUDE --> MCP_STDIO
-    MCP_STDIO --> API
-    MCP_HTTP --> API
-    API --> RETRIEVER & ENRICHER & VERIFIER
-    RETRIEVER --> PG & QD & N4J & RD
-    ENRICHER --> PG & N4J
-    VERIFIER --> PG & N4J</code></pre>
+  <Fragment set:html={ecosystemDiagram} />
 
   <h2>Search Pipeline</h2>
 
@@ -63,21 +81,7 @@ import DocsLayout from '../layouts/DocsLayout.astro';
     result set. Results are reranked by a cross-encoder and cached in Redis.
   </p>
 
-  <pre><code class="language-mermaid">flowchart LR
-    Q[Query] --> CACHE{{"Cache?"}}
-    CACHE -->|hit| RESULT
-    CACHE -->|miss| QE[Query Expansion<br/>Groq LLM]
-    QE --> ENCODE[Encode<br/>Legal-BERTimbau]
-    ENCODE --> PAR{{"Parallel"}}
-    PAR --> BM25[BM25<br/>PostgreSQL]
-    PAR --> SEM[Semantic<br/>Qdrant cosine]
-    BM25 --> MERGE[Merge<br/>Weighted / RRF]
-    SEM --> MERGE
-    MERGE --> KG{{"KG Boost?"}}
-    KG -->|yes| BOOST[Neo4j Batch]
-    KG -->|no| RERANK
-    BOOST --> RERANK[Cross-Encoder<br/>Reranking]
-    RERANK --> RESULT[Response]</code></pre>
+  <Fragment set:html={searchDiagram} />
 
   <h2>Knowledge Graph</h2>
 
