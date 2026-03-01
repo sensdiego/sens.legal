@@ -40,6 +40,37 @@ Content-Type: application/json
   {"}"}
 {"}"}</code></pre>
 
+  <h4>Response</h4>
+
+  <pre><code>{"{"}
+  "results": [
+    {"{"}
+      "id": "REsp_1234567_SP",
+      "score": 0.923,
+      "kg_boost_score": 0.15,
+      "title": "REsp 1.234.567/SP",
+      "ministro": "Min. Nancy Andrighi",
+      "data_julgamento": "2023-03-14",
+      "ementa": "RECURSO ESPECIAL. DIREITO DO CONSUMIDOR. DEFEITO DO PRODUTO...",
+      "criterios": ["boa-fe objetiva", "nexo causal"],
+      "dispositivos": ["Art. 12 do CDC", "Art. 14 do CDC"]
+    {"}"}
+  ],
+  "total": 47,
+  "cached": false,
+  "search_time_ms": 342
+{"}"}</code></pre>
+
+  <h2>O que torna diferente</h2>
+
+  <p>
+    A busca juridica tradicional depende de correspondencia por palavras-chave. O sens.legal
+    combina tres estrategias: palavras-chave capturam terminologia juridica exata, busca
+    semantica encontra casos conceitualmente similares mesmo com redacao diferente, e o
+    boosting via knowledge graph eleva decisoes que estao estruturalmente conectadas por
+    criterios, dispositivos legais e precedentes compartilhados.
+  </p>
+
   <h2>Disponivel via</h2>
 
   <ul>
@@ -49,5 +80,7 @@ Content-Type: application/json
 </DocsLayout>
 
 <style>
-  .badge { margin-bottom: var(--space-lg); }
+  .badge {
+    margin-bottom: var(--space-lg);
+  }
 </style>

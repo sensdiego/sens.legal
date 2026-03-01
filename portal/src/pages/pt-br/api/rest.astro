@@ -2,37 +2,112 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 ---
 
-<DocsLayout title="REST API" description="Endpoints da REST API do Valter para busca, verificacao, graph analytics e ingestao." lang="pt-br">
+<DocsLayout title="REST API" description="Endpoints da REST API do Valter para busca, verificação, graph analytics e ingestão." lang="pt-br">
   <h1>REST API</h1>
   <span class="badge badge-alpha">alpha</span>
 
   <p>
-    O Valter expoe uma REST API via FastAPI com 11 routers cobrindo busca,
-    verificacao, enriquecimento, graph analytics, ingestao e mais. Todos os
-    endpoints requerem autenticacao via API key.
+    O Valter expõe uma REST API via FastAPI com 11 routers cobrindo busca,
+    verificação, enriquecimento, graph analytics, ingestão e mais. Todos os
+    endpoints requerem autenticação via API key.
   </p>
 
   <h2>URL Base</h2>
+
   <pre><code>https://api.valter.sens.legal/api/v1</code></pre>
 
-  <h2>Endpoints Principais</h2>
+  <h2>Autenticação</h2>
+
+  <pre><code>Authorization: Bearer YOUR_API_KEY</code></pre>
+
+  <p>
+    As API keys são restritas a endpoints específicos. Entre em contato para solicitar acesso.
+  </p>
+
+  <h2>Endpoints</h2>
+
+  <h3>Busca & Recuperação</h3>
 
   <table>
     <thead>
-      <tr><th>Metodo</th><th>Path</th><th>Descricao</th></tr>
+      <tr><th>Método</th><th>Path</th><th>Descrição</th></tr>
     </thead>
     <tbody>
-      <tr><td><code>POST</code></td><td><code>/retrieve/search</code></td><td>Busca hibrida (BM25 + semantica + KG boost)</td></tr>
-      <tr><td><code>POST</code></td><td><code>/verify/claims</code></td><td>Verificar alegacoes contra dados reais</td></tr>
-      <tr><td><code>POST</code></td><td><code>/graph/optimal-argument</code></td><td>Melhores argumentos por categoria/criterio</td></tr>
-      <tr><td><code>GET</code></td><td><code>/graph/citation-chain/:id</code></td><td>Cadeia de citacoes de uma decisao</td></tr>
-      <tr><td><code>POST</code></td><td><code>/ingest/case</code></td><td>Submeter PDF para analise</td></tr>
+      <tr><td><code>POST</code></td><td><code>/retrieve/search</code></td><td>Busca híbrida (BM25 + semântica + KG boost)</td></tr>
+      <tr><td><code>POST</code></td><td><code>/retrieve/similar</code></td><td>Encontrar casos similares (70% semântica + 30% estrutural)</td></tr>
+      <tr><td><code>GET</code></td><td><code>/retrieve/document/:id</code></td><td>Obter documento completo com metadados</td></tr>
+      <tr><td><code>GET</code></td><td><code>/retrieve/integra/:id</code></td><td>Obter íntegra do documento (texto completo)</td></tr>
     </tbody>
   </table>
 
+  <h3>Verificação</h3>
+
+  <table>
+    <thead>
+      <tr><th>Método</th><th>Path</th><th>Descrição</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>POST</code></td><td><code>/verify/claims</code></td><td>Verificar alegações jurídicas contra dados reais</td></tr>
+      <tr><td><code>GET</code></td><td><code>/verify/case/:number</code></td><td>Validar se número de processo existe no STJ</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Graph Analytics</h3>
+
+  <table>
+    <thead>
+      <tr><th>Método</th><th>Path</th><th>Descrição</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>POST</code></td><td><code>/graph/optimal-argument</code></td><td>Encontrar argumentos mais fortes por categoria/critério</td></tr>
+      <tr><td><code>GET</code></td><td><code>/graph/citation-chain/:id</code></td><td>Rastrear cadeia de citações a partir de uma decisão</td></tr>
+      <tr><td><code>GET</code></td><td><code>/graph/pagerank</code></td><td>Decisões mais relevantes por score de PageRank</td></tr>
+      <tr><td><code>GET</code></td><td><code>/graph/communities</code></td><td>Agrupamentos de decisões por tema</td></tr>
+      <tr><td><code>GET</code></td><td><code>/graph/divergencias</code></td><td>Decisões divergentes sobre os mesmos critérios</td></tr>
+      <tr><td><code>POST</code></td><td><code>/graph/shortest-path</code></td><td>Caminho mais curto entre duas entidades</td></tr>
+      <tr><td><code>GET</code></td><td><code>/graph/ministro/:name</code></td><td>Perfil do ministro e padrões de decisão</td></tr>
+      <tr><td><code>GET</code></td><td><code>/graph/temporal/:criterion</code></td><td>Evolução temporal de um critério</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Enriquecimento</h3>
+
+  <table>
+    <thead>
+      <tr><th>Método</th><th>Path</th><th>Descrição</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>POST</code></td><td><code>/enrich/irac</code></td><td>Análise IRAC de um documento</td></tr>
+      <tr><td><code>GET</code></td><td><code>/features/search</code></td><td>Buscar features classificadas de documentos</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Ingestão</h3>
+
+  <table>
+    <thead>
+      <tr><th>Método</th><th>Path</th><th>Descrição</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>POST</code></td><td><code>/ingest/case</code></td><td>Submeter PDF de caso para análise</td></tr>
+      <tr><td><code>GET</code></td><td><code>/ingest/case/:id/status</code></td><td>Verificar status do workflow</td></tr>
+      <tr><td><code>GET</code></td><td><code>/ingest/case/:id/result</code></td><td>Obter resultado da análise</td></tr>
+      <tr><td><code>POST</code></td><td><code>/ingest/case/:id/review</code></td><td>Revisar e aprovar/rejeitar fases</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Rate Limiting</h2>
+
+  <p>
+    Todos os endpoints possuem rate limiting via sliding window no Redis. Os limites
+    padrão dependem do escopo da API key. Headers de rate limit são incluídos em todas as respostas.
+  </p>
+
+  <h2>Documentação Completa</h2>
+
   <p>
     <a href="https://valter.sens.legal/api/" target="_blank" rel="noopener">
-      Ver documentacao completa da API nos docs do Valter &rarr;
+      Ver documentação completa da API nos docs do Valter &rarr;
     </a>
   </p>
 </DocsLayout>
@@ -44,16 +119,22 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
     margin: var(--space-md) 0 var(--space-lg);
     font-size: 0.8125rem;
   }
+
   th, td {
     text-align: left;
     padding: var(--space-sm) var(--space-md);
     border-bottom: 1px solid var(--color-border);
   }
+
   th {
     font-weight: 600;
     color: var(--color-text-secondary);
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+  }
+
+  td code {
+    font-size: 0.75rem;
   }
 </style>

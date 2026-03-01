@@ -12,13 +12,24 @@ const tools = [
   { name: 'GetPageRank', category: 'Grafo', desc: 'Decisoes de maior influencia por score' },
   { name: 'GetCommunities', category: 'Grafo', desc: 'Clusters de decisoes por topico' },
   { name: 'GetDivergencias', category: 'Grafo', desc: 'Decisoes divergentes sobre mesmos criterios' },
+  { name: 'GetTurmaDivergences', category: 'Grafo', desc: 'Divergencias entre turmas julgadoras' },
+  { name: 'GetStructuralSimilarity', category: 'Grafo', desc: 'Similaridade estrutural via graph embeddings' },
+  { name: 'GetShortestPath', category: 'Grafo', desc: 'Caminho mais curto entre duas entidades' },
+  { name: 'GetGraphEmbeddings', category: 'Grafo', desc: 'Vetores de graph embedding para entidades' },
   { name: 'GetOptimalArgument', category: 'Analytics', desc: 'Melhores argumentos por categoria/criterio' },
-  { name: 'GetOptimalArgumentByMinistro', category: 'Analytics', desc: 'Melhores argumentos por ministro' },
-  { name: 'GetMinistroProfile', category: 'Analytics', desc: 'Perfil e padroes de decisao do ministro' },
+  { name: 'GetOptimalArgumentByMinistro', category: 'Analytics', desc: 'Melhores argumentos para um ministro especifico' },
+  { name: 'GetMinistroProfile', category: 'Analytics', desc: 'Padroes e preferencias de decisao do ministro' },
   { name: 'GetTemporalEvolution', category: 'Analytics', desc: 'Evolucao temporal de um criterio' },
-  { name: 'SubmitCasePdfAnalysis', category: 'Workflow', desc: 'Submeter PDF para analise' },
+  { name: 'Remember', category: 'Memoria', desc: 'Armazenar uma memoria para consulta posterior' },
+  { name: 'Recall', category: 'Memoria', desc: 'Recuperar memorias armazenadas' },
+  { name: 'SubmitCasePdfAnalysis', category: 'Workflow', desc: 'Submeter PDF de processo para analise' },
   { name: 'GetCasePdfAnalysisStatus', category: 'Workflow', desc: 'Verificar status do workflow' },
+  { name: 'GetCasePdfAnalysisResult', category: 'Workflow', desc: 'Obter resultado da analise' },
   { name: 'ReviewCasePhase', category: 'Workflow', desc: 'Revisar e aprovar/rejeitar uma fase' },
+  { name: 'ReviewCaseFinal', category: 'Workflow', desc: 'Revisao final da analise completa' },
+  { name: 'ReprocessCaseAnalysis', category: 'Workflow', desc: 'Reprocessar a partir de uma fase especifica' },
+  { name: 'GetCaseWorkflowArtifacts', category: 'Workflow', desc: 'Listar artefatos do workflow' },
+  { name: 'GetCaseArtifactSignedUrl', category: 'Workflow', desc: 'Obter URL assinada para download de artefato' },
 ];
 
 const categories = [...new Set(tools.map(t => t.category))];
@@ -31,10 +42,29 @@ const categories = [...new Set(tools.map(t => t.category))];
   <p>
     O Valter expoe 28 tools via Model Context Protocol (MCP), permitindo que LLMs
     como Claude e ChatGPT consultem jurisprudencia, verifiquem alegacoes, analisem
-    grafos e gerenciem workflows de analise de processos diretamente.
+    grafos e gerenciem workflows de analise de processos diretamente. As mesmas
+    capacidades disponiveis pela API REST sao acessiveis como tools nativas de LLM.
   </p>
 
-  <h2>Tools (selecao)</h2>
+  <h2>Conexao</h2>
+
+  <h4>Claude Desktop / Claude Code (stdio)</h4>
+
+  <pre><code>{"{"}
+  "mcpServers": {"{"}
+    "valter": {"{"}
+      "command": "python",
+      "args": ["-m", "valter.mcp_server"]
+    {"}"}
+  {"}"}
+{"}"}</code></pre>
+
+  <h4>ChatGPT / Remoto (HTTP/SSE)</h4>
+
+  <pre><code>MCP Server URL: https://mcp.valter.sens.legal
+Authentication: HMAC (entre em contato para credenciais)</code></pre>
+
+  <h2>Tools</h2>
 
   {categories.map((category) => (
     <div>
@@ -55,6 +85,8 @@ const categories = [...new Set(tools.map(t => t.category))];
     </div>
   ))}
 
+  <h2>Documentacao Completa</h2>
+
   <p>
     <a href="https://valter.sens.legal/api/mcp-tools/" target="_blank" rel="noopener">
       Ver documentacao completa das tools MCP nos docs do Valter &rarr;
@@ -69,16 +101,22 @@ const categories = [...new Set(tools.map(t => t.category))];
     margin: var(--space-md) 0 var(--space-lg);
     font-size: 0.8125rem;
   }
+
   th, td {
     text-align: left;
     padding: var(--space-sm) var(--space-md);
     border-bottom: 1px solid var(--color-border);
   }
+
   th {
     font-weight: 600;
     color: var(--color-text-secondary);
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+  }
+
+  td code {
+    font-size: 0.75rem;
   }
 </style>

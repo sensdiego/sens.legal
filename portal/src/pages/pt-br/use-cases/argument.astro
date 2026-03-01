@@ -23,6 +23,44 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
     <li>Resultados sao ranqueados por score de forca composto</li>
   </ol>
 
+  <h2>Exemplo</h2>
+
+  <h4>Request</h4>
+
+  <pre><code>POST /api/v1/graph/optimal-argument
+Content-Type: application/json
+
+{"{"}
+  "category": "Direito do Consumidor",
+  "criterion": "defeito do produto",
+  "ministro": "Nancy Andrighi"
+{"}"}</code></pre>
+
+  <h4>Response</h4>
+
+  <pre><code>{"{"}
+  "optimal_arguments": [
+    {"{"}
+      "argument_pattern": "Responsabilidade objetiva do fornecedor",
+      "success_rate": 0.87,
+      "supporting_decisions": 34,
+      "key_precedents": ["Sumula 297/STJ", "REsp 1.234.567/SP"],
+      "recommended_devices": ["Art. 12 do CDC", "Art. 14 do CDC"],
+      "minister_alignment": 0.92
+    {"}"}
+  ],
+  "total_decisions_analyzed": 156
+{"}"}</code></pre>
+
+  <h2>O que torna diferente</h2>
+
+  <p>
+    Em vez de ler centenas de decisoes para encontrar a melhor abordagem, o
+    knowledge graph calcula isso. Taxas de sucesso, preferencias de ministros e
+    peso de precedentes sao derivados da estrutura real de 28.000+ decisoes
+    e 207K+ relacionamentos — nao de texto resumido.
+  </p>
+
   <h2>Disponivel via</h2>
 
   <ul>
@@ -33,5 +71,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 </DocsLayout>
 
 <style>
-  .badge { margin-bottom: var(--space-lg); }
+  .badge {
+    margin-bottom: var(--space-lg);
+  }
 </style>

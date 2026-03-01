@@ -17,24 +17,58 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 
   <ol>
     <li><strong>Upload:</strong> PDF e submetido ao pipeline de ingestao</li>
-    <li><strong>Extracao:</strong> pipeline PROJUDI segmenta o documento</li>
-    <li><strong>Classificacao:</strong> Groq LLM extrai 21 campos estruturados</li>
-    <li><strong>Analise de fases:</strong> interpretacao deterministica das fases processuais</li>
-    <li><strong>Matching:</strong> busca hibrida encontra casos similares</li>
+    <li><strong>Extracao:</strong> pipeline PROJUDI segmenta o documento, classificando cada secao</li>
+    <li><strong>Classificacao:</strong> Groq LLM extrai 21 campos estruturados (fatos, tese juridica, resultado, ministro, categoria...)</li>
+    <li><strong>Analise de fases:</strong> interpretacao deterministica das fases processuais com recomendacoes de jurisprudencia por fase</li>
+    <li><strong>Matching:</strong> retriever hibrido encontra casos similares e gera sugestoes</li>
     <li><strong>Revisao:</strong> advogado revisa e aprova/rejeita cada fase</li>
-    <li><strong>Artefatos:</strong> analises aprovadas sao serializadas em JSON e PDF</li>
+    <li><strong>Artefatos:</strong> analises aprovadas sao serializadas em JSON e PDF, armazenadas no Cloudflare R2</li>
   </ol>
+
+  <h2>Exemplo</h2>
+
+  <h4>Submeter um processo</h4>
+
+  <pre><code>POST /api/v1/ingest/case
+Content-Type: multipart/form-data
+
+file: case_document.pdf</code></pre>
+
+  <h4>Verificar status</h4>
+
+  <pre><code>GET /api/v1/ingest/case/abc-123/status
+
+{"{"}
+  "workflow_id": "abc-123",
+  "status": "analyzing",
+  "current_phase": "phase_analysis",
+  "progress": 0.6,
+  "phases_completed": ["extraction", "classification"],
+  "phases_remaining": ["matching", "review", "artifacts"]
+{"}"}</code></pre>
+
+  <h2>O que torna diferente</h2>
+
+  <p>
+    A analise nao e um resumo unico gerado por LLM. E um pipeline multi-etapas
+    com regras deterministicas, matching via knowledge graph e portoes de revisao
+    humana. Cada transicao de estado e registrada como um evento auditavel.
+    Rejeicoes disparam reprocessamento, nao reinicio.
+  </p>
 
   <h2>Disponivel via</h2>
 
   <ul>
     <li><code>POST /api/v1/ingest/case</code> — REST API</li>
-    <li><code>SubmitCasePdfAnalysis</code> — tool MCP</li>
-    <li><code>GetCasePdfAnalysisStatus</code> — tool MCP</li>
-    <li><code>ReviewCasePhase</code> — tool MCP</li>
+    <li><code>SubmitCasePdfAnalysis</code> — tool MCP (submeter)</li>
+    <li><code>GetCasePdfAnalysisStatus</code> — tool MCP (verificar status)</li>
+    <li><code>GetCasePdfAnalysisResult</code> — tool MCP (obter resultado)</li>
+    <li><code>ReviewCasePhase</code> — tool MCP (aprovar/rejeitar fases)</li>
   </ul>
 </DocsLayout>
 
 <style>
-  .badge { margin-bottom: var(--space-lg); }
+  .badge {
+    margin-bottom: var(--space-lg);
+  }
 </style>

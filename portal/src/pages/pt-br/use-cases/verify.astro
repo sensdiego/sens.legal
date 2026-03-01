@@ -16,12 +16,58 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
   <h2>Como funciona</h2>
 
   <ol>
-    <li>A alegacao e decomposta em componentes verificaveis</li>
+    <li>A alegacao e decomposta em componentes verificaveis (posicao juridica, casos citados, criterios)</li>
     <li>Cada componente e buscado no knowledge graph e no armazenamento de documentos</li>
     <li>Cadeias de citacao sao tracadas: a decisao A realmente cita a decisao B?</li>
     <li>Numeros de processo sao validados contra metadados reais do STJ (810K+ registros)</li>
     <li>Um score de confianca e computado baseado nas evidencias encontradas</li>
   </ol>
+
+  <h2>Exemplo</h2>
+
+  <h4>Request</h4>
+
+  <pre><code>POST /api/v1/verify/claims
+Content-Type: application/json
+
+{"{"}
+  "claims": [
+    "O STJ consolidou entendimento de que a responsabilidade
+     do fornecedor por defeito do produto e objetiva,
+     conforme Art. 12 do CDC (REsp 1.234.567/SP)"
+  ]
+{"}"}</code></pre>
+
+  <h4>Response</h4>
+
+  <pre><code>{"{"}
+  "verifications": [
+    {"{"}
+      "claim": "...",
+      "verified": true,
+      "confidence": 0.89,
+      "evidence": {"{"}
+        "case_exists": true,
+        "case_number": "REsp 1.234.567/SP",
+        "legal_device_applied": true,
+        "device": "Art. 12 do CDC",
+        "position_supported": true,
+        "supporting_decisions": 23
+      {"}"},
+      "citation_chain": ["REsp 1.234.567/SP", "REsp 987.654/RJ", "Sumula 297/STJ"]
+    {"}"}
+  ]
+{"}"}</code></pre>
+
+  <h2>O que torna diferente</h2>
+
+  <p>
+    LLMs podem gerar texto juridico convincente com numeros de processo inventados e
+    posicoes juridicas fabricadas. O pipeline de verificacao checa cada componente
+    contra dados reais: este processo existe? Ele realmente cita aquele precedente?
+    O tribunal realmente sustenta esta posicao? Nenhuma alegacao e retornada sem
+    evidencia.
+  </p>
 
   <h2>Disponivel via</h2>
 
@@ -32,5 +78,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 </DocsLayout>
 
 <style>
-  .badge { margin-bottom: var(--space-lg); }
+  .badge {
+    margin-bottom: var(--space-lg);
+  }
 </style>
