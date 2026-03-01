@@ -27,6 +27,7 @@ export const routes: RouteGroup[] = [
       { label: 'Valter', slug: '/projects/valter' },
       { label: 'Juca', slug: '/projects/juca' },
       { label: 'Leci', slug: '/projects/leci' },
+      { label: 'Douto', slug: '/projects/douto' },
     ],
   },
   {

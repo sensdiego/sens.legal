@@ -1,0 +1,88 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Douto" description="Legal doctrine knowledge agent — processes legal books into structured, searchable knowledge.">
+  <h1>Douto</h1>
+  <p class="subtitle">Legal doctrine knowledge agent</p>
+
+  <span class="badge badge-alpha">alpha</span>
+
+  <p>
+    Douto is the doctrine component of the sens.legal ecosystem. It processes
+    legal books (PDF) through an intelligent pipeline — extraction, chunking,
+    metadata enrichment, and semantic embeddings — producing structured,
+    searchable knowledge organized by legal domain.
+  </p>
+
+  <p>
+    The pipeline generates enriched chunks classified across 13 metadata fields
+    and embedded with Legal-BERTimbau (768-dim). A hybrid search system combines
+    cosine similarity, BM25, and metadata filters across the entire corpus of
+    ~50 legal books and ~31,500 chunks.
+  </p>
+
+  <h2>Stack</h2>
+
+  <ul>
+    <li><strong>Language:</strong> Python 3</li>
+    <li><strong>PDF extraction:</strong> LlamaParse</li>
+    <li><strong>Enrichment:</strong> MiniMax M2.5</li>
+    <li><strong>Embeddings:</strong> Legal-BERTimbau (768-dim)</li>
+    <li><strong>Knowledge base:</strong> Markdown + Obsidian conventions (MOCs, skill graph)</li>
+  </ul>
+
+  <h2>Key Numbers</h2>
+
+  <table>
+    <tbody>
+      <tr><td>Legal books processed</td><td>~50</td></tr>
+      <tr><td>Enriched chunks</td><td>~31,500</td></tr>
+      <tr><td>Legal domains covered</td><td>8</td></tr>
+      <tr><td>Metadata fields per chunk</td><td>13</td></tr>
+      <tr><td>Embedding dimensions</td><td>768</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Pipeline</h2>
+
+  <pre><code>PDF → process_books.py → rechunk_v3.py → enrich_chunks.py → embed_doutrina.py → search_doutrina_v2.py
+      (LlamaParse)        (5-pass)         (MiniMax M2.5)     (Legal-BERTimbau)    (hybrid search)</code></pre>
+
+  <h2>Links</h2>
+
+  <ul>
+    <li><a href="https://douto.sens.legal" target="_blank" rel="noopener">Documentation</a></li>
+    <li><a href="https://github.com/sensdiego/douto" target="_blank" rel="noopener">GitHub</a></li>
+  </ul>
+</DocsLayout>
+
+<style>
+  .subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+    margin-top: -0.5rem;
+    margin-bottom: var(--space-md);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-md) 0 var(--space-lg);
+    font-size: 0.875rem;
+  }
+
+  td {
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  td:first-child {
+    color: var(--color-text-secondary);
+  }
+
+  td:last-child {
+    font-weight: 600;
+    text-align: right;
+  }
+</style>

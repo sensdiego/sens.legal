@@ -10,6 +10,7 @@
     "dev:valter": "npm -w sites/valter run dev",
     "dev:juca": "npm -w sites/juca run dev",
     "dev:leci": "npm -w sites/leci run dev",
+    "dev:douto": "npm -w sites/douto run dev",
     "build:all": "bash scripts/build-all.sh",
     "sync": "bash scripts/sync-docs.sh"
   },

@@ -44,4 +44,15 @@ export const projects: Project[] = [
     docsUrl: 'https://leci.sens.legal',
     llms_txt_url: 'https://leci.sens.legal/llms.txt',
   },
+  {
+    name: 'Douto',
+    subdomain: 'douto',
+    description: 'Legal doctrine agent — processes legal books into structured, searchable knowledge with semantic embeddings.',
+    descriptionPtBr: 'Agente de doutrina juridica — processa livros juridicos em conhecimento estruturado e pesquisavel com embeddings semanticos.',
+    repo: 'https://github.com/sensdiego/douto',
+    status: 'alpha',
+    stack: ['Python', 'Legal-BERTimbau', 'LlamaParse', 'MiniMax'],
+    docsUrl: 'https://douto.sens.legal',
+    llms_txt_url: 'https://douto.sens.legal/llms.txt',
+  },
 ];

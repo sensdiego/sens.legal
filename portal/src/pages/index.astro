@@ -26,9 +26,16 @@ import { projects } from '../data/projects';
   </p>
 
   <p>
+    Meanwhile, <strong>Douto</strong> processes ~50 legal books through an
+    intelligent pipeline — PDF extraction, legal chunking, metadata enrichment,
+    and semantic embeddings — turning doctrine into structured, searchable
+    knowledge across 8 legal domains and ~31,500 enriched chunks.
+  </p>
+
+  <p>
     Soon, <strong>Leci</strong> will add federal legislation — statutes,
     regulations, normative acts — completing the research cycle from
-    jurisprudence to legislation.
+    jurisprudence through doctrine to legislation.
   </p>
 
   <p>
@@ -67,9 +74,10 @@ import { projects } from '../data/projects';
   <h2>Architecture</h2>
 
   <p>
-    The ecosystem connects three projects through Valter's REST API and MCP server.
+    The ecosystem connects four projects through Valter's REST API and MCP server.
     LLMs like Claude and ChatGPT access the same capabilities as the Juca frontend
-    — search, verification, graph analytics — through 28 MCP tools.
+    — search, verification, graph analytics — through 28 MCP tools. Douto feeds
+    doctrine knowledge into the pipeline via semantic embeddings.
   </p>
 
   <pre><code class="language-mermaid">graph LR

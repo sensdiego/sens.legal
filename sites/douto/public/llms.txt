@@ -1,0 +1,58 @@
+# Douto — Legal Doctrine Knowledge Agent
+
+> Douto processes legal books (PDF → chunks → embeddings) and maintains a navigable skill graph (INDEX → MOCs → atomic notes) to feed the sens.legal ecosystem. Stack: Python 3 + LlamaParse + MiniMax M2.5 + Legal-BERTimbau.
+
+Important notes:
+- Douto is a batch processing pipeline, not a web service — it produces JSON artifacts consumed by other agents (Valter, Juca)
+- The corpus contains ~50 legal books (~31,500 enriched chunks) covering Brazilian civil law, procedural law, business law, and consumer law
+- The enrichment prompt file (enrich_prompt.md) is currently missing from the repository — this is a known critical issue
+- Embeddings use Legal-BERTimbau (768-dim), a Portuguese legal domain model, with metadata-enriched text composition
+
+## Home
+- [Douto — Legal Doctrine Knowledge Agent](https://douto.sens.legal): Documentation for Douto, the legal doctrine processing pipeline and knowledge base of the sens.legal ecosystem.
+
+## Getting Started
+- [Introduction](https://douto.sens.legal/getting-started/introduction): What Douto is, what problem it solves, and why it exists within the sens.legal ecosystem.
+- [Quickstart](https://douto.sens.legal/getting-started/quickstart): Run a doctrine search in under 5 minutes with Douto's pre-built corpus.
+- [Installation](https://douto.sens.legal/getting-started/installation): Complete setup guide for running the full Douto pipeline from PDF extraction to search.
+
+## Architecture
+- [Architecture Overview](https://douto.sens.legal/architecture/overview): How Douto's batch processing pipeline and markdown knowledge graph work together.
+- [Technology Stack](https://douto.sens.legal/architecture/stack): Complete technology stack with versions, justifications, and dependency map.
+- [Architecture Decision Records](https://douto.sens.legal/architecture/decisions): Key architectural decisions in Douto — context, rationale, trade-offs, and pending questions.
+- [Architecture Diagrams](https://douto.sens.legal/architecture/diagrams): Visual diagrams of Douto's architecture, data flow, and ecosystem position in Mermaid.
+
+## Features
+- [Features](https://douto.sens.legal/features): Complete feature inventory for Douto — implemented, in progress, planned, and proposed — with links to detailed pages.
+- [PDF Extraction](https://douto.sens.legal/features/pipeline/pdf-extraction): How process_books.py converts legal PDFs to structured markdown using LlamaParse, with chapter splitting and YAML frontmatter generation.
+- [Intelligent Chunking v3](https://douto.sens.legal/features/pipeline/intelligent-chunking): How rechunk_v3.py splits legal markdown into semantically coherent chunks using a 5-pass algorithm with 14 section patterns, footnote aggregation, and domain-specific heuristics.
+- [Chunk Enrichment](https://douto.sens.legal/features/pipeline/enrichment): How enrich_chunks.py classifies legal chunks using MiniMax M2.5 to add 13 structured metadata fields via concurrent LLM inference.
+- [Embedding Generation](https://douto.sens.legal/features/pipeline/embeddings): How embed_doutrina.py generates 768-dimensional Legal-BERTimbau embeddings with a metadata-enriched text composition strategy for semantic search.
+- [Hybrid Search](https://douto.sens.legal/features/pipeline/hybrid-search): How search_doutrina_v2.py combines semantic search, BM25, and metadata filters across multiple legal areas for doctrine retrieval.
+- [Skill Graph](https://douto.sens.legal/features/knowledge-base/skill-graph): How INDEX_DOUTO.md organizes 8 legal domains into a navigable knowledge hierarchy using Obsidian-style wikilinks and structured frontmatter.
+- [Maps of Content (MOCs)](https://douto.sens.legal/features/knowledge-base/mocs): How MOC files catalog legal books by domain with structured metadata, processing status, and corpus statistics across 8 legal domains.
+- [Atomic Notes](https://douto.sens.legal/features/knowledge-base/atomic-notes): Planned atomic knowledge notes for the nodes/ directory — one per legal concept, auto-generated or curated from enriched chunks.
+
+## Configuration
+- [Environment Variables](https://douto.sens.legal/configuration/environment): Complete reference for all environment variables used across the Douto pipeline.
+- [Settings & Configuration](https://douto.sens.legal/configuration/settings): Hardcoded settings, tunable parameters, and configuration constants across the Douto pipeline.
+- [External Integrations](https://douto.sens.legal/configuration/integrations): Setup and configuration for LlamaParse, MiniMax M2.5, HuggingFace, and the sens.legal ecosystem.
+
+## Development
+- [Development Setup](https://douto.sens.legal/development/setup): How to set up a development environment for contributing to Douto.
+- [Coding Conventions](https://douto.sens.legal/development/conventions): Coding standards, naming patterns, and architectural conventions for Douto development.
+- [Testing](https://douto.sens.legal/development/testing): Current testing status and the planned testing strategy for Douto.
+- [Contributing Guide](https://douto.sens.legal/development/contributing): How to contribute to Douto — from reporting issues to submitting pull requests.
+
+## Roadmap
+- [Roadmap](https://douto.sens.legal/roadmap): Douto's product roadmap — vision, current priorities, planned milestones, and top risks.
+- [Milestones](https://douto.sens.legal/roadmap/milestones): Detailed milestone definitions with features, acceptance criteria, prerequisites, and estimates.
+- [Changelog](https://douto.sens.legal/roadmap/changelog): History of significant changes, releases, and milestones in Douto.
+
+## Reference
+- [Glossary](https://douto.sens.legal/reference/glossary): Definitions of legal, technical, and ecosystem terms used throughout the Douto documentation.
+- [FAQ](https://douto.sens.legal/reference/faq): Frequently asked questions about Douto — for developers, lawyers, and stakeholders.
+- [Troubleshooting](https://douto.sens.legal/reference/troubleshooting): Common problems and solutions when running the Douto pipeline.
+
+## Meta
+- [Content Map](https://douto.sens.legal/content-map): Master index of all documentation files — what each contains, where information comes from, and writing priority.

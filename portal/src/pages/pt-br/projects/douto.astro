@@ -1,0 +1,88 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Douto" description="Agente de doutrina juridica — processa livros juridicos em conhecimento estruturado e pesquisavel." lang="pt-br">
+  <h1>Douto</h1>
+  <p class="subtitle">Agente de conhecimento doutrinario</p>
+
+  <span class="badge badge-alpha">alpha</span>
+
+  <p>
+    O Douto e o componente de doutrina do ecossistema sens.legal. Processa livros
+    juridicos (PDF) por meio de um pipeline inteligente — extracao, chunking,
+    enriquecimento de metadados e embeddings semanticos — produzindo conhecimento
+    estruturado e pesquisavel organizado por area do direito.
+  </p>
+
+  <p>
+    O pipeline gera chunks enriquecidos classificados em 13 campos de metadados
+    e embeddados com Legal-BERTimbau (768 dimensoes). Um sistema de busca hibrida
+    combina similaridade cosseno, BM25 e filtros por metadado sobre todo o acervo
+    de ~50 obras juridicas e ~31.500 chunks.
+  </p>
+
+  <h2>Tecnologias</h2>
+
+  <ul>
+    <li><strong>Linguagem:</strong> Python 3</li>
+    <li><strong>Extracao de PDF:</strong> LlamaParse</li>
+    <li><strong>Enriquecimento:</strong> MiniMax M2.5</li>
+    <li><strong>Embeddings:</strong> Legal-BERTimbau (768-dim)</li>
+    <li><strong>Base de conhecimento:</strong> Markdown + convencoes Obsidian (MOCs, skill graph)</li>
+  </ul>
+
+  <h2>Numeros-chave</h2>
+
+  <table>
+    <tbody>
+      <tr><td>Livros juridicos processados</td><td>~50</td></tr>
+      <tr><td>Chunks enriquecidos</td><td>~31.500</td></tr>
+      <tr><td>Areas do direito cobertas</td><td>8</td></tr>
+      <tr><td>Campos de metadado por chunk</td><td>13</td></tr>
+      <tr><td>Dimensoes de embedding</td><td>768</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Pipeline</h2>
+
+  <pre><code>PDF → process_books.py → rechunk_v3.py → enrich_chunks.py → embed_doutrina.py → search_doutrina_v2.py
+      (LlamaParse)        (5 passes)       (MiniMax M2.5)     (Legal-BERTimbau)    (busca hibrida)</code></pre>
+
+  <h2>Links</h2>
+
+  <ul>
+    <li><a href="https://douto.sens.legal" target="_blank" rel="noopener">Documentacao</a></li>
+    <li><a href="https://github.com/sensdiego/douto" target="_blank" rel="noopener">GitHub</a></li>
+  </ul>
+</DocsLayout>
+
+<style>
+  .subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+    margin-top: -0.5rem;
+    margin-bottom: var(--space-md);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-md) 0 var(--space-lg);
+    font-size: 0.875rem;
+  }
+
+  td {
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  td:first-child {
+    color: var(--color-text-secondary);
+  }
+
+  td:last-child {
+    font-weight: 600;
+    text-align: right;
+  }
+</style>

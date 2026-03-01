@@ -12,11 +12,12 @@ get_repo_dir() {
     valter) echo "Valter" ;;
     juca)   echo "juca" ;;
     leci)   echo "leci" ;;
+    douto)  echo "Douto" ;;
     *)      echo "" ;;
   esac
 }
 
-PROJECTS="valter juca leci"
+PROJECTS="valter juca leci douto"
 
 for project in $PROJECTS; do
   repo_dir=$(get_repo_dir "$project")

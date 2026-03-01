@@ -10,12 +10,13 @@ Monorepo with npm workspaces containing 4 independent sites:
 | Valter Docs | `sites/valter/` | `valter.sens.legal` | Astro Starlight |
 | Juca Docs | `sites/juca/` | `juca.sens.legal` | Astro Starlight |
 | Leci Docs | `sites/leci/` | `leci.sens.legal` | Astro Starlight |
+| Douto Docs | `sites/douto/` | `douto.sens.legal` | Astro Starlight |
 
 ## Prerequisites
 
 - Node.js 20+
 - npm 10+
-- Source repos cloned at `~/Dev/`: `Valter/`, `juca/`, `leci/`
+- Source repos cloned at `~/Dev/`: `Valter/`, `juca/`, `leci/`, `Douto/`
 
 ## Setup
 
@@ -36,6 +37,7 @@ npm run dev:portal    # http://localhost:4321
 npm run dev:valter    # http://localhost:4321
 npm run dev:juca      # http://localhost:4321
 npm run dev:leci      # http://localhost:4321
+npm run dev:douto     # http://localhost:4321
 ```
 
 Only run one `dev` at a time (they share port 4321).
@@ -59,6 +61,7 @@ Create **4 separate Vercel projects**, each pointing to a subdirectory:
 2. **sens-legal-valter**: Root directory = `sites/valter/`
 3. **sens-legal-juca**: Root directory = `sites/juca/`
 4. **sens-legal-leci**: Root directory = `sites/leci/`
+5. **sens-legal-douto**: Root directory = `sites/douto/`
 
 Each project has its own `vercel.json` with build config and headers.
 
@@ -70,6 +73,7 @@ Each project has its own `vercel.json` with build config and headers.
 | `valter.sens.legal` | CNAME | `cname.vercel-dns.com` |
 | `juca.sens.legal` | CNAME | `cname.vercel-dns.com` |
 | `leci.sens.legal` | CNAME | `cname.vercel-dns.com` |
+| `douto.sens.legal` | CNAME | `cname.vercel-dns.com` |
 
 Assign custom domains in each Vercel project's settings.
 
@@ -98,7 +102,7 @@ npm run build:all
 
 ## Troubleshooting
 
-**Sync fails**: Check that source repos exist at `~/Dev/Valter/`, `~/Dev/juca/`, `~/Dev/leci/` and each has `SITE_MANIFEST.json`.
+**Sync fails**: Check that source repos exist at `~/Dev/Valter/`, `~/Dev/juca/`, `~/Dev/leci/`, `~/Dev/Douto/` and each has `SITE_MANIFEST.json`.
 
 **Build fails on CI**: Ensure `npm run sync` runs before `npm run build` in the build command. The sync script requires the source repos to be available.
 

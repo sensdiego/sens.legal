@@ -26,9 +26,17 @@ import { projects } from '../../data/projects';
   </p>
 
   <p>
+    Enquanto isso, o <strong>Douto</strong> processa ~50 obras de doutrina juridica
+    por meio de um pipeline inteligente — extracao de PDF, chunking juridico,
+    enriquecimento de metadados e embeddings semanticos — transformando doutrina
+    em conhecimento estruturado e pesquisavel em 8 areas do direito e ~31.500
+    chunks enriquecidos.
+  </p>
+
+  <p>
     Em breve, a <strong>Leci</strong> adicionara legislacao federal — leis,
     regulamentos, atos normativos — completando o ciclo de pesquisa da
-    jurisprudencia a legislacao.
+    jurisprudencia, passando pela doutrina, ate a legislacao.
   </p>
 
   <p>
@@ -67,9 +75,10 @@ import { projects } from '../../data/projects';
   <h2>Arquitetura</h2>
 
   <p>
-    O ecossistema conecta tres projetos atraves da REST API e servidor MCP do
+    O ecossistema conecta quatro projetos atraves da REST API e servidor MCP do
     Valter. LLMs como Claude e ChatGPT acessam as mesmas capacidades que o
     frontend Juca — busca, verificacao, graph analytics — por meio de 28 tools MCP.
+    O Douto alimenta o pipeline com conhecimento doutrinario via embeddings semanticos.
   </p>
 
   <pre><code class="language-mermaid">graph LR
