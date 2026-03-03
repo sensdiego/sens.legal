@@ -40,7 +40,7 @@ export const projects: Project[] = [
     descriptionPtBr: 'Backend de legislacao — estatutos e normas brasileiras como fonte de dados complementar.',
     repo: 'https://github.com/sensdiego/leci',
     status: 'alpha',
-    stack: ['Astro', 'Starlight', 'TypeScript'],
+    stack: ['Next.js', 'PostgreSQL', 'pgvector', 'Railway', 'TypeScript'],
     docsUrl: 'https://leci.sens.legal',
     llms_txt_url: 'https://leci.sens.legal/llms.txt',
   },
