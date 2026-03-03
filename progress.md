@@ -70,10 +70,14 @@ Waitlist implementada com Resend Audiences.
 - Form de email acima da dobra nas homepages EN e PT-BR
 - Client-side submit com feedback visual
 - Fix de compatibilidade Astro 5 (removido `output: hybrid` deprecado)
+- Fix CSRF: Vercel bloqueia POST com FormData — migrado para JSON
+- Fix env vars: `process.env` ao invés de `import.meta.env` (runtime vs build time)
+- Email de boas-vindas automático via Resend (fire-and-forget)
 
 **Infra configurada:**
 - Audience "sens.legal waitlist" criada no Resend
 - `RESEND_API_KEY` e `RESEND_AUDIENCE_ID` configuradas no Vercel (production)
+- Email sai de `onboarding@resend.dev` até configurar domínio (ver SEN-402)
 
 **Arquivos alterados/criados:**
 - `portal/astro.config.mjs`
@@ -95,3 +99,15 @@ Script de sync dependia de paths locais hardcoded (`~/Dev/`).
 **Arquivos alterados:**
 - `scripts/sync-docs.sh`
 - `DEPLOY.md`
+
+---
+
+### Backlog (issues criadas para o futuro)
+
+| Issue   | Prioridade | Descrição                                          |
+| ------- | ---------- | -------------------------------------------------- |
+| SEN-400 | Low        | SEO / Open Graph meta tags no portal               |
+| SEN-401 | Low        | Dashboard admin para visualizar inscritos waitlist  |
+| SEN-402 | Medium     | Configurar domínio sens.legal no Resend             |
+| SEN-403 | Low        | Revisar e atualizar docs do Douto                  |
+| SEN-404 | Low        | CI pipeline com GitHub Actions para sync automático |
