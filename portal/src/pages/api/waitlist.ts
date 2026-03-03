@@ -4,8 +4,8 @@ import { Resend } from 'resend';
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
-  const formData = await request.formData();
-  const email = formData.get('email')?.toString();
+  const body = await request.json().catch(() => null);
+  const email = body?.email?.toString();
 
   if (!email || !email.includes('@')) {
     return new Response(JSON.stringify({ error: 'Valid email required' }), {
