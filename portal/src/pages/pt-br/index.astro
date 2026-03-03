@@ -7,6 +7,15 @@ import { projects } from '../../data/projects';
   <img src="/logo-hero.png" alt="sens.legal" class="hero-logo" />
   <p class="tagline">Infraestrutura de inteligencia juridica</p>
 
+  <div class="waitlist-cta">
+    <p>Entre na lista de espera para acesso antecipado.</p>
+    <form id="waitlist-form" class="waitlist-form">
+      <input type="email" name="email" placeholder="voce@exemplo.com" required />
+      <button type="submit">Entrar na lista</button>
+    </form>
+    <p id="waitlist-msg" class="waitlist-msg" style="display:none;"></p>
+  </div>
+
   <hr />
 
   <h2>O que estamos construindo</h2>
@@ -182,4 +191,82 @@ import { projects } from '../../data/projects';
   .project-links a:hover {
     color: var(--color-text);
   }
+
+  .waitlist-cta {
+    margin-bottom: var(--space-lg);
+  }
+
+  .waitlist-cta > p {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .waitlist-form {
+    display: flex;
+    gap: var(--space-sm);
+    max-width: 28rem;
+  }
+
+  .waitlist-form input {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  .waitlist-form button {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-text);
+    color: var(--color-bg);
+    font-size: 0.9rem;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .waitlist-form button:hover {
+    opacity: 0.9;
+  }
+
+  .waitlist-msg {
+    font-size: 0.85rem;
+    margin-top: var(--space-xs);
+  }
 </style>
+
+<script>
+  const form = document.getElementById('waitlist-form');
+  const msg = document.getElementById('waitlist-msg');
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button');
+    btn.disabled = true;
+    btn.textContent = '...';
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        body: new FormData(form),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        msg.textContent = 'Voce esta na lista!';
+        msg.style.display = 'block';
+        form.style.display = 'none';
+      } else {
+        msg.textContent = data.error || 'Algo deu errado.';
+        msg.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Entrar na lista';
+      }
+    } catch {
+      msg.textContent = 'Algo deu errado.';
+      msg.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Entrar na lista';
+    }
+  });
+</script>
