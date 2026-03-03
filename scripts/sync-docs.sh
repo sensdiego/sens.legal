@@ -4,7 +4,7 @@ set -euo pipefail
 # sens.legal — Sync docs from source repos via SITE_MANIFEST.json whitelist
 # POSIX-compatible (no declare -A, works with bash 3.2 on macOS)
 
-BASE_DIR="$HOME/Dev"
+BASE_DIR="${DOCS_ROOT:-$HOME/Dev}"
 SITE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
 get_repo_dir() {
@@ -30,13 +30,13 @@ for project in $PROJECTS; do
   echo "=== Syncing $project (from $repo_dir) ==="
 
   if [ ! -f "$manifest" ]; then
-    echo "ERROR: manifest not found at $manifest"
-    exit 1
+    echo "WARNING: manifest not found at $manifest — skipping $project"
+    continue
   fi
 
   if [ ! -d "$docs_dir" ]; then
-    echo "ERROR: docs dir not found at $docs_dir"
-    exit 1
+    echo "WARNING: docs dir not found at $docs_dir — skipping $project"
+    continue
   fi
 
   # Clean destination

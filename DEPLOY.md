@@ -17,6 +17,7 @@ Monorepo with npm workspaces containing 4 independent sites:
 - Node.js 20+
 - npm 10+
 - Source repos cloned at `~/Dev/`: `Valter/`, `juca/`, `leci/`, `Douto/`
+- **Optional:** Set `DOCS_ROOT` env var to override the default `~/Dev/` base path (useful for CI or non-standard layouts)
 
 ## Setup
 
@@ -90,6 +91,8 @@ npm run build:all
 
 **Do NOT run builds locally** — delegate to CI/Vercel.
 
+> **CI note:** Set `DOCS_ROOT` to the directory containing the source repos so the sync script can locate them (e.g., `DOCS_ROOT=/workspace npm run sync`). If a source repo is missing, the sync will warn and skip it instead of failing.
+
 ## Checklist
 
 - [ ] `npm install` exits 0 (4 workspaces resolved)
@@ -102,7 +105,7 @@ npm run build:all
 
 ## Troubleshooting
 
-**Sync fails**: Check that source repos exist at `~/Dev/Valter/`, `~/Dev/juca/`, `~/Dev/leci/`, `~/Dev/Douto/` and each has `SITE_MANIFEST.json`.
+**Sync fails**: Check that source repos exist at `~/Dev/Valter/`, `~/Dev/juca/`, `~/Dev/leci/`, `~/Dev/Douto/` and each has `SITE_MANIFEST.json`. If using a non-standard path, set `DOCS_ROOT` to point to the parent directory containing the repos.
 
 **Build fails on CI**: Ensure `npm run sync` runs before `npm run build` in the build command. The sync script requires the source repos to be available.
 
