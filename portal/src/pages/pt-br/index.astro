@@ -21,38 +21,48 @@ import { projects } from '../../data/projects';
   <h2>O que estamos construindo</h2>
 
   <p>
-    Profissionais do direito dependem cada vez mais de LLMs que alucinam numeros
-    de processo, inventam precedentes e nao compreendem a estrutura relacional do
-    direito brasileiro. Estamos construindo a infraestrutura para resolver isso.
+    Modelos de fronteira raciocinam bem, mas nao conseguem gerar conhecimento
+    juridico confiavel — alucinam citacoes, ignoram relacoes juridicas e nao
+    oferecem rastreabilidade. A medida que agentes de IA assumem trabalho
+    juridico, essa lacuna se torna um problema de infraestrutura.
+  </p>
+
+  <p>sens.legal e essa infraestrutura.</p>
+
+  <p>Quatro projetos, cada um cobrindo uma dimensao diferente do conhecimento juridico:</p>
+
+  <p>
+    <strong>Valter</strong> — jurisprudencia. Indexa decisoes do STJ por meio de
+    busca hibrida e um knowledge graph que captura como decisoes, normas e
+    conceitos se relacionam. Cada resultado rastreavel ate um registro real do
+    tribunal. Servido via REST API e MCP.
   </p>
 
   <p>
-    Um advogado faz uma pergunta. O <strong>Juca</strong> captura a intencao e
-    inicia um briefing progressivo. A consulta chega ao <strong>Valter</strong>,
-    que pesquisa 12.091 decisoes do STJ usando busca hibrida e um knowledge graph
-    com 194.496 relacoes juridicas. Cada alegacao e verificada contra
-    dados reais do tribunal — sem fontes alucinadas.
+    <strong>Douto</strong> — doutrina. Processa livros juridicos em multiplas
+    areas do direito — extracao, estruturacao juridica, enriquecimento de
+    metadados, indexacao semantica — transformando obras academicas em
+    conhecimento consultavel.
   </p>
 
   <p>
-    Enquanto isso, o <strong>Douto</strong> processa ~50 obras de doutrina juridica
-    por meio de um pipeline inteligente — extracao de PDF, chunking juridico,
-    enriquecimento de metadados e embeddings semanticos — transformando doutrina
-    em conhecimento estruturado e pesquisavel em 8 areas do direito e ~31.500
-    chunks enriquecidos.
+    <strong>Leci</strong> — legislacao. Leis, regulamentos e atos normativos
+    federais como dados estruturados e pesquisaveis.
   </p>
 
   <p>
-    Em breve, a <strong>Leci</strong> adicionara legislacao federal — leis,
-    regulamentos, atos normativos — completando o ciclo de pesquisa da
-    jurisprudencia, passando pela doutrina, ate a legislacao.
+    <strong>Juca</strong> — interface. Onde advogados constroem argumentos por
+    meio de briefing progressivo e onde agentes de IA se conectam ao ecossistema
+    via API e MCP.
   </p>
 
   <p>
-    Estamos construindo a infraestrutura para que cada argumento juridico seja
-    respaldado por fontes rastreaveis, cada precedente seja real, e cada advogado
-    tenha acesso a profundidade de pesquisa que hoje exige grandes equipes.
+    A arquitetura e model-agnostic: qualquer LLM se conecta pelos mesmos
+    protocolos. O valor nao esta no modelo — esta na rastreabilidade,
+    auditabilidade e estrutura juridica por baixo.
   </p>
+
+  <p>Construido sobre o direito brasileiro. Projetado para replicar entre jurisdicoes.</p>
 
   <hr />
 

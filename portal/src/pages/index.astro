@@ -21,37 +21,47 @@ import { projects } from '../data/projects';
   <h2>What we're building</h2>
 
   <p>
-    Legal professionals increasingly rely on LLMs that hallucinate case numbers,
-    invent precedents, and don't understand the relational structure of Brazilian
-    law. We're building the infrastructure to fix that.
+    Frontier models reason well but can't generate reliable legal
+    knowledge — they hallucinate citations, miss legal relationships, and offer
+    no audit trail. As AI agents take on legal work, this gap becomes
+    infrastructure-critical.
+  </p>
+
+  <p>sens.legal is that infrastructure.</p>
+
+  <p>Four projects, each handling a different dimension of legal knowledge:</p>
+
+  <p>
+    <strong>Valter</strong> — jurisprudence. Indexes Brazilian STJ decisions
+    through hybrid search and a knowledge graph that captures how cases,
+    statutes, and concepts relate. Every result traceable to a real court record.
+    Served via REST API and MCP.
   </p>
 
   <p>
-    A lawyer asks a question. <strong>Juca</strong> captures the intent and starts
-    a progressive briefing. The query reaches <strong>Valter</strong>, which
-    searches 12,091 STJ decisions using hybrid search and a knowledge graph with
-    194,496 legal relationships. Every claim is verified against real court
-    data — no hallucinated sources.
+    <strong>Douto</strong> — doctrine. Processes legal books across multiple
+    areas of law — extraction, legal structuring, metadata enrichment, semantic
+    indexing — turning scholarly work into queryable knowledge.
   </p>
 
   <p>
-    Meanwhile, <strong>Douto</strong> processes ~50 legal books through an
-    intelligent pipeline — PDF extraction, legal chunking, metadata enrichment,
-    and semantic embeddings — turning doctrine into structured, searchable
-    knowledge across 8 legal domains and ~31,500 enriched chunks.
+    <strong>Leci</strong> — legislation. Federal statutes, regulations, and
+    normative acts as structured, searchable data.
   </p>
 
   <p>
-    Soon, <strong>Leci</strong> will add federal legislation — statutes,
-    regulations, normative acts — completing the research cycle from
-    jurisprudence through doctrine to legislation.
+    <strong>Juca</strong> — interface. Where lawyers build arguments through
+    progressive briefing and where AI agents connect to the ecosystem via API
+    and MCP.
   </p>
 
   <p>
-    We're building the infrastructure so that every legal argument is backed by
-    traceable sources, every precedent is real, and every lawyer has access to
-    depth of research that today requires large teams.
+    The architecture is model-agnostic: any LLM connects through the same
+    protocols. The value isn't in the model — it's in the traceability,
+    auditability, and legal structure underneath.
   </p>
+
+  <p>Built on Brazilian Civil Law. Designed to replicate across jurisdictions.</p>
 
   <hr />
 

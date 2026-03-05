@@ -14,8 +14,8 @@ export const projects: Project[] = [
   {
     name: 'Valter',
     subdomain: 'valter',
-    description: 'Legal knowledge backend — Brazilian STJ jurisprudence served via REST API and Model Context Protocol (MCP).',
-    descriptionPtBr: 'Backend de conhecimento juridico — jurisprudencia do STJ servida via REST API e Model Context Protocol (MCP).',
+    description: 'Jurisprudence backend — STJ decisions indexed through hybrid search, knowledge graph, REST API, and MCP.',
+    descriptionPtBr: 'Backend de jurisprudencia — decisoes do STJ indexadas via busca hibrida, knowledge graph, REST API e MCP.',
     repo: 'https://github.com/sensdiego/Valter',
     status: 'dev',
     stack: ['Python', 'FastAPI', 'PostgreSQL', 'Qdrant', 'Neo4j', 'Redis'],
@@ -25,8 +25,8 @@ export const projects: Project[] = [
   {
     name: 'Juca',
     subdomain: 'juca',
-    description: 'Frontend for lawyers — the interface through which legal professionals interact with the ecosystem.',
-    descriptionPtBr: 'Frontend para advogados — a interface pela qual profissionais do direito interagem com o ecossistema.',
+    description: 'Lawyer interface — progressive legal briefing connected to the full ecosystem via API and MCP.',
+    descriptionPtBr: 'Interface para advogados — briefing juridico progressivo conectado ao ecossistema via API e MCP.',
     repo: 'https://github.com/sensdiego/juca',
     status: 'dev',
     stack: ['Next.js', 'React', 'TypeScript'],
@@ -36,8 +36,8 @@ export const projects: Project[] = [
   {
     name: 'Leci',
     subdomain: 'leci',
-    description: 'Legislation backend — Brazilian statutes and regulations as a complementary data source.',
-    descriptionPtBr: 'Backend de legislacao — estatutos e normas brasileiras como fonte de dados complementar.',
+    description: 'Legislation backend — federal statutes, regulations, and normative acts as structured data.',
+    descriptionPtBr: 'Backend de legislacao — leis, regulamentos e atos normativos federais como dados estruturados.',
     repo: 'https://github.com/sensdiego/leci',
     status: 'dev',
     stack: ['Next.js', 'PostgreSQL', 'pgvector', 'Railway', 'TypeScript'],
@@ -47,8 +47,8 @@ export const projects: Project[] = [
   {
     name: 'Douto',
     subdomain: 'douto',
-    description: 'Legal doctrine agent — processes legal books into structured, searchable knowledge with semantic embeddings.',
-    descriptionPtBr: 'Agente de doutrina juridica — processa livros juridicos em conhecimento estruturado e pesquisavel com embeddings semanticos.',
+    description: 'Doctrine pipeline — legal books processed into structured, searchable knowledge with semantic indexing.',
+    descriptionPtBr: 'Pipeline de doutrina — livros juridicos processados em conhecimento estruturado e pesquisavel com indexacao semantica.',
     repo: 'https://github.com/sensdiego/douto',
     status: 'dev',
     stack: ['Python', 'Legal-BERTimbau', 'LlamaParse', 'MiniMax'],
