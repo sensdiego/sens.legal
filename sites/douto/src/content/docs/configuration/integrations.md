@@ -189,7 +189,7 @@ bm25_index_doutrina.json
 |-----------|------|-------|---------------------|
 | **Valter** | Backend API -- STJ case law, knowledge graph, vector search | FastAPI, PostgreSQL, Qdrant, Neo4j, Redis | Primary consumer of Douto's embeddings |
 | **Juca** | Frontend -- user interface for lawyers | Next.js | Accesses doctrine through Valter |
-| **Leci** | Legislation service | Next.js, PostgreSQL, Drizzle | Future cross-reference target (F35) |
+| **Leci** | Legislation service | Next.js, PostgreSQL, pgvector | Future cross-reference target (F35) |
 | **Joseph** | Orchestrator -- coordinates agents | -- | Future coordination with Douto queries |
 
 ### Planned Integration (v0.4)

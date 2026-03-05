@@ -54,8 +54,8 @@ graph TB
 
     subgraph "sens.legal Ecosystem"
         VA["Valter<br/>Backend API<br/>FastAPI + Neo4j + Qdrant"]
-        JU["Juca<br/>Frontend Hub<br/>Next.js 16"]
-        LE["Leci<br/>Legislation<br/>Next.js 15 + PostgreSQL"]
+        JU["Juca<br/>Frontend Hub<br/>Next.js"]
+        LE["Leci<br/>Legislation<br/>Next.js + pgvector"]
     end
 
     subgraph "External Services"
@@ -81,7 +81,7 @@ Como o Douto se encaixa na plataforma sens.legal do ponto de vista do usuario:
 graph LR
     USER["👤 Lawyer"]
     JU["Juca<br/>Frontend"]
-    VA["Valter<br/>Case Law<br/>23,400+ STJ"]
+    VA["Valter<br/>Case Law<br/>12,091 STJ"]
     LE["Leci<br/>Legislation"]
     DO["Douto<br/>Doctrine<br/>~50 books"]
     JO["Joseph<br/>Orchestrator"]

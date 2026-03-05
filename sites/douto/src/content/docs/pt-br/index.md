@@ -66,8 +66,8 @@ graph LR
 
 | Agente | Funcao | Stack |
 |--------|--------|-------|
-| **Valter** | Backend de jurisprudencia — 23.400+ decisoes do STJ, 28 ferramentas MCP | FastAPI, PostgreSQL, Qdrant, Neo4j, Redis |
-| **Juca** | Frontend hub — interface para advogados | Next.js 16, block system, briefing progressivo |
-| **Leci** | Legislacao — base de dados de leis federais | Next.js 15, PostgreSQL, Drizzle |
+| **Valter** | Backend de jurisprudencia — 12.091 decisoes do STJ, 28 ferramentas MCP | FastAPI, PostgreSQL, Qdrant, Neo4j, Redis |
+| **Juca** | Frontend hub — interface para advogados | Next.js, React, TypeScript |
+| **Leci** | Legislacao — base de dados de leis federais | Next.js, PostgreSQL, pgvector, TypeScript |
 | **Joseph** | Orquestrador — coordena os agentes | — |
 | **Douto** | Doutrina juridica — este projeto | Python 3, LlamaParse, Legal-BERTimbau |

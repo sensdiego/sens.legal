@@ -60,7 +60,7 @@ No ecossistema sens.legal, cada agente cuida de um pilar diferente do conhecimen
 
 | Agente | Pilar | Corpus atual |
 |--------|-------|-------------|
-| **Valter** | Jurisprudencia | 23.400+ decisoes do STJ |
+| **Valter** | Jurisprudencia | 12.091 decisoes do STJ |
 | **Leci** | Legislacao | Leis federais |
 | **Douto** | Doutrina | ~50 livros, ~31.500 chunks |
 | **Joseph** | Orquestracao | Coordena todos os agentes |
@@ -89,7 +89,7 @@ Para definicoes completas, veja o [Glossario](../reference/glossary).
 Limites claros definidos no [AGENTS.md](https://github.com/sensdiego/douto):
 
 - **Nao gerencia casos** — isso e do Joseph (orquestrador)
-- **Nao busca jurisprudencia** — isso e do Valter (23.400+ decisoes do STJ)
+- **Nao busca jurisprudencia** — isso e do Valter (12.091 decisoes do STJ)
 - **Nao busca legislacao** — isso e da Leci (leis federais)
 - **Nao gerencia infraestrutura** — isso e do Valter (backend FastAPI)
 - **Nao serve interface web** — isso e do Juca (frontend Next.js)

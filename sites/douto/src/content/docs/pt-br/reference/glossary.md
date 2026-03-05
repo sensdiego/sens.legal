@@ -126,13 +126,13 @@ Um resumo sintetizado das posicoes de multiplos autores sobre um unico *institut
 A plataforma unificada de pesquisa juridica composta por Douto, Valter, Juca, Leci e Joseph. Tambem referida pelo nome de produto **Jude.md**. Objetivo: fornecer a advogados brasileiros acesso integrado a jurisprudencia, legislacao e doutrina em uma unica interface.
 
 ### Valter
-Servico de backend do ecossistema sens.legal. Construido com FastAPI, PostgreSQL, Qdrant (banco vetorial), Neo4j (knowledge graph) e Redis. Gerencia jurisprudencia do STJ (23.400+ decisoes) e 28 tools MCP. Principal consumidor dos embeddings doutrinarios do Douto. Repositorio: separado.
+Servico de backend do ecossistema sens.legal. Construido com FastAPI, PostgreSQL, Qdrant (banco vetorial), Neo4j (knowledge graph) e Redis. Gerencia jurisprudencia do STJ (12.091 decisoes) e 28 tools MCP. Principal consumidor dos embeddings doutrinarios do Douto. Repositorio: separado.
 
 ### Juca
 Hub de frontend do sens.legal. Construido com Next.js. Fornece a interface para advogados, incluindo o sistema de briefing progressivo (4 fases: diagnostico, precedentes, riscos, entrega). Acessa dados doutrinarios atraves do Valter.
 
 ### Leci
-Servico de legislacao do sens.legal. Construido com Next.js, PostgreSQL e Drizzle ORM. Gerencia base de dados de legislacao federal. Alvo futuro de cross-reference para o Douto (F35 — vinculando comentarios doutrinarios a dispositivos legais especificos).
+Servico de legislacao do sens.legal. Construido com Next.js, PostgreSQL e pgvector. Gerencia base de dados de legislacao federal. Alvo futuro de cross-reference para o Douto (F35 — vinculando comentarios doutrinarios a dispositivos legais especificos).
 
 ### Joseph
 Agente orquestrador do sens.legal. Coordena trabalho entre Valter, Juca, Leci e Douto. Gerencia casos e workflow.

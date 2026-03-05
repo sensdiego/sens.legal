@@ -189,7 +189,7 @@ bm25_index_doutrina.json
 |-----------|-------|-------|-------------------|
 | **Valter** | API backend -- jurisprudencia STJ, knowledge graph, busca vetorial | FastAPI, PostgreSQL, Qdrant, Neo4j, Redis | Consumidor primario dos embeddings do Douto |
 | **Juca** | Frontend -- interface para advogados | Next.js | Acessa doutrina via Valter |
-| **Leci** | Servico de legislacao | Next.js, PostgreSQL, Drizzle | Alvo futuro de referencia cruzada (F35) |
+| **Leci** | Servico de legislacao | Next.js, PostgreSQL, pgvector | Alvo futuro de referencia cruzada (F35) |
 | **Joseph** | Orquestrador -- coordena agentes | -- | Futura coordenacao com consultas do Douto |
 
 ### Integracao Planejada (v0.4)

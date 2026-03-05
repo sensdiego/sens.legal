@@ -436,8 +436,8 @@ graph TB
 
     subgraph "sens.legal Ecosystem"
         VA["Valter<br/>Backend API<br/>FastAPI + Neo4j + Qdrant"]
-        JU["Juca<br/>Frontend Hub<br/>Next.js 16"]
-        LE["Leci<br/>Legislation<br/>Next.js 15 + PostgreSQL"]
+        JU["Juca<br/>Frontend Hub<br/>Next.js"]
+        LE["Leci<br/>Legislation<br/>Next.js + pgvector"]
     end
 
     subgraph "External Services"
@@ -463,7 +463,7 @@ How Douto fits within the sens.legal platform from the user's perspective:
 graph LR
     USER["👤 Lawyer"]
     JU["Juca<br/>Frontend"]
-    VA["Valter<br/>Case Law<br/>23,400+ STJ"]
+    VA["Valter<br/>Case Law<br/>12,091 STJ"]
     LE["Leci<br/>Legislation"]
     DO["Douto<br/>Doctrine<br/>~50 books"]
     JO["Joseph<br/>Orchestrator"]
@@ -1160,7 +1160,7 @@ bm25_index_doutrina.json
 |-----------|------|-------|---------------------|
 | **Valter** | Backend API -- STJ case law, knowledge graph, vector search | FastAPI, PostgreSQL, Qdrant, Neo4j, Redis | Primary consumer of Douto's embeddings |
 | **Juca** | Frontend -- user interface for lawyers | Next.js | Accesses doctrine through Valter |
-| **Leci** | Legislation service | Next.js, PostgreSQL, Drizzle | Future cross-reference target (F35) |
+| **Leci** | Legislation service | Next.js, PostgreSQL, pgvector | Future cross-reference target (F35) |
 | **Joseph** | Orchestrator -- coordinates agents | -- | Future coordination with Douto queries |
 
 ### Planned Integration (v0.4)
@@ -4624,7 +4624,7 @@ In the sens.legal ecosystem, each agent handles a different pillar of legal know
 
 | Agent | Pillar | Current corpus |
 |-------|--------|---------------|
-| **Valter** | Case law (jurisprudência) | 23,400+ STJ decisions |
+| **Valter** | Case law (jurisprudência) | 12,091 STJ decisions |
 | **Leci** | Legislation (legislação) | Federal laws |
 | **Douto** | Doctrine (doutrina) | ~50 books, ~31,500 chunks |
 | **Joseph** | Orchestration | Coordinates all agents |
@@ -4653,7 +4653,7 @@ For full definitions, see the [Glossary](../reference/glossary).
 Clear boundaries from [AGENTS.md](https://github.com/sensdiego/douto):
 
 - **Does not manage cases** — that's Joseph (orchestrator)
-- **Does not search case law** — that's Valter (23,400+ STJ decisions)
+- **Does not search case law** — that's Valter (12,091 STJ decisions)
 - **Does not search legislation** — that's Leci (federal laws)
 - **Does not manage infrastructure** — that's Valter (FastAPI backend)
 - **Does not serve a web interface** — that's Juca (Next.js frontend)
@@ -4841,9 +4841,9 @@ graph LR
 
 | Agent | Role | Stack |
 |-------|------|-------|
-| **Valter** | Case law backend — 23,400+ STJ decisions, 28 MCP tools | FastAPI, PostgreSQL, Qdrant, Neo4j, Redis |
-| **Juca** | Frontend hub — user interface for lawyers | Next.js 16, block system, briefing progressivo |
-| **Leci** | Legislation — federal law database | Next.js 15, PostgreSQL, Drizzle |
+| **Valter** | Case law backend — 12,091 STJ decisions, 28 MCP tools | FastAPI, PostgreSQL, Qdrant, Neo4j, Redis |
+| **Juca** | Frontend hub — user interface for lawyers | Next.js, React, TypeScript |
+| **Leci** | Legislation — federal law database | Next.js, PostgreSQL, pgvector, TypeScript |
 | **Joseph** | Orchestrator — coordinates agents | — |
 | **Douto** | Legal doctrine — this project | Python 3, LlamaParse, Legal-BERTimbau |
 
@@ -5190,13 +5190,13 @@ A synthesized summary of multiple authors' positions on a single *instituto juri
 The unified legal research platform comprising Douto, Valter, Juca, Leci, and Joseph. Also referred to by the product name **Jude.md**. Goal: provide Brazilian lawyers with integrated access to case law, legislation, and doctrine through a single interface.
 
 ### Valter
-Backend service for the sens.legal ecosystem. Built with FastAPI, PostgreSQL, Qdrant (vector DB), Neo4j (knowledge graph), and Redis. Handles STJ case law (23,400+ decisions) and 28 MCP tools. Primary consumer of Douto's doctrine embeddings. Repository: separate.
+Backend service for the sens.legal ecosystem. Built with FastAPI, PostgreSQL, Qdrant (vector DB), Neo4j (knowledge graph), and Redis. Handles STJ case law (12,091 decisions) and 28 MCP tools. Primary consumer of Douto's doctrine embeddings. Repository: separate.
 
 ### Juca
 Frontend hub for sens.legal. Built with Next.js. Provides the user interface for lawyers, including the progressive briefing system (4 phases: diagnostic, precedents, risks, delivery). Accesses doctrine data through Valter.
 
 ### Leci
-Legislation service for sens.legal. Built with Next.js, PostgreSQL, and Drizzle ORM. Manages federal legislation database. Future cross-reference target for Douto (F35 -- linking doctrinal commentary to specific statutory provisions).
+Legislation service for sens.legal. Built with Next.js, PostgreSQL, and pgvector. Manages federal legislation database. Future cross-reference target for Douto (F35 -- linking doctrinal commentary to specific statutory provisions).
 
 ### Joseph
 Orchestrator agent for sens.legal. Coordinates work across Valter, Juca, Leci, and Douto. Manages cases and workflow.

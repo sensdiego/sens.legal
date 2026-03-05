@@ -60,7 +60,7 @@ In the sens.legal ecosystem, each agent handles a different pillar of legal know
 
 | Agent | Pillar | Current corpus |
 |-------|--------|---------------|
-| **Valter** | Case law (jurisprudência) | 23,400+ STJ decisions |
+| **Valter** | Case law (jurisprudência) | 12,091 STJ decisions |
 | **Leci** | Legislation (legislação) | Federal laws |
 | **Douto** | Doctrine (doutrina) | ~50 books, ~31,500 chunks |
 | **Joseph** | Orchestration | Coordinates all agents |
@@ -89,7 +89,7 @@ For full definitions, see the [Glossary](../reference/glossary).
 Clear boundaries from [AGENTS.md](https://github.com/sensdiego/douto):
 
 - **Does not manage cases** — that's Joseph (orchestrator)
-- **Does not search case law** — that's Valter (23,400+ STJ decisions)
+- **Does not search case law** — that's Valter (12,091 STJ decisions)
 - **Does not search legislation** — that's Leci (federal laws)
 - **Does not manage infrastructure** — that's Valter (FastAPI backend)
 - **Does not serve a web interface** — that's Juca (Next.js frontend)
