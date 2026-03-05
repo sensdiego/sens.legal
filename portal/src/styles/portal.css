@@ -127,7 +127,7 @@ pre code {
   color: var(--color-text-secondary);
 }
 
-.badge-alpha {
+.badge-dev {
   border-color: var(--color-text-muted);
   color: var(--color-text-muted);
 }
