@@ -14,6 +14,7 @@ const ecosystemDiagram = `<pre><code class="language-mermaid">graph TB
     subgraph "Valter"
         API[REST API]
         MCP[MCP]
+        ORCH[Service layer&lt;br/&gt;routing and orchestration]
         INGEST[Grounding adapters&lt;br/&gt;ingestion and handoff]
         RETRIEVAL[Graph-led retrieval]
         REASONING[Verification + reasoning]
@@ -34,8 +35,11 @@ const ecosystemDiagram = `<pre><code class="language-mermaid">graph TB
     USERS --&gt; JUCA
     AGENTS --&gt; MCP
     JUCA --&gt; API
-    API --&gt; RETRIEVAL
-    API --&gt; REASONING
+    API --&gt; ORCH
+    MCP --&gt; ORCH
+    ORCH --&gt; INGEST
+    ORCH --&gt; RETRIEVAL
+    ORCH --&gt; REASONING
     LECI --&gt; INGEST
     DOUTO --&gt; INGEST
     INGEST --&gt; PG
@@ -79,6 +83,13 @@ const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
     providers with their own runtimes and data pipelines. They contribute through
     ingestion and grounding contracts instead of coupling directly to Valter's
     internal storage layer.
+  </p>
+
+  <p>
+    REST and MCP are <strong>parallel entry surfaces</strong> into the same Valter
+    service layer. They differ in client protocol, not in system ownership: both
+    can reach the same orchestration, retrieval, verification, and reasoning
+    capabilities underneath.
   </p>
 
   <Fragment set:html={ecosystemDiagram} />

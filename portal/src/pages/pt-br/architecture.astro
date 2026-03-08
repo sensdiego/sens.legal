@@ -14,6 +14,7 @@ const ecosystemDiagram = `<pre><code class="language-mermaid">graph TB
     subgraph "Valter"
         API[REST API]
         MCP[MCP]
+        ORCH[Camada de servico&lt;br/&gt;roteamento e orquestracao]
         INGEST[Adaptadores de grounding&lt;br/&gt;ingestao e handoff]
         RETRIEVAL[Graph-led retrieval]
         REASONING[Verificacao + reasoning]
@@ -34,8 +35,11 @@ const ecosystemDiagram = `<pre><code class="language-mermaid">graph TB
     USERS --&gt; JUCA
     AGENTS --&gt; MCP
     JUCA --&gt; API
-    API --&gt; RETRIEVAL
-    API --&gt; REASONING
+    API --&gt; ORCH
+    MCP --&gt; ORCH
+    ORCH --&gt; INGEST
+    ORCH --&gt; RETRIEVAL
+    ORCH --&gt; REASONING
     LECI --&gt; INGEST
     DOUTO --&gt; INGEST
     INGEST --&gt; PG
@@ -79,6 +83,13 @@ const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
     fornecedores upstream com runtimes e pipelines de dados proprios. Eles entram
     por contratos de ingestao e grounding, em vez de acoplarem diretamente a
     camada interna de storage do Valter.
+  </p>
+
+  <p>
+    REST e MCP sao <strong>superficies paralelas de entrada</strong> para a mesma
+    camada de servico do Valter. O protocolo do cliente muda, mas o ownership do
+    sistema nao: os dois alcancam a mesma orquestracao, retrieval, verificacao e
+    reasoning por baixo.
   </p>
 
   <Fragment set:html={ecosystemDiagram} />
