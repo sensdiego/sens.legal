@@ -1,6 +1,6 @@
 ---
 title: "Introduction to Leci"
-description: "What Leci is, who it serves, and what is implemented today versus planned."
+description: "What Leci is, who it serves, and what is already operational in the current legislation engine."
 lang: en
 sidebar:
   order: 10
@@ -8,89 +8,74 @@ sidebar:
 
 # Introduction to Leci
 
-> This page explains what Leci is, why it exists, who should use it, and how to interpret its current maturity.
+> This page explains what Leci is, why it exists, who it serves inside the sens.legal ecosystem, and what is already operational today.
 
-## Leci solves legal retrieval trust and structure problems
-Leci is a legal-information platform focused on Brazilian federal legislation, designed to make legal text retrieval more structured, traceable, and ready for both human and AI-agent consumption. The codebase already reflects this goal in the data model: regulations are represented as hierarchical document nodes, with full-text and vector-search foundations plus a revision audit trail.
+## Leci is the legislation authority of the ecosystem
+Leci is a document-first legislation engine focused on Brazilian federal law. Its job is not to be a generic legal chatbot or an undefined future backend; its job is to make legal text retrieval structured, traceable, and reliable enough to ground downstream reasoning in Juca and Valter.
 
-In practical terms, Leci addresses three common pain points:
-- Finding the right legal content quickly in a structured format, not only as raw pages.
-- Preserving traceability when legal text is corrected or revised.
-- Preparing legal content for downstream systems (APIs, agents, and product surfaces) without rebuilding the data layer every time.
+In practical terms, Leci addresses three persistent problems:
+- finding the right legal document and structural node instead of returning raw pages only;
+- preserving traceability when legal text changes or is corrected;
+- exposing legislation in a form that downstream systems can ground against safely.
 
-## Leci exists to become trustable legal infrastructure, not just a UI
-The current architecture indicates a deliberate "DB-first" strategy: schema design, indexing, and revision safety were prioritized before rich product surfaces. This is visible in the implemented artifacts:
-- `src/db/schema.ts` defines core entities such as `regulations`, `document_nodes`, `embeddings`, `suggestions`, and `revisions`.
-- `drizzle/0001_init.sql` creates the same core model in PostgreSQL and includes indexing for FTS and vectors.
-- `scripts/migrate.ts` provides deterministic migration execution using ordered SQL files.
+## What is implemented today
+The current implementation is already beyond foundations-only work.
 
-This design choice matters because legal products fail quickly when data integrity is weak. Leci is currently optimizing for integrity and future evolvability.
+### Search API baseline
+Leci already exposes `GET /api/search`, with validated parameters, pagination metadata, and enriched regulation fields in the response. This is the current baseline retrieval surface for legislation.
 
-## What is implemented today (code-verified)
-The current implementation is intentionally narrow and verifiable from source code.
+### Functional search shell
+The web layer already includes a functional search shell that supports query state in the URL, result navigation, a context panel, and incremental loading instead of just a static landing page.
 
-### Database foundation is implemented
-The PostgreSQL schema in the `leci` namespace is in place, including:
-- canonical regulation types;
-- regulation metadata;
-- hierarchical legal text nodes;
-- full-text index support (`tsvector` + GIN);
-- vector embedding storage (`vector(768)` + IVFFlat index);
-- suggestions and revision history.
+### Real-data validation
+The current baseline has already been exercised against real data, which matters because this project is supposed to be trusted as a grounding layer, not merely described as one.
 
-### Revision safety primitive is implemented
-A key invariant exists at database level: legal text updates must go through `leci.apply_revision(...)`, which logs old/new values and updates revision history.
+### Auditability and structured data model
+The database layer still matters: the schema models regulations and document nodes explicitly, search vectors exist at the document-node layer, and legal text mutation is constrained by revision/audit primitives.
 
 :::danger
 Do not update `document_nodes.content_text` directly in SQL or application code. The project invariant requires using `leci.apply_revision(...)` so edits stay auditable.
 :::
 
-### Web application surface is minimal
-The Next.js application currently renders a minimal homepage (`src/app/page.tsx`) and does not yet expose internal API routes for legal search.
+## What Leci is not
+Clear boundaries matter here:
 
-### Tooling baseline is available
-`package.json` includes scripts for development, build, lint, and tests (`node --test`, currently with no test files yet).
+- Leci is **not** the final end-user product of the ecosystem.
+- Leci is **not** the owner of jurisprudence search, graph reasoning, or broad legal argumentation.
+- Leci is **not** just a placeholder backend with no API.
 
-## What is planned versus already available
-The roadmap contains significant planned capabilities that are not implemented in this repository yet.
-
-> 🚧 **Planned Feature** — Internal search/API layer for legal retrieval is roadmap scope, not current code.
-
-> 🚧 **Planned Feature** — Rich web flows (search, browse, read) are planned milestones, while current UI is only a landing page.
-
-> 🚧 **Planned Feature** — Ingestion from legal source providers (e.g., Planalto/LexML) is discussed in planning documents but not implemented in this codebase.
-
-When writing or consuming technical docs, always separate:
-- **current behavior** (code-verified), and
-- **planned behavior** (roadmap-approved, future work).
-
-## Who this documentation is for
-This documentation is written for four audiences with different goals.
-
-### Project owner and decision-makers
-You need execution clarity: what is implemented, what is risky, and what should be prioritized next.
-
-### Investors and strategic stakeholders
-You need credible signal: technical foundations, roadmap discipline, and risk controls.
-
-### Future developers
-You need reproducible setup, architecture constraints, and contribution-safe workflows.
-
-### AI agents and automation systems
-You need machine-parseable, stable, and explicit docs that distinguish facts from plans.
-
-:::tip
-If you are integrating an AI agent, start from code-verified sections first (setup, schema, invariants), then add planned capabilities incrementally.
-:::
+Its role is narrower and more important: reliable legislation retrieval and grounding.
 
 ## Relationship with the sens.legal ecosystem
-Leci is part of a 3-project sens.legal domain according to project context, and is positioned as the legal-data layer in that ecosystem.
+Leci is one of the four projects in sens.legal:
 
-> ⚠️ **Unverified** — The exact integration contracts, sequencing, and ownership boundaries across the other two projects need confirmation from the project owner.
+| Project | Responsibility |
+|---------|----------------|
+| **Juca** | User-facing frontend hub |
+| **Valter** | Central jurisprudence and reasoning backend |
+| **Leci** | Document-first legislation engine and grounding authority |
+| **Douto** | Local doctrine pipeline feeding Valter |
 
-<!-- NEEDS_INPUT: Provide official names and integration contracts for the other two sens.legal projects, including ownership boundaries and data/API responsibilities. -->
+This means Leci should be described as a supplier of trustworthy legislative context to the rest of the ecosystem, especially Valter and Juca.
 
-Until those contracts are confirmed, this documentation treats Leci as a standalone product with planned multi-project integration.
+## What is next
+The next layer of work is about depth, not existence:
+
+- canonical document resolution for references such as names, acronyms, and number/year citations;
+- richer device-level reading and context retrieval;
+- broader grounding contracts for downstream consumers such as Valter.
+
+## Who this documentation is for
+This documentation serves four audiences:
+
+- project owners and decision-makers who need execution clarity;
+- contributors who need setup and architecture constraints;
+- integration owners who need to understand grounding boundaries;
+- AI agents that need explicit, machine-readable distinctions between what exists and what is still planned.
+
+:::tip
+If you are integrating an AI agent, start from the current `/api/search` and the document-node model first, then layer richer grounding behaviors on top.
+:::
 
 ## How to use this docs section
 Use the `getting-started` section in this order:

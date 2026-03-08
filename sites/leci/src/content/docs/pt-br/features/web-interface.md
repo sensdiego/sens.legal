@@ -1,6 +1,6 @@
 ---
 title: "Interface Web"
-description: "Baseline atual de UI e experiência planejada de produto para descoberta e leitura jurídica."
+description: "Shell atual de busca e a próxima camada de UX para descoberta e leitura legislativa."
 lang: pt-BR
 sidebar:
   order: 5
@@ -9,32 +9,29 @@ sidebar:
 
 # Interface Web
 
-## The current UI is intentionally minimal
-Leci currently ships a minimal homepage that validates runtime wiring and branding but does not yet implement full legal discovery workflows.
+## A UI atual já é uma shell funcional
+O Leci já não entrega apenas uma landing page mínima. A superfície web atual é uma shell de busca que valida o loop de recuperação legislativa ponta a ponta.
 
-## Current implemented behavior
-Current page (`src/app/page.tsx`) renders:
-- product title (`Leci`)
-- concise product subtitle in Portuguese
-- centered minimal layout using Tailwind utility classes
+## Comportamento já implementado
+A UI atual já inclui:
+- experiência de busca montada a partir de `src/app/page.tsx`
+- estado da consulta refletido na URL
+- canvas central de resultados
+- trilhos/painéis de contexto e navegação
+- carregamento incremental de resultados adicionais
 
-## Planned product UX
-> 🚧 **Planned Feature** — Search, browse, and legal reading interfaces are roadmap scope and not yet implemented.
+## Para que essa interface existe
+A shell atual não existe para "embelezar" o produto antes da hora. O papel dela é validar que retrieval legislativo, enquadramento de resultados e contexto documental podem ser exercitados de forma confiável.
 
-Planned user journeys include:
-- searching legal text by terms and metadata;
-- navigating legal hierarchy structures;
-- reading node-level legal content with context.
-
-## Data dependencies for future UI
-Future UI layers require:
-- stable search API contracts;
-- pagination and sorting semantics;
-- explicit revision provenance display for trust-sensitive contexts.
+## O que ainda vem a seguir
+A próxima camada de UX inclui:
+- lookup mais forte de normas e referências conhecidas;
+- fluxos de leitura estrutural mais ricos no nível de dispositivo/artigo;
+- contexto de grounding mais claro para consumidores downstream como o Valter.
 
 ## UX quality constraints
-Legal users need predictability and source clarity.
+Usuários jurídicos precisam de previsibilidade, clareza de fonte e contexto estrutural explícito.
 
 :::caution
-Do not present generated or inferred legal answers without clear evidence context once advanced UI flows are introduced.
+Não apresente respostas geradas ou inferidas sem contexto claro de evidência. A UI do Leci deve continuar grounding-first, não answer-first.
 :::

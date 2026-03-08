@@ -29,15 +29,16 @@ O Juca em si é intencionalmente leve. A inteligência vive nos agentes backend.
 
 ## O Ecossistema
 
-O sens.legal é composto por três projetos, cada um com uma responsabilidade distinta:
+O sens.legal é composto por quatro projetos, cada um com uma responsabilidade distinta:
 
 | Projeto | Papel | Stack | Status |
 |---------|-------|-------|--------|
 | **Juca** (este projeto) | Hub frontend + orquestrador leve | Next.js 16, React 19, TypeScript, Tailwind v4 | Em desenvolvimento ativo (v0.3) |
-| **Valter** | Agente backend para jurisprudência do STJ | Python, FastAPI, PostgreSQL, Qdrant, Neo4j Aura, Redis | Produção (`valter-api-production.up.railway.app`) |
-| **Leci** | Agente backend para legislação federal | TypeScript, Next.js, Drizzle ORM, PostgreSQL + pgvector | Estágio inicial (v0.1-pre, apenas schema do BD) |
+| **Valter** | Backend central de jurisprudência e reasoning | Python, FastAPI, PostgreSQL, Qdrant, Neo4j Aura, Redis | Em produção e absorvendo responsabilidades de backend do Juca |
+| **Leci** | Engine legislativa document-first para grounding confiável | TypeScript, Next.js, Drizzle ORM, PostgreSQL + pgvector | Baseline operacional com `/api/search`, shell funcional e validação com dados reais |
+| **Douto** | Pipeline local de doutrina que fornece artefatos doutrinários ao Valter | Pipeline Python + base markdown | Camada interna de produção de conhecimento |
 
-O Juca se comunica com o Valter via REST API. A integração com o Leci está planejada para v0.6+.
+O Juca se comunica principalmente com o Valter via REST API enquanto a migração de backend para fora do frontend é concluída. O Leci entra quando há necessidade de grounding legislativo, e o Douto alimenta o Valter com artefatos de doutrina em vez de operar como produto autônomo para usuário final.
 
 ## Para Quem É Esta Documentação?
 
@@ -60,10 +61,10 @@ Antes de se aprofundar, familiarize-se com estes conceitos centrais:
 | **Composer** | O componente de entrada onde os usuários digitam consultas. Por trás dele, um detector de intenção encaminha as consultas para ferramentas especializadas. |
 | **PhaseRail** | Um trilho de navegação visual que mostra a fase atual do briefing e permite navegar entre as fases concluídas. |
 | **Tool Registry** | Um padrão que mapeia intenções detectadas do usuário para funções de handler especializadas (juris, ratio, analyzer, compare, insights). |
-| **Hub** | O papel arquitetural do Juca — um frontend fino que delega a inteligência backend a agentes externos (Valter, Leci). |
+| **Hub** | O papel arquitetural do Juca — um frontend fino que delega a inteligência backend ao Valter e coordena o ecossistema mais amplo. |
 
 ## Próximos Passos
 
-- **[Quickstart](/getting-started/quickstart)** — Coloque o Juca rodando localmente em 5 minutos
-- **[Visão Geral da Arquitetura](/architecture/overview)** — Entenda como as peças se encaixam
-- **[Sistema de Blocks](/features/block-system)** — Aprenda sobre a unidade central de composição da UI
+- **[Quickstart](/pt-br/getting-started/quickstart)** — Coloque o Juca rodando localmente em 5 minutos
+- **[Visão Geral da Arquitetura](/pt-br/architecture/overview)** — Entenda como as peças se encaixam
+- **[Sistema de Blocks](/pt-br/features/block-system)** — Aprenda sobre a unidade central de composição da UI

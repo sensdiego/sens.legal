@@ -167,12 +167,12 @@ npm run build
 ```
 
 :::note
-Se você está instalando para testar funcionalidades de roadmap (search API, ingestão, integrações de agentes), lembre que essas capacidades ainda não estão completas no código atual.
+Se você está instalando para validar o baseline legislativo atual, lembre que `/api/search` e a shell de busca já existem. O que continua no roadmap são workflows mais profundos de grounding, resolução canônica e automação mais ampla de ingestão.
 :::
 
-> 🚧 **Planned Feature** — Grupos de endpoints internos de API estão definidos no roadmap, mas ainda não existem em `src/app/api`.
+> 🚧 **Planned Feature** — Grupos de endpoints mais amplos além do baseline atual de busca ainda são trabalho de roadmap.
 
-> 🚧 **Planned Feature** — Pipeline de ingestão de fontes legais é trilha de roadmap e ainda não faz parte do runtime atual.
+> 🚧 **Planned Feature** — Automação de ingestão de fontes legais ainda é uma trilha de roadmap e não faz parte do runtime baseline atual.
 
 ## Pontos ainda dependentes de confirmação do dono
 Alguns detalhes de instalação/operação precisam de decisão explícita do owner.

@@ -1,6 +1,6 @@
 ---
 title: "Ecossistema sens.legal"
-description: "Visão geral do ecossistema sens.legal com seus três projetos — Juca, Valter e Leci."
+description: "Visão geral do ecossistema sens.legal com seus quatro projetos — Juca, Valter, Leci e Douto."
 lang: pt-BR
 sidebar:
   order: 5
@@ -8,22 +8,24 @@ sidebar:
 
 # Ecossistema sens.legal
 
-O sens.legal é uma plataforma de IA jurídica composta por três projetos especializados. Cada projeto tem uma responsabilidade distinta e eles se comunicam via APIs REST.
+O sens.legal é um ecossistema de IA jurídica composto por quatro projetos especializados. A arquitetura atual se organiza com o Juca como hub frontend, o Valter como backend central de jurisprudência e reasoning, o Leci como engine legislativa e o Douto como pipeline de doutrina que alimenta o Valter.
 
 ## Arquitetura
 
 ```mermaid
 graph TB
-    subgraph "Camada Frontend"
-        Juca["Juca<br/>Hub Frontend<br/>Next.js 16 · React 19<br/>Block System · SSE · Auth"]
+    subgraph "Camada voltada ao usuário"
+        Juca["Juca<br/>Hub frontend<br/>Next.js 16 · React 19<br/>Blocks · SSE · Auth"]
     end
-    subgraph "Camada Backend"
-        Valter["Valter<br/>Agente de Jurisprudência STJ<br/>FastAPI · Python 3.12+<br/>23.4K decisões · 28 ferramentas MCP"]
-        Leci["Leci<br/>Agente de Legislação Federal<br/>Next.js · Drizzle ORM<br/>PostgreSQL + pgvector"]
+    subgraph "Serviços de conhecimento"
+        Valter["Valter<br/>Backend central de jurisprudência + reasoning<br/>FastAPI · REST API · MCP"]
+        Leci["Leci<br/>Engine legislativa document-first<br/>/api/search · shell · grounding"]
+        Douto["Douto<br/>Pipeline de doutrina<br/>Artefatos locais para o Valter"]
     end
 
-    Juca -->|"X-API-Key<br/>REST API"| Valter
-    Juca -.->|"Futuro<br/>REST API"| Leci
+    Juca -->|"integração REST principal"| Valter
+    Juca -.->|"grounding legislativo"| Leci
+    Douto -->|"artefatos doutrinários"| Valter
 
     Valter --- VDB["PostgreSQL · Qdrant<br/>Neo4j Aura · Redis<br/>Cloudflare R2"]
     Leci --- LDB["PostgreSQL + pgvector"]
@@ -47,37 +49,35 @@ graph TB
 - Gerar exportações de PDF a partir de sessões de briefing
 
 **Não trata:**
-- Busca de documentos jurídicos (delegado ao Valter)
-- Processamento LLM (delegado ao Valter)
-- Consultas ao grafo de conhecimento (delegado ao Valter)
-- Verificação de citações (delegado ao Valter)
-- Consulta de legislação (será delegado ao Leci)
+- Lógica de backend de jurisprudência e reasoning (centralizada no Valter)
+- Pipelines pesados com LLM (centralizados no Valter)
+- Produção de artefatos de doutrina (feita pelo Douto)
+- Infraestrutura de grounding legislativo (feita pelo Leci)
 
 ## Valter
 
 | Atributo | Valor |
 |----------|-------|
-| **Papel** | Agente backend para jurisprudência do STJ |
+| **Papel** | Backend central para retrieval de jurisprudência, reasoning e consumo via MCP |
 | **Stack** | Python 3.12+, FastAPI, PostgreSQL, Qdrant, Neo4j Aura, Redis |
-| **Status** | Produção — totalmente deployado |
+| **Status** | Produção — e absorvendo responsabilidades de backend do Juca |
 | **URL** | `https://valter-api-production.up.railway.app` |
 | **Auth** | Header `X-API-Key` com escopos (read/write/admin) |
 | **Repositório** | Repositório separado (`/Dev/Valter/`) |
 
 **Capacidades principais:**
-- **23.400+ decisões do STJ** indexadas e pesquisáveis
-- **28 ferramentas MCP** em 3 categorias (7 knowledge, 13 graph, 8 workflow)
-- **Grafo de Conhecimento:** 28,5K nós, 207K arestas no Neo4j Aura
-- **4 runtimes:** REST API (porta 8000), MCP stdio, MCP HTTP/SSE (porta 8001), worker ARQ
-- **Pipeline de ingestão completo:** Download → Extração → Transformação → Enriquecimento → Indexação
+- Retrieval graph-led sobre jurisprudência do STJ, com search como caminho complementar
+- Verificação e anti-alucinação sobre dados reais do tribunal
+- Superfícies de reasoning e explicabilidade para consumidores REST e MCP
+- API central usada pelo Juca durante a migração Juca → Valter
 
 **Principais endpoints de API usados pelo Juca:**
 
 | Endpoint | Método | Finalidade |
 |----------|--------|------------|
-| `/v1/retrieve` | POST | Busca jurisprudência do STJ (híbrida: BM25 + semântica + KG) |
+| `/v1/retrieve` | POST | Recupera jurisprudência pelo pipeline atual do Valter |
 | `/v1/verify` | POST | Verifica precisão de citações contra documentos fonte |
-| `/v1/graph/optimal-argument` | POST | Gera argumentos jurídicos ótimos (a favor/contra) |
+| `/v1/graph/optimal-argument` | POST | Gera caminhos estruturados de argumentação jurídica |
 | `/v1/graph/divergencias` | GET/POST | Analisa divergências entre ministros/turmas |
 | `/v1/graph/temporal-evolution` | GET | Tendências temporais em padrões de decisão |
 | `/v1/similar_cases` | POST | Encontra casos similares baseado em características |
@@ -88,37 +88,42 @@ graph TB
 
 | Atributo | Valor |
 |----------|-------|
-| **Papel** | Agente backend para legislação federal |
+| **Papel** | Engine legislativa document-first para grounding confiável |
 | **Stack** | TypeScript, Next.js 16, Drizzle ORM, PostgreSQL + pgvector |
-| **Status** | v0.1-pre — apenas schema do banco, sem rotas de API |
+| **Status** | Baseline operacional com API de busca, shell e validação com dados reais |
 | **Repositório** | Repositório separado (`/Dev/leci/`) |
 
-**Estado atual:** O Leci possui um schema de banco com 6 tabelas mas ainda sem superfície de API:
+**Estado atual:** O Leci já não é apenas um schema. O baseline atual inclui:
 
-| Tabela | Finalidade |
-|--------|------------|
-| `regulation_types` | Tipos de normas jurídicas |
-| `regulations` | Metadados das normas |
-| `document_nodes` | Nós estruturais dos documentos jurídicos |
-| `embeddings` | Embeddings vetoriais para busca semântica |
-| `suggestions` | Sugestões geradas por IA |
-| `revisions` | Histórico de revisões (a única forma sancionada de mutar texto jurídico) |
+- `GET /api/search` para recuperação legislativa
+- shell funcional de busca e leitura
+- validação com dados reais
+- modelo document-first em que o documento legal é a unidade primária de grounding
 
-**Princípio de design chave:** `apply_revision()` é a única função que pode modificar texto jurídico, garantindo uma trilha de auditoria completa.
+O Leci deve ser entendido como a autoridade legislativa do ecossistema, servindo grounding normativo confiável para Valter e Juca.
 
-**Cronograma de integração:** Planejado para o Juca v0.6+, condicionado ao desenvolvimento da REST API do Leci.
+## Douto
+
+| Atributo | Valor |
+|----------|-------|
+| **Papel** | Pipeline local de doutrina e fornecedor interno de artefatos doutrinários para o Valter |
+| **Stack** | Pipeline Python, base markdown, workflow de embeddings |
+| **Status** | Pipeline interno — não é produto autônomo para usuário final |
+| **Repositório** | Repositório separado (`/Dev/Douto/`) |
+
+**Estado atual:** O Douto processa doutrina localmente, gera artefatos estruturados e alimenta a camada de conhecimento do Valter. Ele não deve ser descrito como frontend próprio nem como produto final autônomo.
 
 ## Padrões de Comunicação
 
-**Abordagem atual:** O Juca se comunica com o Valter via chamadas diretas à REST API. A camada de adapter (`src/lib/adapters/`) fornece uma interface unificada para que o orquestrador não precise saber qual agente backend está chamando.
+**Abordagem atual:** O Juca se comunica com o Valter via chamadas diretas à REST API. A camada de adapter (`src/lib/adapters/`) fornece uma interface unificada para que o orquestrador não precise saber qual serviço backend está chamando.
 
-**Autenticação:** O Valter usa autenticação por chave de API via header `X-API-Key`. O Juca armazena a chave na variável de ambiente `VALTER_API_KEY`. O modelo de autenticação para cenários multi-usuário é uma [decisão pendente](/roadmap/#pending-decisions).
+**Autenticação:** O Valter usa autenticação por chave de API via header `X-API-Key`. O Juca armazena a chave na variável de ambiente `VALTER_API_KEY`. O modelo de autenticação para cenários multi-usuário é uma [decisão pendente](/pt-br/roadmap/#pending-decisions).
 
-> 🚧 **Funcionalidade Planejada** — A integração com MCP (Model Context Protocol) está planejada para interação mais rica entre o Juca e os agentes backend. O Valter já suporta MCP com 28 ferramentas.
+**Fronteiras de serviço:** o Valter é dono da superfície de jurisprudência e reasoning, o Leci é dono do grounding legislativo e o Douto fornece artefatos de doutrina para dentro do Valter. O Juca permanece como camada de orquestração voltada ao usuário.
 
 ## Convenções Compartilhadas
 
-Os três projetos seguem estas convenções:
+Os quatro projetos seguem estas convenções:
 
 | Convenção | Valor |
 |-----------|-------|

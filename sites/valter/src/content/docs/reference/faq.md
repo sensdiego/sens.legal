@@ -27,7 +27,7 @@ Each database is optimized for a fundamentally different workload:
 The alternative considered was a single PostgreSQL instance with pgvector and recursive CTEs. This was rejected because graph queries (shortest path between decisions, divergence detection across citation chains) and high-throughput vector search are fundamentally different workloads that benefit from purpose-built engines.
 
 :::tip
-All four databases degrade gracefully. Search works without Neo4j (no KG boost). Search works without Redis (no cache, but rate limiting currently fails closed — see the [Troubleshooting](./troubleshooting) guide). Only PostgreSQL is strictly required.
+All four databases degrade gracefully. Search still works without Neo4j, but with less graph-aware retrieval and explainability. Search works without Redis (no cache, but rate limiting currently fails closed — see the [Troubleshooting](./troubleshooting) guide). Only PostgreSQL is strictly required.
 :::
 
 ### Why a monolith instead of microservices?
@@ -66,18 +66,15 @@ Both transports expose the same set of MCP tools. The tool definitions, paramete
 
 ## Search
 
-### How does KG Boost work?
+### How should I think about the graph in retrieval?
 
-KG Boost is a post-retrieval relevance boost based on knowledge graph connectivity. The flow:
+Do not think about the graph as a tiny post-retrieval add-on anymore. The current model is graph-led retrieval:
 
-1. **Initial retrieval** — Hybrid search (BM25 + semantic) returns a ranked list of candidate documents
-2. **Graph lookup** — Each candidate document is checked against Neo4j for graph connections (citations received, shared criteria with other results, connection to known precedents)
-3. **Score adjustment** — Documents with stronger graph connectivity receive a configurable score boost
-4. **Re-ranking** — The final ranking reflects both textual relevance and structural importance in the jurisprudence network
+1. graph structure is a primary discovery and explanation path;
+2. lexical and semantic search remain complementary evidence;
+3. the runtime can still degrade gracefully when graph paths are unavailable.
 
-Key properties:
-
-- **Configurable** via `VALTER_KG_BOOST_BATCH_ENABLED` and `VALTER_KG_BOOST_MAX_CONCURRENCY`
+Low-level compatibility flags may still exist in parts of the runtime, but the correct system narrative is no longer "hybrid search plus KG boost".
 - **Graceful degradation** — If Neo4j is unavailable, search results still return without the boost. No error is raised to the user.
 - **Batched** — Graph lookups are batched for performance rather than queried one document at a time
 

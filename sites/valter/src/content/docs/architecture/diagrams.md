@@ -138,7 +138,7 @@ The diagram is organized in layers from top to bottom, matching the dependency r
 
 ## Search Pipeline
 
-The hybrid search pipeline is Valter's most complex data flow. It combines three search strategies (BM25 keyword search, semantic vector search, and knowledge graph boosting) into a single ranked result set.
+The search pipeline is one of Valter's most complex data flows. The current model should be understood as graph-led retrieval with complementary lexical and semantic search signals.
 
 ```mermaid
 flowchart LR
@@ -153,8 +153,8 @@ flowchart LR
     SEM --> MERGE
     MERGE --> FETCH[Fetch Docs<br/>PostgreSQL]
     FETCH --> FILTER[Filters<br/>ministro, data, tipo]
-    FILTER --> KG{KG Boost?}
-    KG -->|yes| BOOST[Neo4j Batch<br/>KG Boost]
+    FILTER --> KG{Graph path available?}
+    KG -->|yes| BOOST[Neo4j Batch<br/>Graph-led scoring]
     KG -->|no| RERANK
     BOOST --> RERANK[Reranking<br/>Cross-Encoder]
     RERANK --> STORE_CACHE[Store Cache<br/>Redis TTL 180s]
@@ -170,7 +170,7 @@ flowchart LR
 5. **Merge** — results from both strategies are combined using either weighted fusion or Reciprocal Rank Fusion (RRF), configurable per request.
 6. **Document fetch** — full document data is loaded from PostgreSQL for the merged candidate set.
 7. **Filters** — post-retrieval filters apply (minister, date range, decision type, result).
-8. **KG Boost** — if enabled, Neo4j is queried in batch to score each candidate based on shared criteria, facts, evidence, and legal devices in the knowledge graph. The KG boost score is blended with the search score.
+8. **Graph-led scoring** — when graph paths are available, Neo4j is queried in batch so candidates can be scored and explained through shared criteria, facts, evidence, and legal devices.
 9. **Reranking** — a cross-encoder model re-scores the top candidates based on query-document relevance, producing the final ranking.
 10. **Cache store** — the final result is stored in Redis with a 180-second TTL.
 

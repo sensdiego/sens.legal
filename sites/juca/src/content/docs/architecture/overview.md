@@ -51,9 +51,10 @@ graph TB
         Clarify["Clarification Policy"]
     end
 
-    subgraph "External Agents"
-        Valter["Valter API<br/>STJ Jurisprudence<br/>Search · KG · LLM · Verify"]
-        Leci["Leci API<br/>Federal Legislation<br/>(future)"]
+    subgraph "Knowledge Services"
+        Valter["Valter API<br/>Jurisprudence · reasoning · verification"]
+        Leci["Leci API<br/>Legislation grounding"]
+        Douto["Douto artifacts<br/>Doctrine pipeline"]
     end
 
     subgraph "Data Layer"
@@ -72,7 +73,8 @@ graph TB
     Intent --> Clarify
     Intent --> Tools
     Tools -->|"REST API"| Valter
-    Tools -.->|"REST API (future)"| Leci
+    Tools -.->|"grounding flows"| Leci
+    Douto --> Valter
     Tools --> SSE
 
     Actions --> SQLite
@@ -122,11 +124,12 @@ With the hub pivot, responsibilities are clearly split:
 | Orchestration | **Juca** (lightweight) | Intent Detection, Tool Registry, Clarification Policy |
 | SSE streaming | **Juca** | Real-time progress via `/api/v2/stream` |
 | Authentication | **Juca** | NextAuth v5 (Google OAuth + magic links) |
-| Legal search | **Valter** | `/v1/retrieve`, `/v1/similar_cases` |
-| LLM processing | **Valter** | Multi-model Generate → Criticize → Revise pipeline |
-| Knowledge Graph | **Valter** | `/v1/graph/*` (Neo4j Aura, 28.5K nodes, 207K edges) |
+| Jurisprudence retrieval | **Valter** | `/v1/retrieve`, `/v1/similar_cases`, graph-led reasoning pipeline |
+| LLM processing | **Valter** | Central reasoning backend during the Juca → Valter migration |
+| Knowledge graph and explainability | **Valter** | `/v1/graph/*`, reasoning chain, verification, MCP |
 | Citation verification | **Valter** | `/v1/verify` |
-| Federal legislation | **Leci** (future) | Not yet available — DB schema only |
+| Federal legislation grounding | **Leci** | Document-first legislation engine with `/api/search` baseline |
+| Doctrine artifacts | **Douto → Valter** | Local doctrine pipeline feeding Valter, not Juca directly |
 
 ## Key Decisions
 

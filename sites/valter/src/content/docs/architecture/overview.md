@@ -66,7 +66,7 @@ The core layer contains all business logic. It has approximately 25 modules orga
 
 | Group | Modules | Purpose |
 |-------|---------|---------|
-| Search | `HybridRetriever`, `DualVectorRetriever`, `QueryExpander` | Hybrid search with BM25 + semantic + KG boost, dual-vector factual search, multi-query expansion |
+| Search | `HybridRetriever`, `DualVectorRetriever`, `QueryExpander` | Graph-led retrieval with complementary lexical/semantic search, dual-vector factual search, multi-query expansion |
 | Analysis | `DocumentEnricher`, `LegalVerifier`, `SimilarityFinder`, `FactualExtractor` | IRAC analysis, anti-hallucination verification, case similarity, factual extraction via Groq |
 | Workflow | `WorkflowOrchestrator`, `ProjudiOrchestrator`, `PhaseAnalysis` (5 modules) | Full ingestion pipeline from PDF upload to human-reviewed artifacts |
 | Infrastructure | `Protocols` (runtime-checkable interfaces) | Contracts that stores must implement |

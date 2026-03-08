@@ -8,34 +8,34 @@ lang: pt-BR
 
 # Funcionalidades
 
-O Valter conta com 33 funcionalidades implementadas abrangendo busca, analise de grafo, integracao com LLMs, processamento de documentos, verificacao e infraestrutura. Esta pagina apresenta a matriz completa e links para a documentacao detalhada de cada dominio.
+O Valter conta com capacidades implementadas que abrangem retrieval, analise de grafo, integracao com LLMs, processamento de documentos, verificacao e infraestrutura. Esta pagina apresenta a matriz de funcionalidades e links para a documentacao detalhada por dominio.
 
 ## Matriz de Funcionalidades
 
 | Funcionalidade | Status | Endpoint / Modulo | Docs |
 |----------------|--------|--------------------|------|
-| Busca Hibrida | Implementado | `POST /v1/retrieve` | [Busca Hibrida](hybrid-search/) |
+| Busca e Retrieval | Implementado | `POST /v1/retrieve` | [Busca e Retrieval](hybrid-search/) |
 | Graph Analytics (12 endpoints) | Implementado | `POST /v1/graph/*` | [Graph Analytics](graph-analytics/) |
 | MCP Server (28 tools) | Implementado | stdio + HTTP/SSE | [MCP Server](mcp-server/) |
 | Workflow de Ingestao (17 endpoints) | Implementado | `POST /v1/ingest/*` | [Workflow de Ingestao](ingestion-workflow/) |
 | Verificacao e Enriquecimento | Implementado | `POST /v1/verify`, `/v1/enrich` | [Verificacao e Enriquecimento](verification-enrichment/) |
 | Observabilidade | Implementado | `/metrics`, structlog, OTel | [Observabilidade](observability/) |
-| Cadeia de Raciocinio Juridico | Planejado (v1.2) | `POST /v1/reasoning-chain` | [Cadeia de Raciocinio](reasoning-chain/) |
+| Cadeia de Raciocinio Juridico | Disponivel / em evolucao | superficies de reasoning chain | [Cadeia de Raciocinio](reasoning-chain/) |
 
 ## Por Dominio
 
 ### Busca e Retrieval
 
-A busca e a interface principal de consulta do Valter. Ela combina multiplas estrategias em um unico pipeline que supera abordagens baseadas apenas em palavras-chave ou apenas em vetores.
+A busca e a interface principal de consulta do Valter, mas a descricao correta agora e **graph-led retrieval**, e nao "busca hibrida com KG boost".
 
-- **Busca Hibrida** -- BM25 lexical + vetores semanticos (Qdrant) + boost de KG (Neo4j), com estrategias de merge ponderado e RRF. Endpoint: `POST /v1/retrieve`.
+- **Busca e Retrieval** -- retrieval graph-led com sinais lexicais e semanticos atuando como evidencia complementar e fallback. Endpoint: `POST /v1/retrieve`.
 - **Busca Dual-Vector** -- Codifica fatos e tese separadamente, produzindo um relatorio de divergencia. Endpoint: `POST /v1/factual/dual-search`.
 - **Query Expansion** -- RAG multi-query via Groq LLM gera ate 3 variantes de termos juridicos por consulta. Integrado ao retriever.
 - **Cross-Encoder Reranking** -- Reordena os melhores resultados usando um modelo cross-encoder (local ou hospedado no Railway). Integrado ao retriever.
 - **Feature Search** -- 9 filtros combinaveis sobre 21 campos extraidos por IA (categorias, resultado, tipo_decisao, argumento_vencedor, etc.). Endpoint: `POST /v1/search/features`.
 - **Paginacao Cursor-Based** -- Paginacao com cursor opaco nos endpoints de listagem.
 
-Veja [Busca Hibrida](hybrid-search/) para detalhes completos do pipeline.
+Veja [Busca e Retrieval](hybrid-search/) para detalhes atuais do pipeline.
 
 ### Knowledge Graph
 

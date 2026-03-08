@@ -167,12 +167,12 @@ npm run build
 ```
 
 :::note
-If you are installing for roadmap-only features (search API, ingestion, agent integrations), remember these are not fully implemented in current code.
+If you are installing to validate the current legislation baseline, remember that `/api/search` and the search shell already exist. What remains roadmap-bound are deeper grounding workflows, canonical resolution, and broader ingestion automation.
 :::
 
-> 🚧 **Planned Feature** — Internal API endpoint groups are roadmap-defined but not present in `src/app/api` yet.
+> 🚧 **Planned Feature** — Broader endpoint groups beyond the current search baseline are still roadmap work.
 
-> 🚧 **Planned Feature** — Source ingestion pipeline is a roadmap workstream and not part of current repository runtime.
+> 🚧 **Planned Feature** — Source ingestion automation is still a roadmap workstream and not part of the current runtime baseline.
 
 ## Known unknowns requiring owner confirmation
 Some installation/operations details need explicit owner decisions.

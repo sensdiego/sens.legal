@@ -39,7 +39,7 @@ NEO4J_PASSWORD=your-password
 ```
 
 :::note
-Endpoints que nao dependem de grafo (busca, verificacao, enriquecimento) funcionam sem o Neo4j. Features de grafo degradam graciosamente -- resultados de busca simplesmente nao recebem scores de KG boost.
+Endpoints que nao dependem de grafo (busca, verificacao, enriquecimento) funcionam sem o Neo4j. Retrieval orientado a grafo e explicabilidade degradam graciosamente quando o Neo4j nao esta disponivel.
 :::
 
 ### Conexao recusada do Redis

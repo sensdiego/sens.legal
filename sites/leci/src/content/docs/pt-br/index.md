@@ -9,37 +9,37 @@ sidebar:
 
 # Home da Documentação do Leci
 
-## What this documentation covers
-This documentation explains how Leci works today, what is planned next, and how to contribute safely to a legal-data-first platform. It is designed for developers, project stakeholders, and AI agents that consume project context.
+## O que esta documentação cobre
+Esta documentação explica como o Leci funciona hoje, o que vem a seguir e como contribuir com segurança para uma engine legislativa document-first. Ela foi escrita para desenvolvedores, stakeholders do projeto e agentes de IA que consomem contexto estruturado.
 
-## Who should start here
-Use this page as the entry point if you are:
-- a contributor setting up the project for the first time;
-- a reviewer validating architecture and roadmap consistency;
-- an integration owner evaluating API-readiness and legal data reliability;
-- an AI agent requiring structured, explicit, and machine-parseable context.
+## Quem deve começar por aqui
+Use esta página como ponto de entrada se você for:
+- um contribuidor configurando o projeto pela primeira vez;
+- um revisor validando consistência entre arquitetura e roadmap;
+- alguém avaliando prontidão de API e confiabilidade da camada legislativa;
+- um agente de IA que precisa de contexto estruturado, explícito e parseável.
 
-## Recommended reading paths
-### Fast onboarding path
+## Trilhas recomendadas de leitura
+### Onboarding rápido
 1. `getting-started/introduction`
 2. `getting-started/quickstart`
 3. `development/setup`
 
-### Architecture and implementation path
+### Arquitetura e implementação
 1. `architecture/overview`
 2. `architecture/stack`
 3. `features/index`
 
-### Planning and risk path
+### Planejamento e risco
 1. `roadmap/index`
 2. `roadmap/milestones`
 3. `planning/PREMORTEM.md`
 
-## Current maturity in one paragraph
-Leci currently provides strong database and migration foundations for Brazilian federal legislation, including structured legal entities, search indexes, and revision audit primitives. Product-facing capabilities such as richer UI flows, internal API groups, and ingestion automation are roadmap-driven and should be treated as planned scope until code is present.
+## Maturidade atual em um parágrafo
+O Leci já não é apenas um repositório de schema e planejamento. O baseline atual inclui `/api/search` funcional, contratos tipados de busca, shell de pesquisa e leitura, e validação com dados reais, mantendo a direção de produto centrada em recuperação legislativa document-first e grounding confiável para o ecossistema sens.legal. Resolução canônica de referências, reader mais profundo e contratos de grounding mais amplos continuam como próxima camada de evolução.
 
-## Source-of-truth policy
-When docs and implementation diverge, trust this order:
+## Política de fonte da verdade
+Quando documentação e implementação divergirem, confie nesta ordem:
 1. Source code (`src/`, `drizzle/`, `scripts/`)
 2. Configuration files (`package.json`, `.env.example`, build configs)
 3. Planning artifacts (`docs/planning/*`)

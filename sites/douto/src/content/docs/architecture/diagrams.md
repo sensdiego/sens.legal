@@ -81,17 +81,14 @@ How Douto fits within the sens.legal platform from the user's perspective:
 graph LR
     USER["👤 Lawyer"]
     JU["Juca<br/>Frontend"]
-    VA["Valter<br/>Case Law<br/>12,091 STJ"]
+    VA["Valter<br/>Jurisprudence + reasoning backend"]
     LE["Leci<br/>Legislation"]
-    DO["Douto<br/>Doctrine<br/>~50 books"]
-    JO["Joseph<br/>Orchestrator"]
+    DO["Douto<br/>Doctrine pipeline"]
 
     USER --> JU
     JU --> VA
-    JU --> LE
-    JU --> DO
-    JO -.->|"coordinates"| VA & LE & DO
-    VA <-.->|"embeddings"| DO
+    JU -.->|"grounding"| LE
+    DO -->|"doctrine artifacts"| VA
 ```
 
 ## Knowledge Base Hierarchy

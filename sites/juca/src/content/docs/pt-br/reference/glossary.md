@@ -49,8 +49,9 @@ sidebar:
 
 | Termo | Definição |
 |-------|----------|
-| **sens.legal** | A plataforma mãe que engloba Juca, Valter e Leci — um ecossistema de análise jurídica com IA. |
-| **Valter** | Agente de backend para jurisprudência do STJ. Serviço Python/FastAPI com 23.400+ decisões, 28 ferramentas MCP, busca BM25 + semântica, grafo de conhecimento Neo4j e pipeline multi-LLM. URL de produção: `https://valter-api-production.up.railway.app`. |
-| **Leci** | Agente de backend para legislação federal. TypeScript/Next.js com Drizzle ORM. Atualmente em desenvolvimento inicial (v0.1-pre) com schema de banco de dados pronto, mas ainda sem API pública. |
-| **MCP** | Model Context Protocol — interface padronizada para interação de ferramentas de IA. O Valter expõe 28 ferramentas MCP para busca, verificação, análise de grafo e ingestão. |
+| **sens.legal** | O ecossistema mãe que engloba Juca, Valter, Leci e Douto — uma stack de IA jurídica que cobre jurisprudência, legislação, doutrina e orquestração frontend. |
+| **Valter** | Backend central de retrieval de jurisprudência, reasoning, verificação e consumo via MCP. É também o destino da lógica de backend que está saindo do Juca. URL de produção: `https://valter-api-production.up.railway.app`. |
+| **Leci** | Engine legislativa document-first usada para grounding jurídico confiável. O baseline atual inclui `/api/search`, shell funcional e validação com dados reais. |
+| **Douto** | Pipeline local de doutrina que produz artefatos doutrinários para o Valter. É uma camada interna de produção de conhecimento, não um produto autônomo para usuário final. |
+| **MCP** | Model Context Protocol — interface padronizada para interação de ferramentas de IA. No ecossistema, o Valter é a superfície backend voltada a MCP. |
 | **Camada de Adapter** | Abstração planejada (v0.3) que fornece uma interface unificada para o Juca se comunicar com qualquer agente de backend (Valter, Leci, futuros agentes). |

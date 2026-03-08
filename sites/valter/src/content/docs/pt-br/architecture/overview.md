@@ -66,7 +66,7 @@ A camada core contem toda a logica de negocio. Possui aproximadamente 25 modulos
 
 | Grupo | Modulos | Proposito |
 |-------|---------|-----------|
-| Busca | `HybridRetriever`, `DualVectorRetriever`, `QueryExpander` | Busca hibrida com BM25 + semantica + KG boost, busca factual dual-vector, expansao multi-query |
+| Busca | `HybridRetriever`, `DualVectorRetriever`, `QueryExpander` | Retrieval graph-led com busca lexical/semanica complementar, busca factual dual-vector e expansao multi-query |
 | Analise | `DocumentEnricher`, `LegalVerifier`, `SimilarityFinder`, `FactualExtractor` | Analise IRAC, verificacao anti-alucinacao, similaridade de casos, extracao factual via Groq |
 | Workflow | `WorkflowOrchestrator`, `ProjudiOrchestrator`, `PhaseAnalysis` (5 modulos) | Pipeline completo de ingestao, do upload de PDF ate artefatos revisados por humano |
 | Infraestrutura | `Protocols` (interfaces runtime-checkable) | Contratos que stores devem implementar |

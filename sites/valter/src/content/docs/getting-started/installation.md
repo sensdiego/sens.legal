@@ -123,7 +123,7 @@ Redis is currently a single point of failure for the rate limiter. If Redis goes
 
 ### Neo4j (knowledge graph)
 
-Neo4j stores the knowledge graph: ~28,500 nodes (decisions, criteria, dispositivos, precedents) connected by ~207,000 edges. It powers the 12 `/v1/graph/*` endpoints, the KG boost in hybrid search, and structural similarity.
+Neo4j stores the knowledge graph that powers Valter's graph analytics, graph-led retrieval paths, structural similarity, and explainability features.
 
 **Without Neo4j**, Valter still works — search, verification, enrichment, and ingestion all function. Only graph-specific features return 503.
 

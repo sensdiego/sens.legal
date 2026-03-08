@@ -1,6 +1,6 @@
 ---
 title: "Juca — Legal AI Frontend Hub"
-description: "Juca is the frontend hub for the sens.legal ecosystem — a conversational interface that orchestrates specialized legal AI agents for Brazilian legal research."
+description: "Juca is the frontend hub for the sens.legal ecosystem — a conversational interface that orchestrates the jurisprudence, legislation, and doctrine layers."
 lang: en
 sidebar:
   order: 0
@@ -8,9 +8,9 @@ sidebar:
 
 # Juca
 
-Juca is the frontend hub for the **sens.legal** ecosystem — a conversational interface that orchestrates specialized legal AI agents for Brazilian legal research.
+Juca is the frontend hub for the **sens.legal** ecosystem — a conversational interface that orchestrates the jurisprudence, legislation, and doctrine layers for Brazilian legal research.
 
-Built with Next.js 16 and React 19, Juca provides a Fintool/Perplexity-style interface where lawyers interact with a unified Composer, and the system routes their queries to the right backend agent. Results are rendered as structured **Blocks** — typed UI cards that present diagnoses, precedents, risk analyses, and strategic recommendations.
+Built with Next.js 16 and React 19, Juca provides a Fintool/Perplexity-style interface where lawyers interact with a unified Composer while backend responsibility moves out of the frontend and into specialized services. Results are rendered as structured **Blocks** — typed UI cards that present diagnoses, precedents, risk analyses, and strategic recommendations.
 
 ## Key Capabilities
 
@@ -25,19 +25,25 @@ Juca's core value is **progressive disclosure of legal analysis** through the Br
 
 ## The sens.legal Ecosystem
 
-Juca does not work alone. It is the user-facing layer of a three-project ecosystem:
+Juca does not work alone. It is the user-facing layer of a four-project ecosystem:
 
 ```mermaid
 graph TB
-    subgraph "Frontend"
-        Juca["Juca<br/>Next.js 16 · React 19<br/>Block System · SSE<br/>Lightweight Orchestrator"]
+    User["Lawyer"]
+
+    subgraph "User-Facing Layer"
+        Juca["Juca<br/>Frontend hub<br/>Next.js 16 · React 19<br/>Blocks · SSE · Sessions"]
     end
-    subgraph "Backend Agents"
-        Valter["Valter<br/>FastAPI · Python<br/>23.4K STJ Decisions<br/>KG · Search · LLM Pipeline"]
-        Leci["Leci<br/>Next.js · Drizzle<br/>Federal Legislation<br/>DB-first · v0.1-pre"]
+    subgraph "Knowledge Services"
+        Valter["Valter<br/>Jurisprudence + reasoning backend<br/>REST API · MCP"]
+        Leci["Leci<br/>Document-first legislation engine<br/>/api/search · grounding"]
+        Douto["Douto<br/>Doctrine pipeline<br/>Local artifacts for Valter"]
     end
-    Juca -->|"REST API"| Valter
-    Juca -.->|"REST API (future)"| Leci
+
+    User --> Juca
+    Juca -->|"primary integration"| Valter
+    Juca -.->|"legislation grounding"| Leci
+    Douto -->|"doctrine artifacts"| Valter
 ```
 
 See [Architecture → Ecosystem](/architecture/ecosystem) for details on each project.
@@ -55,4 +61,4 @@ See [Architecture → Ecosystem](/architecture/ecosystem) for details on each pr
 
 ## Project Status
 
-Juca is currently targeting **v0.3 — "Hub Foundation"**: transforming from a fullstack monolith into a lightweight frontend hub connected to the Valter backend agent. See the [Roadmap](/roadmap/) for milestone details.
+Juca is currently targeting **v0.3 — "Hub Foundation"**: transforming from a fullstack monolith into a lightweight frontend hub while jurisprudence search, reasoning, and other backend concerns are centralized in Valter. See the [Roadmap](/roadmap/) for milestone details.

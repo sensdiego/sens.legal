@@ -49,8 +49,9 @@ Depois abra:
 - `http://localhost:3000`
 
 Resultado esperado da UI atual:
-- título `Leci`
-- subtítulo `Plataforma de busca de legislação brasileira federal`
+- shell funcional de busca legislativa
+- estado da consulta refletido na URL
+- resultados reais quando a fonte de dados estiver populada
 
 ## Valide comandos de qualidade básicos
 Depois que o app subir, rode os checks abaixo.
@@ -59,14 +60,14 @@ Depois que o app subir, rode os checks abaixo.
 # Verificação de lint
 npm run lint
 
-# Runner de testes (hoje sem suites, mas comando deve executar)
+# Runner de testes
 npm test
 ```
 
-No estado atual, saída com zero testes é esperada.
+No estado atual, o esperado é ver a cobertura baseline do contrato de busca, e não apenas scaffolding vazio.
 
 :::note
-`npm test` já existe para estabelecer gate de qualidade desde cedo, mesmo antes da suíte de testes completa.
+`npm test` já faz parte do baseline atual porque o contrato de busca existe e precisa continuar protegido.
 :::
 
 ## Entenda o comportamento de migration antes de reexecutar
@@ -113,10 +114,8 @@ Correção:
 2. Revise requisitos do `drizzle/0001_init.sql` (ex.: extensão `vector`).
 3. Inspecione o statement exato que falhou.
 
-### App sobe, mas não tem telas avançadas
-Causa: estado atual do produto.
-
-> 🚧 **Planned Feature** — Fluxos completos de busca/navegação/leitura estão no roadmap e ainda não foram implementados.
+### App sobe, mas não tem as telas que você imaginava
+Causa: a superfície atual é uma shell de busca e leitura, e não ainda um workspace legislativo expandido.
 
 ## Próximos passos após quickstart
 Depois de validar o baseline:

@@ -138,7 +138,7 @@ O diagrama esta organizado em camadas de cima para baixo, seguindo a regra de de
 
 ## Pipeline de Busca
 
-O pipeline de busca hibrida e o fluxo de dados mais complexo do Valter. Ele combina tres estrategias de busca (busca por palavras-chave BM25, busca semantica vetorial e boosting via knowledge graph) em um unico conjunto de resultados ranqueados.
+O pipeline de busca e um dos fluxos de dados mais complexos do Valter. O modelo atual deve ser entendido como retrieval graph-led com sinais lexicais e semanticos complementares.
 
 ```mermaid
 flowchart LR
@@ -153,8 +153,8 @@ flowchart LR
     SEM --> MERGE
     MERGE --> FETCH[Fetch Docs<br/>PostgreSQL]
     FETCH --> FILTER[Filters<br/>ministro, data, tipo]
-    FILTER --> KG{KG Boost?}
-    KG -->|yes| BOOST[Neo4j Batch<br/>KG Boost]
+    FILTER --> KG{Graph path available?}
+    KG -->|yes| BOOST[Neo4j Batch<br/>Graph-led scoring]
     KG -->|no| RERANK
     BOOST --> RERANK[Reranking<br/>Cross-Encoder]
     RERANK --> STORE_CACHE[Store Cache<br/>Redis TTL 180s]
@@ -170,7 +170,7 @@ flowchart LR
 5. **Merge** — resultados de ambas as estrategias sao combinados usando fusao ponderada ou Reciprocal Rank Fusion (RRF), configuravel por request.
 6. **Fetch de documentos** — dados completos dos documentos sao carregados do PostgreSQL para o conjunto de candidatos resultante do merge.
 7. **Filtros** — filtros pos-retrieval sao aplicados (ministro, intervalo de datas, tipo de decisao, resultado).
-8. **KG Boost** — se habilitado, o Neo4j e consultado em batch para pontuar cada candidato com base em criterios, fatos, provas e dispositivos legais compartilhados no knowledge graph. O score do KG boost e combinado com o score de busca.
+8. **Pontuacao graph-led** — quando caminhos de grafo estao disponiveis, o Neo4j e consultado em batch para que os candidatos possam ser pontuados e explicados por criterios, fatos, provas e dispositivos legais compartilhados.
 9. **Reranking** — um modelo cross-encoder repontua os melhores candidatos com base na relevancia query-documento, produzindo o ranking final.
 10. **Armazenamento em cache** — o resultado final e armazenado no Redis com TTL de 180 segundos.
 

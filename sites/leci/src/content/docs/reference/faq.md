@@ -9,18 +9,16 @@ sidebar:
 # FAQ
 
 ## Is Leci already a full legal search product?
-No. Leci currently provides strong database and migration foundations plus a minimal UI shell. Rich search APIs and product workflows are roadmap scope.
+No. Leci should not be framed as a broad consumer legal search product yet. It is a document-first legislation engine for reliable grounding, but it is also no longer "just schema": the repo already has `/api/search`, a functional shell, and real-data validation.
 
 ## Can I trust the legal data mutation path?
 Yes, as long as changes follow the revision invariant. Legal text updates should pass through `leci.apply_revision()` to preserve auditability.
 
 ## Is there a production API available today?
-Not in this repository at the moment.
-
-> 🚧 **Planned Feature** — API endpoint groups are roadmap-defined and not yet implemented.
+Yes, there is already a baseline API surface in the repository today: `GET /api/search`. Broader endpoint groups and richer grounding workflows are the next layer of work.
 
 ## Are tests already comprehensive?
-No. The test command exists, but comprehensive suites are still planned.
+No. There is already a baseline test surface around the search contract, but comprehensive integration and E2E coverage are still planned.
 
 ## Where should I start as a contributor?
 Start with:
@@ -30,4 +28,4 @@ Start with:
 4. `development/conventions`
 
 ## Why are some sections marked planned or unverified?
-This labeling is intentional to prevent roadmap assumptions from being interpreted as implemented behavior.
+This labeling is intentional to prevent roadmap assumptions from being interpreted as implemented behavior, especially in a project where the search baseline exists but deeper legislation workflows are still being built.

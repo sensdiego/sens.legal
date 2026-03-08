@@ -49,8 +49,9 @@ Then open:
 - `http://localhost:3000`
 
 Expected UI baseline:
-- title text `Leci`
-- subtitle `Plataforma de busca de legislação brasileira federal`
+- a working legislation search shell
+- search state reflected in the URL
+- real results when the backing data source is populated
 
 ## Verify baseline quality commands
 After the app starts, run the quality checks below.
@@ -59,14 +60,14 @@ After the app starts, run the quality checks below.
 # Lint checks
 npm run lint
 
-# Test runner (currently no suites yet, but command must execute)
+# Test runner
 npm test
 ```
 
-Expected current test output includes zero suites/tests; this is normal for the current roadmap stage.
+Expected current test output should reflect the baseline search-contract coverage rather than zero-test scaffolding.
 
 :::note
-`npm test` is intentionally present as a quality-gate command even before full test suites are implemented.
+`npm test` is already part of the current baseline because the search contract is implemented and should stay guarded.
 :::
 
 ## Understand migration behavior before rerunning
@@ -114,9 +115,7 @@ Fix:
 3. Inspect the failing SQL statement and validate target DB state.
 
 ### App starts but page is not what you expected
-Cause: current UI is intentionally minimal.
-
-> 🚧 **Planned Feature** — Search/browse/read product flows are roadmap items and not implemented yet.
+Cause: the current product surface is a search-and-reading shell, not a fully expanded legislation workspace yet.
 
 ## What to do after quickstart
 After baseline run succeeds, continue with:

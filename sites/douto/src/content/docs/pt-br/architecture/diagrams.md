@@ -81,17 +81,14 @@ Como o Douto se encaixa na plataforma sens.legal do ponto de vista do usuario:
 graph LR
     USER["👤 Lawyer"]
     JU["Juca<br/>Frontend"]
-    VA["Valter<br/>Case Law<br/>12,091 STJ"]
+    VA["Valter<br/>Backend de jurisprudencia + reasoning"]
     LE["Leci<br/>Legislation"]
-    DO["Douto<br/>Doctrine<br/>~50 books"]
-    JO["Joseph<br/>Orchestrator"]
+    DO["Douto<br/>Pipeline de doutrina"]
 
     USER --> JU
     JU --> VA
-    JU --> LE
-    JU --> DO
-    JO -.->|"coordinates"| VA & LE & DO
-    VA <-.->|"embeddings"| DO
+    JU -.->|"grounding"| LE
+    DO -->|"artefatos doutrinarios"| VA
 ```
 
 ## Hierarquia da Knowledge Base

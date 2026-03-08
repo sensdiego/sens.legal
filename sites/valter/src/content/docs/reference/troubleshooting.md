@@ -39,7 +39,7 @@ NEO4J_PASSWORD=your-password
 ```
 
 :::note
-Non-graph endpoints (search, verify, enrich) work without Neo4j. Graph features degrade gracefully — search results simply lack KG boost scores.
+Non-graph endpoints (search, verify, enrich) work without Neo4j. Graph-aware retrieval and explainability degrade gracefully when Neo4j is unavailable.
 :::
 
 ### Redis connection refused

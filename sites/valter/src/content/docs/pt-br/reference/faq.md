@@ -27,7 +27,7 @@ Cada banco e otimizado para uma carga de trabalho fundamentalmente diferente:
 A alternativa considerada foi uma unica instancia PostgreSQL com pgvector e CTEs recursivas. Isso foi rejeitado porque queries de grafo (caminho mais curto entre decisoes, deteccao de divergencias em cadeias de citacao) e busca vetorial de alto throughput sao cargas de trabalho fundamentalmente diferentes que se beneficiam de engines dedicados.
 
 :::tip
-Todos os quatro bancos degradam graciosamente. A busca funciona sem Neo4j (sem KG boost). A busca funciona sem Redis (sem cache, mas o rate limiting atualmente falha fechado -- veja o guia de [Solucao de Problemas](./troubleshooting)). Apenas o PostgreSQL e estritamente obrigatorio.
+Todos os quatro bancos degradam graciosamente. A busca continua funcionando sem Neo4j, mas com menos retrieval orientado a grafo e menos explicabilidade. A busca funciona sem Redis (sem cache, mas o rate limiting atualmente falha fechado -- veja o guia de [Solucao de Problemas](./troubleshooting)). Apenas o PostgreSQL e estritamente obrigatorio.
 :::
 
 ### Por que um monolito em vez de microsservicos?
@@ -66,18 +66,15 @@ Ambos os transportes expoe o mesmo conjunto de tools MCP. As definicoes de tools
 
 ## Busca
 
-### Como funciona o KG Boost?
+### Como devo pensar o grafo dentro do retrieval?
 
-KG Boost e um incremento de relevancia pos-recuperacao baseado na conectividade do knowledge graph. O fluxo:
+Nao pense mais o grafo como um pequeno add-on pos-recuperacao. O modelo atual e graph-led retrieval:
 
-1. **Recuperacao inicial** -- Busca hibrida (BM25 + semantica) retorna uma lista ranqueada de documentos candidatos
-2. **Consulta ao grafo** -- Cada documento candidato e verificado no Neo4j quanto a conexoes no grafo (citacoes recebidas, criterios compartilhados com outros resultados, conexao com precedentes conhecidos)
-3. **Ajuste de score** -- Documentos com conectividade mais forte no grafo recebem um incremento de score configuravel
-4. **Re-ranking** -- O ranking final reflete tanto relevancia textual quanto importancia estrutural na rede de jurisprudencia
+1. a estrutura do grafo e um caminho primario de descoberta e explicacao;
+2. busca lexical e semantica permanecem como evidencia complementar;
+3. o runtime ainda pode degradar graciosamente quando caminhos de grafo nao estao disponiveis.
 
-Propriedades principais:
-
-- **Configuravel** via `VALTER_KG_BOOST_BATCH_ENABLED` e `VALTER_KG_BOOST_MAX_CONCURRENCY`
+Flags de compatibilidade de baixo nivel ainda podem existir em partes do runtime, mas a narrativa correta do sistema ja nao e "busca hibrida com KG boost".
 - **Degradacao graciosa** -- Se o Neo4j estiver indisponivel, resultados de busca ainda retornam sem o boost. Nenhum erro e exibido ao usuario.
 - **Em lote** -- Consultas ao grafo sao feitas em lote para performance em vez de consultar um documento por vez
 

@@ -9,26 +9,24 @@ sidebar:
 
 # FAQ
 
-## Is Leci already a full legal search product?
-No. Leci currently provides strong database and migration foundations plus a minimal UI shell. Rich search APIs and product workflows are roadmap scope.
+## O Leci já é um produto completo de busca jurídica?
+Não. O Leci ainda não deve ser enquadrado como um produto amplo de busca para usuário final. Ele é uma engine legislativa document-first voltada a grounding confiável, mas também já não é "só schema": o repositório já tem `/api/search`, shell funcional e validação com dados reais.
 
-## Can I trust the legal data mutation path?
-Yes, as long as changes follow the revision invariant. Legal text updates should pass through `leci.apply_revision()` to preserve auditability.
+## Posso confiar no caminho de mutação de dados legais?
+Sim, desde que as mudanças respeitem o invariante de revisão. Atualizações em texto legal devem passar por `leci.apply_revision()` para preservar auditabilidade.
 
-## Is there a production API available today?
-Not in this repository at the moment.
+## Existe API disponível hoje?
+Sim. Já existe uma superfície baseline de API no repositório: `GET /api/search`. Grupos mais amplos de endpoints e fluxos de grounding mais ricos são a próxima camada de trabalho.
 
-> 🚧 **Planned Feature** — API endpoint groups are roadmap-defined and not yet implemented.
+## Os testes já são abrangentes?
+Não. Já existe uma superfície inicial de testes em torno do contrato de busca, mas cobertura ampla de integração e E2E ainda está no roadmap.
 
-## Are tests already comprehensive?
-No. The test command exists, but comprehensive suites are still planned.
-
-## Where should I start as a contributor?
-Start with:
+## Por onde começo como contribuidor?
+Comece por:
 1. `getting-started/quickstart`
 2. `getting-started/installation`
 3. `development/setup`
 4. `development/conventions`
 
-## Why are some sections marked planned or unverified?
-This labeling is intentional to prevent roadmap assumptions from being interpreted as implemented behavior.
+## Por que algumas seções estão marcadas como planejadas ou não verificadas?
+Essa marcação é intencional para evitar que linguagem de roadmap seja confundida com comportamento implementado, especialmente num projeto em que o baseline de busca já existe, mas os fluxos legislativos mais profundos ainda estão em construção.

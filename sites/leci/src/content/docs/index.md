@@ -9,7 +9,7 @@ sidebar:
 # Leci Documentation Home
 
 ## What this documentation covers
-This documentation explains how Leci works today, what is planned next, and how to contribute safely to a legal-data-first platform. It is designed for developers, project stakeholders, and AI agents that consume project context.
+This documentation explains how Leci works today, what is planned next, and how to contribute safely to a document-first legislation engine. It is designed for developers, project stakeholders, and AI agents that consume project context.
 
 ## Who should start here
 Use this page as the entry point if you are:
@@ -35,7 +35,7 @@ Use this page as the entry point if you are:
 3. `planning/PREMORTEM.md`
 
 ## Current maturity in one paragraph
-Leci currently provides strong database and migration foundations for Brazilian federal legislation, including structured legal entities, search indexes, and revision audit primitives. Product-facing capabilities such as richer UI flows, internal API groups, and ingestion automation are roadmap-driven and should be treated as planned scope until code is present.
+Leci is no longer just a schema-and-roadmap repository. The current baseline already includes a working `/api/search`, typed search contracts, a functional search shell, and validation against real data, while keeping the core product direction focused on document-first legislation retrieval and reliable grounding for the broader sens.legal ecosystem. Richer canonical reference resolution, deeper reader workflows, and expanded grounding contracts remain the next layer of work.
 
 ## Source-of-truth policy
 When docs and implementation diverge, trust this order:

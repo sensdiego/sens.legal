@@ -1,6 +1,6 @@
 ---
 title: Valter — Backend de Conhecimento Juridico
-description: Backend que alimenta o raciocinio juridico para LLMs e advogados, servindo jurisprudencia do STJ via REST API e MCP.
+description: Backend central para retrieval de jurisprudencia, reasoning, verificacao e consumo via MCP.
 lang: pt-BR
 sidebar:
   order: 0
@@ -8,50 +8,52 @@ sidebar:
 
 # Valter
 
-> O backend de conhecimento juridico do ecossistema Diego Sens — servindo jurisprudencia do STJ brasileiro via REST API e Model Context Protocol (MCP).
+> O backend central de conhecimento juridico do ecossistema sens.legal — servindo jurisprudencia do STJ via REST API e MCP.
 
 ## O que e o Valter?
 
-Valter e um backend especializado que transforma dados juridicos brutos do Superior Tribunal de Justica (STJ) em conhecimento juridico estruturado e verificavel. Ele combina quatro data stores construidos para finalidades especificas — PostgreSQL para documentos e metadados, Qdrant para busca semantica vetorial, Neo4j para um grafo de conhecimento das relacoes juridicas, e Redis para cache — entregando busca hibrida com boosting via knowledge graph, verificacao anti-alucinacao e analytics de grafo sobre dezenas de milhares de decisoes judiciais.
+O Valter e o backend em que retrieval de jurisprudencia, verificacao e reasoning estao sendo centralizados para o ecossistema. Ele transforma decisoes do STJ em conhecimento juridico estruturado que pode ser consumido por frontends, fluxos internos e LLMs compativeis com MCP.
 
-Diferentemente de motores de busca juridica genericos que tratam decisoes como blocos de texto isolados, o Valter conecta decisoes por meio de um knowledge graph baseado na ontologia FRBR. Criterios, dispositivos legais, precedentes e ministros sao entidades de primeira classe no grafo, viabilizando consultas como "quais argumentos juridicos tem a maior taxa de sucesso para este ministro nesta categoria" ou "como a aplicacao deste criterio evoluiu nos ultimos cinco anos". Toda afirmacao retornada pelo sistema e rastreavel ate um no especifico do grafo ou verificada contra dados reais do tribunal.
+A arquitetura combina PostgreSQL, Qdrant, Neo4j e Redis, mas o ponto importante nao e a lista de storages. O ponto importante e o paradigma atual de retrieval: **graph-led retrieval**. O grafo de conhecimento deixou de ser descrito como um pequeno boost opcional em cima de search. Ele agora e um caminho primario de descoberta e explicabilidade, enquanto busca lexical e semantica atuam como sinais complementares e caminhos de fallback graceful.
 
-O Valter e MCP-nativo: 28 tools sao expostas via Model Context Protocol, permitindo que LLMs como Claude e ChatGPT consultem jurisprudencia, verifiquem referencias, analisem divergencias e componham argumentos diretamente. As mesmas capacidades estao disponiveis por meio de uma REST API para consumo tradicional por frontends.
-
-## Numeros-chave
-
-| Metrica | Valor |
-|---------|-------|
-| Decisoes do STJ no knowledge graph | ~28.000 |
-| Relacoes entre entidades juridicas | 207.000+ |
-| Registros de metadados do STJ | 810.225 |
-| Features classificadas de documentos | 2.119 |
-| Vetores semanticos (768-dim) | ~3.673 |
-| Tools MCP para integracao com LLMs | 28 |
-| Endpoints de graph analytics | 12 |
-| Data stores | 4 (PostgreSQL, Qdrant, Neo4j, Redis) |
-| Routers da REST API | 11 |
-| Endpoints do workflow de ingestao | 17 |
+O Valter tambem e dono da camada de anti-alucinacao e explicabilidade do ecossistema. Consumidores o usam para recuperar precedentes, verificar referencias, comparar casos similares, inspecionar divergencias e obter trilhas de reasoning ancoradas em dados reais do tribunal.
 
 ## Links Rapidos
 
 - **[Primeiros Passos](/pt-br/getting-started/quickstart)** — Setup com Docker, primeira chamada de API, primeira conexao MCP
-- **[Visao Geral da Arquitetura](/pt-br/architecture/overview)** — Monolito modular, regra de dependencia, 4 runtimes
-- **[Stack Tecnologica](/pt-br/architecture/stack)** — Python, FastAPI, 4 bancos de dados e por que cada um foi escolhido
-- **[Referencia da API](/api/)** — Endpoints REST para busca, verificacao, graph analytics e ingestao
-- **[Tools MCP](/api/mcp-tools)** — Todas as 28 tools disponiveis para Claude, ChatGPT e outros clientes MCP
-- **[Funcionalidades](/features/)** — Busca hibrida, graph analytics, anti-alucinacao e mais
-- **[Decisoes de Arquitetura](/pt-br/architecture/decisions)** — ADRs documentando escolhas-chave e suas justificativas
-- **[Glossario](/reference/glossary)** — Termos juridicos e tecnicos usados ao longo do projeto
+- **[Visao Geral da Arquitetura](/pt-br/architecture/overview)** — Monolito modular, regra de dependencia e limites de runtime
+- **[Stack Tecnologica](/pt-br/architecture/stack)** — Python, FastAPI e a arquitetura de quatro stores
+- **[Referencia da API](/pt-br/api/)** — Endpoints REST para retrieval, verificacao, graph analytics e ingestao
+- **[Tools MCP](/pt-br/api/mcp-tools)** — A superficie MCP exposta pelo Valter
+- **[Busca e Retrieval](/pt-br/features/hybrid-search)** — Modelo atual de retrieval e funcionamento do graph-led
+- **[Decisoes de Arquitetura](/pt-br/architecture/decisions)** — ADRs com escolhas-chave e racional
+- **[Glossario](/pt-br/reference/glossary)** — Termos juridicos e tecnicos usados no projeto
 
 ## Parte do sens.legal
 
-O Valter e um dos tres projetos que formam o ecossistema sens.legal:
+O Valter e um dos quatro projetos do ecossistema sens.legal:
 
-| Projeto | Papel | Stack | Status |
-|---------|-------|-------|--------|
-| **Valter** | Backend de conhecimento juridico — jurisprudencia do STJ, servida via REST API e MCP | Python, FastAPI, PostgreSQL, Qdrant, Neo4j, Redis | Em producao |
-| **Leci** | Backend de legislacao — estatutos e normas brasileiras como fonte de dados complementar | Planejado | Integracao prevista para v2.0 |
-| **Juca** | Frontend para advogados — a interface pela qual profissionais do direito interagem com o ecossistema | Next.js | Em desenvolvimento |
+| Projeto | Papel |
+|---------|-------|
+| **Juca** | Hub frontend para advogados e orquestracao voltada ao usuario |
+| **Valter** | Backend central de retrieval, reasoning, verificacao e MCP |
+| **Leci** | Engine legislativa document-first para grounding confiavel |
+| **Douto** | Pipeline local de doutrina que fornece artefatos doutrinarios ao Valter |
 
-O Valter atua como motor de conhecimento: o Juca chama a REST API do Valter para busca e analise, enquanto Claude e ChatGPT conectam via MCP para usar as mesmas capacidades como tools no seu processo de raciocinio. Quando o Leci for integrado, o Valter podera cruzar jurisprudencia com os dispositivos legislativos especificos sendo aplicados, fechando o ciclo entre como os tribunais interpretam a lei e o que a lei de fato diz.
+Isso tambem significa que o Valter e o destino da migracao de backend que esta saindo do Juca. Busca, reasoning e outras responsabilidades de backend estao sendo movidas para o Valter para que o frontend permaneça focado em experiencia do usuario e orquestracao.
+
+## Responsabilidades do Valter
+
+- retrieval sobre jurisprudencia do STJ
+- reasoning graph-led e explicabilidade
+- verificacao contra dados do tribunal
+- acesso via MCP e REST para consumidores externos
+- pipelines de ingestao e enriquecimento que sustentam a camada de conhecimento
+
+## O que o Valter nao faz
+
+- ser o hub frontend para advogados, papel do Juca
+- ser a autoridade legislativa, papel do Leci
+- ser um produto autonomo de doutrina, que tambem nao e o papel do Douto
+
+Em vez disso, o Valter e o backend central de jurisprudencia e reasoning que se integra com o restante do ecossistema.

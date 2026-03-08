@@ -8,34 +8,34 @@ lang: en
 
 # Features
 
-Valter ships with 33 implemented features spanning search, graph analytics, LLM integration, document processing, verification, and infrastructure. This page provides the full matrix and links to detailed documentation per domain.
+Valter ships with implemented capabilities spanning retrieval, graph analytics, LLM integration, document processing, verification, and infrastructure. This page provides the feature matrix and links to detailed documentation per domain.
 
 ## Feature Matrix
 
 | Feature | Status | Endpoint / Module | Docs |
 |---------|--------|-------------------|------|
-| Hybrid Search | Implemented | `POST /v1/retrieve` | [Hybrid Search](hybrid-search/) |
+| Search and Retrieval | Implemented | `POST /v1/retrieve` | [Search and Retrieval](hybrid-search/) |
 | Graph Analytics (12 endpoints) | Implemented | `POST /v1/graph/*` | [Graph Analytics](graph-analytics/) |
 | MCP Server (28 tools) | Implemented | stdio + HTTP/SSE | [MCP Server](mcp-server/) |
 | Ingestion Workflow (17 endpoints) | Implemented | `POST /v1/ingest/*` | [Ingestion Workflow](ingestion-workflow/) |
 | Verification & Enrichment | Implemented | `POST /v1/verify`, `/v1/enrich` | [Verification & Enrichment](verification-enrichment/) |
 | Observability | Implemented | `/metrics`, structlog, OTel | [Observability](observability/) |
-| Legal Reasoning Chain | Planned (v1.2) | `POST /v1/reasoning-chain` | [Reasoning Chain](reasoning-chain/) |
+| Legal Reasoning Chain | Available / evolving | reasoning-chain surfaces | [Reasoning Chain](reasoning-chain/) |
 
 ## By Domain
 
 ### Search & Retrieval
 
-Search is Valter's core query interface. It combines multiple strategies into a single pipeline that outperforms keyword-only or vector-only approaches.
+Search is Valter's core query interface, but the right description is now **graph-led retrieval** rather than "hybrid search with KG boost".
 
-- **Hybrid Search** -- BM25 lexical + semantic vectors (Qdrant) + KG boost (Neo4j), with weighted and RRF merge strategies. Endpoint: `POST /v1/retrieve`.
+- **Search and Retrieval** -- graph-led retrieval with lexical and semantic signals acting as complementary evidence and fallback paths. Endpoint: `POST /v1/retrieve`.
 - **Dual-Vector Search** -- Encodes facts and thesis separately, producing a divergence report. Endpoint: `POST /v1/factual/dual-search`.
 - **Query Expansion** -- Multi-query RAG via Groq LLM generates up to 3 legal term variants per query. Integrated into the retriever.
 - **Cross-Encoder Reranking** -- Reorders top results using a cross-encoder model (local or Railway-hosted). Integrated into the retriever.
 - **Feature Search** -- 9 combinable filters over 21 AI-extracted fields (categorias, resultado, tipo_decisao, argumento_vencedor, etc.). Endpoint: `POST /v1/search/features`.
 - **Cursor-Based Pagination** -- Opaque cursor pagination across listing endpoints.
 
-See [Hybrid Search](hybrid-search/) for full pipeline details.
+See [Search and Retrieval](hybrid-search/) for current retrieval details.
 
 ### Knowledge Graph
 

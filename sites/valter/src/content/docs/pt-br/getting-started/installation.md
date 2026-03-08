@@ -123,7 +123,7 @@ Redis é atualmente um ponto único de falha para o rate limiter. Se o Redis cai
 
 ### Neo4j (grafo de conhecimento)
 
-Neo4j armazena o grafo de conhecimento: ~28.500 nós (decisões, critérios, dispositivos, precedentes) conectados por ~207.000 arestas. Ele alimenta os 12 endpoints `/v1/graph/*`, o boost de KG na busca híbrida e a similaridade estrutural.
+O Neo4j armazena o grafo de conhecimento que sustenta graph analytics, caminhos de retrieval graph-led, similaridade estrutural e features de explicabilidade do Valter.
 
 **Sem Neo4j**, o Valter ainda funciona — busca, verificação, enriquecimento e ingestão operam normalmente. Apenas features específicas de grafo retornam 503.
 

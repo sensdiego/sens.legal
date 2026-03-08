@@ -51,9 +51,10 @@ graph TB
         Clarify["Política de Clarificação"]
     end
 
-    subgraph "Agentes Externos"
-        Valter["Valter API<br/>Jurisprudência STJ<br/>Busca · KG · LLM · Verificação"]
-        Leci["Leci API<br/>Legislação Federal<br/>(futuro)"]
+    subgraph "Serviços de conhecimento"
+        Valter["Valter API<br/>Jurisprudência · reasoning · verificação"]
+        Leci["Leci API<br/>Grounding legislativo"]
+        Douto["Artefatos do Douto<br/>Pipeline de doutrina"]
     end
 
     subgraph "Camada de Dados"
@@ -72,7 +73,8 @@ graph TB
     Intent --> Clarify
     Intent --> Tools
     Tools -->|"REST API"| Valter
-    Tools -.->|"REST API (futuro)"| Leci
+    Tools -.->|"fluxos de grounding"| Leci
+    Douto --> Valter
     Tools --> SSE
 
     Actions --> SQLite
@@ -122,11 +124,12 @@ Com o pivô para hub, as responsabilidades ficam claramente divididas:
 | Orquestração | **Juca** (leve) | Detecção de Intenção, Tool Registry, Política de Clarificação |
 | SSE streaming | **Juca** | Progresso em tempo real via `/api/v2/stream` |
 | Autenticação | **Juca** | NextAuth v5 (Google OAuth + magic links) |
-| Busca jurídica | **Valter** | `/v1/retrieve`, `/v1/similar_cases` |
-| Processamento LLM | **Valter** | Pipeline multi-modelo Gerar → Criticar → Revisar |
-| Grafo de Conhecimento | **Valter** | `/v1/graph/*` (Neo4j Aura, 28,5K nós, 207K arestas) |
+| Retrieval de jurisprudência | **Valter** | `/v1/retrieve`, `/v1/similar_cases`, pipeline graph-led |
+| Processamento LLM | **Valter** | Backend central de reasoning durante a migração Juca → Valter |
+| Grafo de conhecimento e explicabilidade | **Valter** | `/v1/graph/*`, reasoning chain, verificação, MCP |
 | Verificação de citações | **Valter** | `/v1/verify` |
-| Legislação federal | **Leci** (futuro) | Ainda não disponível — apenas schema do banco |
+| Grounding legislativo federal | **Leci** | Engine legislativa document-first com baseline em `/api/search` |
+| Artefatos doutrinários | **Douto → Valter** | Pipeline local de doutrina alimentando o Valter, não o Juca diretamente |
 
 ## Decisões Principais
 
