@@ -14,16 +14,17 @@ const ecosystemDiagram = `<pre><code class="language-mermaid">graph TB
     subgraph "Valter"
         API[REST API]
         MCP[MCP]
+        INGEST[Adaptadores de grounding&lt;br/&gt;ingestao e handoff]
         RETRIEVAL[Graph-led retrieval]
         REASONING[Verificacao + reasoning]
     end
 
     subgraph "Fornecedores internos"
-        LECI[Leci&lt;br/&gt;legislacao document-first]
-        DOUTO[Douto&lt;br/&gt;artefatos doutrinarios]
+        LECI[Leci&lt;br/&gt;legislacao document-first&lt;br/&gt;runtime e storage proprios]
+        DOUTO[Douto&lt;br/&gt;artefatos doutrinarios&lt;br/&gt;pipeline local e corpus proprio]
     end
 
-    subgraph "Data layer do Valter"
+    subgraph "Stores do Valter"
         PG[(PostgreSQL)]
         QD[(Qdrant)]
         N4J[(Neo4j)]
@@ -35,8 +36,11 @@ const ecosystemDiagram = `<pre><code class="language-mermaid">graph TB
     JUCA --&gt; API
     API --&gt; RETRIEVAL
     API --&gt; REASONING
-    LECI --&gt; API
-    DOUTO --&gt; API
+    LECI --&gt; INGEST
+    DOUTO --&gt; INGEST
+    INGEST --&gt; PG
+    INGEST --&gt; QD
+    INGEST --&gt; N4J
     RETRIEVAL --&gt; PG &amp; QD &amp; N4J &amp; RD
     REASONING --&gt; PG &amp; N4J</code></pre>`;
 
@@ -69,6 +73,14 @@ const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
     especializado, sem disputar o papel de frontend ou de backend juridico central.
   </p>
 
+  <p>
+    O diagrama abaixo e uma <strong>visao de fronteiras e ownership</strong>. Os
+    bancos a direita pertencem ao Valter, enquanto Leci e Douto continuam como
+    fornecedores upstream com runtimes e pipelines de dados proprios. Eles entram
+    por contratos de ingestao e grounding, em vez de acoplarem diretamente a
+    camada interna de storage do Valter.
+  </p>
+
   <Fragment set:html={ecosystemDiagram} />
 
   <h2>Pipeline de Busca</h2>
@@ -96,7 +108,7 @@ const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
     </tbody>
   </table>
 
-  <h2>Camada de dados do Valter</h2>
+  <h2>Camada de dados sob ownership do Valter</h2>
 
   <ul>
     <li><strong>PostgreSQL</strong> para documentos, metadados e estado operacional</li>

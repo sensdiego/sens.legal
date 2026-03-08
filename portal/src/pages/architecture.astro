@@ -14,16 +14,17 @@ const ecosystemDiagram = `<pre><code class="language-mermaid">graph TB
     subgraph "Valter"
         API[REST API]
         MCP[MCP]
+        INGEST[Grounding adapters&lt;br/&gt;ingestion and handoff]
         RETRIEVAL[Graph-led retrieval]
         REASONING[Verification + reasoning]
     end
 
     subgraph "Internal providers"
-        LECI[Leci&lt;br/&gt;document-first legislation]
-        DOUTO[Douto&lt;br/&gt;doctrinal artifacts]
+        LECI[Leci&lt;br/&gt;document-first legislation&lt;br/&gt;own runtime and storage]
+        DOUTO[Douto&lt;br/&gt;doctrinal artifacts&lt;br/&gt;local pipeline and corpus]
     end
 
-    subgraph "Valter data layer"
+    subgraph "Valter-owned stores"
         PG[(PostgreSQL)]
         QD[(Qdrant)]
         N4J[(Neo4j)]
@@ -35,8 +36,11 @@ const ecosystemDiagram = `<pre><code class="language-mermaid">graph TB
     JUCA --&gt; API
     API --&gt; RETRIEVAL
     API --&gt; REASONING
-    LECI --&gt; API
-    DOUTO --&gt; API
+    LECI --&gt; INGEST
+    DOUTO --&gt; INGEST
+    INGEST --&gt; PG
+    INGEST --&gt; QD
+    INGEST --&gt; N4J
     RETRIEVAL --&gt; PG &amp; QD &amp; N4J &amp; RD
     REASONING --&gt; PG &amp; N4J</code></pre>`;
 
@@ -69,6 +73,14 @@ const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
     grounding rather than competing to be the frontend or the central legal backend.
   </p>
 
+  <p>
+    The diagram below is a <strong>boundary and ownership view</strong>. The data
+    stores on the right belong to Valter, while Leci and Douto remain upstream
+    providers with their own runtimes and data pipelines. They contribute through
+    ingestion and grounding contracts instead of coupling directly to Valter's
+    internal storage layer.
+  </p>
+
   <Fragment set:html={ecosystemDiagram} />
 
   <h2>Search Pipeline</h2>
@@ -96,7 +108,7 @@ const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
     </tbody>
   </table>
 
-  <h2>Valter data layer</h2>
+  <h2>Valter-owned data layer</h2>
 
   <ul>
     <li><strong>PostgreSQL</strong> for documents, metadata, and operational state</li>
