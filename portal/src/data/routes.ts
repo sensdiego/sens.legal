@@ -34,9 +34,9 @@ export const routes: RouteGroup[] = [
     title: 'USE CASES',
     titlePtBr: 'CASOS DE USO',
     items: [
-      { label: 'Semantic Search', labelPtBr: 'Busca Semantica', slug: '/use-cases/search' },
+      { label: 'Legal Search', labelPtBr: 'Busca Juridica', slug: '/use-cases/search' },
       { label: 'Verify Claims', labelPtBr: 'Verificar Alegacoes', slug: '/use-cases/verify' },
-      { label: 'Optimal Argument', labelPtBr: 'Melhor Argumento', slug: '/use-cases/argument' },
+      { label: 'Assisted Argumentation', labelPtBr: 'Argumentacao Assistida', slug: '/use-cases/argument' },
       { label: 'Case Analysis', labelPtBr: 'Analise de Processo', slug: '/use-cases/case' },
     ],
   },
