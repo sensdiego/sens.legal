@@ -49,24 +49,24 @@ export const projects: Project[] = [
       currentStageLabel: 'Unified pipeline + reasoning',
       currentStageLabelPtBr: 'Pipeline unificado + reasoning',
       summary:
-        'This roadmap position mirrors the Juca -> Valter migration: canonical triage, schema work, and graph-led retrieval are done, while the unified pipeline landed in main on March 8, 2026 with follow-up validation still open.',
+        'Migration core is advanced: triage, schema work, and graph-led retrieval are done, the unified pipeline is merged, and validation follow-up is still open.',
       summaryPtBr:
-        'Esta posicao no roadmap espelha a migracao Juca -> Valter: triagem canonica, schema e graph-led retrieval ja foram concluidos, enquanto o pipeline unificado entrou em main em 8 de marco de 2026 com validacoes complementares ainda em aberto.',
+        'O nucleo da migracao ja avancou: triagem, schema e graph-led retrieval foram concluidos, o pipeline unificado ja foi mergeado, e o follow-up de validacao segue em aberto.',
       now:
-        'Regularize Neo4j schema consolidation and live A/B validation after the merged unified pipeline.',
+        'Finish Neo4j schema consolidation and live A/B validation.',
       nowPtBr:
-        'Regularizar a consolidacao do schema Neo4j e a validacao A/B com dados reais apos o merge do pipeline unificado.',
+        'Concluir a consolidacao do schema Neo4j e a validacao A/B com dados reais.',
       next:
-        'Resume chat orchestration and final backend cutover from Juca once validation blockers are cleared.',
+        'Start chat orchestration and the final backend cutover from Juca.',
       nextPtBr:
-        'Retomar a orquestracao de chat e o cutover final do backend que sai do Juca assim que os bloqueios de validacao forem removidos.',
+        'Iniciar a orquestracao de chat e o cutover final do backend que sai do Juca.',
       blockers: [
-        'Neo4j schema consolidation is still required before trustworthy live evaluation.',
-        'Aura live validation and secrets setup are still pending in CI.',
+        'Schema consolidation still blocks trustworthy live evaluation.',
+        'Aura live validation still depends on CI secrets setup.',
       ],
       blockersPtBr: [
-        'A consolidacao do schema Neo4j ainda e necessaria antes de uma avaliacao live confiavel.',
-        'A validacao live no Aura e a configuracao de secrets no CI seguem pendentes.',
+        'A consolidacao do schema ainda bloqueia uma avaliacao live confiavel.',
+        'A validacao live no Aura ainda depende da configuracao de secrets no CI.',
       ],
       stages: [
         { title: 'Canonical triage', titlePtBr: 'Triagem canonica' },
@@ -94,24 +94,24 @@ export const projects: Project[] = [
       currentStageLabel: 'Hub foundation',
       currentStageLabelPtBr: 'Fundacao do hub',
       summary:
-        'The interface base already exists, but the roadmap is still at the hub-foundation milestone: reset the UX, integrate Valter cleanly, and finish moving legal backend ownership out of Juca.',
+        'The interface base exists, but the roadmap is still in hub-foundation mode: reset the UX, integrate Valter cleanly, and finish backend decoupling.',
       summaryPtBr:
-        'A base de interface ja existe, mas o roadmap ainda esta no milestone de fundacao do hub: resetar a UX, integrar o Valter de forma limpa e concluir a saida do ownership do backend juridico de dentro do Juca.',
+        'A base de interface ja existe, mas o roadmap ainda esta em modo fundacao do hub: resetar a UX, integrar o Valter com clareza e concluir o desacoplamento do backend.',
       now:
-        'Reset the hub UX, add the agent adapter layer, and integrate Valter as the primary legal backend.',
+        'Reset the hub UX, add the agent adapter layer, and integrate Valter.',
       nowPtBr:
-        'Resetar a UX do hub, adicionar a camada de adaptadores para agentes e integrar o Valter como backend juridico principal.',
+        'Resetar a UX do hub, adicionar a camada de adaptadores para agentes e integrar o Valter.',
       next:
-        'Ship progressive briefing on top of external backend calls and then remove duplicated local backend paths.',
+        'Ship progressive briefing on external backend calls and remove duplicated local backend paths.',
       nextPtBr:
-        'Entregar o briefing progressivo sobre chamadas a backends externos e depois remover caminhos locais de backend duplicado.',
+        'Entregar o briefing progressivo sobre chamadas a backends externos e remover caminhos locais de backend duplicado.',
       blockers: [
-        'Frontend cleanup and failing test debt are still part of the foundation milestone.',
-        'Backend migration into Valter needs to stay ahead of Juca cutover work.',
+        'Frontend cleanup and test debt still belong to the foundation milestone.',
+        'Valter migration still needs to stay ahead of Juca cutover work.',
       ],
       blockersPtBr: [
         'Cleanup de frontend e divida de testes ainda fazem parte do milestone de fundacao.',
-        'A migracao do backend para o Valter precisa seguir a frente do trabalho de cutover do Juca.',
+        'A migracao para o Valter ainda precisa seguir a frente do cutover do Juca.',
       ],
       stages: [
         { title: 'Hub foundation', titlePtBr: 'Fundacao do hub' },
@@ -138,24 +138,24 @@ export const projects: Project[] = [
       currentStageLabel: 'Canonical legal reference resolution',
       currentStageLabelPtBr: 'Resolucao canonica de referencia juridica',
       summary:
-        'Foundation reliability is already operational: live /api/search, typed contracts, a working shell, and real-data validation. The roadmap position is now canonical document resolution.',
+        'Foundation is operational: live /api/search, typed contracts, a working shell, and real-data validation. The roadmap has moved to canonical reference resolution.',
       summaryPtBr:
-        'A fundacao ja esta operacional: /api/search ao vivo, contratos tipados, shell funcional e validacao com dados reais. A posicao atual do roadmap agora e resolucao canonica de documentos.',
+        'A fundacao ja esta operacional: /api/search ao vivo, contratos tipados, shell funcional e validacao com dados reais. O roadmap agora entrou em resolucao canonica de referencia.',
       now:
-        'Resolve statutes by alias, abbreviation, number, and year, then map provisions with structural context.',
+        'Resolve statutes by alias, abbreviation, number, and year, then map provisions.',
       nowPtBr:
-        'Resolver normas por alias, sigla, numero e ano, e depois mapear dispositivos com contexto estrutural.',
+        'Resolver normas por alias, sigla, numero e ano, e depois mapear dispositivos.',
       next:
         'Expose document-first reader and grounding contracts for Valter and Juca.',
       nextPtBr:
         'Expor reader document-first e contratos de grounding para o Valter e para o Juca.',
       blockers: [
-        'The current search baseline still indexes node text rather than canonical document resolution.',
-        'Ambiguous legal citations still need dedicated resolution and disambiguation flows.',
+        'The current search baseline still indexes node text instead of canonical documents.',
+        'Ambiguous legal citations still need dedicated resolution flows.',
       ],
       blockersPtBr: [
-        'A baseline atual de busca ainda indexa texto de nos, nao resolucao canonica de documentos.',
-        'Citacoes juridicas ambiguas ainda precisam de fluxos dedicados de resolucao e desambiguacao.',
+        'A baseline atual de busca ainda indexa texto de nos, nao documentos canonicos.',
+        'Citacoes juridicas ambiguas ainda precisam de fluxos dedicados de resolucao.',
       ],
       stages: [
         { title: 'Foundation API and setup reliability', titlePtBr: 'Fundacao de API e confiabilidade de setup' },
@@ -182,24 +182,24 @@ export const projects: Project[] = [
       currentStageLabel: 'Reproducible foundation',
       currentStageLabelPtBr: 'Fundacao reproduzivel',
       summary:
-        'Strategic direction is aligned, but the production roadmap still starts with making the local doctrine pipeline reproducible before retrieval or synthesis claims.',
+        'Direction is aligned, but production still starts with a reproducible local doctrine pipeline before any retrieval or synthesis claims.',
       summaryPtBr:
-        'A direcao estrategica esta alinhada, mas o roadmap de producao ainda comeca por tornar o pipeline local de doutrina reproduzivel antes de qualquer discurso de retrieval ou sintese.',
+        'A direcao esta alinhada, mas o roadmap de producao ainda comeca por tornar o pipeline local de doutrina reproduzivel antes de qualquer claim de retrieval ou sintese.',
       now:
-        'Regularize local paths, CLI behavior, and reproducible pipeline setup for contracts and civil procedure.',
+        'Regularize local paths, CLI behavior, and reproducible setup.',
       nowPtBr:
-        'Regularizar paths locais, comportamento de CLI e setup reproduzivel do pipeline para contratos e processo civil.',
+        'Regularizar paths locais, comportamento de CLI e setup reproduzivel.',
       next:
-        'Measure doctrinal quality and define the artifact handoff contract into Valter.',
+        'Measure doctrinal quality and define the artifact handoff into Valter.',
       nextPtBr:
-        'Medir a qualidade doutrinaria e definir o contrato de handoff de artefatos para o Valter.',
+        'Medir a qualidade doutrinaria e definir o handoff de artefatos para o Valter.',
       blockers: [
         'The pipeline still depends on creator-machine path regularization.',
-        'Enrichment and retrieval quality still need explicit measurement before public-facing claims.',
+        'Enrichment and retrieval quality still need explicit measurement.',
       ],
       blockersPtBr: [
         'O pipeline ainda depende da regularizacao de paths da maquina do criador.',
-        'A qualidade de enrichment e retrieval ainda precisa ser medida explicitamente antes de claims publicos.',
+        'A qualidade de enrichment e retrieval ainda precisa ser medida explicitamente.',
       ],
       stages: [
         { title: 'Reproducible foundation', titlePtBr: 'Fundacao reproduzivel' },

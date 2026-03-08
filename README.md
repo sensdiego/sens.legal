@@ -37,10 +37,10 @@ define implementation phases more clearly than the progress log alone.
 
 | Project | Roadmap position | Now | Next |
 |---------|------------------|-----|------|
-| Valter | Stage 4 of 6 - Unified pipeline + reasoning<br>`[#######---]` | Regularize Neo4j schema consolidation and live A/B validation after the merged unified pipeline. | Resume chat orchestration and final backend cutover from Juca once validation blockers are cleared. |
-| Juca | Stage 1 of 5 - Hub foundation<br>`[##--------]` | Reset the hub UX, add the agent adapter layer, and integrate Valter as the primary legal backend. | Ship progressive briefing on top of external backend calls and then remove duplicated local backend paths. |
-| Leci | Stage 2 of 5 - Canonical legal reference resolution<br>`[####------]` | Resolve statutes by alias, abbreviation, number, and year, then map provisions with structural context. | Expose document-first reader and grounding contracts for Valter and Juca. |
-| Douto | Stage 1 of 5 - Reproducible foundation<br>`[##--------]` | Regularize local paths, CLI behavior, and reproducible pipeline setup for contracts and civil procedure. | Measure doctrinal quality and define the artifact handoff contract into Valter. |
+| Valter | Stage 4 of 6 - Unified pipeline + reasoning<br>`[#######---]` | Finish Neo4j schema consolidation and live A/B validation. | Start chat orchestration and the final backend cutover from Juca. |
+| Juca | Stage 1 of 5 - Hub foundation<br>`[##--------]` | Reset the hub UX, add the agent adapter layer, and integrate Valter. | Ship progressive briefing on external backend calls and remove duplicated local backend paths. |
+| Leci | Stage 2 of 5 - Canonical legal reference resolution<br>`[####------]` | Resolve statutes by alias, abbreviation, number, and year, then map provisions. | Expose document-first reader and grounding contracts for Valter and Juca. |
+| Douto | Stage 1 of 5 - Reproducible foundation<br>`[##--------]` | Regularize local paths, CLI behavior, and reproducible setup. | Measure doctrinal quality and define the artifact handoff into Valter. |
 
 ## What This Repo Owns
 
