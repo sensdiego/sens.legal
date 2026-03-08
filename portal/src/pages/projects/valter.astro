@@ -1,5 +1,13 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
+import ProjectRoadmapStatus from '../../components/ProjectRoadmapStatus.astro';
+import { projects } from '../../data/projects';
+
+const project = projects.find((item) => item.subdomain === 'valter');
+
+if (!project) {
+  throw new Error('Valter project data not found');
+}
 ---
 
 <DocsLayout title="Valter" description="Central jurisprudence and reasoning backend for the sens.legal ecosystem.">
@@ -45,13 +53,9 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
     <li><strong>Deploy:</strong> Railway</li>
   </ul>
 
-  <h2>Current status</h2>
+  <h2>Roadmap status</h2>
 
-  <ul>
-    <li>Phase 2 of the Juca -&gt; Valter migration is completed in code</li>
-    <li>Phase 3 is paused until the Neo4j schema and A/B validation are regularized</li>
-    <li>Next phases focus on chat orchestration, backend unification, and final cutover</li>
-  </ul>
+  <ProjectRoadmapStatus project={project} />
 
   <h2>Links</h2>
 

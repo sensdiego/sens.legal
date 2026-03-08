@@ -1,5 +1,13 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ProjectRoadmapStatus from '../../../components/ProjectRoadmapStatus.astro';
+import { projects } from '../../../data/projects';
+
+const project = projects.find((item) => item.subdomain === 'douto');
+
+if (!project) {
+  throw new Error('Douto project data not found');
+}
 ---
 
 <DocsLayout title="Douto" description="Pipeline local de doutrina e fornecedor interno de artefatos doutrinarios para o Valter." lang="pt-br">
@@ -42,14 +50,9 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
     <li><strong>Base editorial:</strong> Markdown + convencoes Obsidian</li>
   </ul>
 
-  <h2>Prioridades atuais</h2>
+  <h2>Status do roadmap</h2>
 
-  <ol>
-    <li>Fundacao reproduzivel para pipeline e paths locais</li>
-    <li>Quality gate para contratos e processo civil</li>
-    <li>Contrato de artefato para handoff ao Valter</li>
-    <li>Retrieval explicavel e sintese so depois dos gates anteriores</li>
-  </ol>
+  <ProjectRoadmapStatus project={project} lang="pt-br" />
 
   <h2>Links</h2>
 

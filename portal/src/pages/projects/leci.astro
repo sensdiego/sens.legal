@@ -1,5 +1,13 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
+import ProjectRoadmapStatus from '../../components/ProjectRoadmapStatus.astro';
+import { projects } from '../../data/projects';
+
+const project = projects.find((item) => item.subdomain === 'leci');
+
+if (!project) {
+  throw new Error('Leci project data not found');
+}
 ---
 
 <DocsLayout title="Leci" description="Document-first legislation engine for reliable grounding in the sens.legal ecosystem.">
@@ -40,14 +48,9 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
     <li><strong>Infra:</strong> Railway</li>
   </ul>
 
-  <h2>Current direction</h2>
+  <h2>Roadmap status</h2>
 
-  <ul>
-    <li>Canonical regulation resolution by alias, abbreviation, number, and year</li>
-    <li>Provision resolution and reading with legislative context</li>
-    <li>Grounding contracts for Valter and Juca</li>
-    <li>Corpus, quality, observability, and rollout work</li>
-  </ul>
+  <ProjectRoadmapStatus project={project} />
 
   <h2>Links</h2>
 

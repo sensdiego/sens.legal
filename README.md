@@ -29,6 +29,19 @@ sens.legal is organized around four projects:
 - **Leci**: the document-first legislation engine used for reliable grounding
 - **Douto**: the local doctrine pipeline that produces doctrinal artifacts for Valter
 
+## Roadmap Snapshot
+
+This is a public-facing editorial snapshot derived from each project's progress
+file plus project-specific roadmap or migration artifacts when those documents
+define implementation phases more clearly than the progress log alone.
+
+| Project | Roadmap position | Now | Next |
+|---------|------------------|-----|------|
+| Valter | Stage 4 of 6 - Unified pipeline + reasoning<br>`[#######---]` | Regularize Neo4j schema consolidation and live A/B validation after the merged unified pipeline. | Resume chat orchestration and final backend cutover from Juca once validation blockers are cleared. |
+| Juca | Stage 1 of 5 - Hub foundation<br>`[##--------]` | Reset the hub UX, add the agent adapter layer, and integrate Valter as the primary legal backend. | Ship progressive briefing on top of external backend calls and then remove duplicated local backend paths. |
+| Leci | Stage 2 of 5 - Canonical legal reference resolution<br>`[####------]` | Resolve statutes by alias, abbreviation, number, and year, then map provisions with structural context. | Expose document-first reader and grounding contracts for Valter and Juca. |
+| Douto | Stage 1 of 5 - Reproducible foundation<br>`[##--------]` | Regularize local paths, CLI behavior, and reproducible pipeline setup for contracts and civil procedure. | Measure doctrinal quality and define the artifact handoff contract into Valter. |
+
 ## What This Repo Owns
 
 This repo is where we maintain:
@@ -47,7 +60,7 @@ The README is an entry point, not the canonical source of project status.
 Use this rule:
 
 1. Implementation details: trust the project repository.
-2. Project status, migration state, and roadmap reality: trust each project's `progress.md` / `PROGRESS.md`.
+2. Project status, migration state, and roadmap reality: trust each project's `progress.md` / `PROGRESS.md`, then read roadmap or migration artifacts when they define implementation phases more clearly.
 3. This repo: trust it for institutional presentation, portal copy, synced docs, and deploy wiring for those surfaces.
 
 The root [`progress.md`](progress.md) in this repo is only for work tracked inside the `sens.legal` docs/portal monorepo itself.

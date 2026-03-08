@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import { projects } from '../../data/projects';
+import ProjectRoadmapStatus from '../../components/ProjectRoadmapStatus.astro';
 ---
 
 <DocsLayout title="Inicio" description="Infraestrutura de inteligencia juridica para o direito brasileiro." lang="pt-br">
@@ -67,6 +68,12 @@ import { projects } from '../../data/projects';
 
   <h2>Projetos</h2>
 
+  <p>
+    A posicao no roadmap e editorial, nao uma porcentagem exata: ela combina o
+    arquivo de progresso de cada projeto com roadmaps ou artefatos de migracao
+    quando esses documentos definem melhor as etapas de implementacao.
+  </p>
+
   <div class="project-list">
     {projects.map((project) => (
       <div class="project-item">
@@ -75,6 +82,7 @@ import { projects } from '../../data/projects';
           <span class="badge badge-dev">{project.status}</span>
         </div>
         <p class="project-desc">{project.descriptionPtBr}</p>
+        <ProjectRoadmapStatus project={project} lang="pt-br" compact />
         <div class="project-stack">
           {project.stack.map((tech) => (
             <code>{tech}</code>

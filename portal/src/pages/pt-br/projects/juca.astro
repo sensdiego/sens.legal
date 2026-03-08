@@ -1,5 +1,13 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ProjectRoadmapStatus from '../../../components/ProjectRoadmapStatus.astro';
+import { projects } from '../../../data/projects';
+
+const project = projects.find((item) => item.subdomain === 'juca');
+
+if (!project) {
+  throw new Error('Juca project data not found');
+}
 ---
 
 <DocsLayout title="Juca" description="Hub frontend para advogados no ecossistema sens.legal." lang="pt-br">
@@ -39,13 +47,9 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
     <li><strong>Deploy:</strong> Vercel</li>
   </ul>
 
-  <h2>Estado atual</h2>
+  <h2>Status do roadmap</h2>
 
-  <ul>
-    <li>Fluxos de briefing, canvas e leitura seguem como centro do produto</li>
-    <li>PRs e cleanups recentes focam estabilidade do frontend e desbloqueio de pipeline</li>
-    <li>A migracao do backend para o Valter continua sendo a diretriz canonica</li>
-  </ul>
+  <ProjectRoadmapStatus project={project} lang="pt-br" />
 
   <h2>Links</h2>
 

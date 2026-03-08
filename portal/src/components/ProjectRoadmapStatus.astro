@@ -1,0 +1,245 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+  lang?: 'en' | 'pt-br';
+  compact?: boolean;
+}
+
+const { project, lang = 'en', compact = false } = Astro.props;
+const isPtBr = lang === 'pt-br';
+const roadmap = project.roadmap;
+const progress = `${Math.round((roadmap.currentStage / roadmap.totalStages) * 100)}%`;
+const blockers = isPtBr ? roadmap.blockersPtBr : roadmap.blockers;
+const labels = isPtBr
+  ? {
+      kicker: 'Posicao no roadmap',
+      stage: 'Etapa',
+      of: 'de',
+      now: 'Agora',
+      next: 'Proximo',
+      blockers: 'Bloqueios e dependencias',
+      stageMap: 'Mapa de etapas',
+      source:
+        'Snapshot editorial derivado de progress, roadmap e, quando relevante, arquivos canonicos de migracao.',
+    }
+  : {
+      kicker: 'Roadmap position',
+      stage: 'Stage',
+      of: 'of',
+      now: 'Now',
+      next: 'Next',
+      blockers: 'Blockers and dependencies',
+      stageMap: 'Stage map',
+      source:
+        'Editorial snapshot derived from project progress, roadmap, and migration files when they add phase-specific context.',
+    };
+---
+
+<section class:list={['roadmap-status', compact && 'compact']}>
+  <div class="roadmap-header">
+    <div>
+      <p class="roadmap-kicker">{labels.kicker}</p>
+      <p class="roadmap-position">
+        {labels.stage} {roadmap.currentStage} {labels.of} {roadmap.totalStages}
+      </p>
+    </div>
+    <p class="roadmap-current">
+      {isPtBr ? roadmap.currentStageLabelPtBr : roadmap.currentStageLabel}
+    </p>
+  </div>
+
+  <div
+    class="roadmap-bar"
+    role="img"
+    aria-label={`${labels.stage} ${roadmap.currentStage} ${labels.of} ${roadmap.totalStages}`}
+  >
+    <span style={`width:${progress}`}></span>
+  </div>
+
+  <p class="roadmap-summary">{isPtBr ? roadmap.summaryPtBr : roadmap.summary}</p>
+
+  <div class="roadmap-columns">
+    <div class="roadmap-column">
+      <p class="roadmap-micro">{labels.now}</p>
+      <p>{isPtBr ? roadmap.nowPtBr : roadmap.now}</p>
+    </div>
+    <div class="roadmap-column">
+      <p class="roadmap-micro">{labels.next}</p>
+      <p>{isPtBr ? roadmap.nextPtBr : roadmap.next}</p>
+    </div>
+  </div>
+
+  {!compact && blockers.length > 0 && (
+    <>
+      <h3>{labels.blockers}</h3>
+      <ul class="roadmap-list">
+        {blockers.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+
+      <h3>{labels.stageMap}</h3>
+      <ol class="stage-list">
+        {roadmap.stages.map((stage, index) => {
+          const stageNumber = index + 1;
+          const stageState =
+            stageNumber < roadmap.currentStage
+              ? 'done'
+              : stageNumber === roadmap.currentStage
+                ? 'current'
+                : 'upcoming';
+
+          return (
+            <li class:list={['stage-item', stageState]}>
+              <span class="stage-number">{stageNumber}</span>
+              <span>{isPtBr ? stage.titlePtBr : stage.title}</span>
+            </li>
+          );
+        })}
+      </ol>
+
+      <p class="roadmap-source">{labels.source}</p>
+    </>
+  )}
+</section>
+
+<style>
+  .roadmap-status {
+    margin-top: var(--space-md);
+    padding: var(--space-lg);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    background: rgba(148, 163, 184, 0.05);
+  }
+
+  .roadmap-status.compact {
+    margin-top: var(--space-sm);
+    padding: var(--space-md);
+    border-radius: 0.5rem;
+  }
+
+  .roadmap-header {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
+    align-items: flex-start;
+    margin-bottom: var(--space-sm);
+  }
+
+  .roadmap-kicker,
+  .roadmap-micro,
+  .roadmap-source {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .roadmap-position,
+  .roadmap-current {
+    margin: 0.125rem 0 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .roadmap-current {
+    text-align: right;
+  }
+
+  .roadmap-bar {
+    height: 0.55rem;
+    border-radius: 9999px;
+    background: rgba(148, 163, 184, 0.18);
+    overflow: hidden;
+  }
+
+  .roadmap-bar span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #111827 0%, #4b5563 100%);
+  }
+
+  .roadmap-summary {
+    margin-top: var(--space-md);
+    color: var(--color-text-secondary);
+  }
+
+  .roadmap-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-md);
+    margin-top: var(--space-md);
+  }
+
+  .roadmap-column p:last-child {
+    margin-bottom: 0;
+  }
+
+  .roadmap-list {
+    margin-top: var(--space-sm);
+  }
+
+  .stage-list {
+    display: grid;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .stage-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: 0.65rem 0.8rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+  }
+
+  .stage-item.done {
+    background: rgba(17, 24, 39, 0.06);
+    color: var(--color-text);
+  }
+
+  .stage-item.current {
+    background: rgba(17, 24, 39, 0.12);
+    border-color: rgba(17, 24, 39, 0.25);
+    color: var(--color-text);
+  }
+
+  .stage-number {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid currentColor;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  .roadmap-source {
+    margin-top: var(--space-md);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 42rem) {
+    .roadmap-header,
+    .roadmap-columns {
+      grid-template-columns: 1fr;
+      display: grid;
+    }
+
+    .roadmap-current {
+      text-align: left;
+    }
+  }
+</style>
