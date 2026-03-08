@@ -65,6 +65,9 @@ Use this rule:
 
 The root [`progress.md`](progress.md) in this repo is only for work tracked inside the `sens.legal` docs/portal monorepo itself.
 
+The public snapshot policy for GitHub and portal surfaces is documented in
+[`EDITORIAL_SNAPSHOT.md`](EDITORIAL_SNAPSHOT.md).
+
 ## Repository Structure
 
 ```text
