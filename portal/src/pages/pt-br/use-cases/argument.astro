@@ -2,71 +2,68 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 ---
 
-<DocsLayout title="Melhor Argumento" description="Encontre os argumentos juridicos mais fortes usando analytics do knowledge graph." lang="pt-br">
-  <h1>Melhor Argumento</h1>
+<DocsLayout title="Argumentacao Assistida" description="Construa argumentos com jurisprudencia, grounding e reasoning chain." lang="pt-br">
+  <h1>Argumentacao Assistida</h1>
   <span class="badge badge-dev">em desenvolvimento</span>
 
   <p>
-    Encontre os argumentos juridicos mais fortes para uma dada categoria, criterio
-    ou ministro. O sistema analisa o knowledge graph para identificar quais
-    argumentos tem as maiores taxas de sucesso, quais criterios sao mais
-    frequentemente aplicados e quais precedentes tem mais peso.
+    O caso de uso de argumentacao no sens.legal nao depende de um calculo fechado
+    de "melhor argumento". A direcao atual e montar respostas assistidas com
+    jurisprudencia relevante, contexto legislativo, artefatos doutrinarios e
+    reasoning chain auditavel.
   </p>
 
   <h2>Como funciona</h2>
 
   <ol>
-    <li>O knowledge graph e consultado para decisoes que correspondem a sua categoria e filtros</li>
-    <li>Taxas de sucesso sao computadas por criterio, dispositivo legal e padrao de argumento</li>
-    <li>Scores de PageRank ponderam a influencia de cada precedente</li>
-    <li>Analise especifica por ministro revela preferencias e padroes</li>
-    <li>Resultados sao ranqueados por score de forca composto</li>
+    <li>Valter recupera a jurisprudencia relevante via retrieval graph-led</li>
+    <li>A cadeia de reasoning explica por que cada decisao entra na resposta</li>
+    <li>Leci pode adicionar grounding legislativo quando o caso exige texto normativo</li>
+    <li>Douto pode fornecer artefatos doutrinarios quando houver handoff preparado</li>
+    <li>Juca transforma esse material em briefing e canvas para trabalho humano</li>
   </ol>
 
   <h2>Exemplo</h2>
 
   <h4>Request</h4>
 
-  <pre><code>POST /api/v1/graph/optimal-argument
+<pre><code>POST /api/v1/graph/optimal-argument
 Content-Type: application/json
 
 {"{"}
   "category": "Direito do Consumidor",
-  "criterion": "defeito do produto",
-  "ministro": "Nancy Andrighi"
+  "question": "quais fundamentos vale sustentar em defeito do produto?"
 {"}"}</code></pre>
 
   <h4>Response</h4>
 
-  <pre><code>{"{"}
-  "optimal_arguments": [
+<pre><code>{"{"}
+  "thesis_candidates": [
     {"{"}
-      "argument_pattern": "Responsabilidade objetiva do fornecedor",
-      "success_rate": 0.87,
-      "supporting_decisions": 34,
-      "key_precedents": ["Sumula 297/STJ", "REsp 1.234.567/SP"],
-      "recommended_devices": ["Art. 12 do CDC", "Art. 14 do CDC"],
-      "minister_alignment": 0.92
+      "thesis": "Responsabilidade objetiva do fornecedor",
+      "supporting_decisions": ["REsp 1.234.567/SP"],
+      "legislation": ["Art. 12 do CDC", "Art. 14 do CDC"],
+      "why_it_matters": "criterio recorrente em casos analogos"
     {"}"}
   ],
-  "total_decisions_analyzed": 156
+  "reasoning_chain": ["fatos relevantes", "criterio aplicado", "precedentes citados"],
+  "grounding_sources": ["jurisprudencia", "legislacao"]
 {"}"}</code></pre>
 
   <h2>O que torna diferente</h2>
 
   <p>
-    Em vez de ler centenas de decisoes para encontrar a melhor abordagem, o
-    knowledge graph calcula isso. Taxas de sucesso, preferencias de ministros e
-    peso de precedentes sao derivados da estrutura real de 12.091 decisoes
-    e 194.496 relacionamentos — nao de texto resumido.
+    A resposta deixa de ser um score misterioso e passa a ser um conjunto de
+    fundamentos explicados. O valor esta na rastreabilidade entre pergunta,
+    jurisprudencia recuperada, normas aplicaveis e raciocinio que liga tudo isso.
   </p>
 
   <h2>Disponivel via</h2>
 
   <ul>
-    <li><code>POST /api/v1/graph/optimal-argument</code> — REST API</li>
-    <li><code>GetOptimalArgument</code> — tool MCP</li>
-    <li><code>GetOptimalArgumentByMinistro</code> — tool MCP (por ministro)</li>
+    <li><a href="/pt-br/projects/juca">Juca</a> para a experiencia de briefing e argumentacao</li>
+    <li><a href="/pt-br/api/rest">Gateway da REST API do Valter</a></li>
+    <li><a href="/pt-br/api/mcp">Gateway das tools MCP do Valter</a></li>
   </ul>
 </DocsLayout>
 

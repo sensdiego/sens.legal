@@ -2,41 +2,52 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 ---
 
-<DocsLayout title="Leci" description="Backend de legislacao — estatutos e normas brasileiras." lang="pt-br">
+<DocsLayout title="Leci" description="Engine legislativa document-first para grounding confiavel no ecossistema sens.legal." lang="pt-br">
   <h1>Leci</h1>
-  <p class="subtitle">Backend de legislacao</p>
+  <p class="subtitle">Engine legislativa document-first</p>
 
   <span class="badge badge-dev">dev</span>
 
   <p>
-    Leci e o componente de legislacao do ecossistema sens.legal. Enquanto o Valter
-    cuida da jurisprudencia (como os tribunais interpretam a lei), a Leci cuidara
-    da legislacao (o que a lei de fato diz) — estatutos, regulamentos e atos
-    normativos brasileiros como fonte de dados estruturada e pesquisavel.
+    Leci e a engine de legislacao do ecossistema sens.legal. Seu papel e fazer
+    grounding legislativo confiavel: resolver normas, dispositivos e contexto
+    documental a partir de uma estrategia <strong>document-first</strong>, em vez
+    de tratar legislacao como um anexo generico do backend de jurisprudencia.
   </p>
 
   <p>
-    Quando integrada ao Valter, a Leci permitira cruzar jurisprudencia com os
-    dispositivos legislativos especificos sendo aplicados, fechando o ciclo entre
-    como os tribunais interpretam a lei e o que a lei de fato diz.
+    Hoje o projeto ja tem <code>/api/search</code>, shell funcional de busca e
+    leitura, contrato tipado e validacao com dados reais. Os consumidores
+    prioritarios do Leci sao o Valter e o Juca, que dependem dessa camada para
+    recuperar texto vigente, citacao pronta, fonte oficial e contexto estrutural
+    de normas brasileiras.
   </p>
 
-  <h2>Tecnologias</h2>
+  <h2>O que ja esta operacional</h2>
 
   <ul>
-    <li><strong>Documentacao:</strong> Astro + Starlight</li>
-    <li><strong>Linguagem:</strong> TypeScript</li>
-    <li><strong>Backend planejado:</strong> A definir</li>
+    <li>Endpoint <code>/api/search</code> funcionando com PostgreSQL e dados reais</li>
+    <li>Shell de busca e leitura no App Router para validar a experiencia document-first</li>
+    <li>Contrato de busca validado por testes e respostas com metadados de norma</li>
+    <li>Ambiente local e validacao em Railway ja documentados</li>
   </ul>
 
-  <h2>Capacidades Planejadas</h2>
+  <h2>Stack</h2>
 
   <ul>
-    <li>Base de dados estruturada de legislacao brasileira</li>
-    <li>Rastreamento de versoes de mudancas legislativas ao longo do tempo</li>
-    <li>Referencia cruzada com o knowledge graph de jurisprudencia do Valter</li>
-    <li>Tools MCP para acesso a dados de legislacao por LLMs</li>
-    <li>REST API para consumo pelo frontend</li>
+    <li><strong>Framework:</strong> Next.js App Router</li>
+    <li><strong>Linguagem:</strong> TypeScript</li>
+    <li><strong>Banco:</strong> PostgreSQL + pgvector</li>
+    <li><strong>Infra:</strong> Railway</li>
+  </ul>
+
+  <h2>Direcao atual</h2>
+
+  <ul>
+    <li>Resolucao canonica de norma por sigla, alias, numero e ano</li>
+    <li>Resolucao de dispositivo e leitura com contexto legislativo</li>
+    <li>Contratos de grounding para o Valter e para o Juca</li>
+    <li>Corpus, qualidade, observabilidade e rollout incremental</li>
   </ul>
 
   <h2>Links</h2>

@@ -6,81 +6,81 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
   <h1>Roadmap</h1>
 
   <p>
-    Todos os projetos estao em <strong>desenvolvimento</strong>. Este roadmap reflete
-    o trabalho planejado baseado nas issues abertas nos quatro repositorios.
+    Todos os projetos seguem em <strong>desenvolvimento</strong>. Este roadmap foi
+    reescrito a partir dos arquivos canonicos de progresso de cada repositorio,
+    com foco no que realmente esta em execucao agora.
   </p>
 
   <h2>Valter</h2>
 
   <h4>Curto prazo</h4>
   <ul>
-    <li>Ambiente demo/sandbox para testes publicos</li>
-    <li>Melhorias na documentacao da API</li>
-    <li>Rate limiting e gestao de API keys</li>
-    <li>Otimizacao de performance para queries no grafo</li>
+    <li>Regularizar o schema Neo4j que bloqueia a validacao da Fase 3</li>
+    <li>Concluir o A/B eval do unified pipeline e reasoning chain</li>
+    <li>Fechar a etapa de tooling e explicabilidade da migracao Juca -&gt; Valter</li>
   </ul>
 
   <h4>Medio prazo</h4>
   <ul>
-    <li>Expansao do knowledge graph com rastreamento de evolucao temporal</li>
-    <li>Suporte multi-tribunal (TJs, TST)</li>
-    <li>Pipeline de ingestao em tempo real</li>
-    <li>MCP tools aprimoradas com respostas em streaming</li>
+    <li>Executar chat pipeline e unificacao de orquestracao no backend</li>
+    <li>Completar o cutover do backend que ainda resta no Juca</li>
+    <li>Remover codigo legado apos a migracao final</li>
   </ul>
 
   <h2>Juca</h2>
 
   <h4>Curto prazo</h4>
   <ul>
-    <li>Autenticacao de usuarios e gestao de sessoes</li>
-    <li>Polimento do workflow de briefing</li>
-    <li>Melhorias no canvas</li>
+    <li>Manter briefing, canvas e leitura estaveis enquanto o backend migra</li>
+    <li>Consumir as superfices novas do Valter conforme elas aterrissam</li>
+    <li>Seguir a sequencia canonica de PRs e desbloqueios do frontend</li>
   </ul>
 
   <h4>Medio prazo</h4>
   <ul>
-    <li>Suporte multi-tenant</li>
-    <li>Dashboard de gestao de processos</li>
-    <li>Anotacao de documentos e colaboracao</li>
-    <li>Interface responsiva para mobile</li>
-  </ul>
-
-  <h2>Douto</h2>
-
-  <h4>Curto prazo</h4>
-  <ul>
-    <li>Integracao dos embeddings doutrinarios com o Valter</li>
-    <li>Exposicao de busca doutrinaria via MCP tools</li>
-  </ul>
-
-  <h4>Medio prazo</h4>
-  <ul>
-    <li>Populacao dos MOCs faltantes (tributario, constitucional, compliance, sucessoes)</li>
-    <li>Camada de notas atomicas no skill graph</li>
-    <li>Referencia cruzada entre doutrina e knowledge graph de jurisprudencia</li>
+    <li>Fechar o desacoplamento do backend juridico do frontend</li>
+    <li>Incorporar reasoning chain e novos fluxos de argumentacao</li>
+    <li>Voltar a evoluir features de produto sobre uma base mais limpa</li>
   </ul>
 
   <h2>Leci</h2>
 
   <h4>Curto prazo</h4>
   <ul>
-    <li>Definicao da arquitetura do backend</li>
-    <li>Modelo de dados para legislacao brasileira</li>
+    <li>Iniciar a resolucao canonica de norma a partir da trilha SEN-418</li>
+    <li>Melhorar o recall alem do baseline atual do <code>/api/search</code></li>
+    <li>Firmar a leitura orientada a documento como caminho principal</li>
   </ul>
 
   <h4>Medio prazo</h4>
   <ul>
-    <li>Pipeline de ingestao de legislacao</li>
-    <li>Integracao com o knowledge graph do Valter</li>
-    <li>MCP tools para acesso a legislacao</li>
+    <li>Resolver dispositivo, contexto estrutural e historico legislativo</li>
+    <li>Entregar contratos de grounding para Valter e Juca</li>
+    <li>Expandir corpus, qualidade, observabilidade e rollout</li>
+  </ul>
+
+  <h2>Douto</h2>
+
+  <h4>Curto prazo</h4>
+  <ul>
+    <li>Fixar fundacao reproduzivel do pipeline local</li>
+    <li>Implantar quality gate para contratos e processo civil</li>
+    <li>Definir o contrato de artefato para handoff ao Valter</li>
+  </ul>
+
+  <h4>Medio prazo</h4>
+  <ul>
+    <li>Evoluir retrieval explicavel depois dos gates de qualidade</li>
+    <li>Introduzir sintese com gate proprio, sem pular etapas</li>
+    <li>Ampliar cobertura do corpus mantendo rastreabilidade editorial</li>
   </ul>
 
   <h2>Ecossistema</h2>
 
   <ul>
-    <li>Busca cross-project a partir do portal</li>
-    <li>Autenticacao unificada entre projetos</li>
-    <li>API keys publicas para testes</li>
-    <li>Documentacao abrangente para desenvolvedores</li>
+    <li>Concluir a migracao do backend juridico do Juca para o Valter</li>
+    <li>Plugar grounding legislativo e doutrinario no backend central</li>
+    <li>Manter REST API e MCP documentados canonicamente no Valter</li>
+    <li>Fazer o portal refletir o ecossistema real, sem inventario estatico desatualizado</li>
   </ul>
 </DocsLayout>

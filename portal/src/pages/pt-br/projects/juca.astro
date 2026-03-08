@@ -2,20 +2,35 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 ---
 
-<DocsLayout title="Juca" description="Frontend para advogados — a interface do ecossistema sens.legal." lang="pt-br">
+<DocsLayout title="Juca" description="Hub frontend para advogados no ecossistema sens.legal." lang="pt-br">
   <h1>Juca</h1>
-  <p class="subtitle">Frontend para advogados</p>
+  <p class="subtitle">Hub frontend para advogados</p>
 
   <span class="badge badge-dev">dev</span>
 
   <p>
-    Juca e o frontend atraves do qual profissionais do direito interagem com o
-    ecossistema sens.legal. Consome a REST API do Valter para fornecer capacidades
-    de busca, analise e gestao de processos em uma interface web desenhada para o
-    fluxo de trabalho de advogados brasileiros.
+    Juca e a interface pela qual profissionais do direito interagem com o
+    ecossistema sens.legal. Ele organiza briefing, leitura, canvas e fluxos de
+    trabalho para advogados brasileiros, servindo como hub frontend da experiencia.
   </p>
 
-  <h2>Tecnologias</h2>
+  <p>
+    O backend juridico esta saindo do Juca e migrando para o Valter. Isso
+    significa que busca, grafo, reasoning, verificacao e pipelines juridicos
+    deixam de ser responsabilidade do frontend e passam a ser consumidos como
+    servicos canonicos do backend do ecossistema.
+  </p>
+
+  <h2>Responsabilidades</h2>
+
+  <ul>
+    <li>Orquestrar a experiencia de briefing e argumentacao para usuarios finais</li>
+    <li>Consumir Valter como backend de jurisprudencia, reasoning e verificacao</li>
+    <li>Consumir Leci para grounding legislativo conforme a integracao amadurece</li>
+    <li>Manter o foco em UX, estado de interface e fluxos de trabalho</li>
+  </ul>
+
+  <h2>Stack</h2>
 
   <ul>
     <li><strong>Framework:</strong> Next.js 15</li>
@@ -24,14 +39,12 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
     <li><strong>Deploy:</strong> Vercel</li>
   </ul>
 
-  <h2>Capacidades Principais</h2>
+  <h2>Estado atual</h2>
 
   <ul>
-    <li>Busca de jurisprudencia com filtros (ministro, data, categoria, resultado)</li>
-    <li>Workflow de briefing com analise guiada por fases</li>
-    <li>Visualizador de documentos com enriquecimento IRAC</li>
-    <li>Canvas para organizacao de argumentos juridicos</li>
-    <li>Integracao com verificacao anti-alucinacao do Valter</li>
+    <li>Fluxos de briefing, canvas e leitura seguem como centro do produto</li>
+    <li>PRs e cleanups recentes focam estabilidade do frontend e desbloqueio de pipeline</li>
+    <li>A migracao do backend para o Valter continua sendo a diretriz canonica</li>
   </ul>
 
   <h2>Links</h2>

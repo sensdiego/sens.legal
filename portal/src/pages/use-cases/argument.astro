@@ -2,71 +2,68 @@
 import DocsLayout from '../../layouts/DocsLayout.astro';
 ---
 
-<DocsLayout title="Optimal Argument" description="Find the strongest legal arguments based on knowledge graph analytics.">
-  <h1>Optimal Argument</h1>
+<DocsLayout title="Assisted Argumentation" description="Build arguments from jurisprudence, grounding, and reasoning chains.">
+  <h1>Assisted Argumentation</h1>
   <span class="badge badge-dev">in development</span>
 
   <p>
-    Find the strongest legal arguments for a given category, criterion, or minister.
-    The system analyzes the knowledge graph to identify which arguments have the
-    highest success rates, which criteria are most frequently applied, and which
-    precedents carry the most weight.
+    Argumentation in sens.legal is no longer framed as a closed "optimal argument"
+    score. The current direction is to assemble assisted answers with relevant
+    jurisprudence, legislative context, doctrinal artifacts, and an auditable
+    reasoning chain.
   </p>
 
   <h2>How it works</h2>
 
   <ol>
-    <li>The knowledge graph is queried for decisions matching your category and filters</li>
-    <li>Success rates are computed per criterion, legal device, and argument pattern</li>
-    <li>PageRank scores weight the influence of each precedent</li>
-    <li>Minister-specific analysis reveals preferences and patterns</li>
-    <li>Results are ranked by composite strength score</li>
+    <li>Valter retrieves relevant jurisprudence through graph-led retrieval</li>
+    <li>The reasoning chain explains why each decision belongs in the answer</li>
+    <li>Leci can add legislative grounding when the question depends on statutory text</li>
+    <li>Douto can provide doctrinal artifacts when a handoff is available</li>
+    <li>Juca turns that material into human-facing briefing and canvas flows</li>
   </ol>
 
   <h2>Example</h2>
 
   <h4>Request</h4>
 
-  <pre><code>POST /api/v1/graph/optimal-argument
+<pre><code>POST /api/v1/graph/optimal-argument
 Content-Type: application/json
 
 {"{"}
-  "category": "Direito do Consumidor",
-  "criterion": "defeito do produto",
-  "ministro": "Nancy Andrighi"
+  "category": "Consumer Law",
+  "question": "which grounds are worth advancing in a defective product case?"
 {"}"}</code></pre>
 
   <h4>Response</h4>
 
-  <pre><code>{"{"}
-  "optimal_arguments": [
+<pre><code>{"{"}
+  "thesis_candidates": [
     {"{"}
-      "argument_pattern": "Responsabilidade objetiva do fornecedor",
-      "success_rate": 0.87,
-      "supporting_decisions": 34,
-      "key_precedents": ["Sumula 297/STJ", "REsp 1.234.567/SP"],
-      "recommended_devices": ["Art. 12 do CDC", "Art. 14 do CDC"],
-      "minister_alignment": 0.92
+      "thesis": "Strict liability of the supplier",
+      "supporting_decisions": ["REsp 1.234.567/SP"],
+      "legislation": ["Art. 12 do CDC", "Art. 14 do CDC"],
+      "why_it_matters": "recurring criterion in analogous cases"
     {"}"}
   ],
-  "total_decisions_analyzed": 156
+  "reasoning_chain": ["relevant facts", "applied criterion", "cited precedents"],
+  "grounding_sources": ["jurisprudence", "legislation"]
 {"}"}</code></pre>
 
   <h2>What makes it different</h2>
 
   <p>
-    Instead of reading hundreds of decisions to find the best approach, the
-    knowledge graph computes it. Success rates, minister preferences, and
-    precedent weight are derived from the actual structure of 12,091 decisions
-    and 194,496 relationships — not from summarized text.
+    The answer stops being a mysterious score and becomes a set of explained
+    grounds. The value lies in the traceability between the question, the retrieved
+    jurisprudence, the applicable statutes, and the reasoning that connects them.
   </p>
 
   <h2>Available via</h2>
 
   <ul>
-    <li><code>POST /api/v1/graph/optimal-argument</code> — REST API</li>
-    <li><code>GetOptimalArgument</code> — MCP tool</li>
-    <li><code>GetOptimalArgumentByMinistro</code> — MCP tool (minister-specific)</li>
+    <li><a href="/projects/juca">Juca</a> for the briefing and argument-building experience</li>
+    <li><a href="/api/rest">Valter REST API gateway</a></li>
+    <li><a href="/api/mcp">Valter MCP gateway</a></li>
   </ul>
 </DocsLayout>
 

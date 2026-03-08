@@ -2,50 +2,52 @@
 import DocsLayout from '../../layouts/DocsLayout.astro';
 ---
 
-<DocsLayout title="Leci" description="Legislation backend — Brazilian statutes and regulations.">
+<DocsLayout title="Leci" description="Document-first legislation engine for reliable grounding in the sens.legal ecosystem.">
   <h1>Leci</h1>
-  <p class="subtitle">Legislation backend</p>
+  <p class="subtitle">Document-first legislation engine</p>
 
   <span class="badge badge-dev">dev</span>
 
   <p>
-    Leci is the legislation component of the sens.legal ecosystem. While Valter
-    handles jurisprudence (how courts interpret the law), Leci will handle
-    legislation (what the law actually says) — Brazilian statutes, regulations,
-    and normative acts as a structured, searchable data source.
+    Leci is the legislation engine of the sens.legal ecosystem. Its role is to
+    provide reliable legislative grounding: resolving statutes, provisions, and
+    document context through a <strong>document-first</strong> strategy instead of
+    treating legislation as a vague extension of the jurisprudence backend.
   </p>
 
   <p>
-    When integrated with Valter, Leci will enable cross-referencing jurisprudence
-    with the specific legislative provisions being applied, closing the loop between
-    how courts interpret the law and what the law actually says.
+    The project already has a working <code>/api/search</code>, a functional search
+    and reading shell, typed contracts, and validation against live data. Leci's
+    main consumers are Valter and Juca, which depend on it for current statutory
+    text, ready-to-cite references, official sources, and structural context.
   </p>
+
+  <h2>What is already operational</h2>
+
+  <ul>
+    <li><code>/api/search</code> running against PostgreSQL and live data</li>
+    <li>Search and reading shell in the App Router to validate the document-first flow</li>
+    <li>Search contract covered by tests and enriched regulation metadata</li>
+    <li>Local workflow and Railway validation already documented</li>
+  </ul>
 
   <h2>Stack</h2>
 
   <ul>
-    <li><strong>Documentation:</strong> Astro + Starlight</li>
+    <li><strong>Framework:</strong> Next.js App Router</li>
     <li><strong>Language:</strong> TypeScript</li>
-    <li><strong>Planned backend:</strong> To be defined</li>
+    <li><strong>Database:</strong> PostgreSQL + pgvector</li>
+    <li><strong>Infra:</strong> Railway</li>
   </ul>
 
-  <h2>Planned Capabilities</h2>
+  <h2>Current direction</h2>
 
   <ul>
-    <li>Structured Brazilian legislation database</li>
-    <li>Version tracking of legislative changes over time</li>
-    <li>Cross-reference with Valter's jurisprudence knowledge graph</li>
-    <li>MCP tools for LLM access to legislation data</li>
-    <li>REST API for frontend consumption</li>
+    <li>Canonical regulation resolution by alias, abbreviation, number, and year</li>
+    <li>Provision resolution and reading with legislative context</li>
+    <li>Grounding contracts for Valter and Juca</li>
+    <li>Corpus, quality, observability, and rollout work</li>
   </ul>
-
-  <h2>Status</h2>
-
-  <p>
-    Leci is in the planning phase. The documentation site is live, but the
-    legislation backend is not yet implemented. Integration with Valter is
-    planned for v2.0 of the ecosystem.
-  </p>
 
   <h2>Links</h2>
 

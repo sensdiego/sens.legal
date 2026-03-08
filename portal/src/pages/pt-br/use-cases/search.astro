@@ -2,39 +2,37 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 ---
 
-<DocsLayout title="Busca Semantica" description="Busca na jurisprudencia do STJ com busca hibrida semantica + keyword + knowledge graph." lang="pt-br">
-  <h1>Busca Semantica</h1>
+<DocsLayout title="Busca Juridica" description="Busca em jurisprudencia com retrieval graph-led e resposta explicavel." lang="pt-br">
+  <h1>Busca Juridica</h1>
   <span class="badge badge-dev">em desenvolvimento</span>
 
   <p>
-    Busque em dezenas de milhares de decisoes do STJ usando um pipeline hibrido
-    que combina busca BM25 por palavras-chave, busca semantica vetorial (embeddings
-    Legal-BERTimbau de 768 dimensoes) e boosting via knowledge graph com 194.496
-    relacionamentos.
+    A busca de jurisprudencia no ecossistema passa pelo Valter. O fluxo atual
+    prioriza <strong>graph-led retrieval</strong>, usando o grafo juridico como
+    caminho principal de descoberta e deixando a busca lexical e semantica como
+    complemento e fallback.
   </p>
 
   <h2>Como funciona</h2>
 
   <ol>
-    <li>Sua query e expandida em variantes semanticas usando multi-query RAG</li>
-    <li>BM25 (PostgreSQL) e busca semantica (Qdrant) rodam em paralelo</li>
-    <li>Resultados sao mesclados usando fusao ponderada ou Reciprocal Rank Fusion</li>
-    <li>Knowledge graph boost pontua cada candidato baseado em criterios, fatos e dispositivos compartilhados no Neo4j</li>
-    <li>Um cross-encoder re-ranqueia os candidatos finais</li>
-    <li>Resultados sao cacheados no Redis (TTL 180s)</li>
+    <li>A pergunta entra no Valter por REST API ou MCP</li>
+    <li>O grafo do Neo4j tenta descobrir caminhos juridicos relevantes primeiro</li>
+    <li>Busca lexical e semantica rodam em paralelo para complementar cobertura</li>
+    <li>Os resultados sao calibrados, verificados e explicados</li>
+    <li>Quando necessario, Leci e Douto entram como grounding adicional</li>
   </ol>
 
   <h2>Exemplo</h2>
 
   <h4>Request</h4>
 
-  <pre><code>POST /api/v1/retrieve/search
+<pre><code>POST /api/v1/retrieve/search
 Content-Type: application/json
 
 {"{"}
   "query": "responsabilidade civil por defeito do produto",
   "top_k": 5,
-  "kg_boost": true,
   "filters": {"{"}
     "ministro": "Nancy Andrighi"
   {"}"}
@@ -42,40 +40,38 @@ Content-Type: application/json
 
   <h4>Response</h4>
 
-  <pre><code>{"{"}
-  "results": [
+<pre><code>{"{"}
+  "matches": [
     {"{"}
-      "id": "REsp_1234567_SP",
-      "score": 0.923,
-      "kg_boost_score": 0.15,
+      "document_id": "REsp_1234567_SP",
       "title": "REsp 1.234.567/SP",
-      "ministro": "Min. Nancy Andrighi",
-      "data_julgamento": "2023-03-14",
-      "ementa": "RECURSO ESPECIAL. DIREITO DO CONSUMIDOR. DEFEITO DO PRODUTO...",
-      "criterios": ["boa-fe objetiva", "nexo causal"],
-      "dispositivos": ["Art. 12 do CDC", "Art. 14 do CDC"]
+      "why_it_matches": [
+        "criterio compartilhado",
+        "dispositivo citado",
+        "cadeia de precedentes relacionada"
+      ]
     {"}"}
   ],
-  "total": 47,
-  "cached": false,
-  "search_time_ms": 342
+  "reasoning_chain": {"{"}
+    "primary_path": "graph",
+    "fallback_used": false
+  {"}"},
+  "grounding_sources": ["jurisprudencia"]
 {"}"}</code></pre>
 
   <h2>O que torna diferente</h2>
 
   <p>
-    A busca juridica tradicional depende de correspondencia por palavras-chave. O sens.legal
-    combina tres estrategias: palavras-chave capturam terminologia juridica exata, busca
-    semantica encontra casos conceitualmente similares mesmo com redacao diferente, e o
-    boosting via knowledge graph eleva decisoes que estao estruturalmente conectadas por
-    criterios, dispositivos legais e precedentes compartilhados.
+    Em vez de tratar o grafo como um sinal secundario, o Valter usa a estrutura
+    juridica como eixo principal de retrieval. Isso melhora explicabilidade,
+    permite reasoning chain rastreavel e reduz a dependencia de um ranking opaco.
   </p>
 
   <h2>Disponivel via</h2>
 
   <ul>
-    <li><code>POST /api/v1/retrieve/search</code> — REST API</li>
-    <li><code>SearchJurisprudence</code> — tool MCP</li>
+    <li><a href="/pt-br/api/rest">Gateway da REST API do Valter</a></li>
+    <li><a href="/pt-br/api/mcp">Gateway das tools MCP do Valter</a></li>
   </ul>
 </DocsLayout>
 

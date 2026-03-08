@@ -1,122 +1,37 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-
-const tools = [
-  { name: 'SearchJurisprudence', category: 'Busca', desc: 'Busca hibrida na jurisprudencia do STJ' },
-  { name: 'FindSimilarCases', category: 'Busca', desc: 'Encontrar casos semantica e estruturalmente similares' },
-  { name: 'GetDocumentIntegra', category: 'Busca', desc: 'Obter texto completo de uma decisao' },
-  { name: 'GetIracAnalysis', category: 'Busca', desc: 'Analise IRAC enriquecida de documento' },
-  { name: 'SearchFeatures', category: 'Busca', desc: 'Buscar features classificadas de documentos' },
-  { name: 'VerifyLegalClaims', category: 'Verificacao', desc: 'Verificar alegacoes juridicas contra dados reais' },
-  { name: 'GetCitationChain', category: 'Grafo', desc: 'Tracar cadeia de citacoes de uma decisao' },
-  { name: 'GetPageRank', category: 'Grafo', desc: 'Decisoes de maior influencia por score' },
-  { name: 'GetCommunities', category: 'Grafo', desc: 'Clusters de decisoes por topico' },
-  { name: 'GetDivergencias', category: 'Grafo', desc: 'Decisoes divergentes sobre mesmos criterios' },
-  { name: 'GetTurmaDivergences', category: 'Grafo', desc: 'Divergencias entre turmas julgadoras' },
-  { name: 'GetStructuralSimilarity', category: 'Grafo', desc: 'Similaridade estrutural via graph embeddings' },
-  { name: 'GetShortestPath', category: 'Grafo', desc: 'Caminho mais curto entre duas entidades' },
-  { name: 'GetGraphEmbeddings', category: 'Grafo', desc: 'Vetores de graph embedding para entidades' },
-  { name: 'GetOptimalArgument', category: 'Analytics', desc: 'Melhores argumentos por categoria/criterio' },
-  { name: 'GetOptimalArgumentByMinistro', category: 'Analytics', desc: 'Melhores argumentos para um ministro especifico' },
-  { name: 'GetMinistroProfile', category: 'Analytics', desc: 'Padroes e preferencias de decisao do ministro' },
-  { name: 'GetTemporalEvolution', category: 'Analytics', desc: 'Evolucao temporal de um criterio' },
-  { name: 'Remember', category: 'Memoria', desc: 'Armazenar uma memoria para consulta posterior' },
-  { name: 'Recall', category: 'Memoria', desc: 'Recuperar memorias armazenadas' },
-  { name: 'SubmitCasePdfAnalysis', category: 'Workflow', desc: 'Submeter PDF de processo para analise' },
-  { name: 'GetCasePdfAnalysisStatus', category: 'Workflow', desc: 'Verificar status do workflow' },
-  { name: 'GetCasePdfAnalysisResult', category: 'Workflow', desc: 'Obter resultado da analise' },
-  { name: 'ReviewCasePhase', category: 'Workflow', desc: 'Revisar e aprovar/rejeitar uma fase' },
-  { name: 'ReviewCaseFinal', category: 'Workflow', desc: 'Revisao final da analise completa' },
-  { name: 'ReprocessCaseAnalysis', category: 'Workflow', desc: 'Reprocessar a partir de uma fase especifica' },
-  { name: 'GetCaseWorkflowArtifacts', category: 'Workflow', desc: 'Listar artefatos do workflow' },
-  { name: 'GetCaseArtifactSignedUrl', category: 'Workflow', desc: 'Obter URL assinada para download de artefato' },
-];
-
-const categories = [...new Set(tools.map(t => t.category))];
 ---
 
-<DocsLayout title="Tools MCP" description="28 tools MCP para integracao de LLMs com conhecimento juridico brasileiro." lang="pt-br">
+<DocsLayout title="Tools MCP" description="Gateway do portal para a documentacao canonica de MCP do Valter." lang="pt-br">
   <h1>Tools MCP</h1>
   <span class="badge badge-dev">dev</span>
 
   <p>
-    O Valter expoe 28 tools via Model Context Protocol (MCP), permitindo que LLMs
-    como Claude e ChatGPT consultem jurisprudencia, verifiquem alegacoes, analisem
-    grafos e gerenciem workflows de analise de processos diretamente. As mesmas
-    capacidades disponiveis pela API REST sao acessiveis como tools nativas de LLM.
+    Esta pagina aponta para a documentacao canonica de MCP do Valter. Como o
+    catalogo de tools muda junto com a migracao do backend e com novas fases do
+    reasoning, o portal institucional deixou de manter uma lista manual e detalhada.
   </p>
 
-  <h2>Conexao</h2>
+  <p>
+    Nos docs do Valter voce encontra a configuracao atual para clientes locais e
+    remotos, alem das tools disponiveis para busca, verificacao, reasoning e
+    workflows juridicos.
+  </p>
 
-  <h4>Claude Desktop / Claude Code (stdio)</h4>
+  <h2>O que voce encontra nos docs canonicos</h2>
 
-  <pre><code>{"{"}
-  "mcpServers": {"{"}
-    "valter": {"{"}
-      "command": "python",
-      "args": ["-m", "valter.mcp_server"]
-    {"}"}
-  {"}"}
-{"}"}</code></pre>
+  <ul>
+    <li>Configuracao de conexao para clientes MCP locais e remotos</li>
+    <li>Catalogo atualizado de tools e suas capacidades</li>
+    <li>Exemplos de prompts e integracao com agentes</li>
+    <li>Links cruzados para REST API e arquitetura do Valter</li>
+  </ul>
 
-  <h4>ChatGPT / Remoto (HTTP/SSE)</h4>
-
-  <pre><code>MCP Server URL: https://mcp.valter.sens.legal
-Authentication: HMAC (entre em contato para credenciais)</code></pre>
-
-  <h2>Tools</h2>
-
-  {categories.map((category) => (
-    <div>
-      <h3>{category}</h3>
-      <table>
-        <thead>
-          <tr><th>Tool</th><th>Descricao</th></tr>
-        </thead>
-        <tbody>
-          {tools.filter(t => t.category === category).map((tool) => (
-            <tr>
-              <td><code>{tool.name}</code></td>
-              <td>{tool.desc}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  ))}
-
-  <h2>Documentacao Completa</h2>
+  <h2>Documentacao canonica</h2>
 
   <p>
     <a href="https://valter.sens.legal/api/mcp-tools/" target="_blank" rel="noopener">
-      Ver documentacao completa das tools MCP nos docs do Valter &rarr;
+      Abrir a documentacao completa de MCP do Valter &rarr;
     </a>
   </p>
 </DocsLayout>
-
-<style>
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: var(--space-md) 0 var(--space-lg);
-    font-size: 0.8125rem;
-  }
-
-  th, td {
-    text-align: left;
-    padding: var(--space-sm) var(--space-md);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  th {
-    font-weight: 600;
-    color: var(--color-text-secondary);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  td code {
-    font-size: 0.75rem;
-  }
-</style>

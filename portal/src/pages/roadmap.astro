@@ -6,81 +6,81 @@ import DocsLayout from '../layouts/DocsLayout.astro';
   <h1>Roadmap</h1>
 
   <p>
-    All projects are currently in <strong>development</strong>. This roadmap reflects
-    planned work based on open issues across the four repositories.
+    All projects remain in <strong>development</strong>. This roadmap has been
+    rewritten from the canonical progress files in each repository, focusing on
+    what is actually in flight now.
   </p>
 
   <h2>Valter</h2>
 
   <h4>Near-term</h4>
   <ul>
-    <li>Demo/sandbox environment for public testing</li>
-    <li>API documentation improvements</li>
-    <li>Rate limiting and API key management</li>
-    <li>Performance optimization for graph queries</li>
+    <li>Regularize the Neo4j schema that currently blocks Phase 3 validation</li>
+    <li>Finish A/B evaluation for the unified pipeline and reasoning chain</li>
+    <li>Close the current migration tooling and explainability work</li>
   </ul>
 
   <h4>Medium-term</h4>
   <ul>
-    <li>Expanded knowledge graph with temporal evolution tracking</li>
-    <li>Multi-court support (TJs, TST)</li>
-    <li>Real-time ingestion pipeline</li>
-    <li>Enhanced MCP tools with streaming responses</li>
+    <li>Execute chat orchestration and backend unification work</li>
+    <li>Complete the final cutover of backend logic out of Juca</li>
+    <li>Remove legacy code after the migration is done</li>
   </ul>
 
   <h2>Juca</h2>
 
   <h4>Near-term</h4>
   <ul>
-    <li>User authentication and session management</li>
-    <li>Briefing workflow polish</li>
-    <li>Canvas improvements</li>
+    <li>Keep briefing, canvas, and reading stable while the backend migrates</li>
+    <li>Adopt new Valter surfaces as they land</li>
+    <li>Follow the canonical PR and unblock sequence on the frontend</li>
   </ul>
 
   <h4>Medium-term</h4>
   <ul>
-    <li>Multi-tenant support</li>
-    <li>Case management dashboard</li>
-    <li>Document annotation and collaboration</li>
-    <li>Mobile-responsive interface</li>
-  </ul>
-
-  <h2>Douto</h2>
-
-  <h4>Near-term</h4>
-  <ul>
-    <li>Integration of doctrine embeddings with Valter</li>
-    <li>Doctrine search exposed via MCP tools</li>
-  </ul>
-
-  <h4>Medium-term</h4>
-  <ul>
-    <li>Populate missing MOCs (tax, constitutional, compliance, succession law)</li>
-    <li>Atomic notes layer in the skill graph</li>
-    <li>Cross-reference doctrine with jurisprudence knowledge graph</li>
+    <li>Finish decoupling legal backend ownership from the frontend</li>
+    <li>Integrate reasoning-chain-driven argument flows</li>
+    <li>Resume product work on a cleaner base</li>
   </ul>
 
   <h2>Leci</h2>
 
   <h4>Near-term</h4>
   <ul>
-    <li>Define backend architecture</li>
-    <li>Brazilian legislation data model</li>
+    <li>Start canonical regulation resolution through the SEN-418 track</li>
+    <li>Improve recall beyond the current <code>/api/search</code> baseline</li>
+    <li>Keep document-first reading as the main path</li>
   </ul>
 
   <h4>Medium-term</h4>
   <ul>
-    <li>Legislation ingestion pipeline</li>
-    <li>Integration with Valter's knowledge graph</li>
-    <li>MCP tools for legislation access</li>
+    <li>Resolve provisions, structural context, and legislative history</li>
+    <li>Deliver grounding contracts for Valter and Juca</li>
+    <li>Expand corpus, quality, observability, and rollout</li>
+  </ul>
+
+  <h2>Douto</h2>
+
+  <h4>Near-term</h4>
+  <ul>
+    <li>Lock in a reproducible local pipeline foundation</li>
+    <li>Set up the quality gate for contracts and civil procedure</li>
+    <li>Define the artifact contract for Valter handoff</li>
+  </ul>
+
+  <h4>Medium-term</h4>
+  <ul>
+    <li>Evolve explainable retrieval after the quality gates</li>
+    <li>Add synthesis only behind its own gate</li>
+    <li>Expand corpus coverage while preserving editorial traceability</li>
   </ul>
 
   <h2>Ecosystem</h2>
 
   <ul>
-    <li>Cross-project search from the portal</li>
-    <li>Unified authentication across projects</li>
-    <li>Public API keys for testing</li>
-    <li>Comprehensive developer documentation</li>
+    <li>Finish the migration of legal backend ownership from Juca into Valter</li>
+    <li>Plug legislative and doctrinal grounding into the central backend</li>
+    <li>Keep REST API and MCP documented canonically in Valter</li>
+    <li>Make the portal reflect the real ecosystem instead of a stale static inventory</li>
   </ul>
 </DocsLayout>

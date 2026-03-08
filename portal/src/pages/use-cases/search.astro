@@ -2,79 +2,75 @@
 import DocsLayout from '../../layouts/DocsLayout.astro';
 ---
 
-<DocsLayout title="Semantic Search" description="Search Brazilian STJ jurisprudence with hybrid semantic + keyword + knowledge graph search.">
-  <h1>Semantic Search</h1>
+<DocsLayout title="Legal Search" description="Search jurisprudence with graph-led retrieval and explainable results.">
+  <h1>Legal Search</h1>
   <span class="badge badge-dev">in development</span>
 
   <p>
-    Search tens of thousands of STJ decisions using a hybrid pipeline that combines
-    BM25 keyword search, semantic vector search (768-dim Legal-BERTimbau embeddings),
-    and knowledge graph boosting from a 194,496-relationship graph.
+    Jurisprudence search in the ecosystem goes through Valter. The current flow
+    prioritizes <strong>graph-led retrieval</strong>, using the legal graph as the
+    main discovery path while lexical and semantic search remain as complement and fallback.
   </p>
 
   <h2>How it works</h2>
 
   <ol>
-    <li>Your query is expanded into semantic variants using multi-query RAG</li>
-    <li>BM25 (PostgreSQL) and semantic search (Qdrant) run in parallel</li>
-    <li>Results are merged using weighted fusion or Reciprocal Rank Fusion</li>
-    <li>Knowledge graph boost scores each candidate based on shared criteria, facts, and legal devices in Neo4j</li>
-    <li>A cross-encoder reranks the final candidates</li>
-    <li>Results are cached in Redis (180s TTL)</li>
+    <li>The question enters Valter through REST API or MCP</li>
+    <li>The Neo4j graph tries to discover relevant legal paths first</li>
+    <li>Lexical and semantic search run in parallel to improve coverage</li>
+    <li>Results are calibrated, verified, and explained</li>
+    <li>Leci and Douto can join as additional grounding when needed</li>
   </ol>
 
   <h2>Example</h2>
 
   <h4>Request</h4>
 
-  <pre><code>POST /api/v1/retrieve/search
+<pre><code>POST /api/v1/retrieve/search
 Content-Type: application/json
 
 {"{"}
-  "query": "responsabilidade civil por defeito do produto",
+  "query": "product liability for defective goods",
   "top_k": 5,
-  "kg_boost": true,
   "filters": {"{"}
-    "ministro": "Nancy Andrighi"
+    "minister": "Nancy Andrighi"
   {"}"}
 {"}"}</code></pre>
 
   <h4>Response</h4>
 
-  <pre><code>{"{"}
-  "results": [
+<pre><code>{"{"}
+  "matches": [
     {"{"}
-      "id": "REsp_1234567_SP",
-      "score": 0.923,
-      "kg_boost_score": 0.15,
+      "document_id": "REsp_1234567_SP",
       "title": "REsp 1.234.567/SP",
-      "ministro": "Min. Nancy Andrighi",
-      "data_julgamento": "2023-03-14",
-      "ementa": "RECURSO ESPECIAL. DIREITO DO CONSUMIDOR. DEFEITO DO PRODUTO...",
-      "criterios": ["boa-fe objetiva", "nexo causal"],
-      "dispositivos": ["Art. 12 do CDC", "Art. 14 do CDC"]
+      "why_it_matches": [
+        "shared legal criterion",
+        "relevant statutory provision",
+        "connected precedent path"
+      ]
     {"}"}
   ],
-  "total": 47,
-  "cached": false,
-  "search_time_ms": 342
+  "reasoning_chain": {"{"}
+    "primary_path": "graph",
+    "fallback_used": false
+  {"}"},
+  "grounding_sources": ["jurisprudence"]
 {"}"}</code></pre>
 
   <h2>What makes it different</h2>
 
   <p>
-    Traditional legal search relies on keyword matching. sens.legal combines three
-    strategies: keywords catch exact legal terminology, semantic search catches
-    conceptually similar cases even with different wording, and knowledge graph
-    boosting elevates decisions that are structurally connected through shared
-    criteria, legal devices, and precedents.
+    Instead of treating the graph as a secondary signal, Valter uses legal structure
+    as the main retrieval axis. That improves explainability, enables traceable
+    reasoning chains, and reduces dependence on opaque ranking heuristics.
   </p>
 
   <h2>Available via</h2>
 
   <ul>
-    <li><code>POST /api/v1/retrieve/search</code> — REST API</li>
-    <li><code>SearchJurisprudence</code> — MCP tool</li>
+    <li><a href="/api/rest">Valter REST API gateway</a></li>
+    <li><a href="/api/mcp">Valter MCP gateway</a></li>
   </ul>
 </DocsLayout>
 

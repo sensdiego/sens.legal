@@ -2,73 +2,71 @@
 import DocsLayout from '../layouts/DocsLayout.astro';
 
 const ecosystemDiagram = `<pre><code class="language-mermaid">graph TB
-    subgraph Consumers
-        JUCA[Juca Frontend&lt;br/&gt;Next.js]
-        CHATGPT[ChatGPT&lt;br/&gt;MCP Remote]
-        CLAUDE[Claude Desktop/Code&lt;br/&gt;MCP stdio]
+    subgraph Interfaces
+        USERS[Lawyers and teams]
+        AGENTS[LLMs and agents]
     end
 
-    subgraph "Valter — Entry Points"
-        API[REST API&lt;br/&gt;FastAPI :8000]
-        MCP_STDIO[MCP Server&lt;br/&gt;stdio]
-        MCP_HTTP[MCP Server&lt;br/&gt;HTTP/SSE :8001]
+    subgraph "Juca"
+        JUCA[Frontend hub&lt;br/&gt;briefing, canvas, reading]
     end
 
-    subgraph "Core Layer"
-        RETRIEVER[HybridRetriever&lt;br/&gt;BM25 + Semantic + KG Boost]
-        ENRICHER[DocumentEnricher&lt;br/&gt;IRAC + KG Context]
-        VERIFIER[LegalVerifier&lt;br/&gt;Anti-hallucination]
+    subgraph "Valter"
+        API[REST API]
+        MCP[MCP]
+        RETRIEVAL[Graph-led retrieval]
+        REASONING[Verification + reasoning]
     end
 
-    subgraph "Data Stores"
-        PG[(PostgreSQL 16&lt;br/&gt;Documents + Metadata)]
-        QD[(Qdrant&lt;br/&gt;Semantic Vectors)]
-        N4J[(Neo4j&lt;br/&gt;Knowledge Graph)]
-        RD[(Redis 7&lt;br/&gt;Cache)]
+    subgraph "Internal providers"
+        LECI[Leci&lt;br/&gt;document-first legislation]
+        DOUTO[Douto&lt;br/&gt;doctrinal artifacts]
     end
 
+    subgraph "Valter data layer"
+        PG[(PostgreSQL)]
+        QD[(Qdrant)]
+        N4J[(Neo4j)]
+        RD[(Redis)]
+    end
+
+    USERS --&gt; JUCA
+    AGENTS --&gt; MCP
     JUCA --&gt; API
-    CHATGPT --&gt; MCP_HTTP
-    CLAUDE --&gt; MCP_STDIO
-    MCP_STDIO --&gt; API
-    MCP_HTTP --&gt; API
-    API --&gt; RETRIEVER &amp; ENRICHER &amp; VERIFIER
-    RETRIEVER --&gt; PG &amp; QD &amp; N4J &amp; RD
-    ENRICHER --&gt; PG &amp; N4J
-    VERIFIER --&gt; PG &amp; N4J</code></pre>`;
+    API --&gt; RETRIEVAL
+    API --&gt; REASONING
+    LECI --&gt; API
+    DOUTO --&gt; API
+    RETRIEVAL --&gt; PG &amp; QD &amp; N4J &amp; RD
+    REASONING --&gt; PG &amp; N4J</code></pre>`;
 
 const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
-    Q[Query] --&gt; CACHE{{"Cache?"}}
-    CACHE --&gt;|hit| RESULT
-    CACHE --&gt;|miss| QE[Query Expansion&lt;br/&gt;Groq LLM]
-    QE --&gt; ENCODE[Encode&lt;br/&gt;Legal-BERTimbau]
-    ENCODE --&gt; PAR{{"Parallel"}}
-    PAR --&gt; BM25[BM25&lt;br/&gt;PostgreSQL]
-    PAR --&gt; SEM[Semantic&lt;br/&gt;Qdrant cosine]
-    BM25 --&gt; MERGE[Merge&lt;br/&gt;Weighted / RRF]
-    SEM --&gt; MERGE
-    MERGE --&gt; KG{{"KG Boost?"}}
-    KG --&gt;|yes| BOOST[Neo4j Batch]
-    KG --&gt;|no| RERANK
-    BOOST --&gt; RERANK[Cross-Encoder&lt;br/&gt;Reranking]
-    RERANK --&gt; RESULT[Response]</code></pre>`;
+    Q[Legal question] --&gt; ENTRY[Entry into Valter]
+    ENTRY --&gt; GRAPH[Neo4j traversal + graph retrieval&lt;br/&gt;primary path]
+    ENTRY --&gt; SEARCH[Parallel lexical and semantic search&lt;br/&gt;support and fallback]
+    GRAPH --&gt; FUSE[Fusion and calibration]
+    SEARCH --&gt; FUSE
+    FUSE --&gt; GROUND[Grounding and verification&lt;br/&gt;Leci and Douto when needed]
+    GROUND --&gt; EXPLAIN[Traceable reasoning chain]
+    EXPLAIN --&gt; RESULT[REST or MCP response]</code></pre>`;
 ---
 
 <DocsLayout title="Architecture" description="System architecture and data flow diagrams.">
   <h1>Architecture</h1>
 
   <p>
-    sens.legal is composed of three projects that communicate through Valter's REST API
-    and MCP server. The diagrams below show the ecosystem overview, the search pipeline,
-    and the knowledge graph structure.
+    sens.legal is an ecosystem of <strong>four projects</strong>. Juca is the
+    frontend hub; Valter is the central jurisprudence and reasoning backend; Leci
+    handles document-first legislative grounding; and Douto supplies internal
+    doctrinal artifacts. The diagrams below summarize that split.
   </p>
 
   <h2>Ecosystem Overview</h2>
 
   <p>
-    Juca (the frontend) and LLMs (Claude, ChatGPT) consume Valter's capabilities
-    through different protocols. The same search, verification, and graph analytics
-    logic serves both.
+    The frontend and LLM agents enter through different surfaces, but the canonical
+    backend remains Valter. Leci and Douto feed that backend with specialized
+    grounding rather than competing to be the frontend or the central legal backend.
   </p>
 
   <Fragment set:html={ecosystemDiagram} />
@@ -76,69 +74,40 @@ const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
   <h2>Search Pipeline</h2>
 
   <p>
-    The hybrid search combines BM25 keyword search, semantic vector search (768-dim
-    Legal-BERTimbau embeddings), and knowledge graph boosting into a single ranked
-    result set. Results are reranked by a cross-encoder and cached in Redis.
+    Valter now follows a <strong>graph-led</strong> architecture: the legal graph
+    becomes the primary discovery path, while lexical and semantic search run in
+    parallel to expand coverage and provide graceful degradation. The final answer
+    may include verification, additional grounding, and a reasoning chain.
   </p>
 
   <Fragment set:html={searchDiagram} />
 
-  <h2>Knowledge Graph</h2>
+  <h2>Project roles</h2>
 
-  <p>
-    The Neo4j knowledge graph uses the FRBR ontology adapted for Brazilian legal
-    documents. It contains approximately <strong>53,870 nodes</strong> and
-    <strong>194,496 edges</strong> representing the relational structure of STJ
-    jurisprudence.
-  </p>
+  <table>
+    <thead>
+      <tr><th>Project</th><th>Role</th><th>Main integration</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>Valter</code></td><td>Search, verification, reasoning, and canonical APIs</td><td>REST API + MCP</td></tr>
+      <tr><td><code>Juca</code></td><td>User experience, briefing, and canvas</td><td>Consumes Valter and, later, Leci</td></tr>
+      <tr><td><code>Leci</code></td><td>Document-first legislation and reliable grounding</td><td>Supplies statutes and provisions to consumers</td></tr>
+      <tr><td><code>Douto</code></td><td>Local doctrine pipeline and internal artifacts</td><td>Controlled handoff into Valter</td></tr>
+    </tbody>
+  </table>
 
-  <p>
-    Unlike flat-text search indexes, the graph connects decisions through shared
-    criteria, legal devices, precedents, and ministers. This enables queries like:
-  </p>
+  <h2>Valter data layer</h2>
 
   <ul>
-    <li>Which arguments have the highest success rate for this minister in this category?</li>
-    <li>How has the application of this criterion evolved over the last five years?</li>
-    <li>What is the citation chain between these two decisions?</li>
-    <li>Which decisions diverge on the same legal criterion?</li>
+    <li><strong>PostgreSQL</strong> for documents, metadata, and operational state</li>
+    <li><strong>Qdrant</strong> for semantic vector search</li>
+    <li><strong>Neo4j</strong> for graph-led retrieval, explanation, and legal relationships</li>
+    <li><strong>Redis</strong> for cache and operational controls</li>
   </ul>
-
-  <h3>Node Types</h3>
-
-  <table>
-    <thead>
-      <tr><th>Node</th><th>Description</th><th>Example</th></tr>
-    </thead>
-    <tbody>
-      <tr><td><code>Decision</code></td><td>STJ court decision</td><td>REsp 1.234.567/SP</td></tr>
-      <tr><td><code>Criterion</code></td><td>Legal test or criterion</td><td>"boa-fe objetiva"</td></tr>
-      <tr><td><code>LegalDevice</code></td><td>Article of legislation</td><td>Art. 14 do CDC</td></tr>
-      <tr><td><code>Precedent</code></td><td>Cited precedent</td><td>Sumula 297/STJ</td></tr>
-      <tr><td><code>Minister</code></td><td>STJ minister (judge)</td><td>Min. Nancy Andrighi</td></tr>
-      <tr><td><code>Category</code></td><td>Legal subject area</td><td>Direito do Consumidor</td></tr>
-    </tbody>
-  </table>
-
-  <h3>Relationship Types</h3>
-
-  <table>
-    <thead>
-      <tr><th>Relationship</th><th>From → To</th><th>Meaning</th></tr>
-    </thead>
-    <tbody>
-      <tr><td><code>APLICA</code></td><td>Decision → LegalDevice</td><td>Applies this legal provision</td></tr>
-      <tr><td><code>USA_CRITERIO</code></td><td>Decision → Criterion</td><td>Uses this legal criterion</td></tr>
-      <tr><td><code>CITA</code></td><td>Decision → Decision</td><td>Cites another decision</td></tr>
-      <tr><td><code>CITA_PRECEDENTE</code></td><td>Decision → Precedent</td><td>Cites this precedent</td></tr>
-      <tr><td><code>RELATOR_DE</code></td><td>Minister → Decision</td><td>Reporting judge</td></tr>
-      <tr><td><code>DIVERGE_DE</code></td><td>Decision → Decision</td><td>Divergent outcomes</td></tr>
-    </tbody>
-  </table>
 
   <p>
     <a href="https://valter.sens.legal/architecture/diagrams/" target="_blank" rel="noopener">
-      View complete architecture documentation on Valter docs &rarr;
+      View the canonical architecture docs on Valter &rarr;
     </a>
   </p>
 </DocsLayout>

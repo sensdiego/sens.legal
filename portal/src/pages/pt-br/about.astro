@@ -8,19 +8,18 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
   <h2>O que e o sens.legal?</h2>
 
   <p>
-    sens.legal e um hub de solucoes tecnologicas em desenvolvimento focado no
-    pipeline completo de atuacao profissional juridica no Brasil. Combina busca
-    semantica sobre dados reais de tribunais, knowledge graph baseado na ontologia
-    FRBR, verificacao anti-alucinacao e integracao nativa com LLMs via Model
-    Context Protocol (MCP).
+    sens.legal e um ecossistema em desenvolvimento para infraestrutura juridica
+    rastreavel no Brasil. Em vez de comprimir tudo em um unico produto, ele separa
+    funcoes por fonte de autoridade: jurisprudencia, legislacao, doutrina e
+    experiencia de uso.
   </p>
 
   <p>
-    A plataforma e composta por quatro projetos — <a href="/pt-br/projects/valter">Valter</a>
-    (backend de conhecimento juridico), <a href="/pt-br/projects/juca">Juca</a>
-    (frontend para advogados), <a href="/pt-br/projects/douto">Douto</a> (agente
-    de doutrina juridica) e <a href="/pt-br/projects/leci">Leci</a> (backend de
-    legislacao) — desenhados para funcionar juntos como um ecossistema integrado.
+    A plataforma e composta por quatro projetos: <a href="/pt-br/projects/valter">Valter</a>
+    como backend central de jurisprudencia e reasoning, <a href="/pt-br/projects/juca">Juca</a>
+    como hub frontend para advogados, <a href="/pt-br/projects/leci">Leci</a> como
+    engine legislativa document-first e <a href="/pt-br/projects/douto">Douto</a>
+    como pipeline local de doutrina e fornecedor interno de artefatos.
   </p>
 
   <h2>Quem</h2>
@@ -36,34 +35,32 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
   <h2>Visao</h2>
 
   <p>
-    Tornar todo o pipeline juridico — pesquisa, analise, argumentacao, verificacao —
-    acessivel para advogados e LLMs. Toda alegacao rastreavel a dados reais do
-    tribunal. Todo argumento respaldado por jurisprudencia verificada.
+    Tornar pesquisa, grounding, argumentacao e verificacao juridica acessiveis
+    para advogados e LLMs sem abrir mao de rastreabilidade. Toda alegacao precisa
+    poder apontar para uma fonte real; toda resposta precisa ser explicavel.
   </p>
 
   <h2>O que torna diferente</h2>
 
   <ul>
     <li>
-      <strong>Knowledge graph (ontologia FRBR)</strong> — decisoes, criterios,
-      dispositivos legais, precedentes e ministros sao entidades de primeira
-      classe conectadas por 194.496 relacionamentos. Nao e um indice de palavras-chave
-      sobre texto plano.
+      <strong>Ecossistema de quatro projetos</strong> — o portal institucional
+      descreve quatro pecas complementares, nao tres: Valter, Juca, Leci e Douto.
+      Cada uma tem papel proprio e contrato de integracao claro.
     </li>
     <li>
-      <strong>MCP-nativo</strong> — 28 tools expostas via Model Context Protocol,
-      permitindo que Claude e ChatGPT consultem jurisprudencia, verifiquem alegacoes
-      e componham argumentos diretamente. Nao e um wrapper de chatbot.
+      <strong>Valter como backend central</strong> — a diretriz atual e retirar do
+      Juca a logica de backend juridico e concentrar retrieval, reasoning,
+      verificacao e superfices de API/MCP no Valter.
     </li>
     <li>
-      <strong>Anti-alucinacao</strong> — toda alegacao retornada pelo sistema e
-      verificada contra dados reais do tribunal. Cadeias de citacao sao tracadas
-      no knowledge graph. Sem numeros de processo inventados.
+      <strong>Grounding por fonte de autoridade</strong> — Leci responde pelo que
+      a norma diz, Douto prepara artefatos doutrinarios internos e Valter organiza
+      jurisprudencia e reasoning sobre esses insumos.
     </li>
     <li>
-      <strong>Dados reais do STJ</strong> — 12.091 decisoes, 810K+ registros de
-      metadados, 2.100+ features classificadas do Superior Tribunal de Justica.
-      Nao sao dados sinteticos ou raspados e esquecidos.
+      <strong>Interfaces canonicas para integracao</strong> — REST API e MCP vivem
+      na documentacao do Valter, evitando inventarios manuais desatualizados no portal.
     </li>
   </ul>
 

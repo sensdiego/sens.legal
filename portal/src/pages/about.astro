@@ -8,18 +8,18 @@ import DocsLayout from '../layouts/DocsLayout.astro';
   <h2>What is sens.legal?</h2>
 
   <p>
-    sens.legal is a technology hub in development focused on the complete pipeline
-    of professional legal practice in Brazil. It combines semantic search over real
-    court data, a knowledge graph built on the FRBR ontology, anti-hallucination
-    verification, and native LLM integration via Model Context Protocol (MCP).
+    sens.legal is an ecosystem in development for traceable legal infrastructure
+    in Brazil. Instead of collapsing everything into a single product, it separates
+    responsibilities by source of authority: jurisprudence, legislation, doctrine,
+    and user experience.
   </p>
 
   <p>
-    The platform is composed of four projects — <a href="/projects/valter">Valter</a>
-    (legal knowledge backend), <a href="/projects/juca">Juca</a> (frontend for lawyers),
-    <a href="/projects/douto">Douto</a> (legal doctrine agent), and
-    <a href="/projects/leci">Leci</a> (legislation backend) — designed to work
-    together as an integrated ecosystem.
+    The platform is composed of four projects: <a href="/projects/valter">Valter</a>
+    as the central jurisprudence and reasoning backend, <a href="/projects/juca">Juca</a>
+    as the frontend hub for lawyers, <a href="/projects/leci">Leci</a> as the
+    document-first legislation engine, and <a href="/projects/douto">Douto</a> as
+    a local doctrine pipeline and internal artifact supplier.
   </p>
 
   <h2>Who</h2>
@@ -34,33 +34,32 @@ import DocsLayout from '../layouts/DocsLayout.astro';
   <h2>Vision</h2>
 
   <p>
-    Make the entire legal pipeline — research, analysis, argumentation, verification —
-    accessible to lawyers and LLMs alike. Every claim traceable to real court data.
-    Every argument backed by verified jurisprudence.
+    Make legal research, grounding, argumentation, and verification accessible to
+    lawyers and LLMs without giving up traceability. Every claim should point to a
+    real source; every answer should remain explainable.
   </p>
 
   <h2>What makes it different</h2>
 
   <ul>
     <li>
-      <strong>Knowledge graph (FRBR ontology)</strong> — decisions, criteria, legal
-      devices, precedents, and ministers are first-class entities connected by 194,496
-      relationships. Not a keyword index over flat text.
+      <strong>Four-project ecosystem</strong> — the institutional portal describes
+      four complementary pieces, not three: Valter, Juca, Leci, and Douto. Each
+      has a clear role and integration contract.
     </li>
     <li>
-      <strong>MCP-native</strong> — 28 tools exposed via Model Context Protocol,
-      letting Claude and ChatGPT query jurisprudence, verify claims, and compose
-      arguments directly. Not a chatbot wrapper.
+      <strong>Valter as central backend</strong> — the current direction is to move
+      legal backend logic out of Juca and consolidate retrieval, reasoning,
+      verification, and API/MCP surfaces in Valter.
     </li>
     <li>
-      <strong>Anti-hallucination</strong> — every claim returned by the system is
-      verified against real court data. Citation chains are traced in the knowledge
-      graph. No invented case numbers.
+      <strong>Grounding by authority source</strong> — Leci is responsible for what
+      statutes say, Douto prepares internal doctrinal artifacts, and Valter organizes
+      jurisprudence and reasoning over those inputs.
     </li>
     <li>
-      <strong>Real STJ data</strong> — 12,091 decisions, 810K+ metadata records,
-      2,100+ classified features from the Superior Tribunal de Justica. Not synthetic
-      or scraped-and-forgotten data.
+      <strong>Canonical integration surfaces</strong> — REST API and MCP live in
+      Valter's docs, avoiding stale manual inventories in the portal.
     </li>
   </ul>
 

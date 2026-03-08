@@ -32,28 +32,27 @@ import { projects } from '../../data/projects';
   <p>Quatro projetos, cada um cobrindo uma dimensao diferente do conhecimento juridico:</p>
 
   <p>
-    <strong>Valter</strong> — jurisprudencia. Indexa decisoes do STJ por meio de
-    busca hibrida e um knowledge graph que captura como decisoes, normas e
-    conceitos se relacionam. Cada resultado rastreavel ate um registro real do
-    tribunal. Servido via REST API e MCP.
+    <strong>Valter</strong> — backend central de jurisprudencia e reasoning.
+    A camada juridica principal do ecossistema esta sendo consolidada ali, com
+    retrieval graph-led, verificacao e superfices REST/MCP para o Juca e para
+    agentes externos.
   </p>
 
   <p>
-    <strong>Douto</strong> — doutrina. Processa livros juridicos em multiplas
-    areas do direito — extracao, estruturacao juridica, enriquecimento de
-    metadados, indexacao semantica — transformando obras academicas em
-    conhecimento consultavel.
+    <strong>Leci</strong> — legislacao. Engine document-first para grounding
+    confiavel, ja com <code>/api/search</code> operacional, shell funcional e
+    validacao com dados reais.
   </p>
 
   <p>
-    <strong>Leci</strong> — legislacao. Leis, regulamentos e atos normativos
-    federais como dados estruturados e pesquisaveis.
+    <strong>Douto</strong> — doutrina. Pipeline local e curado que prepara
+    artefatos doutrinarios para o Valter, sem se apresentar como produto final
+    para usuario final.
   </p>
 
   <p>
-    <strong>Juca</strong> — interface. Onde advogados constroem argumentos por
-    meio de briefing progressivo e onde agentes de IA se conectam ao ecossistema
-    via API e MCP.
+    <strong>Juca</strong> — interface. Hub frontend para briefing, leitura e
+    argumentacao, enquanto o backend juridico sai do Juca e migra para o Valter.
   </p>
 
   <p>
@@ -94,21 +93,31 @@ import { projects } from '../../data/projects';
   <h2>Arquitetura</h2>
 
   <p>
-    O ecossistema conecta quatro projetos atraves da REST API e servidor MCP do
-    Valter. LLMs como Claude e ChatGPT acessam as mesmas capacidades que o
-    frontend Juca — busca, verificacao, graph analytics — por meio de 28 tools MCP.
-    O Douto alimenta o pipeline com conhecimento doutrinario via embeddings semanticos.
+    O ecossistema conecta quatro projetos com o Valter no centro do backend.
+    Juca concentra a experiencia do usuario; Leci e Douto fornecem grounding
+    legislativo e doutrinario; e agentes LLM podem entrar pelas superfices
+    canonicas de REST API e MCP.
   </p>
 
   <pre><code class="language-mermaid">graph LR
-    subgraph Consumidores
-        JUCA[Juca Frontend]
-        CLAUDE[Claude / ChatGPT]
+    subgraph Interfaces
+        USERS[Advogados]
+        AGENTS[LLMs / agentes]
     end
 
-    subgraph "Valter Backend"
+    subgraph "Juca"
+        JUCA[Frontend hub]
+    end
+
+    subgraph "Valter"
         API[REST API]
-        MCP[MCP Server]
+        MCP[MCP]
+        CORE[Retrieval + reasoning]
+    end
+
+    subgraph "Grounding"
+        LECI[Leci]
+        DOUTO[Douto]
     end
 
     subgraph "Data Stores"
@@ -118,9 +127,12 @@ import { projects } from '../../data/projects';
         RD[(Redis)]
     end
 
-    JUCA --> API
-    CLAUDE --> MCP --> API
-    API --> PG & QD & N4J & RD</code></pre>
+    USERS --> JUCA --> API
+    AGENTS --> MCP --> API
+    LECI --> API
+    DOUTO --> API
+    API --> CORE
+    CORE --> PG & QD & N4J & RD</code></pre>
 
   <p>
     <a href="/pt-br/architecture">Ver diagramas completos de arquitetura &rarr;</a>

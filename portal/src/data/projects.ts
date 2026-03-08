@@ -14,8 +14,8 @@ export const projects: Project[] = [
   {
     name: 'Valter',
     subdomain: 'valter',
-    description: 'Jurisprudence backend — STJ decisions indexed through hybrid search, knowledge graph, REST API, and MCP.',
-    descriptionPtBr: 'Backend de jurisprudencia — decisoes do STJ indexadas via busca hibrida, knowledge graph, REST API e MCP.',
+    description: 'Ecosystem jurisprudence backend - graph-led retrieval, reasoning, verification, and API/MCP access centered in Valter.',
+    descriptionPtBr: 'Backend de jurisprudencia do ecossistema - retrieval graph-led, reasoning, verificacao e acesso via API/MCP centralizados no Valter.',
     repo: 'https://github.com/sensdiego/Valter',
     status: 'dev',
     stack: ['Python', 'FastAPI', 'PostgreSQL', 'Qdrant', 'Neo4j', 'Redis'],
@@ -25,8 +25,8 @@ export const projects: Project[] = [
   {
     name: 'Juca',
     subdomain: 'juca',
-    description: 'Lawyer interface — progressive legal briefing connected to the full ecosystem via API and MCP.',
-    descriptionPtBr: 'Interface para advogados — briefing juridico progressivo conectado ao ecossistema via API e MCP.',
+    description: 'Frontend hub for lawyers and AI-assisted workflows, progressively decoupled from backend services now moving into Valter.',
+    descriptionPtBr: 'Hub frontend para advogados e fluxos assistidos por IA, desacoplando-se progressivamente dos servicos de backend que migram para o Valter.',
     repo: 'https://github.com/sensdiego/juca',
     status: 'dev',
     stack: ['Next.js', 'React', 'TypeScript'],
@@ -36,8 +36,8 @@ export const projects: Project[] = [
   {
     name: 'Leci',
     subdomain: 'leci',
-    description: 'Legislation backend — federal statutes, regulations, and normative acts as structured data.',
-    descriptionPtBr: 'Backend de legislacao — leis, regulamentos e atos normativos federais como dados estruturados.',
+    description: 'Document-first legislation engine with live /api/search, reliable grounding, and structured statute retrieval for Valter and Juca.',
+    descriptionPtBr: 'Engine legislativa document-first com /api/search operacional, grounding confiavel e recuperacao estruturada de normas para Valter e Juca.',
     repo: 'https://github.com/sensdiego/leci',
     status: 'dev',
     stack: ['Next.js', 'PostgreSQL', 'pgvector', 'Railway', 'TypeScript'],
@@ -47,8 +47,8 @@ export const projects: Project[] = [
   {
     name: 'Douto',
     subdomain: 'douto',
-    description: 'Doctrine pipeline — legal books processed into structured, searchable knowledge with semantic indexing.',
-    descriptionPtBr: 'Pipeline de doutrina — livros juridicos processados em conhecimento estruturado e pesquisavel com indexacao semantica.',
+    description: 'Local doctrine pipeline and internal artifact supplier for Valter, turning curated legal books into reusable doctrinal material.',
+    descriptionPtBr: 'Pipeline local de doutrina e fornecedor interno de artefatos para o Valter, transformando obras juridicas curadas em material doutrinario reutilizavel.',
     repo: 'https://github.com/sensdiego/douto',
     status: 'dev',
     stack: ['Python', 'Legal-BERTimbau', 'LlamaParse', 'MiniMax'],
