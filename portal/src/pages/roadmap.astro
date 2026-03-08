@@ -1,86 +1,37 @@
 ---
 import DocsLayout from '../layouts/DocsLayout.astro';
+import ProjectRoadmapStatus from '../components/ProjectRoadmapStatus.astro';
+import { projects } from '../data/projects';
 ---
 
 <DocsLayout title="Roadmap" description="Product roadmap for the sens.legal ecosystem.">
   <h1>Roadmap</h1>
 
   <p>
-    All projects remain in <strong>development</strong>. This roadmap has been
-    rewritten from the canonical progress files in each repository, focusing on
-    what is actually in flight now.
+    All projects remain in <strong>development</strong>. This page now uses the
+    same editorial roadmap snapshot shown on the home page, individual project
+    pages, and GitHub landing page.
   </p>
 
-  <h2>Valter</h2>
+  <p>
+    The reading rule is simple: start with each project's progress file, then
+    use roadmap or migration artifacts when they define implementation phases
+    more clearly than the progress log alone.
+  </p>
 
-  <h4>Near-term</h4>
-  <ul>
-    <li>Regularize the Neo4j schema that currently blocks Phase 3 validation</li>
-    <li>Finish A/B evaluation for the unified pipeline and reasoning chain</li>
-    <li>Close the current migration tooling and explainability work</li>
-  </ul>
-
-  <h4>Medium-term</h4>
-  <ul>
-    <li>Execute chat orchestration and backend unification work</li>
-    <li>Complete the final cutover of backend logic out of Juca</li>
-    <li>Remove legacy code after the migration is done</li>
-  </ul>
-
-  <h2>Juca</h2>
-
-  <h4>Near-term</h4>
-  <ul>
-    <li>Keep briefing, canvas, and reading stable while the backend migrates</li>
-    <li>Adopt new Valter surfaces as they land</li>
-    <li>Follow the canonical PR and unblock sequence on the frontend</li>
-  </ul>
-
-  <h4>Medium-term</h4>
-  <ul>
-    <li>Finish decoupling legal backend ownership from the frontend</li>
-    <li>Integrate reasoning-chain-driven argument flows</li>
-    <li>Resume product work on a cleaner base</li>
-  </ul>
-
-  <h2>Leci</h2>
-
-  <h4>Near-term</h4>
-  <ul>
-    <li>Start canonical regulation resolution through the SEN-418 track</li>
-    <li>Improve recall beyond the current <code>/api/search</code> baseline</li>
-    <li>Keep document-first reading as the main path</li>
-  </ul>
-
-  <h4>Medium-term</h4>
-  <ul>
-    <li>Resolve provisions, structural context, and legislative history</li>
-    <li>Deliver grounding contracts for Valter and Juca</li>
-    <li>Expand corpus, quality, observability, and rollout</li>
-  </ul>
-
-  <h2>Douto</h2>
-
-  <h4>Near-term</h4>
-  <ul>
-    <li>Lock in a reproducible local pipeline foundation</li>
-    <li>Set up the quality gate for contracts and civil procedure</li>
-    <li>Define the artifact contract for Valter handoff</li>
-  </ul>
-
-  <h4>Medium-term</h4>
-  <ul>
-    <li>Evolve explainable retrieval after the quality gates</li>
-    <li>Add synthesis only behind its own gate</li>
-    <li>Expand corpus coverage while preserving editorial traceability</li>
-  </ul>
+  {projects.map((project) => (
+    <>
+      <h2>{project.name}</h2>
+      <ProjectRoadmapStatus project={project} />
+    </>
+  ))}
 
   <h2>Ecosystem</h2>
 
   <ul>
-    <li>Finish the migration of legal backend ownership from Juca into Valter</li>
-    <li>Plug legislative and doctrinal grounding into the central backend</li>
-    <li>Keep REST API and MCP documented canonically in Valter</li>
-    <li>Make the portal reflect the real ecosystem instead of a stale static inventory</li>
+    <li>Keep Valter as the canonical backend surface for jurisprudence, reasoning, REST, and MCP</li>
+    <li>Move the remaining legal backend ownership out of Juca and into Valter</li>
+    <li>Plug legislative and doctrinal grounding into the central backend through Leci and Douto</li>
+    <li>Keep all public surfaces synced to the same editorial snapshot instead of drifting by page</li>
   </ul>
 </DocsLayout>
