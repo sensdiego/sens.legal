@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
+import { supabase } from '../../lib/supabase';
 
 export const prerender = false;
 
@@ -25,6 +26,10 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   try {
+    // Persist to Supabase
+    await supabase.rpc('portal_waitlist_insert', { p_email: email });
+
+    // Add to Resend audience + send welcome email
     const resend = new Resend(apiKey);
     await resend.contacts.create({
       email,
