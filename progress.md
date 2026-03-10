@@ -104,10 +104,64 @@ Script de sync dependia de paths locais hardcoded (`~/Dev/`).
 
 ### Backlog (issues criadas para o futuro)
 
-| Issue   | Prioridade | Descrição                                          |
-| ------- | ---------- | -------------------------------------------------- |
-| SEN-400 | Low        | SEO / Open Graph meta tags no portal               |
-| SEN-401 | Low        | Dashboard admin para visualizar inscritos waitlist  |
-| SEN-402 | Medium     | Configurar domínio sens.legal no Resend             |
-| SEN-403 | Low        | Revisar e atualizar docs do Douto                  |
-| SEN-404 | Low        | CI pipeline com GitHub Actions para sync automático |
+Todas as issues do backlog inicial foram resolvidas em 2026-03-10.
+
+---
+
+## 2026-03-10
+
+### Issues resolvidas (5/5)
+
+#### SEN-400 — SEO / Open Graph meta tags no portal (feature, S)
+- `@astrojs/sitemap` instalado e configurado — gera `sitemap-index.xml` automaticamente
+- hreflang alternate links adicionados ao `DocsLayout.astro` (EN, PT-BR, x-default)
+- `og-image.png` (1200x630) criado, substituindo a logo quadrada 2000x2000
+- Canonical links adicionados
+
+**Arquivos alterados:** `portal/astro.config.mjs`, `portal/src/layouts/DocsLayout.astro`, `portal/public/og-image.png` (novo)
+
+---
+
+#### SEN-401 — Dashboard admin para waitlist (feature, M)
+- Schema `portal` criado no Supabase (isolado para o portal)
+- Tabela `portal.waitlist` com RLS, funções RPC (`portal_waitlist_insert`, `portal_waitlist_list`, `portal_waitlist_count`)
+- Endpoint `POST /api/waitlist` agora persiste no Supabase antes de enviar ao Resend
+- Endpoint `GET /api/admin/waitlist?token=...` retorna JSON dos inscritos
+- Página `/admin/waitlist?token=...` com dashboard visual (dark theme, tabela de inscritos)
+- `@supabase/supabase-js` instalado, `lib/supabase.ts` criado
+- Env vars no Vercel: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `ADMIN_TOKEN`
+
+**Arquivos criados:** `portal/src/lib/supabase.ts`, `portal/src/pages/admin/waitlist.astro`, `portal/src/pages/api/admin/waitlist.ts`
+**Arquivos alterados:** `portal/src/pages/api/waitlist.ts`, `portal/package.json`
+
+---
+
+#### SEN-402 — Configurar domínio sens.legal no Resend (infra, S)
+- Domínio `sens.legal` adicionado ao Resend (região São Paulo, sa-east-1)
+- 3 registros DNS configurados no Hostinger: DKIM (TXT), MX, SPF
+- Verificação concluída — status **Verified**
+- Env var `RESEND_FROM_EMAIL` configurada no Vercel
+- Emails de waitlist agora saem de `@sens.legal`
+
+---
+
+#### SEN-403 — Douto docs site (feature, S)
+- `SITE_MANIFEST.json` criado no repo Douto (formato Juca — file-based, 30 docs EN + PT-BR)
+- `.gitignore` atualizado para permitir tracking do manifesto
+- `sync-docs.sh` agora sincroniza o Douto automaticamente (antes era pulado)
+- Build validado: 61 páginas geradas (30 EN + 30 PT-BR + 404)
+
+**Arquivos criados:** `/Douto/SITE_MANIFEST.json`
+**Arquivos alterados:** `/Douto/.gitignore`
+
+---
+
+#### SEN-404 — CI pipeline com GitHub Actions (feature, S)
+- Workflow `.github/workflows/ci.yml` criado (roda em push/PR para main)
+- Etapas: typecheck do portal (`astro check`) + build dos 5 workspaces
+- `@astrojs/check` adicionado ao portal como dev dependency
+- 32 erros de tipo corrigidos no portal (null checks DOM, CDN imports, element casts)
+- Typecheck passa com 0 erros
+
+**Arquivos criados:** `.github/workflows/ci.yml`
+**Arquivos alterados:** `portal/package.json`, `portal/src/pages/index.astro`, `portal/src/pages/pt-br/index.astro`, `portal/src/pages/architecture.astro`, `portal/src/pages/pt-br/architecture.astro`
