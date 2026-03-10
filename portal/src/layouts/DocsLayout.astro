@@ -30,7 +30,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     <meta property="og:title" content={`${title} — sens.legal`} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={Astro.url.href} />
-    <meta property="og:image" content={new URL('/logo-hero.png', Astro.site).href} />
+    <meta property="og:image" content={new URL('/og-image.png', Astro.site).href} />
     <meta property="og:locale" content={lang === 'pt-br' ? 'pt_BR' : 'en_US'} />
     <meta property="og:locale:alternate" content={lang === 'pt-br' ? 'en_US' : 'pt_BR'} />
 
@@ -38,10 +38,22 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`${title} — sens.legal`} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL('/logo-hero.png', Astro.site).href} />
+    <meta name="twitter:image" content={new URL('/og-image.png', Astro.site).href} />
 
-    <!-- Canonical -->
+    <!-- Canonical + hreflang -->
     <link rel="canonical" href={Astro.url.href} />
+    {lang === 'pt-br' ? (
+      <>
+        <link rel="alternate" hreflang="pt-BR" href={Astro.url.href} />
+        <link rel="alternate" hreflang="en" href={new URL(Astro.url.pathname.replace('/pt-br', '') || '/', Astro.site).href} />
+      </>
+    ) : (
+      <>
+        <link rel="alternate" hreflang="en" href={Astro.url.href} />
+        <link rel="alternate" hreflang="pt-BR" href={new URL(`/pt-br${Astro.url.pathname}`, Astro.site).href} />
+      </>
+    )}
+    <link rel="alternate" hreflang="x-default" href={new URL(lang === 'pt-br' ? Astro.url.pathname.replace('/pt-br', '') || '/' : Astro.url.pathname, Astro.site).href} />
   </head>
   <body>
     <Header lang={lang} />

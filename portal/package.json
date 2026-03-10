@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.1",
     "@astrojs/vercel": "^9.0.4",
     "astro": "^5.6.1",
     "resend": "^6.9.3"
