@@ -1,6 +1,8 @@
 export interface ProjectRoadmapStage {
   title: string;
   titlePtBr: string;
+  description: string;
+  descriptionPtBr: string;
 }
 
 export interface ProjectUpdate {
@@ -76,12 +78,42 @@ export const projects: Project[] = [
         'O cutover do Juca depende do frontend do Juca se adaptar ao backend exclusivo do Valter.',
       ],
       stages: [
-        { title: 'Canonical triage', titlePtBr: 'Triagem canonica' },
-        { title: 'Schema + entity resolution', titlePtBr: 'Schema + entity resolution' },
-        { title: 'Graph-led retrieval', titlePtBr: 'Graph-led retrieval' },
-        { title: 'Unified pipeline + reasoning', titlePtBr: 'Pipeline unificado + reasoning' },
-        { title: 'Chat orchestration', titlePtBr: 'Orquestracao de chat' },
-        { title: 'Juca backend cutover', titlePtBr: 'Cutover do backend do Juca' },
+        {
+          title: 'Canonical triage',
+          titlePtBr: 'Triagem canonica',
+          description: 'Audit and classify all existing data assets from the Juca migration, establishing quality baselines and identifying gaps.',
+          descriptionPtBr: 'Auditar e classificar todos os ativos de dados existentes da migracao do Juca, estabelecendo baselines de qualidade e identificando lacunas.',
+        },
+        {
+          title: 'Schema + entity resolution',
+          titlePtBr: 'Schema + entity resolution',
+          description: 'Consolidate the Neo4j schema, resolve duplicate entities, and establish canonical identifiers across the knowledge graph.',
+          descriptionPtBr: 'Consolidar o schema Neo4j, resolver entidades duplicadas e estabelecer identificadores canonicos no knowledge graph.',
+        },
+        {
+          title: 'Graph-led retrieval',
+          titlePtBr: 'Graph-led retrieval',
+          description: 'Implement graph-guided search combining knowledge graph traversal with BM25 and cross-encoder reranking for precision.',
+          descriptionPtBr: 'Implementar busca guiada por grafo combinando travessia de knowledge graph com BM25 e reranking cross-encoder para precisao.',
+        },
+        {
+          title: 'Unified pipeline + reasoning',
+          titlePtBr: 'Pipeline unificado + reasoning',
+          description: 'Merge retrieval, reasoning, and verification into a single pipeline with extended MCP tool coverage.',
+          descriptionPtBr: 'Unificar retrieval, reasoning e verificacao em um unico pipeline com cobertura ampliada de tools MCP.',
+        },
+        {
+          title: 'Chat orchestration',
+          titlePtBr: 'Orquestracao de chat',
+          description: 'Build a multi-stage LLM chat pipeline with draft, critics, and revision phases plus real-time SSE streaming.',
+          descriptionPtBr: 'Construir pipeline de chat LLM multi-estagio com fases de draft, criticos e revisao, mais streaming SSE em tempo real.',
+        },
+        {
+          title: 'Juca backend cutover',
+          titlePtBr: 'Cutover do backend do Juca',
+          description: 'Complete the final migration of all backend responsibilities from Juca to Valter, enabling Juca to operate as a pure frontend hub.',
+          descriptionPtBr: 'Concluir a migracao final de todas as responsabilidades de backend do Juca para o Valter, permitindo que o Juca opere como hub frontend puro.',
+        },
       ],
       updates: [
         {
@@ -95,8 +127,8 @@ export const projects: Project[] = [
           date: '2026-03-09',
           title: 'Unified pipeline + 30 MCP tools',
           titlePtBr: 'Pipeline unificado + 30 tools MCP',
-          summary: 'SEN-385 completed: validated PRD, 73 new tests, 30 MCP tools operational, and incremental ranking improvement (+0.017 nDCG).',
-          summaryPtBr: 'SEN-385 concluido: PRD validado, 73 novos testes, 30 tools MCP operacionais e melhoria incremental de ranking (+0.017 nDCG).',
+          summary: 'Validated PRD merged, 73 new tests, 30 MCP tools operational, and incremental ranking improvement (+0.017 nDCG).',
+          summaryPtBr: 'PRD validado mergeado, 73 novos testes, 30 tools MCP operacionais e melhoria incremental de ranking (+0.017 nDCG).',
         },
         {
           date: '2026-03-05',
@@ -152,9 +184,9 @@ export const projects: Project[] = [
       currentStageLabel: 'Hub foundation',
       currentStageLabelPtBr: 'Fundacao do hub',
       summary:
-        'v0.2 design system is complete and the UI/UX reset (SEN-354) is done. Now building v0.3: Valter integration via adapter layer to complete the hub foundation.',
+        'v0.2 design system is complete and the UI/UX reset is done. Now building v0.3: Valter integration via adapter layer to complete the hub foundation.',
       summaryPtBr:
-        'O design system v0.2 esta completo e o reset de UI/UX (SEN-354) esta feito. Agora construindo v0.3: integracao com Valter via adapter layer para completar a fundacao do hub.',
+        'O design system v0.2 esta completo e o reset de UI/UX esta feito. Agora construindo v0.3: integracao com Valter via adapter layer para completar a fundacao do hub.',
       now:
         'Build v0.3 hub foundation: Valter integration and adapter layer.',
       nowPtBr:
@@ -172,26 +204,51 @@ export const projects: Project[] = [
         'Briefing progressivo adiado para v0.4.',
       ],
       stages: [
-        { title: 'Hub foundation', titlePtBr: 'Fundacao do hub' },
-        { title: 'Progressive briefing', titlePtBr: 'Briefing progressivo' },
-        { title: 'Polish and expand', titlePtBr: 'Polimento e expansao' },
-        { title: 'Multi-agent platform', titlePtBr: 'Plataforma multiagente' },
-        { title: 'Platform release', titlePtBr: 'Release de plataforma' },
+        {
+          title: 'Hub foundation',
+          titlePtBr: 'Fundacao do hub',
+          description: 'Reset UI/UX with the Liquid Legal design system, integrate Valter via adapter layer, and establish the hub architecture.',
+          descriptionPtBr: 'Resetar UI/UX com o design system Liquid Legal, integrar Valter via adapter layer e estabelecer a arquitetura do hub.',
+        },
+        {
+          title: 'Progressive briefing',
+          titlePtBr: 'Briefing progressivo',
+          description: 'Implement a 4-phase briefing workflow (Diagnosis, Precedents, Risks, Delivery) consuming Valter as the backend.',
+          descriptionPtBr: 'Implementar workflow de briefing em 4 fases (Diagnostico, Precedentes, Riscos, Entrega) consumindo o Valter como backend.',
+        },
+        {
+          title: 'Polish and expand',
+          titlePtBr: 'Polimento e expansao',
+          description: 'Stabilize graph capabilities, resolve technical debt, add advanced selection criteria, and export legal memo formats.',
+          descriptionPtBr: 'Estabilizar capacidades de grafo, resolver divida tecnica, adicionar criterios avancados de selecao e exportar formatos de memo juridico.',
+        },
+        {
+          title: 'Multi-agent platform',
+          titlePtBr: 'Plataforma multiagente',
+          description: 'Expand the hub to orchestrate multiple agents (Valter, Leci, future agents), implement cost ledger and session security.',
+          descriptionPtBr: 'Expandir o hub para orquestrar multiplos agentes (Valter, Leci, futuros agentes), implementar ledger de custos e seguranca de sessao.',
+        },
+        {
+          title: 'Platform release',
+          titlePtBr: 'Release de plataforma',
+          description: 'Production-ready product with multi-tenancy, PWA, expanded corpus coverage, and complete documentation.',
+          descriptionPtBr: 'Produto pronto para producao com multi-tenancy, PWA, cobertura de corpus expandida e documentacao completa.',
+        },
       ],
       updates: [
         {
           date: '2026-03-09',
           title: 'Zustand removal and codebase cleanup',
           titlePtBr: 'Remocao do Zustand e limpeza do codebase',
-          summary: 'Zustand fully removed (0 imports). Duplicated documentation cleaned up. All PRs #300-306 merged successfully.',
-          summaryPtBr: 'Zustand completamente removido (0 imports). Documentacao duplicada limpa. Todos os PRs #300-306 mergeados com sucesso.',
+          summary: 'Zustand fully removed (0 imports). Duplicated documentation cleaned up. All open PRs merged successfully.',
+          summaryPtBr: 'Zustand completamente removido (0 imports). Documentacao duplicada limpa. Todos os PRs abertos mergeados com sucesso.',
         },
         {
           date: '2026-03-07',
           title: 'Design system v0.2 complete',
           titlePtBr: 'Design system v0.2 completo',
-          summary: 'Liquid Legal UI/UX design system fully implemented: tokens, base components, shell layout, Composer, message blocks, and responsiveness. SEN-354 closed.',
-          summaryPtBr: 'Design system Liquid Legal UI/UX totalmente implementado: tokens, componentes base, shell layout, Composer, blocos de mensagem e responsividade. SEN-354 fechada.',
+          summary: 'Liquid Legal UI/UX design system fully implemented: tokens, base components, shell layout, Composer, message blocks, and responsiveness.',
+          summaryPtBr: 'Design system Liquid Legal UI/UX totalmente implementado: tokens, componentes base, shell layout, Composer, blocos de mensagem e responsividade.',
         },
         {
           date: '2026-02-28',
@@ -219,9 +276,9 @@ export const projects: Project[] = [
       currentStageLabel: 'Canonical legal reference resolution',
       currentStageLabelPtBr: 'Resolucao canonica de referencia juridica',
       summary:
-        'v0.2 reference resolution is complete: 185 tests passing, 19 federal regulations mapped. Now entering provision resolution (SEN-424 to SEN-429).',
+        'v0.2 reference resolution is complete: 185 tests passing, 19 federal regulations mapped. Now entering provision resolution.',
       summaryPtBr:
-        'A resolucao de referencia v0.2 esta completa: 185 testes passando, 19 regulamentacoes federais mapeadas. Agora entrando em resolucao de dispositivos (SEN-424 a SEN-429).',
+        'A resolucao de referencia v0.2 esta completa: 185 testes passando, 19 regulamentacoes federais mapeadas. Agora entrando em resolucao de dispositivos.',
       now:
         'Provision resolution — map articles, paragraphs, and items within resolved statutes.',
       nowPtBr:
@@ -237,19 +294,44 @@ export const projects: Project[] = [
         'O mapeamento de dispositivos requer parsing estruturado de artigos/paragrafos ainda nao construido.',
       ],
       stages: [
-        { title: 'Foundation API and setup reliability', titlePtBr: 'Fundacao de API e confiabilidade de setup' },
-        { title: 'Canonical legal reference resolution', titlePtBr: 'Resolucao canonica de referencia juridica' },
-        { title: 'Reader and grounding contracts', titlePtBr: 'Reader e contratos de grounding' },
-        { title: 'Ingestion, quality, and advanced retrieval', titlePtBr: 'Ingestao, qualidade e retrieval avancado' },
-        { title: 'Ecosystem stability and rollout', titlePtBr: 'Estabilidade e rollout no ecossistema' },
+        {
+          title: 'Foundation API and setup reliability',
+          titlePtBr: 'Fundacao de API e confiabilidade de setup',
+          description: 'Launch /api/search with PostgreSQL FTS, validate response contracts, and establish the Railway deployment pipeline.',
+          descriptionPtBr: 'Lancar /api/search com PostgreSQL FTS, validar contratos de resposta e estabelecer o pipeline de deploy no Railway.',
+        },
+        {
+          title: 'Canonical legal reference resolution',
+          titlePtBr: 'Resolucao canonica de referencia juridica',
+          description: 'Resolve statutes by alias, abbreviation, number, and year. Map provisions (articles, paragraphs, items) within resolved documents.',
+          descriptionPtBr: 'Resolver normas por alias, sigla, numero e ano. Mapear dispositivos (artigos, paragrafos, incisos) dentro dos documentos resolvidos.',
+        },
+        {
+          title: 'Reader and grounding contracts',
+          titlePtBr: 'Reader e contratos de grounding',
+          description: 'Expose a document-first reader and grounding contracts for Valter and Juca integration.',
+          descriptionPtBr: 'Expor reader document-first e contratos de grounding para integracao com Valter e Juca.',
+        },
+        {
+          title: 'Ingestion, quality, and advanced retrieval',
+          titlePtBr: 'Ingestao, qualidade e retrieval avancado',
+          description: 'Scale legislation ingestion, measure retrieval quality, and implement advanced search capabilities.',
+          descriptionPtBr: 'Escalar ingestao de legislacao, medir qualidade de retrieval e implementar capacidades avancadas de busca.',
+        },
+        {
+          title: 'Ecosystem stability and rollout',
+          titlePtBr: 'Estabilidade e rollout no ecossistema',
+          description: 'Stabilize API contracts, ensure production reliability, and complete ecosystem integration.',
+          descriptionPtBr: 'Estabilizar contratos de API, garantir confiabilidade em producao e completar a integracao no ecossistema.',
+        },
       ],
       updates: [
         {
           date: '2026-03-09',
           title: 'Canonical document resolution complete',
           titlePtBr: 'Resolucao canonica de documentos completa',
-          summary: 'Five-issue track (SEN-418 to SEN-423) shipped: canonical document ID format, normalizer, 19-norm alias registry, confidence-scored resolver, and /api/resolve v0 endpoint. 185 tests passing.',
-          summaryPtBr: 'Trilha de 5 issues (SEN-418 a SEN-423) entregue: formato canonico de ID de documento, normalizador, registro de alias de 19 normas, resolver com score de confianca e endpoint /api/resolve v0. 185 testes passando.',
+          summary: 'Canonical document ID format, normalizer, 19-norm alias registry, confidence-scored resolver, and /api/resolve v0 endpoint shipped. 185 tests passing.',
+          summaryPtBr: 'Formato canonico de ID de documento, normalizador, registro de alias de 19 normas, resolver com score de confianca e endpoint /api/resolve v0 entregues. 185 testes passando.',
         },
         {
           date: '2026-03-07',
@@ -284,9 +366,9 @@ export const projects: Project[] = [
       currentStageLabel: 'Doctrinal quality gate',
       currentStageLabelPtBr: 'Quality gate doutrinario',
       summary:
-        'Stage 1 (reproducible foundation) is complete: SEN-447 to SEN-451 done. Now entering the doctrinal quality gate (SEN-452 to SEN-456).',
+        'The reproducible foundation stage is complete. Now entering the doctrinal quality gate to measure extraction pipeline output.',
       summaryPtBr:
-        'O estagio 1 (fundacao reproduzivel) esta completo: SEN-447 a SEN-451 concluidos. Agora entrando no quality gate doutrinario (SEN-452 a SEN-456).',
+        'O estagio de fundacao reproduzivel esta completo. Agora entrando no quality gate doutrinario para medir a saida do pipeline de extracao.',
       now:
         'Define and measure doctrinal quality metrics for the extraction pipeline.',
       nowPtBr:
@@ -302,19 +384,44 @@ export const projects: Project[] = [
         'Metricas de qualidade e criterios de aceitacao ainda nao definidos.',
       ],
       stages: [
-        { title: 'Reproducible foundation', titlePtBr: 'Fundacao reproduzivel' },
-        { title: 'Doctrinal quality gate', titlePtBr: 'Quality gate doutrinario' },
-        { title: 'Artifact handoff contract to Valter', titlePtBr: 'Contrato de handoff de artefatos para o Valter' },
-        { title: 'Explainable retrieval', titlePtBr: 'Retrieval explicavel' },
-        { title: 'Gated synthesis', titlePtBr: 'Sintese com gate proprio' },
+        {
+          title: 'Reproducible foundation',
+          titlePtBr: 'Fundacao reproduzivel',
+          description: 'Remove dependency on creator\'s machine, establish reliable local pipeline with normalized paths and CLI behavior.',
+          descriptionPtBr: 'Remover dependencia da maquina do criador, estabelecer pipeline local confiavel com paths normalizados e comportamento de CLI.',
+        },
+        {
+          title: 'Doctrinal quality gate',
+          titlePtBr: 'Quality gate doutrinario',
+          description: 'Measure if contract law and civil procedure content meets quality thresholds for retrieval and synthesis.',
+          descriptionPtBr: 'Medir se o conteudo de direito contratual e processo civil atende aos limiares de qualidade para retrieval e sintese.',
+        },
+        {
+          title: 'Artifact handoff contract to Valter',
+          titlePtBr: 'Contrato de handoff de artefatos para o Valter',
+          description: 'Define what Douto delivers: semantics, identifiers, coverage, and provenance metadata.',
+          descriptionPtBr: 'Definir o que o Douto entrega: semantica, identificadores, cobertura e metadados de proveniencia.',
+        },
+        {
+          title: 'Explainable retrieval',
+          titlePtBr: 'Retrieval explicavel',
+          description: 'Transition from local CLI search to reusable, explainable retrieval ready for controlled handoff.',
+          descriptionPtBr: 'Transicionar de busca CLI local para retrieval reutilizavel e explicavel, pronto para handoff controlado.',
+        },
+        {
+          title: 'Gated synthesis',
+          titlePtBr: 'Sintese com gate proprio',
+          description: 'Generate brainstorm and novel theses without hiding limitations or presenting inference as established fact.',
+          descriptionPtBr: 'Gerar brainstorm e teses ineditas sem esconder limitacoes ou apresentar inferencia como fato estabelecido.',
+        },
       ],
       updates: [
         {
           date: '2026-03-07',
           title: 'Strategic and operational realignment',
           titlePtBr: 'Realinhamento estrategico e operacional',
-          summary: 'Douto repositioned as internal doctrine pipeline for Valter (not standalone product). Focus on contract law and civil procedure. Canonical backlog established in Linear (SEN-447 to SEN-468) with governance rules prioritizing accuracy over speed.',
-          summaryPtBr: 'Douto reposicionado como pipeline interno de doutrina para o Valter (nao produto standalone). Foco em direito contratual e processo civil. Backlog canonico estabelecido no Linear (SEN-447 a SEN-468) com regras de governanca priorizando precisao sobre velocidade.',
+          summary: 'Douto repositioned as internal doctrine pipeline for Valter (not standalone product). Focus on contract law and civil procedure, with governance rules prioritizing accuracy over speed.',
+          summaryPtBr: 'Douto reposicionado como pipeline interno de doutrina para o Valter (nao produto standalone). Foco em direito contratual e processo civil, com regras de governanca priorizando precisao sobre velocidade.',
         },
       ],
     },

@@ -22,7 +22,7 @@ const labels = isPtBr
       next: 'Proximo',
       blockers: 'Bloqueios e dependencias',
       stageMap: 'Mapa de etapas',
-      updates: 'Atualizacoes',
+      updates: 'Ultimas atualizacoes',
       source:
         'Snapshot editorial derivado de progress, roadmap e, quando relevante, arquivos canonicos de migracao.',
     }
@@ -34,7 +34,7 @@ const labels = isPtBr
       next: 'Next',
       blockers: 'Blockers and dependencies',
       stageMap: 'Stage map',
-      updates: 'Updates',
+      updates: 'Latest updates',
       source:
         'Editorial snapshot derived from project progress, roadmap, and migration files when they add phase-specific context.',
     };
@@ -75,60 +75,67 @@ const labels = isPtBr
   </div>
 
   {!compact && blockers.length > 0 && (
-    <>
+    <div class="roadmap-section">
       <h3>{labels.blockers}</h3>
       <ul class="roadmap-list">
         {blockers.map((item) => (
           <li>{item}</li>
         ))}
       </ul>
+    </div>
+  )}
 
-      <h3>{labels.stageMap}</h3>
-      <ol class="stage-list">
-        {roadmap.stages.map((stage, index) => {
-          const stageNumber = index + 1;
-          const stageState =
-            stageNumber < roadmap.currentStage
-              ? 'done'
-              : stageNumber === roadmap.currentStage
-                ? 'current'
-                : 'upcoming';
+  <div class="roadmap-section">
+    <h3>{labels.stageMap}</h3>
+    <div class="accordion-list">
+      {roadmap.stages.map((stage, index) => {
+        const stageNumber = index + 1;
+        const stageState =
+          stageNumber < roadmap.currentStage
+            ? 'done'
+            : stageNumber === roadmap.currentStage
+              ? 'current'
+              : 'upcoming';
 
-          return (
-            <li class:list={['stage-item', stageState]}>
+        return (
+          <details class:list={['accordion-item', `accordion-${stageState}`]}>
+            <summary>
               <span class="stage-number">{stageNumber}</span>
-              <span>{isPtBr ? stage.titlePtBr : stage.title}</span>
-            </li>
-          );
-        })}
-      </ol>
+              <span class="accordion-title">{isPtBr ? stage.titlePtBr : stage.title}</span>
+            </summary>
+            <p class="accordion-body">{isPtBr ? stage.descriptionPtBr : stage.description}</p>
+          </details>
+        );
+      })}
+    </div>
+  </div>
 
-      {updates.length > 0 && (
-        <>
-          <h3>{labels.updates}</h3>
-          <div class="updates-list">
-            {updates.map((update) => (
-              <details class="update-item">
-                <summary>
-                  <span class="update-date">{new Date(update.date + 'T00:00:00').toLocaleDateString(isPtBr ? 'pt-BR' : 'en-US', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
-                  <span class="update-title">{isPtBr ? update.titlePtBr : update.title}</span>
-                </summary>
-                <p class="update-summary">{isPtBr ? update.summaryPtBr : update.summary}</p>
-              </details>
-            ))}
-          </div>
-        </>
-      )}
+  {updates.length > 0 && (
+    <div class="roadmap-section">
+      <h3>{labels.updates}</h3>
+      <div class="accordion-list">
+        {updates.map((update) => (
+          <details class="accordion-item">
+            <summary>
+              <span class="update-date">{new Date(update.date + 'T00:00:00').toLocaleDateString(isPtBr ? 'pt-BR' : 'en-US', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+              <span class="accordion-title">{isPtBr ? update.titlePtBr : update.title}</span>
+            </summary>
+            <p class="accordion-body">{isPtBr ? update.summaryPtBr : update.summary}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  )}
 
-      <p class="roadmap-source">{labels.source}</p>
-    </>
+  {!compact && (
+    <p class="roadmap-source">{labels.source}</p>
   )}
 </section>
 
 <style>
   .roadmap-status {
     margin-top: var(--space-md);
-    padding: var(--space-lg);
+    padding: 1.75rem;
     border: 1px solid var(--color-border);
     border-radius: 0.75rem;
     background: rgba(148, 163, 184, 0.05);
@@ -136,7 +143,7 @@ const labels = isPtBr
 
   .roadmap-status.compact {
     margin-top: var(--space-sm);
-    padding: var(--space-md);
+    padding: 1.25rem;
     border-radius: 0.5rem;
   }
 
@@ -145,7 +152,7 @@ const labels = isPtBr
     justify-content: space-between;
     gap: var(--space-md);
     align-items: flex-start;
-    margin-bottom: var(--space-sm);
+    margin-bottom: 0.75rem;
   }
 
   .roadmap-kicker,
@@ -184,138 +191,172 @@ const labels = isPtBr
   }
 
   .roadmap-summary {
-    margin-top: var(--space-md);
+    margin-top: 1rem;
+    margin-bottom: 0;
     color: var(--color-text-secondary);
+    line-height: 1.6;
   }
 
   .roadmap-columns {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-md);
-    margin-top: var(--space-md);
+    gap: 1.25rem;
+    margin-top: 1.25rem;
   }
 
   .roadmap-column p:last-child {
     margin-bottom: 0;
+    line-height: 1.5;
+  }
+
+  .roadmap-section {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .roadmap-section h3 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    margin: 0 0 0.75rem;
   }
 
   .roadmap-list {
-    margin-top: var(--space-sm);
+    margin: 0;
+    padding-left: 1.25rem;
   }
 
-  .stage-list {
-    display: grid;
-    gap: var(--space-sm);
-    margin-top: var(--space-sm);
-    padding-left: 0;
-    list-style: none;
+  .roadmap-list li {
+    margin-bottom: 0.25rem;
+    line-height: 1.5;
   }
 
-  .stage-item {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    padding: 0.65rem 0.8rem;
-    border-radius: 0.5rem;
-    border: 1px solid var(--color-border);
-    color: var(--color-text-secondary);
-  }
+  /* Shared accordion styles for stages and updates */
 
-  .stage-item.done {
-    background: rgba(17, 24, 39, 0.06);
-    color: var(--color-text);
-  }
-
-  .stage-item.current {
-    background: rgba(17, 24, 39, 0.12);
-    border-color: rgba(17, 24, 39, 0.25);
-    color: var(--color-text);
-  }
-
-  .stage-number {
-    width: 1.75rem;
-    height: 1.75rem;
-    border-radius: 9999px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid currentColor;
-    font-size: 0.8rem;
-    flex-shrink: 0;
-  }
-
-  .updates-list {
+  .accordion-list {
     display: grid;
     gap: 0.375rem;
-    margin-top: var(--space-sm);
   }
 
-  .update-item {
+  .accordion-item {
     border: 1px solid var(--color-border);
     border-radius: 0.5rem;
     overflow: hidden;
+    transition: border-color 0.15s ease;
   }
 
-  .update-item summary {
+  .accordion-item[open] {
+    border-color: rgba(148, 163, 184, 0.35);
+  }
+
+  .accordion-item summary {
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
-    padding: 0.65rem 0.8rem;
+    gap: 0.625rem;
+    padding: 0.625rem 0.875rem;
     cursor: pointer;
     list-style: none;
     user-select: none;
     transition: background 0.15s ease;
   }
 
-  .update-item summary::-webkit-details-marker {
+  .accordion-item summary::-webkit-details-marker {
     display: none;
   }
 
-  .update-item summary::before {
+  .accordion-item summary::after {
     content: '\25B8';
+    margin-left: auto;
     flex-shrink: 0;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: var(--color-text-muted);
     transition: transform 0.15s ease;
   }
 
-  .update-item[open] summary::before {
+  .accordion-item[open] summary::after {
     transform: rotate(90deg);
   }
 
-  .update-item summary:hover {
+  .accordion-item summary:hover {
     background: rgba(148, 163, 184, 0.08);
   }
 
+  .accordion-title {
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .accordion-body {
+    padding: 0 0.875rem 0.75rem 2.75rem;
+    margin: 0;
+    font-size: 0.825rem;
+    color: var(--color-text-secondary);
+    line-height: 1.55;
+  }
+
+  /* Stage-specific styles */
+
+  .stage-number {
+    width: 1.625rem;
+    height: 1.625rem;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid currentColor;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .accordion-done {
+    color: var(--color-text);
+  }
+
+  .accordion-done summary {
+    background: rgba(17, 24, 39, 0.04);
+  }
+
+  .accordion-current {
+    color: var(--color-text);
+    border-color: rgba(17, 24, 39, 0.25);
+  }
+
+  .accordion-current summary {
+    background: rgba(17, 24, 39, 0.08);
+  }
+
+  .accordion-upcoming {
+    color: var(--color-text-secondary);
+  }
+
+  /* Update-specific styles */
+
   .update-date {
     font-family: var(--font-mono, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--color-text-muted);
     flex-shrink: 0;
-    min-width: 5.5rem;
-  }
-
-  .update-title {
-    font-size: 0.875rem;
-    font-weight: 500;
-  }
-
-  .update-summary {
-    padding: 0 0.8rem 0.75rem 2.5rem;
-    margin: 0;
-    font-size: 0.85rem;
-    color: var(--color-text-secondary);
-    line-height: 1.5;
+    min-width: 5.25rem;
   }
 
   .roadmap-source {
-    margin-top: var(--space-md);
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
     text-transform: none;
     letter-spacing: 0;
     font-size: 0.8rem;
   }
 
   @media (max-width: 42rem) {
+    .roadmap-status {
+      padding: 1.25rem;
+    }
+
     .roadmap-header,
     .roadmap-columns {
       grid-template-columns: 1fr;
@@ -328,6 +369,10 @@ const labels = isPtBr
 
     .update-date {
       min-width: auto;
+    }
+
+    .accordion-body {
+      padding-left: 0.875rem;
     }
   }
 </style>
