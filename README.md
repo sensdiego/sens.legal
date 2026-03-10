@@ -37,10 +37,10 @@ define implementation phases more clearly than the progress log alone.
 
 | Project | Roadmap position | Now | Next |
 |---------|------------------|-----|------|
-| Valter | Stage 4 of 6 - Unified pipeline + reasoning<br>`[#######---]` | Finish Neo4j schema consolidation and live A/B validation. | Start chat orchestration and the final backend cutover from Juca. |
-| Juca | Stage 1 of 5 - Hub foundation<br>`[##--------]` | Reset the hub UX, add the agent adapter layer, and integrate Valter. | Ship progressive briefing on external backend calls and remove duplicated local backend paths. |
-| Leci | Stage 2 of 5 - Canonical legal reference resolution<br>`[####------]` | Resolve statutes by alias, abbreviation, number, and year, then map provisions. | Expose document-first reader and grounding contracts for Valter and Juca. |
-| Douto | Stage 1 of 5 - Reproducible foundation<br>`[##--------]` | Regularize local paths, CLI behavior, and reproducible setup. | Measure doctrinal quality and define the artifact handoff into Valter. |
+| Valter | Stage 6 of 6 - Juca backend cutover<br>`[##########]` | Complete the final backend cutover from Juca and stabilize for v1.0. | v1.0 stable production milestones. |
+| Juca | Stage 1 of 5 - Hub foundation<br>`[##--------]` | Build v0.3 hub foundation: Valter integration and adapter layer. | Ship progressive briefing (v0.4) with external backend calls. |
+| Leci | Stage 2 of 5 - Canonical legal reference resolution<br>`[####------]` | Provision resolution — map articles, paragraphs, and items within resolved statutes. | Expose document-first reader and grounding contracts for Valter and Juca. |
+| Douto | Stage 2 of 5 - Doctrinal quality gate<br>`[####------]` | Define and measure doctrinal quality metrics for the extraction pipeline. | Establish the artifact handoff contract to Valter. |
 
 ## What This Repo Owns
 
