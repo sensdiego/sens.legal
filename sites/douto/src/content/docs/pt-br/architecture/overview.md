@@ -1,6 +1,6 @@
 ---
 title: "Visao Geral da Arquitetura"
-description: "Como o pipeline batch local do Douto e seus artefatos de doutrina se encaixam na camada de conhecimento do sens.legal."
+description: "Como o Douto organiza pipeline, artefatos e handoff ao Valter."
 lang: pt-BR
 sidebar:
   order: 1
@@ -8,41 +8,69 @@ sidebar:
 
 # Visao Geral da Arquitetura
 
-O Douto e um pipeline batch local somado a uma base estruturada de conhecimento doutrinario. Ele nao e um servico web continuamente em execucao e nao deve ser tratado como runtime standalone de produto.
+O Douto nao deve ser entendido como um servico rodando continuamente.
+Hoje ele e uma arquitetura em tres camadas:
 
-## Padrao arquitetural
+1. pipeline batch;
+2. entrega de artefatos ao Valter;
+3. camada editorial em markdown.
 
-A arquitetura tem duas partes principais:
+## Camada 1 - Pipeline Batch
 
-- um pipeline de processamento em batch que transforma livros juridicos em saídas estruturadas
-- uma camada de base de conhecimento que armazena estrutura doutrinaria e artefatos intermediarios
+Fluxo atual:
 
-## Fluxo do pipeline
+```mermaid
+flowchart LR
+    PDF["PDF"] --> PB["process_books.py"]
+    PB --> RC["rechunk_v3.py"]
+    RC --> EN["enrich_chunks.py"]
+    EN --> EM["embed_doutrina.py"]
+    EM --> SE["search_doutrina_v2.py"]
+```
 
-Em alto nivel, o Douto transforma:
+Essa camada produz o corpus operacional do Douto.
 
-`PDF -> texto extraido -> chunks -> metadados enriquecidos -> embeddings -> artefatos doutrinarios`
+## Camada 2 - Entrega ao Valter
 
-Cada etapa grava artefatos que podem ser reutilizados depois, em vez de depender de um servico always-on.
+Hoje a integracao real acontece por artefatos estaticos, nao por API.
 
-## Posicao no ecossistema
+```mermaid
+flowchart LR
+    EM["embed_doutrina.py"] --> ART["artefatos de entrega"]
+    ART --> VAL["Valter"]
+    VAL --> JUC["Juca / advogado"]
+```
 
-A relacao arquitetural importante e:
+Essa camada e o centro do produto no curto prazo.
 
-`Douto -> artefatos doutrinarios -> Valter -> consumidores do ecossistema`
+## Camada 3 - Markdown Editorial
 
-Isso significa que o Douto integra o sens.legal principalmente fortalecendo a camada backend de conhecimento do Valter. Ele nao fica diretamente na frente do advogado como o Juca.
+- `knowledge/INDEX_DOUTO.md`
+- `knowledge/mocs/*.md`
+- `knowledge/nodes/` (ainda vazio)
 
-## Por que isso importa
+Essa camada ajuda a organizar o corpus e a navegacao humana.
+Ela **nao** e o centro do produto.
 
-Se o Douto for descrito como um produto autonomo de doutrina, a narrativa do ecossistema fica enganosa. O papel real dele e mais estreito e mais util:
+## Unidades Arquiteturais
 
-- preparar doutrina localmente
-- estruturar doutrina para reuso posterior
-- fornecer doutrina para dentro da camada central de conhecimento do backend
+| Tipo | Unidade |
+|------|---------|
+| Uso | instituto juridico / problema juridico |
+| Evidencia | chunk doutrinario |
+| Entrega | artefato doutrinario para o Valter |
 
-## Restricoes atuais
+## Principios Operacionais
 
-- local e orientado a batch, nao always-on
-- produtor de artefatos, nao API-first
-- pensado para suporte backend do ecossistema, nao para interacao direta com usuario final
+1. precisao antes de velocidade;
+2. ambiguidade explicita antes de falsa certeza;
+3. retrieval confiavel antes de sintese;
+4. artefato entregue antes de servico sofisticado.
+
+## Limitacoes Reais Hoje
+
+- paths ainda em regularizacao;
+- zero testes automatizados;
+- enrichment dependia de prompt nao versionado;
+- retrieval ainda nasce de artefatos JSON flat;
+- busca atual ainda e local e acoplada a CLI.

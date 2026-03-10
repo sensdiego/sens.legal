@@ -49,9 +49,8 @@ sidebar:
 
 | Term | Definition |
 |------|-----------|
-| **sens.legal** | The parent ecosystem encompassing Juca, Valter, Leci, and Douto — a legal AI stack spanning jurisprudence, legislation, doctrine, and frontend orchestration. |
-| **Valter** | Central backend for jurisprudence retrieval, reasoning, verification, and MCP consumption. It is also the destination for backend logic migrating out of Juca. Production URL: `https://valter-api-production.up.railway.app`. |
-| **Leci** | Document-first legislation engine used for reliable legal grounding. Current baseline includes `/api/search`, a functional shell, and validation against real data. |
-| **Douto** | Local doctrine pipeline that produces doctrinal artifacts for Valter. It is an internal knowledge-production layer, not a standalone end-user product. |
-| **MCP** | Model Context Protocol — standardized interface for AI tool interaction. In the ecosystem, Valter is the MCP-facing backend surface. |
+| **sens.legal** | The parent platform encompassing Juca, Valter, and Leci — an AI-powered legal analysis ecosystem. |
+| **Valter** | Backend agent for STJ jurisprudence. Python/FastAPI service with 23,400+ decisions, 28 MCP tools, BM25 + semantic search, Neo4j knowledge graph, and multi-LLM pipeline. Production URL: `https://valter-api-production.up.railway.app`. |
+| **Leci** | Backend agent for federal legislation. TypeScript/Next.js with Drizzle ORM. Currently in early development (v0.1-pre) with database schema ready but no public API yet. |
+| **MCP** | Model Context Protocol — standardized interface for AI tool interaction. Valter exposes 28 MCP tools for search, verification, graph analysis, and ingestion. |
 | **Adapter Layer** | Planned abstraction (v0.3) that provides a unified interface for Juca to communicate with any backend agent (Valter, Leci, future agents). |

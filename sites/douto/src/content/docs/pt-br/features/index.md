@@ -10,6 +10,10 @@ sidebar:
 
 Todas as funcionalidades do Douto, organizadas por status de implementacao. Cada estagio do pipeline e componente da knowledge base possui uma pagina dedicada com detalhes de arquitetura, exemplos de codigo e limitacoes conhecidas.
 
+:::caution[Nota sobre ordem de execucao]
+Esta pagina e um inventario, nao a ordem canonica de execucao. A ordem oficial agora vive no backlog `repo/douto` do Linear (`SEN-447` a `SEN-468`) e nas paginas atualizadas de roadmap. Em especial, MCP/API direta deixou de ser tratada como proximo passo antes de reproducibilidade, quality gate e entrega ao Valter.
+:::
+
 ## Legenda de Status
 
 | Badge | Significado |
@@ -111,12 +115,12 @@ Organizadas por milestone-alvo. Fonte: `ROADMAP.md`.
 | F32 | Linting com ruff | **P2** | Configurar ruff, integrar ao Makefile |
 | F42 | Versionar prompt de enriquecimento | **P1** | `enrich_prompt.md` referenciado no codigo mas ausente do repositorio |
 
-### v0.4 -- Integracao sens.legal
+### v0.4 -- Itens Historicos de Integracao
 
 | # | Funcionalidade | Prioridade | Descricao |
 |---|----------------|------------|-----------|
-| F29 | Integracao Douto-Valter | **P1** | Definir protocolo: arquivo, API ou MCP |
-| F30 | MCP Server para doutrina | **P1** | Expor busca via Model Context Protocol |
+| F29 | Integracao Douto-Valter | **P1** | Placeholder historico para entrega, agora reclassificado como contrato de artefato + retrieval explicavel |
+| F30 | MCP Server para doutrina | **P1** | Superficie futura opcional, nao mais tratada como proximo passo imediato |
 
 ## Ideias
 

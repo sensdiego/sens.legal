@@ -12,17 +12,16 @@ All diagrams use Mermaid syntax and render natively in Starlight. Each diagram f
 
 ## Ecosystem Overview
 
-The four-project sens.legal ecosystem:
+The three-project sens.legal ecosystem:
 
 ```mermaid
 graph LR
     subgraph "User-Facing"
         Juca["🖥️ Juca<br/>Frontend Hub<br/>Next.js 16 · React 19"]
     end
-    subgraph "Knowledge Services"
-        Valter["⚖️ Valter<br/>Jurisprudence + reasoning backend<br/>FastAPI · REST API · MCP"]
-        Leci["📜 Leci<br/>Document-first legislation<br/>/api/search · grounding"]
-        Douto["📚 Douto<br/>Doctrine pipeline<br/>Artifacts for Valter"]
+    subgraph "Backend Agents"
+        Valter["⚖️ Valter<br/>STJ Jurisprudence<br/>FastAPI · 23.4K decisions"]
+        Leci["📜 Leci<br/>Federal Legislation<br/>Next.js · Drizzle"]
     end
     subgraph "Infrastructure"
         Railway["Railway<br/>(hosting)"]
@@ -33,8 +32,7 @@ graph LR
     end
 
     Juca -->|"/v1/retrieve<br/>/v1/verify<br/>/v1/graph/*"| Valter
-    Juca -.->|"legislation grounding"| Leci
-    Douto -->|"doctrine artifacts"| Valter
+    Juca -.->|"future"| Leci
     Valter --> Neo4j
     Valter --> Qdrant
     Valter --> PG

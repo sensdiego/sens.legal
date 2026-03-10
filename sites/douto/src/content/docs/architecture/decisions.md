@@ -118,16 +118,17 @@ MINIMAX_MODEL = "MiniMax-M2.5"
 
 ## ADR-007: Separate Repository vs. Valter Module
 
-**Status:** PENDING — blocks v0.4
+**Status:** ACCEPTED (realigned on 2026-03-07)
 
-**Context:** Douto could exist as a module inside Valter (which already has Qdrant, Neo4j, and search infrastructure) or remain a separate repository with its own MCP server.
+**Context:** The critical point was not “where the code lives”, but “who Douto exists for”. The realignment defined Douto as an internal doctrine supplier to Valter. This allows a separate repository for corpus/pipeline without treating Douto as an independent product.
 
-**Options:**
-- **(A)** Separate repo with own MCP server
-- **(B)** Module at `valter/stores/doutrina/` inside Valter
-- **(C)** Separate repo, but Valter proxies all queries
+**Decision:** Keep Douto as its own repository for corpus and pipeline work, while subordinating its product line to Valter.
 
-This decision has not been made. See [D02](#pending-decisions).
+**Consequences:**
+- Valter becomes the primary consumer
+- The first architectural target stops being an autonomous MCP/API and becomes artifact contract + explainable retrieval
+- Douto can remain separate at the repository level without claiming end-product autonomy
+- Deeper integration into Valter remains a future option if it reduces operational friction
 
 ## Pending Decisions
 
@@ -135,12 +136,8 @@ These decisions are blocking or influencing future milestones:
 
 | # | Question | Options | Blocks |
 |---|---------|---------|--------|
-| D01 | Integration protocol: MCP stdio, MCP HTTP/SSE, REST, or JSON files? | A) MCP stdio B) MCP HTTP C) REST D) Keep JSON | v0.4 |
-| D02 | Separate repo or Valter module? | A) Separate + MCP B) valter/stores/doutrina/ C) Separate + proxy | v0.4 |
 | D03 | Atomic notes: auto-generated or curated? | A) Auto B) Manual C) Hybrid | v0.5 |
-| D04 | Issue tracking: Linear (SEN-XXX) or GitHub Issues? | A) Linear B) GitHub C) Both | — |
 | D05 | Neo4j schema for doctrine nodes? | A) Doctrine node B) Authority + DoctrineClaim C) Reuse Criterion | v1.0 |
 | D06 | Keep MiniMax M2.5 or migrate enrichment model? | A) Keep B) Claude C) Local model D) Evaluate later | — |
-| D07 | Project owner's actual priorities? | Roadmap is entirely inferred — needs validation | All |
 | D08 | Which LLM for the Synthesis Engine? | A) Claude B) MiniMax C) Other | v0.3.5 |
 | D09 | Doctrine Briefs: on-demand or pre-computed? | A) On-demand B) Pre-computed C) Hybrid | v0.3.5 |

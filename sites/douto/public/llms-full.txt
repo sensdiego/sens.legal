@@ -2,6 +2,8 @@
 # docs/CONTENT_MAP.md
 ---
 
+> Realignment notice (2026-03-07): the current product definition is that Douto is Jude.md's internal doctrine supplier to Valter. When this bundle conflicts with the updated site pages, prefer `docs/index.md`, `docs/getting-started/introduction.md`, `docs/architecture/overview.md`, `docs/configuration/integrations.md`, and `docs/roadmap/*`.
+
 
 # Content Map — Douto Documentation
 
@@ -6219,4 +6221,3 @@ v1.0 Platform                   v0.4+ (continues as before)
 ```
 
 **Impact:** Adds ~1 work session (v0.2.5) but prevents building innovation features on unreliable data. If the quality gate fails (accuracy < 85%), re-enrichment happens before v0.3, not after.
-

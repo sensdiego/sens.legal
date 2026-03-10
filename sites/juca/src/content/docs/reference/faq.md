@@ -16,9 +16,9 @@ sidebar:
 
 Juca is a **frontend hub** for the sens.legal legal AI ecosystem. It provides a conversational interface (Fintool/Perplexity-style) that orchestrates specialized backend agents to help legal professionals research jurisprudence, analyze cases, and produce structured legal documents. See [Introduction](/getting-started/introduction) for the full overview.
 
-### How does Juca relate to Valter, Leci, and Douto?
+### How does Juca relate to Valter and Leci?
 
-Juca is the **frontend hub** — it handles UI, session management, and orchestration. **Valter** is the central backend for jurisprudence, reasoning, verification, and the backend migration coming out of Juca. **Leci** is the document-first legislation engine used for reliable grounding. **Douto** is a local doctrine pipeline that feeds Valter with doctrinal artifacts instead of acting as a direct end-user product. See [Ecosystem](/architecture/ecosystem) for details.
+Juca is the **frontend hub** — it handles UI, session management, and orchestration. **Valter** is the backend agent for STJ jurisprudence (search, verification, knowledge graph, LLM analysis). **Leci** is a planned backend agent for federal legislation. Juca calls their APIs and renders results. See [Ecosystem](/architecture/ecosystem) for details.
 
 ### Is Juca open source?
 

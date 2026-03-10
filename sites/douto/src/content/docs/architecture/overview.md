@@ -1,6 +1,6 @@
 ---
 title: "Architecture Overview"
-description: "How Douto's local batch pipeline and doctrine artifacts fit into the sens.legal knowledge layer."
+description: "How Douto organizes its pipeline, artifacts, and Valter handoff."
 lang: en
 sidebar:
   order: 1
@@ -8,41 +8,69 @@ sidebar:
 
 # Architecture Overview
 
-Douto is a local batch pipeline plus a structured doctrine knowledge base. It is not a continuously running web service, and it should not be treated as a standalone product runtime.
+Douto should not be understood as a continuously running service.
+Today it is a three-layer architecture:
 
-## Architectural pattern
+1. batch pipeline;
+2. artifact delivery to Valter;
+3. editorial markdown layer.
 
-The architecture has two main parts:
+## Layer 1 - Batch Pipeline
 
-- a batch-processing pipeline that transforms legal books into structured outputs
-- a knowledge base layer that stores doctrinal structure and intermediate artifacts
+Current flow:
 
-## Pipeline flow
+```mermaid
+flowchart LR
+    PDF["PDF"] --> PB["process_books.py"]
+    PB --> RC["rechunk_v3.py"]
+    RC --> EN["enrich_chunks.py"]
+    EN --> EM["embed_doutrina.py"]
+    EM --> SE["search_doutrina_v2.py"]
+```
 
-At a high level, Douto turns:
+This layer produces Douto's operational corpus.
 
-`PDF -> extracted text -> chunks -> enriched metadata -> embeddings -> doctrinal artifacts`
+## Layer 2 - Delivery to Valter
 
-Each stage writes artifacts that can be reused later instead of depending on an always-on service.
+Today the real integration happens through static artifacts, not through an API.
 
-## Position in the ecosystem
+```mermaid
+flowchart LR
+    EM["embed_doutrina.py"] --> ART["delivery artifacts"]
+    ART --> VAL["Valter"]
+    VAL --> JUC["Juca / lawyer"]
+```
 
-The important architectural relationship is:
+This layer is the product center in the short term.
 
-`Douto -> doctrinal artifacts -> Valter -> ecosystem consumers`
+## Layer 3 - Editorial Markdown
 
-This means Douto integrates into sens.legal primarily by strengthening Valter's backend knowledge layer. It does not sit directly in front of lawyers the way Juca does.
+- `knowledge/INDEX_DOUTO.md`
+- `knowledge/mocs/*.md`
+- `knowledge/nodes/` (still empty)
 
-## Why this matters
+This layer helps organize the corpus and human navigation.
+It is **not** the product center.
 
-If Douto is described as an autonomous doctrine product, the ecosystem narrative becomes misleading. Its real role is narrower and more useful:
+## Architectural Units
 
-- prepare doctrine locally
-- structure doctrine for later reuse
-- supply doctrine into the central backend knowledge layer
+| Type | Unit |
+|------|------|
+| Usage | legal institute / legal problem |
+| Evidence | doctrinal chunk |
+| Delivery | doctrine artifact for Valter |
 
-## Current constraints
+## Operational Principles
 
-- local and batch-oriented rather than always-on
-- artifact-producing rather than API-first
-- meant for ecosystem backend support rather than direct end-user interaction
+1. precision before speed;
+2. explicit ambiguity before false certainty;
+3. reliable retrieval before synthesis;
+4. delivered artifact before sophisticated service.
+
+## Real Limitations Today
+
+- paths are still being regularized;
+- zero automated tests;
+- enrichment depended on an unversioned prompt;
+- retrieval still comes from flat JSON artifacts;
+- current search is local and CLI-coupled.

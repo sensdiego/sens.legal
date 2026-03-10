@@ -1,5 +1,7 @@
 # Douto — Legal Doctrine Knowledge Agent
 
+> Realignment notice (2026-03-07): the authoritative product definition is now that Douto is Jude.md's internal doctrine supplier to Valter. For the current product line, prioritize `docs/index.md`, `docs/getting-started/introduction.md`, `docs/architecture/overview.md`, `docs/configuration/integrations.md`, and `docs/roadmap/*`. Older generated sections may lag until the next full regeneration cycle.
+
 > Douto processes legal books (PDF → chunks → embeddings) and maintains a navigable skill graph (INDEX → MOCs → atomic notes) to feed the sens.legal ecosystem. Stack: Python 3 + LlamaParse + MiniMax M2.5 + Legal-BERTimbau.
 
 Important notes:

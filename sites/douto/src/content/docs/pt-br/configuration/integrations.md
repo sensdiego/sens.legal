@@ -165,78 +165,63 @@ O modelo foi treinado em texto juridico de Portugal (PT-PT), nao especificamente
 
 ## Integracao com o Ecossistema sens.legal
 
-### Estado Atual (v0.1)
+### Estado Atual
 
-A integracao com o ecossistema sens.legal e atualmente feita por **arquivos JSON estaticos**:
+A integracao real do Douto com o ecossistema acontece hoje por **artefatos entregues ao Valter**:
 
 ```
 embed_doutrina.py
       |
       v
-embeddings_doutrina.json  ─── deposited in ──→  Juca/Valter data directory
-search_corpus_doutrina.json                      ($OUTPUT_PATH)
-bm25_index_doutrina.json
+artefatos doutrinarios  ─── entregues em ──→  Valter
 ```
 
-- Sem capacidade de consulta em tempo real a partir de outros agentes.
-- Sem API ou protocolo.
-- Valter e Juca leem os arquivos JSON de um caminho compartilhado no sistema de arquivos.
-- Atualizacoes requerem re-executar o pipeline de embeddings e reiniciar os consumidores.
+- O consumidor primario e o Valter.
+- Nao existe ainda uma entrega programatica madura.
+- O reprocessamento de artefatos ainda faz parte do fluxo.
 
 ### Componentes do Ecossistema
 
 | Componente | Papel | Stack | Relacao com o Douto |
 |-----------|-------|-------|-------------------|
-| **Valter** | API backend -- jurisprudencia STJ, knowledge graph, busca vetorial | FastAPI, PostgreSQL, Qdrant, Neo4j, Redis | Consumidor primario dos embeddings do Douto |
-| **Juca** | Frontend -- interface para advogados | Next.js | Acessa doutrina via Valter |
-| **Leci** | Servico de legislacao | Next.js, PostgreSQL, pgvector | Alvo futuro de referencia cruzada (F35) |
-| **Joseph** | Orquestrador -- coordena agentes | -- | Futura coordenacao com consultas do Douto |
+| **Valter** | Backend do ecossistema | FastAPI, PostgreSQL, Qdrant, Neo4j, Redis | Consumidor primario do Douto |
+| **Juca** | Interface indireta para o advogado | Next.js | Consome a camada final via Valter |
+| **Leci** | Camada de legislacao | Next.js, PostgreSQL, pgvector | Fonte complementar, nao concorrente |
+| **Joseph** | Coordenacao/orquestracao | -- | Contexto de execucao, nao centro do produto |
 
-### Integracao Planejada (v0.4)
+### Integracao Planejada
 
-> **Feature Planejada** -- Servidor MCP para busca doutrinaria esta no roadmap (F30), mas ainda nao foi implementado.
+O proximo passo nao e “virar servico”.
+O proximo passo e **entregar bem ao Valter**.
 
-O milestone v0.4 estabelecera a integracao programatica entre o Douto e o ecossistema sens.legal:
+Sequencia correta:
 
-**Servidor MCP** com pelo menos 3 tools:
+1. contrato de artefato;
+2. IDs e cobertura estaveis;
+3. retrieval explicavel;
+4. sintese com gate proprio.
 
-| Tool | Descricao |
-|------|-----------|
-| `search_doutrina` | Busca hibrida no corpus doutrinario |
-| `get_chunk` | Recuperar um chunk especifico por ID com metadados completos |
-| `list_areas` | Listar dominios juridicos disponiveis com estatisticas do corpus |
-
-**Decisao de Protocolo (D01) -- ainda nao resolvida:**
-
-| Opcao | Descricao | Pros | Contras |
-|-------|-----------|------|---------|
-| MCP stdio | Transporte MCP padrao | Alinhado com o MCP do Valter | Overhead de processo por consulta |
-| MCP HTTP/SSE | Conexao MCP persistente | Mais flexivel, menor latencia | Mais infraestrutura |
-| REST API (FastAPI) | API HTTP convencional | Simples, bem conhecida | Nao alinhada com ecossistema MCP |
-| Manter arquivos JSON | Abordagem atual | Zero esforco | Sem consultas em tempo real, nao escala |
-
-**Decisao de Arquitetura (D02) -- ainda nao resolvida:**
-
-Se o Douto permanece como servico independente ou e absorvido como modulo dentro do Valter (`valter/stores/doutrina/`). Esta decisao bloqueia v0.4.
+MCP, API dedicada ou modulo interno continuam opcoes futuras, mas nao devem furar essa ordem.
 
 :::tip
-O Valter ja possui infraestrutura de Qdrant (vector DB) e Neo4j (knowledge graph). Quando o Douto integrar, deve aproveitar esses servicos existentes em vez de manter seu proprio armazenamento baseado em JSON.
+O criterio de decisao nao e “qual protocolo parece mais moderno”.
+O criterio e: qual forma entrega doutrina confiavel ao Valter com menos risco e menos teatro arquitetural.
 :::
 
 ### Diagrama de Integracao
 
 ```mermaid
 graph TB
-    subgraph "Current (v0.1)"
-        ED["embed_doutrina.py"] -->|JSON files| DIR["Shared directory"]
-        DIR -->|reads| VA1["Valter"]
+    subgraph "Atual"
+        ED["embed_doutrina.py"] -->|artefatos| VA1["Valter"]
     end
 
-    subgraph "Planned (v0.4)"
-        MCP["Douto MCP Server"] -->|search_doutrina| VA2["Valter"]
-        MCP -->|get_chunk| VA2
-        MCP -->|list_areas| VA2
-        VA2 -->|via Valter| JU["Juca"]
-        CD["Claude Desktop"] -->|MCP| MCP
+    subgraph "Proxima linha"
+        DT["contrato + manifesto + retrieval explicavel"] --> VA2["Valter"]
+        VA2 --> JU["Juca"]
+    end
+
+    subgraph "Futuro opcional"
+        MCP["MCP/API do Douto"] --> VAL["Valter ou outros consumidores"]
     end
 ```

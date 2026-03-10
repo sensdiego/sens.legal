@@ -75,20 +75,18 @@ graph TB
 
 ## Ecosystem Position
 
-How Douto fits within the sens.legal platform from the user's perspective:
+How Douto fits within the sens.legal platform after the Valter-first realignment:
 
 ```mermaid
 graph LR
-    USER["👤 Lawyer"]
-    JU["Juca<br/>Frontend"]
-    VA["Valter<br/>Jurisprudence + reasoning backend"]
-    LE["Leci<br/>Legislation"]
-    DO["Douto<br/>Doctrine pipeline"]
+    DO["Douto<br/>Doctrine Layer"]
+    VA["Valter<br/>Primary Consumer"]
+    JU["Juca<br/>Indirect Interface"]
+    LW["Lawyer"]
 
-    USER --> JU
-    JU --> VA
-    JU -.->|"grounding"| LE
-    DO -->|"doctrine artifacts"| VA
+    DO -->|"artifacts, retrieval,<br/>later synthesis"| VA
+    VA --> JU
+    JU --> LW
 ```
 
 ## Knowledge Base Hierarchy
@@ -181,30 +179,35 @@ flowchart LR
     NORM --> COMB --> FILT --> RES
 ```
 
-## Planned Architecture (v0.4+)
+## Next-Line Architecture
 
-When the MCP server is implemented, Douto will be queryable in real time:
+What comes next is not an autonomous service by default. It is better delivery to Valter:
 
 ```mermaid
 graph TB
-    subgraph "Douto MCP Server (planned)"
-        T1["search_doutrina"]
-        T2["get_chunk"]
-        T3["list_areas"]
+    subgraph "Douto"
+        ART["artifact contract"]
+        RET["explainable retrieval"]
+        SYN["gated synthesis"]
     end
 
-    subgraph "Consumers"
+    subgraph "Consumer"
         VA["Valter"]
-        CD["Claude Desktop"]
-        CC["Claude Code"]
     end
 
-    subgraph "Storage (planned)"
-        QD["Qdrant<br/>(vector DB)"]
-    end
+    ART --> RET --> SYN --> VA
+```
 
-    VA -->|"MCP protocol"| T1 & T2 & T3
-    CD -->|"MCP stdio"| T1 & T2 & T3
-    CC -->|"MCP stdio"| T1 & T2 & T3
-    T1 & T2 & T3 --> QD
+## Optional Future Surface
+
+If and only if the Valter handoff is mature, Douto may later expose an MCP/API surface:
+
+```mermaid
+graph LR
+    DT["Douto MCP/API"]
+    VA["Valter"]
+    OC["Other consumers"]
+
+    DT --> VA
+    DT --> OC
 ```

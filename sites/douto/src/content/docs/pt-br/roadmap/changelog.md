@@ -14,6 +14,20 @@ Formato: cada entrada lista a data, commit(s) associado(s) e mudancas categoriza
 
 ---
 
+## 2026-03-07 -- Realinhamento para o Valter
+
+#### Alterado
+- O Douto passou a ser descrito explicitamente como fornecedor interno de doutrina para o Valter
+- O roadmap foi reorganizado em 5 etapas com gates reais: fundacao, qualidade, contrato, retrieval e sintese
+- O backlog canonico passou a viver em `repo/douto` no Linear (`SEN-447` a `SEN-468`)
+
+#### Corrigido
+- A documentacao principal agora distingue melhor o que existe hoje do que ainda e intencao
+- `SEN-446` foi reposicionado como pesquisa posterior, e nao como proximo passo
+- O FAQ publico deixou de sugerir risco atual de aquisicao irregular do corpus e passou a refletir a posicao vigente de livros devidamente adquiridos
+
+---
+
 ## v0.1.0 -- Setup Inicial (2026-02)
 
 O repositorio Douto foi criado e populado com os scripts do pipeline (migrados de uma vault Obsidian) e a estrutura da knowledge base.

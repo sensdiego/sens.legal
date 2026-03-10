@@ -123,16 +123,19 @@ Um resumo sintetizado das posicoes de multiplos autores sobre um unico *institut
 ## Termos do Ecossistema
 
 ### sens.legal
-O ecossistema de IA juridica composto por Juca, Valter, Leci e Douto. Ele conecta orquestracao frontend, jurisprudencia, legislacao e doutrina em uma stack mais ampla.
+A plataforma unificada de pesquisa juridica composta por Douto, Valter, Juca, Leci e Joseph. Tambem referida pelo nome de produto **Jude.md**. Objetivo: fornecer a advogados brasileiros acesso integrado a jurisprudencia, legislacao e doutrina em uma unica interface.
 
 ### Valter
-Backend central de jurisprudencia e reasoning do ecossistema sens.legal. Principal consumidor downstream dos artefatos doutrinarios do Douto. Repositorio: separado.
+Servico de backend do ecossistema sens.legal. Construido com FastAPI, PostgreSQL, Qdrant (banco vetorial), Neo4j (knowledge graph) e Redis. Gerencia jurisprudencia do STJ (12.091 decisoes) e 28 tools MCP. Principal consumidor dos embeddings doutrinarios do Douto. Repositorio: separado.
 
 ### Juca
 Hub de frontend do sens.legal. Construido com Next.js. Fornece a interface para advogados, incluindo o sistema de briefing progressivo (4 fases: diagnostico, precedentes, riscos, entrega). Acessa dados doutrinarios atraves do Valter.
 
 ### Leci
-Engine legislativa document-first do sens.legal. Fornece a camada de grounding legislativo usada no ecossistema.
+Servico de legislacao do sens.legal. Construido com Next.js, PostgreSQL e pgvector. Gerencia base de dados de legislacao federal. Alvo futuro de cross-reference para o Douto (F35 — vinculando comentarios doutrinarios a dispositivos legais especificos).
+
+### Joseph
+Agente orquestrador do sens.legal. Coordena trabalho entre Valter, Juca, Leci e Douto. Gerencia casos e workflow.
 
 ### Jude.md
 Nome de produto da plataforma unificada sens.legal. Juca (jurisprudencia) + Leci (legislacao) + Douto (doutrina) + Valter (backend) = Jude.md. Epic: SEN-368.

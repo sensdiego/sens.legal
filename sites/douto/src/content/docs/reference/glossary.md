@@ -123,16 +123,19 @@ A synthesized summary of multiple authors' positions on a single *instituto juri
 ## Ecosystem Terms
 
 ### sens.legal
-The legal AI ecosystem comprising Juca, Valter, Leci, and Douto. It connects frontend orchestration, jurisprudence, legislation, and doctrine into one broader stack.
+The unified legal research platform comprising Douto, Valter, Juca, Leci, and Joseph. Also referred to by the product name **Jude.md**. Goal: provide Brazilian lawyers with integrated access to case law, legislation, and doctrine through a single interface.
 
 ### Valter
-Central jurisprudence and reasoning backend for the sens.legal ecosystem. Primary downstream consumer of Douto's doctrinal artifacts. Repository: separate.
+Backend service for the sens.legal ecosystem. Built with FastAPI, PostgreSQL, Qdrant (vector DB), Neo4j (knowledge graph), and Redis. Handles STJ case law (12,091 decisions) and 28 MCP tools. Primary consumer of Douto's doctrine embeddings. Repository: separate.
 
 ### Juca
 Frontend hub for sens.legal. Built with Next.js. Provides the user interface for lawyers, including the progressive briefing system (4 phases: diagnostic, precedents, risks, delivery). Accesses doctrine data through Valter.
 
 ### Leci
-Document-first legislation engine for sens.legal. Provides the legislation grounding layer used across the ecosystem.
+Legislation service for sens.legal. Built with Next.js, PostgreSQL, and pgvector. Manages federal legislation database. Future cross-reference target for Douto (F35 -- linking doctrinal commentary to specific statutory provisions).
+
+### Joseph
+Orchestrator agent for sens.legal. Coordinates work across Valter, Juca, Leci, and Douto. Manages cases and workflow.
 
 ### Jude.md
 Product name for the sens.legal unified platform. Juca (jurisprudencia) + Leci (legislacao) + Douto (doutrina) + Valter (backend) = Jude.md. Epic issue: SEN-368.

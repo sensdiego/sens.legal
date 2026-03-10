@@ -10,6 +10,10 @@ sidebar:
 
 Every feature in Douto, organized by implementation status. Each pipeline stage and knowledge-base component links to a dedicated page with architecture details, code examples, and known limitations.
 
+:::caution[Execution order notice]
+This page is an inventory, not the canonical execution order. The canonical build order now lives in the `repo/douto` Linear backlog (`SEN-447` to `SEN-468`) and in the updated roadmap pages. In particular, direct MCP/API work is no longer treated as the next step ahead of reproducibility, quality gates, and Valter delivery.
+:::
+
 ## Feature Status Legend
 
 | Badge | Meaning |
@@ -111,12 +115,12 @@ Organized by target milestone. Source: `ROADMAP.md`.
 | F32 | Linting with ruff | **P2** | Configure ruff, integrate into Makefile |
 | F42 | Version enrich prompt | **P1** | `enrich_prompt.md` referenced in code but missing from repo |
 
-### v0.4 -- Integracao sens.legal
+### v0.4 -- Historical Integration Items
 
 | # | Feature | Priority | Description |
 |---|---------|----------|-------------|
-| F29 | Douto-to-Valter integration | **P1** | Define protocol: file, API, or MCP |
-| F30 | MCP Server for doctrine | **P1** | Expose search via Model Context Protocol |
+| F29 | Douto-to-Valter integration | **P1** | Historical placeholder for delivery work, now reframed as artifact contract + explainable retrieval |
+| F30 | MCP Server for doctrine | **P1** | Optional future surface, no longer treated as the immediate next step |
 
 ## Ideas
 

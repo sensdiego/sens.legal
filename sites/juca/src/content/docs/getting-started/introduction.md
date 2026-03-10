@@ -29,16 +29,15 @@ Juca itself is intentionally lightweight. The intelligence lives in the backend 
 
 ## The Ecosystem
 
-sens.legal consists of four projects, each with a distinct responsibility:
+sens.legal consists of three projects, each with a distinct responsibility:
 
 | Project | Role | Stack | Status |
 |---------|------|-------|--------|
 | **Juca** (this project) | Frontend hub + lightweight orchestrator | Next.js 16, React 19, TypeScript, Tailwind v4 | Active development (v0.3) |
-| **Valter** | Central jurisprudence and reasoning backend | Python, FastAPI, PostgreSQL, Qdrant, Neo4j Aura, Redis | Production and absorbing backend responsibilities from Juca |
-| **Leci** | Document-first legislation engine for reliable grounding | TypeScript, Next.js, Drizzle ORM, PostgreSQL + pgvector | Operational baseline with `/api/search`, functional shell, and real-data validation |
-| **Douto** | Local doctrine pipeline that supplies doctrinal artifacts to Valter | Python pipeline + markdown knowledge base | Internal data-production layer |
+| **Valter** | Backend agent for STJ jurisprudence | Python, FastAPI, PostgreSQL, Qdrant, Neo4j Aura, Redis | Production (`valter-api-production.up.railway.app`) |
+| **Leci** | Backend agent for federal legislation | TypeScript, Next.js, Drizzle ORM, PostgreSQL + pgvector | Early stage (v0.1-pre, DB schema only) |
 
-Juca primarily communicates with Valter via REST API while the backend migration out of Juca is completed. Leci is the legislation layer when grounding against normative text is needed, and Douto contributes doctrine artifacts through Valter rather than acting as a standalone end-user product.
+Juca communicates with Valter via REST API. Leci integration is planned for v0.6+.
 
 ## Who Is This For?
 
@@ -61,7 +60,7 @@ Before diving deeper, familiarize yourself with these core concepts:
 | **Composer** | The input component where users type queries. Behind it, an intent detector routes queries to specialized tools. |
 | **PhaseRail** | A visual navigation rail showing the current briefing phase and allowing navigation between completed phases. |
 | **Tool Registry** | A pattern that maps detected user intents to specialized handler functions (juris, ratio, analyzer, compare, insights). |
-| **Hub** | Juca's architectural role — a thin frontend that delegates backend intelligence to Valter and coordinates the broader ecosystem. |
+| **Hub** | Juca's architectural role — a thin frontend that delegates backend intelligence to external agents (Valter, Leci). |
 
 ## Next Steps
 

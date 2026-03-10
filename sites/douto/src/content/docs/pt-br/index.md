@@ -1,6 +1,6 @@
 ---
-title: "Douto — Pipeline de Doutrina Juridica"
-description: "Documentacao do Douto, pipeline local de processamento de doutrina que fornece artefatos doutrinarios ao ecossistema sens.legal."
+title: "Douto — Camada de Doutrina do Jude.md"
+description: "Documentacao do Douto como fornecedor interno de doutrina para o Valter."
 lang: pt-BR
 sidebar:
   order: 0
@@ -8,48 +8,66 @@ sidebar:
 
 # Douto
 
-Douto e o pipeline local de processamento de doutrina do ecossistema [sens.legal](https://sens.legal). Ele transforma livros juridicos em artefatos doutrinarios estruturados que depois podem ser consumidos pela camada de conhecimento do ecossistema, especialmente pelo Valter.
+Douto e a camada de doutrina do Jude.md.
+Seu papel e transformar livros juridicos em retrieval e sintese rastreaveis para o Valter, com foco inicial em contratos e processo civil.
 
-## O que o Douto faz
+## Definicao Operacional
 
-O Douto processa doutrina de PDF ate saídas estruturadas:
+- **Consumidor primario:** Valter
+- **Consumidores indiretos:** Juca, advogado e agentes internos
+- **Unidade de uso:** instituto juridico / problema juridico
+- **Unidade de evidencia:** chunk doutrinario rastreavel
+- **Unidade de entrega:** artefato doutrinario consumivel pelo Valter
 
-- extracao de PDF para markdown estruturado
-- chunking inteligente com heuristicas do dominio juridico
-- enriquecimento de metadados sobre conteudo doutrinario
-- geracao de embeddings para workflows de retrieval doutrinario
-- busca local e geracao de artefatos para uso downstream
+## O Que o Douto Faz Hoje
 
-## Posicionamento atual
+- Extrai e reorganiza livros juridicos em pipeline batch
+- Enriquece chunks com metadados doutrinarios
+- Gera embeddings e artefatos de busca
+- Permite busca CLI local para inspecao e validacao
+- Mantem INDEX + MOCs como camada editorial interna
 
-O Douto deve ser entendido como um **pipeline interno**, e nao como um produto final autonomo de doutrina para usuario final.
+## O Que o Douto Ainda Nao Faz
 
-O papel dele e:
+- Nao entrega produto final direto ao advogado
+- Nao opera como servico em tempo real
+- Nao possui contrato de entrega completamente estabilizado com o Valter
+- Nao tem sintese liberada para consumo do ecossistema
 
-- organizar material doutrinario em artefatos reutilizaveis
-- sustentar a camada mais ampla de conhecimento do ecossistema
-- fornecer contexto doutrinario ao Valter, em vez de competir com o Juca como experiencia voltada ao usuario
+## Status Atual
 
-## Parte do sens.legal
-
-O Douto e um dos quatro projetos do ecossistema sens.legal:
-
-| Projeto | Papel |
+| Metrica | Valor |
 |---------|-------|
-| **Juca** | Hub frontend para advogados |
-| **Valter** | Backend central de jurisprudencia e reasoning |
-| **Leci** | Engine legislativa document-first |
-| **Douto** | Pipeline local de doutrina e produtor de artefatos |
+| Livros no corpus | ~50 |
+| Chunks estimados | ~31.500 |
+| Dominios prioritarios | Contratos e processo civil |
+| Superficie real | Pipeline local + busca CLI |
+| Consumidor primario | Valter |
+| Cobertura de testes | 0% |
+| Modo de entrega atual | Artefatos estaticos |
 
-A fronteira importante e esta: o Douto nao e dono do frontend e nao deve ser enquadrado como uma aplicacao autonoma de doutrina. As saidas dele existem para reforcar a camada backend de conhecimento do ecossistema.
+## Ordem de Construcao
+
+1. Fundacao reproduzivel
+2. Quality gate
+3. Contrato de entrega ao Valter
+4. Retrieval explicavel
+5. Sintese com gate proprio
 
 ## Links Rapidos
 
 | Secao | Descricao |
 |-------|-----------|
-| [Introducao](getting-started/introduction) | O que e o Douto, por que ele existe e onde se encaixa |
-| [Quickstart](getting-started/quickstart) | Rode o baseline local do pipeline |
-| [Arquitetura](architecture/overview) | Como o pipeline batch e a base de conhecimento funcionam |
-| [Funcionalidades](features/) | Inventario de funcionalidades com status |
-| [Roadmap](roadmap/) | Marcos planejados e riscos |
-| [Glossario](reference/glossary) | Terminologia juridica e tecnica |
+| [Introducao](getting-started/introduction) | O que o Douto e e o que ele nao e |
+| [Arquitetura](architecture/overview) | Como o pipeline e a entrega ao Valter se organizam |
+| [Integracoes](configuration/integrations) | Como o Douto entrega hoje e como deve evoluir |
+| [Roadmap](roadmap/) | Sequencia oficial de construcao |
+
+## Parte do Ecossistema
+
+| Componente | Papel em relacao ao Douto |
+|-----------|----------------------------|
+| **Valter** | Consumidor primario dos artefatos doutrinarios |
+| **Juca** | Interface indireta para o advogado |
+| **Leci** | Fonte complementar do ecossistema, nao concorrente |
+| **Joseph** | Coordenacao/orquestracao, nao centro do produto Douto |

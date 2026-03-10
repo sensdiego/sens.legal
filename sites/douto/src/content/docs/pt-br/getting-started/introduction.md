@@ -1,6 +1,6 @@
 ---
 title: "Introducao"
-description: "O que e o Douto, qual problema ele resolve e por que ele existe como pipeline local de doutrina dentro do sens.legal."
+description: "O que o Douto e, para quem ele existe e qual problema ele resolve no Jude.md."
 lang: pt-BR
 sidebar:
   order: 1
@@ -8,55 +8,78 @@ sidebar:
 
 # Introducao
 
-Douto e o pipeline de doutrina do ecossistema sens.legal. Ele processa livros juridicos em artefatos doutrinarios estruturados que podem fortalecer a camada backend de conhecimento do ecossistema.
+Douto e o fornecedor interno de doutrina do Jude.md.
+Ele existe para preencher o que precedentes e legislacao nao resolvem sozinhos: profundidade conceitual, divergencia entre autores e abertura de novas teses.
 
-## O problema que o Douto resolve
+## O Problema Que o Douto Resolve
 
-Pesquisa doutrinaria e dificil de operacionalizar. Livros juridicos contem conceitos, posicoes e enquadramentos valiosos, mas normalmente vivem em PDFs, notas espalhadas ou fluxos de leitura manual que sao dificeis de reutilizar downstream.
+No ecossistema juridico, jurisprudencia e legislacao sao fundamentais, mas nem sempre bastam para:
 
-O Douto existe para transformar esse material em:
+- abrir caminhos argumentativos novos;
+- estruturar brainstorm juridico serio;
+- mapear divergencias doutrinarias;
+- dar profundidade a um problema antes da decisao judicial existir ou se consolidar.
 
-- chunks estruturados
-- metadados doutrinarios pesquisaveis
-- embeddings e artefatos que possam ser consumidos depois
+Esse e o trabalho do Douto.
 
-## O que o Douto e
+## O Que o Douto E
 
-O Douto e:
+- pipeline doutrinario em batch;
+- fornecedor interno para o Valter;
+- camada de retrieval e, depois, sintese doutrinaria;
+- organizador editorial do corpus em markdown.
 
-- um pipeline de processamento em batch
-- uma base estruturada de conhecimento doutrinario
-- um fornecedor de artefatos doutrinarios para o ecossistema
+## O Que o Douto Nao E
 
-Ele nao e:
+- produto final independente;
+- interface para o advogado;
+- servico de jurisprudencia;
+- servico de legislacao;
+- chat juridico autonomo.
 
-- o hub frontend para advogados
-- o dono do retrieval de jurisprudencia
-- a autoridade legislativa
-- um produto final autonomo de doutrina para usuario final
+## Quem Usa o Douto
 
-## Onde o Douto se encaixa
+| Publico | Papel |
+|---------|------|
+| **Valter** | Consumidor primario |
+| **Juca** | Consome indiretamente via Valter |
+| **Advogado** | Recebe o resultado consolidado pelo ecossistema |
+| **Agentes internos** | Uso secundario, nao prioritario |
 
-Dentro do sens.legal:
+## Unidade Principal
 
-| Projeto | Responsabilidade |
-|---------|------------------|
-| **Juca** | Hub frontend |
-| **Valter** | Backend central de jurisprudencia e reasoning |
-| **Leci** | Grounding legislativo |
-| **Douto** | Producao de artefatos doutrinarios |
+- **Unidade de uso:** instituto juridico / problema juridico
+- **Unidade de evidencia:** chunk doutrinario rastreavel
+- **Unidade de entrega:** pacote doutrinario para o Valter
 
-A relacao principal e entre Douto e Valter. O Douto produz material doutrinario que pode alimentar a camada mais ampla de conhecimento do Valter. Por isso ele deve ser descrito como fornecedor interno, e nao como agente autonomo voltado ao usuario.
+## Regra de Ambiguidade
 
-## Conceitos centrais
+Quando houver duas leituras plausiveis, o Douto nao deve colapsar artificialmente a resposta.
+Ele deve:
 
-| Termo | Significado |
-|-------|-------------|
-| **Chunk** | Fragmento doutrinario produzido a partir de livros juridicos |
-| **Enriquecimento** | Classificacao de metadados sobre conteudo doutrinario |
-| **Embedding** | Representacao vetorial usada em workflows de retrieval doutrinario |
-| **Artefato** | Saida reutilizavel gerada pelo pipeline para consumo downstream |
+- mostrar as duas;
+- indicar por que cada uma apareceu;
+- apontar a evidencia correspondente;
+- deixar claro quando a cobertura e insuficiente.
 
-## Leitura pratica
+## Dominios Prioritarios
 
-Se voce esta lendo estes docs a partir da perspectiva do ecossistema completo, pense no Douto como a camada de producao de doutrina que apoia o Valter, e nao como um produto standalone acabado para advogados.
+No curto prazo, o Douto deve ser autoridade em:
+
+1. direito dos contratos;
+2. processo civil.
+
+## Estado Real Hoje
+
+Hoje o Douto tem:
+
+- pipeline local funcional;
+- enriquecimento e embeddings;
+- busca CLI local;
+- INDEX + MOCs em markdown.
+
+Hoje o Douto nao tem:
+
+- entrega programatica madura ao Valter;
+- gate confiavel de qualidade;
+- sintese liberada.

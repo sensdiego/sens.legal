@@ -118,16 +118,17 @@ MINIMAX_MODEL = "MiniMax-M2.5"
 
 ## ADR-007: Repositorio Separado vs. Modulo do Valter
 
-**Status:** PENDENTE -- bloqueia v0.4
+**Status:** ACEITO (realinhado em 2026-03-07)
 
-**Contexto:** O Douto pode existir como modulo dentro do Valter (que ja possui Qdrant, Neo4j e infraestrutura de busca) ou permanecer como repositorio separado com seu proprio servidor MCP.
+**Contexto:** O ponto critico nao era “onde o codigo mora”, e sim “para quem o Douto existe”. O realinhamento definiu que o Douto e fornecedor interno de doutrina para o Valter. Isso permite manter repositorio separado para corpus/pipeline sem tratar o Douto como produto independente.
 
-**Opcoes:**
-- **(A)** Repositorio separado com servidor MCP proprio
-- **(B)** Modulo em `valter/stores/doutrina/` dentro do Valter
-- **(C)** Repositorio separado, mas Valter faz proxy de todas as consultas
+**Decisao:** Manter o repositorio Douto como unidade de corpus e pipeline, mas subordinar sua linha de produto ao Valter.
 
-Esta decisao ainda nao foi tomada. Veja [D02](#decisoes-pendentes).
+**Consequencias:**
+- O consumidor primario passa a ser o Valter
+- O primeiro alvo arquitetural deixa de ser MCP/API propria e passa a ser contrato de artefato + retrieval explicavel
+- O Douto pode continuar separado em repositorio sem reivindicar autonomia de produto
+- Integracao mais profunda com o Valter continua possivel no futuro, se isso reduzir atrito operacional
 
 ## Decisoes Pendentes
 
@@ -135,12 +136,8 @@ Estas decisoes estao bloqueando ou influenciando milestones futuros:
 
 | # | Questao | Opcoes | Bloqueia |
 |---|---------|--------|----------|
-| D01 | Protocolo de integracao: MCP stdio, MCP HTTP/SSE, REST ou arquivos JSON? | A) MCP stdio B) MCP HTTP C) REST D) Manter JSON | v0.4 |
-| D02 | Repositorio separado ou modulo do Valter? | A) Separado + MCP B) valter/stores/doutrina/ C) Separado + proxy | v0.4 |
 | D03 | Notas atomicas: geradas automaticamente ou curadas? | A) Auto B) Manual C) Hibrido | v0.5 |
-| D04 | Rastreamento de issues: Linear (SEN-XXX) ou GitHub Issues? | A) Linear B) GitHub C) Ambos | -- |
 | D05 | Schema Neo4j para nos de doutrina? | A) No Doctrine B) Authority + DoctrineClaim C) Reutilizar Criterion | v1.0 |
 | D06 | Manter MiniMax M2.5 ou migrar modelo de enriquecimento? | A) Manter B) Claude C) Modelo local D) Avaliar depois | -- |
-| D07 | Prioridades reais do dono do projeto? | Roadmap e inteiramente inferido -- precisa validacao | Todos |
 | D08 | Qual LLM para o Synthesis Engine? | A) Claude B) MiniMax C) Outro | v0.3.5 |
 | D09 | Doctrine Briefs: sob demanda ou pre-computados? | A) Sob demanda B) Pre-computados C) Hibrido | v0.3.5 |

@@ -14,6 +14,20 @@ Format: each entry lists the date, associated commit(s), and categorized changes
 
 ---
 
+## 2026-03-07 -- Realignment Around Valter
+
+#### Changed
+- Douto is now explicitly described as Valter's internal doctrine supplier
+- The roadmap was reorganized into 5 gated stages: foundation, quality, contract, retrieval, and synthesis
+- The canonical backlog now lives in Linear under `repo/douto` (`SEN-447` through `SEN-468`)
+
+#### Fixed
+- Core documentation now distinguishes more clearly between what exists today and what is still intent
+- `SEN-446` was repositioned as later research rather than the next immediate step
+- The public FAQ no longer suggests a current unauthorized-corpus risk and now reflects the current position that the books were properly acquired
+
+---
+
 ## v0.1.0 -- Initial Setup (2026-02)
 
 The Douto repository was created and populated with the pipeline scripts (migrated from an Obsidian vault) and the knowledge base structure.

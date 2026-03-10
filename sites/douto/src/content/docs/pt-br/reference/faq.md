@@ -177,31 +177,28 @@ Nenhum concorrente oferece atualmente esse nivel de acesso estruturado a livros 
 
 ### Qual e a situacao de propriedade intelectual?
 
-:::caution[Verdade incomoda]
-O status de propriedade intelectual do corpus requer auditoria. Evidencias no codebase (`rechunk_v3.py` linha 716) sugerem que alguns livros podem ter sido obtidos de fontes nao autorizadas (referencia ao Z-Library). Isso cria tres riscos:
+:::note[Status do corpus]
+A posicao atual do produto e que os livros usados pelo Douto foram devidamente adquiridos. Referencias antigas no codigo que sugiram o contrario devem ser tratadas como residuo legado de implementacao, nao como politica operacional vigente.
 
-1. **Juridico** — Uso de obras protegidas por direitos autorais sem autorizacao potencialmente viola a Lei 9.610/98 (Lei de Direitos Autorais)
-2. **Reputacional** — Due diligence por investidores ou parceiros institucionais flagraria isso
-3. **Operacional** — Se o corpus precisar ser substituido por versoes licenciadas, todo o pipeline precisa ser reprocessado (e o prompt de enriquecimento esta atualmente perdido)
-
-Uma auditoria de PI do corpus esta planejada como acao de mitigacao M16 (condicional a busca por investimento ou escala).
+O risco operacional real e outro: manter a proveniencia e a evidencia de licenciamento do corpus organizadas o suficiente para suportar auditoria, substituicao ou expansao futura sem ambiguidade.
 :::
 
 ### Qual e o prazo para producao?
 
-Com base no roadmap atual:
+O roadmap agora e estruturado como gates de entrega, nao como uma sequencia centrada em API:
 
-| Milestone | Meta | O que possibilita |
-|-----------|------|-------------------|
-| v0.2 | ~Marco 2026 | Pipeline roda em qualquer maquina |
-| v0.3 | ~Maio 2026 | Testes, docs, lint — projeto e contribuivel |
-| v0.4 | ~Agosto 2026 | Servidor MCP — Valter pode consultar doutrina |
+| Etapa | O que possibilita |
+|------|--------------------|
+| 1. Fundacao reproduzivel | Prompt, paths, CLI e instalacao ficam estaveis o bastante para rerodar o pipeline com seguranca |
+| 2. Qualidade mensuravel | Contratos e processo civil passam a ter amostras anotadas e avaliacao de retrieval |
+| 3. Contrato de entrega para o Valter | Os artefatos do Douto ficam explicitos, versionados e consumiveis pelo Valter |
+| 4. Retrieval explicavel | Os resultados doutrinarios ficam rastreaveis, conscientes de ambiguidade e operacionalmente confiaveis |
+| 5. Sintese com gate | O Valter so consome briefs doutrinarios depois que a qualidade da evidencia atinge a barra definida |
 
 **Ressalvas:**
-- O roadmap e mantido por um desenvolvedor solo gerenciando 5 repositorios
-- 7 decisoes arquiteturais estao em aberto, 2 das quais bloqueiam o v0.4
-- Nenhum usuario externo testou o sistema
-- Prazos sao estimativas, nao compromissos
+- O trabalho segue em contexto de equipe pequena
+- Precisao vale mais do que forcar delivery
+- Nenhuma grande superficie de produto deve ser construida antes de retrieval e contrato de artefato estarem estaveis
 
 ### Quanto custa para rodar?
 

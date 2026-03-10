@@ -75,20 +75,18 @@ graph TB
 
 ## Posicao no Ecossistema
 
-Como o Douto se encaixa na plataforma sens.legal do ponto de vista do usuario:
+Como o Douto se encaixa no ecossistema apos o realinhamento Valter-first:
 
 ```mermaid
 graph LR
-    USER["👤 Lawyer"]
-    JU["Juca<br/>Frontend"]
-    VA["Valter<br/>Backend de jurisprudencia + reasoning"]
-    LE["Leci<br/>Legislation"]
-    DO["Douto<br/>Pipeline de doutrina"]
+    DO["Douto<br/>Camada de Doutrina"]
+    VA["Valter<br/>Consumidor Primario"]
+    JU["Juca<br/>Interface Indireta"]
+    LW["Advogado"]
 
-    USER --> JU
-    JU --> VA
-    JU -.->|"grounding"| LE
-    DO -->|"artefatos doutrinarios"| VA
+    DO -->|"artefatos, retrieval,<br/>depois sintese"| VA
+    VA --> JU
+    JU --> LW
 ```
 
 ## Hierarquia da Knowledge Base
@@ -181,30 +179,35 @@ flowchart LR
     NORM --> COMB --> FILT --> RES
 ```
 
-## Arquitetura Planejada (v0.4+)
+## Proxima Linha Arquitetural
 
-Quando o servidor MCP for implementado, o Douto sera consultavel em tempo real:
+O proximo passo nao e um servico autonomo por padrao. O proximo passo e entregar melhor ao Valter:
 
 ```mermaid
 graph TB
-    subgraph "Douto MCP Server (planned)"
-        T1["search_doutrina"]
-        T2["get_chunk"]
-        T3["list_areas"]
+    subgraph "Douto"
+        ART["contrato de artefato"]
+        RET["retrieval explicavel"]
+        SYN["sintese com gate"]
     end
 
-    subgraph "Consumers"
+    subgraph "Consumidor"
         VA["Valter"]
-        CD["Claude Desktop"]
-        CC["Claude Code"]
     end
 
-    subgraph "Storage (planned)"
-        QD["Qdrant<br/>(vector DB)"]
-    end
+    ART --> RET --> SYN --> VA
+```
 
-    VA -->|"MCP protocol"| T1 & T2 & T3
-    CD -->|"MCP stdio"| T1 & T2 & T3
-    CC -->|"MCP stdio"| T1 & T2 & T3
-    T1 & T2 & T3 --> QD
+## Superficie Futura Opcional
+
+Se e somente se o handoff ao Valter estiver maduro, o Douto pode depois expor MCP/API:
+
+```mermaid
+graph LR
+    DT["Douto MCP/API"]
+    VA["Valter"]
+    OC["Outros consumidores"]
+
+    DT --> VA
+    DT --> OC
 ```

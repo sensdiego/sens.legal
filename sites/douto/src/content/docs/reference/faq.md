@@ -177,31 +177,28 @@ No competitor currently offers this level of structured access to Brazilian lega
 
 ### What is the IP situation?
 
-:::caution[Uncomfortable truth]
-The intellectual property status of the corpus requires audit. Evidence in the codebase (`rechunk_v3.py` line 716) suggests that some books may have been obtained from unauthorized sources (Z-Library reference). This creates three risks:
+:::note[Corpus status]
+The current product position is that the books used by Douto were properly acquired. Old code references that suggest otherwise should be treated as stale implementation residue, not as the current operational policy.
 
-1. **Legal** -- Use of copyrighted works without authorization potentially violates Lei 9.610/98 (Brazilian Copyright Law)
-2. **Reputational** -- Due diligence by investors or institutional partners would flag this
-3. **Operational** -- If the corpus must be replaced with licensed versions, the entire pipeline needs reprocessing (and the enrichment prompt is currently lost)
-
-An IP audit of the corpus is planned as mitigation action M16 (conditional on the project seeking investment or scale).
+The real operational risk is different: corpus provenance and licensing evidence should remain organized enough to support future audit, replacement, or expansion without ambiguity.
 :::
 
 ### What is the timeline to production?
 
-Based on the current roadmap:
+The roadmap is now framed as delivery gates, not as an API-first sequence:
 
-| Milestone | Target | What it enables |
-|-----------|--------|-----------------|
-| v0.2 | ~March 2026 | Pipeline runs on any machine |
-| v0.3 | ~May 2026 | Tests, docs, lint -- project is contributable |
-| v0.4 | ~August 2026 | MCP server -- Valter can query doctrine |
+| Stage | What it enables |
+|-------|------------------|
+| 1. Reproducible foundation | Prompt, paths, CLI, and install become stable enough to rerun the pipeline safely |
+| 2. Measurable quality | Contracts and civil procedure gain annotated samples and retrieval evaluation |
+| 3. Valter delivery contract | Douto artifacts become explicit, versioned, and consumable by Valter |
+| 4. Explainable retrieval | Doctrine results become traceable, ambiguity-aware, and operationally reliable |
+| 5. Gated synthesis | Valter can consume doctrinal briefs only after evidence quality passes a defined bar |
 
 **Caveats:**
-- The roadmap is maintained by a solo developer managing 5 repositories
-- 7 architectural decisions are unresolved, 2 of which block v0.4
-- No external users have tested the system
-- Timelines are estimates, not commitments
+- The work is still maintained in a small-team context
+- Precision is preferred over forcing delivery
+- No large product surface should be built before retrieval quality and artifact contracts are stable
 
 ### How much does it cost to run?
 

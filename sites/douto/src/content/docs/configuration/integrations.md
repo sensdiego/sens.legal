@@ -165,78 +165,63 @@ The model was trained on Portuguese (PT-PT) legal text, not specifically Brazili
 
 ## sens.legal Ecosystem Integration
 
-### Current State (v0.1)
+### Current State
 
-Integration with the broader sens.legal ecosystem is currently through **static JSON files**:
+Real integration with the ecosystem currently happens through **artifacts delivered to Valter**:
 
 ```
 embed_doutrina.py
       |
       v
-embeddings_doutrina.json  ─── deposited in ──→  Juca/Valter data directory
-search_corpus_doutrina.json                      ($OUTPUT_PATH)
-bm25_index_doutrina.json
+doctrine artifacts  ─── delivered to ──→  Valter
 ```
 
-- No real-time query capability from other agents.
-- No API or protocol.
-- Valter and Juca read the JSON files from a shared filesystem path.
-- Updates require re-running the embedding pipeline and restarting consumers.
+- Valter is the primary consumer.
+- There is no mature programmatic delivery yet.
+- Rebuilding artifacts is still part of the flow.
 
 ### Ecosystem Components
 
 | Component | Role | Stack | Douto's relationship |
 |-----------|------|-------|---------------------|
-| **Valter** | Backend API -- STJ case law, knowledge graph, vector search | FastAPI, PostgreSQL, Qdrant, Neo4j, Redis | Primary consumer of Douto's embeddings |
-| **Juca** | Frontend -- user interface for lawyers | Next.js | Accesses doctrine through Valter |
-| **Leci** | Legislation service | Next.js, PostgreSQL, pgvector | Future cross-reference target (F35) |
-| **Joseph** | Orchestrator -- coordinates agents | -- | Future coordination with Douto queries |
+| **Valter** | Ecosystem backend | FastAPI, PostgreSQL, Qdrant, Neo4j, Redis | Douto's primary consumer |
+| **Juca** | Indirect interface for lawyers | Next.js | Consumes the final layer through Valter |
+| **Leci** | Legislation layer | Next.js, PostgreSQL, pgvector | Complementary source, not a competitor |
+| **Joseph** | Coordination/orchestration | -- | Execution context, not Douto's product center |
 
-### Planned Integration (v0.4)
+### Planned Integration
 
-> **Planned Feature** -- MCP server for doctrine search is on the roadmap (F30) but not yet implemented.
+The next step is not “becoming a service”.
+The next step is **delivering well to Valter**.
 
-The v0.4 milestone will establish programmatic integration between Douto and the sens.legal ecosystem:
+Correct sequence:
 
-**MCP Server** with at least 3 tools:
+1. artifact contract;
+2. stable IDs and coverage;
+3. explainable retrieval;
+4. synthesis with its own gate.
 
-| Tool | Description |
-|------|-------------|
-| `search_doutrina` | Hybrid search across doctrine corpus |
-| `get_chunk` | Retrieve a specific chunk by ID with full metadata |
-| `list_areas` | List available legal domains with corpus statistics |
-
-**Protocol Decision (D01) -- not yet resolved:**
-
-| Option | Description | Pros | Cons |
-|--------|-------------|------|------|
-| MCP stdio | Standard MCP transport | Aligned with Valter's MCP | Process-per-query overhead |
-| MCP HTTP/SSE | Persistent MCP connection | More flexible, lower latency | More infrastructure |
-| REST API (FastAPI) | Conventional HTTP API | Simple, well-understood | Not aligned with MCP ecosystem |
-| Keep JSON files | Current approach | Zero effort | No real-time queries, doesn't scale |
-
-**Architecture Decision (D02) -- not yet resolved:**
-
-Whether Douto remains an independent service or is absorbed as a module within Valter (`valter/stores/doutrina/`). This decision blocks v0.4.
+MCP, a dedicated API, or an internal module remain future options, but they should not bypass this sequence.
 
 :::tip
-Valter already has Qdrant (vector DB) and Neo4j (knowledge graph) infrastructure. When Douto integrates, it should leverage these existing services rather than maintaining its own JSON-based storage.
+The decision criterion is not “which protocol looks more modern”.
+The decision criterion is: which form delivers reliable doctrine to Valter with less risk and less architectural theater.
 :::
 
 ### Integration Diagram
 
 ```mermaid
 graph TB
-    subgraph "Current (v0.1)"
-        ED["embed_doutrina.py"] -->|JSON files| DIR["Shared directory"]
-        DIR -->|reads| VA1["Valter"]
+    subgraph "Current"
+        ED["embed_doutrina.py"] -->|artifacts| VA1["Valter"]
     end
 
-    subgraph "Planned (v0.4)"
-        MCP["Douto MCP Server"] -->|search_doutrina| VA2["Valter"]
-        MCP -->|get_chunk| VA2
-        MCP -->|list_areas| VA2
-        VA2 -->|via Valter| JU["Juca"]
-        CD["Claude Desktop"] -->|MCP| MCP
+    subgraph "Next line"
+        DT["contract + manifest + explainable retrieval"] --> VA2["Valter"]
+        VA2 --> JU["Juca"]
+    end
+
+    subgraph "Optional future"
+        MCP["Douto MCP/API"] --> VAL["Valter or other consumers"]
     end
 ```

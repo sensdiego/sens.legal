@@ -1,6 +1,6 @@
 ---
-title: "Douto — Legal Doctrine Pipeline"
-description: "Documentation for Douto, the local doctrine-processing pipeline that supplies doctrinal artifacts to the sens.legal ecosystem."
+title: "Douto — Jude.md Doctrine Layer"
+description: "Documentation for Douto as Jude.md's internal doctrine supplier to Valter."
 lang: en
 sidebar:
   order: 0
@@ -8,48 +8,66 @@ sidebar:
 
 # Douto
 
-Douto is the local doctrine-processing pipeline of the [sens.legal](https://sens.legal) ecosystem. It transforms legal books into structured doctrinal artifacts that can later be consumed by the ecosystem's knowledge layer, especially through Valter.
+Douto is Jude.md's doctrine layer.
+Its job is to turn legal books into traceable doctrinal retrieval and synthesis for Valter, starting with contract law and civil procedure.
 
-## What Douto does
+## Operational Definition
 
-Douto processes doctrine from PDF to structured outputs:
+- **Primary consumer:** Valter
+- **Indirect consumers:** Juca, lawyers, and internal agents
+- **Usage unit:** legal institute / legal problem
+- **Evidence unit:** traceable doctrinal chunk
+- **Delivery unit:** doctrine artifact consumable by Valter
 
-- PDF extraction into structured markdown
-- intelligent chunking with legal-domain heuristics
-- metadata enrichment over doctrinal content
-- embedding generation for doctrinal retrieval workflows
-- local search and artifact generation for downstream use
+## What Douto Does Today
 
-## Current positioning
+- Runs a batch pipeline over legal books
+- Enriches chunks with doctrinal metadata
+- Generates embeddings and search artifacts
+- Provides local CLI search for inspection and validation
+- Maintains INDEX + MOCs as an internal editorial layer
 
-Douto should be understood as an **internal pipeline**, not as a finished standalone doctrine product for end users.
+## What Douto Does Not Yet Do
 
-Its role is to:
+- It is not a direct end-user product
+- It is not a real-time service
+- It does not yet have a fully stabilized delivery contract with Valter
+- Its synthesis layer is not yet released for ecosystem consumption
 
-- organize doctrinal material into reusable artifacts
-- support the ecosystem's broader legal knowledge layer
-- supply doctrinal context into Valter rather than compete with Juca as a user-facing experience
+## Current Status
 
-## Part of sens.legal
+| Metric | Value |
+|--------|-------|
+| Books in corpus | ~50 |
+| Estimated chunks | ~31,500 |
+| Priority domains | Contract law and civil procedure |
+| Real surface | Local pipeline + CLI search |
+| Primary consumer | Valter |
+| Test coverage | 0% |
+| Current delivery mode | Static artifacts |
 
-Douto is one of four projects in the sens.legal ecosystem:
+## Build Order
 
-| Project | Role |
-|---------|------|
-| **Juca** | Frontend hub for lawyers |
-| **Valter** | Central jurisprudence and reasoning backend |
-| **Leci** | Document-first legislation engine |
-| **Douto** | Local doctrine pipeline and artifact producer |
-
-The important boundary is this: Douto does not own the frontend and should not be framed as a self-contained legal doctrine application. Its outputs are meant to strengthen the ecosystem's backend knowledge layer.
+1. Reproducible foundation
+2. Quality gate
+3. Delivery contract to Valter
+4. Explainable retrieval
+5. Synthesis with its own gate
 
 ## Quick Links
 
 | Section | Description |
 |---------|-------------|
-| [Introduction](getting-started/introduction) | What Douto is, why it exists, and where it fits |
-| [Quickstart](getting-started/quickstart) | Run the local pipeline baseline |
-| [Architecture](architecture/overview) | How the batch pipeline and knowledge base work |
-| [Features](features/) | Feature inventory with implementation status |
-| [Roadmap](roadmap/) | Planned milestones and risks |
-| [Glossary](reference/glossary) | Legal and technical terminology |
+| [Introduction](getting-started/introduction) | What Douto is and what it is not |
+| [Architecture](architecture/overview) | How the pipeline and Valter handoff are structured |
+| [Integrations](configuration/integrations) | How Douto delivers today and how it should evolve |
+| [Roadmap](roadmap/) | Official build sequence |
+
+## Part of the Ecosystem
+
+| Component | Role relative to Douto |
+|-----------|------------------------|
+| **Valter** | Primary consumer of doctrine artifacts |
+| **Juca** | Indirect interface for lawyers |
+| **Leci** | Complementary source in the ecosystem, not a competitor |
+| **Joseph** | Coordination/orchestration, not Douto's product center |
