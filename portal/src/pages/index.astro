@@ -269,6 +269,7 @@ import ProjectRoadmapStatus from '../components/ProjectRoadmapStatus.astro';
 </style>
 
 <script>
+  // @ts-ignore — CDN module, no type declarations
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
   mermaid.initialize({ startOnLoad: false, theme: 'default' });
 
@@ -285,19 +286,21 @@ import ProjectRoadmapStatus from '../components/ProjectRoadmapStatus.astro';
 </script>
 
 <script>
-  const form = document.getElementById('waitlist-form');
-  const msg = document.getElementById('waitlist-msg');
+  const form = document.getElementById('waitlist-form') as HTMLFormElement | null;
+  const msg = document.getElementById('waitlist-msg') as HTMLElement | null;
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const btn = form.querySelector('button');
+    const btn = form.querySelector('button') as HTMLButtonElement | null;
+    if (!btn || !msg) return;
     btn.disabled = true;
     btn.textContent = '...';
     try {
-      const email = form.querySelector('input[name="email"]').value;
+      const input = form.querySelector('input[name="email"]') as HTMLInputElement | null;
+      if (!input) return;
       const res = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email: input.value }),
       });
       const data = await res.json();
       if (data.ok) {
