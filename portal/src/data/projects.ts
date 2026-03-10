@@ -55,27 +55,29 @@ export const projects: Project[] = [
     docsUrl: 'https://valter.sens.legal',
     llms_txt_url: 'https://valter.sens.legal/llms.txt',
     roadmap: {
-      currentStage: 6,
-      totalStages: 6,
-      currentStageLabel: 'Juca backend cutover',
-      currentStageLabelPtBr: 'Cutover do backend do Juca',
+      currentStage: 7,
+      totalStages: 10,
+      currentStageLabel: 'Production stability',
+      currentStageLabelPtBr: 'Estabilidade de producao',
       summary:
-        'Migration phases 0-4 are done and deployed. Chat pipeline is live with 28 MCP tools operational. Only the final Juca backend cutover remains before v1.0.',
+        'All 6 migration phases are done. Chat pipeline is live with 30 MCP tools and 7 Railway services online. Now stabilizing for v1.0 while planning the v2.0 graph reconstruction.',
       summaryPtBr:
-        'As fases 0-4 da migracao estao concluidas e deployed. O pipeline de chat esta ativo com 28 tools MCP operacionais. Resta apenas o cutover final do backend do Juca antes do v1.0.',
+        'Todas as 6 fases de migracao estao concluidas. Pipeline de chat ativo com 30 tools MCP e 7 servicos Railway online. Agora estabilizando para v1.0 enquanto planeja a reconstrucao do grafo v2.0.',
       now:
-        'Complete the final backend cutover from Juca and stabilize for v1.0.',
+        'Finish v1.0 stability: HTTPS on valter.legal, Railway alerts, and production runbook.',
       nowPtBr:
-        'Concluir o cutover final do backend do Juca e estabilizar para o v1.0.',
+        'Concluir estabilidade v1.0: HTTPS no valter.legal, alertas Railway e runbook de producao.',
       next:
-        'v1.0 stable production milestones.',
+        'v1.1 resilience: circuit breakers, connection pools, and weekly STJ ingestion.',
       nextPtBr:
-        'Marcos de producao estavel v1.0.',
+        'Resiliencia v1.1: circuit breakers, connection pools e ingestao semanal do STJ.',
       blockers: [
-        'Juca cutover depends on Juca frontend adapting to Valter-only backend.',
+        'HTTPS on valter.legal blocks App Directory submission.',
+        'Pipeline v2.0 schema redesign awaiting review before execution.',
       ],
       blockersPtBr: [
-        'O cutover do Juca depende do frontend do Juca se adaptar ao backend exclusivo do Valter.',
+        'HTTPS no valter.legal bloqueia submissao ao App Directory.',
+        'Redesign de schema do Pipeline v2.0 aguardando revisao antes da execucao.',
       ],
       stages: [
         {
@@ -114,6 +116,30 @@ export const projects: Project[] = [
           description: 'Complete the final migration of all backend responsibilities from Juca to Valter, enabling Juca to operate as a pure frontend hub.',
           descriptionPtBr: 'Concluir a migracao final de todas as responsabilidades de backend do Juca para o Valter, permitindo que o Juca opere como hub frontend puro.',
         },
+        {
+          title: 'Production stability (v1.0)',
+          titlePtBr: 'Estabilidade de producao (v1.0)',
+          description: 'HTTPS, monitoring alerts to Slack, production runbook, R2 canary rollout, and public policies (privacy, terms).',
+          descriptionPtBr: 'HTTPS, alertas de monitoramento para Slack, runbook de producao, canary rollout R2 e politicas publicas (privacidade, termos).',
+        },
+        {
+          title: 'Resilience (v1.1)',
+          titlePtBr: 'Resiliencia (v1.1)',
+          description: 'Circuit breakers for Qdrant/Neo4j, connection pools, weekly automated STJ ingestion, search fallback extraction, and PT-BR stopwords expansion.',
+          descriptionPtBr: 'Circuit breakers para Qdrant/Neo4j, connection pools, ingestao semanal automatizada do STJ, extracao de fallback de busca e expansao de stopwords PT-BR.',
+        },
+        {
+          title: 'Graph reconstruction (v2.0)',
+          titlePtBr: 'Reconstrucao do grafo (v2.0)',
+          description: 'Redesign Neo4j schema (11 labels, 15 qualified edges), 3-stage LLM extraction, multi-layer canonicalization, and scale from 3,673 to 1.5M decisions with multi-tribunal support.',
+          descriptionPtBr: 'Redesign do schema Neo4j (11 labels, 15 edges qualificados), extracao LLM em 3 estagios, canonicalizacao multi-camada e escala de 3.673 para 1,5M decisoes com suporte multi-tribunal.',
+        },
+        {
+          title: 'Scale + public presence (v2.1)',
+          titlePtBr: 'Escala + presenca publica (v2.1)',
+          description: 'ChatGPT App Directory submission, MCP remote hardening, multi-tenancy, SLA guarantees, and load testing.',
+          descriptionPtBr: 'Submissao ao App Directory do ChatGPT, hardening MCP remoto, multi-tenancy, garantias de SLA e testes de carga.',
+        },
       ],
       updates: [
         {
@@ -122,6 +148,13 @@ export const projects: Project[] = [
           titlePtBr: 'Chat pipeline deployado em producao',
           summary: '3-stage LLM pipeline (draft, critics, revision) with SSE streaming deployed to Railway. 64 new tests added.',
           summaryPtBr: 'Pipeline LLM de 3 estagios (draft, criticos, revisao) com streaming SSE deployado no Railway. 64 novos testes adicionados.',
+        },
+        {
+          date: '2026-03-10',
+          title: 'Pipeline v2.0 brainstorming structured',
+          titlePtBr: 'Brainstorming do Pipeline v2.0 estruturado',
+          summary: '24 issues created for graph reconstruction: schema-first approach, 11 labels, 15 qualified edges, 3-stage LLM extraction, scale to 1.5M decisions.',
+          summaryPtBr: '24 issues criadas para reconstrucao do grafo: abordagem schema-first, 11 labels, 15 edges qualificados, extracao LLM em 3 estagios, escala para 1,5M decisoes.',
         },
         {
           date: '2026-03-09',
@@ -276,22 +309,22 @@ export const projects: Project[] = [
       currentStageLabel: 'Canonical legal reference resolution',
       currentStageLabelPtBr: 'Resolucao canonica de referencia juridica',
       summary:
-        'v0.2 reference resolution is complete: 185 tests passing, 19 federal regulations mapped. Now entering provision resolution.',
+        'Provision resolution is underway: canonical provision IDs, a citation parser for free-form legal references, and a provision resolver with database-backed segment validation are implemented. Bulk API for Valter is next.',
       summaryPtBr:
-        'A resolucao de referencia v0.2 esta completa: 185 testes passando, 19 regulamentacoes federais mapeadas. Agora entrando em resolucao de dispositivos.',
+        'A resolucao de dispositivos esta em andamento: IDs canonicos de dispositivo, parser de citacoes juridicas em texto livre e resolver de dispositivos com validacao por segmento no banco estao implementados. API bulk para o Valter e o proximo passo.',
       now:
-        'Provision resolution — map articles, paragraphs, and items within resolved statutes.',
+        'Build the bulk resolution API for Valter integration and finish the provision resolution track.',
       nowPtBr:
-        'Resolucao de dispositivos — mapear artigos, paragrafos e incisos dentro das normas resolvidas.',
+        'Construir a API bulk de resolucao para integracao com o Valter e finalizar a trilha de resolucao de dispositivos.',
       next:
         'Expose document-first reader and grounding contracts for Valter and Juca.',
       nextPtBr:
         'Expor reader document-first e contratos de grounding para o Valter e para o Juca.',
       blockers: [
-        'Provision mapping requires structured article/paragraph parsing not yet built.',
+        'Bulk API depends on provision resolver integration tests with Railway database.',
       ],
       blockersPtBr: [
-        'O mapeamento de dispositivos requer parsing estruturado de artigos/paragrafos ainda nao construido.',
+        'A API bulk depende de testes de integracao do provision resolver com o banco Railway.',
       ],
       stages: [
         {
@@ -326,6 +359,27 @@ export const projects: Project[] = [
         },
       ],
       updates: [
+        {
+          date: '2026-03-10',
+          title: 'Provision resolver with database-backed validation',
+          titlePtBr: 'Resolver de dispositivos com validacao no banco',
+          summary: 'Provision resolver combines citation parser with document resolver, validates each segment (article, paragraph, inciso) against the database via dynamic JOIN chains. Failure diagnosis pinpoints exactly where resolution breaks.',
+          summaryPtBr: 'Resolver de dispositivos combina parser de citacoes com resolver de documentos, valida cada segmento (artigo, paragrafo, inciso) no banco via cadeias de JOIN dinamicas. Diagnostico de falha aponta exatamente onde a resolucao quebra.',
+        },
+        {
+          date: '2026-03-10',
+          title: 'Citation parser for free-form legal references',
+          titlePtBr: 'Parser de citacoes para referencias juridicas em texto livre',
+          summary: 'Parses free-form citations like "art. 535, II, do CPC" into structured provisions. Handles direct and inverted forms, article enumeration, inciso/alinea, paragraphs, and caput.',
+          summaryPtBr: 'Parseia citacoes em texto livre como "art. 535, II, do CPC" em dispositivos estruturados. Trata formas diretas e invertidas, enumeracao de artigos, inciso/alinea, paragrafos e caput.',
+        },
+        {
+          date: '2026-03-10',
+          title: 'Canonical provision identifier format',
+          titlePtBr: 'Formato canonico de identificador de dispositivo',
+          summary: 'Extended the document ID format to provision level: lo:10406:2002:art:186:par:1:inc:2:al:a. Build, parse, and validate functions with hierarchy enforcement and roundtrip tests.',
+          summaryPtBr: 'Formato de ID de documento estendido ao nivel de dispositivo: lo:10406:2002:art:186:par:1:inc:2:al:a. Funcoes de build, parse e validacao com enforcement de hierarquia e testes de roundtrip.',
+        },
         {
           date: '2026-03-09',
           title: 'Canonical document resolution complete',

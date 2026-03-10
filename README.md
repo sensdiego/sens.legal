@@ -37,9 +37,9 @@ define implementation phases more clearly than the progress log alone.
 
 | Project | Roadmap position | Now | Next |
 |---------|------------------|-----|------|
-| Valter | Stage 6 of 6 - Juca backend cutover<br>`[##########]` | Complete the final backend cutover from Juca and stabilize for v1.0. | v1.0 stable production milestones. |
+| Valter | Stage 7 of 10 - Production stability (v1.0)<br>`[#######---]` | Finish v1.0 stability: HTTPS, Railway alerts, production runbook. | v1.1 resilience: circuit breakers, connection pools, weekly STJ ingestion. |
 | Juca | Stage 1 of 5 - Hub foundation<br>`[##--------]` | Build v0.3 hub foundation: Valter integration and adapter layer. | Ship progressive briefing (v0.4) with external backend calls. |
-| Leci | Stage 2 of 5 - Canonical legal reference resolution<br>`[####------]` | Provision resolution — map articles, paragraphs, and items within resolved statutes. | Expose document-first reader and grounding contracts for Valter and Juca. |
+| Leci | Stage 2 of 5 - Canonical legal reference resolution<br>`[####------]` | Build bulk resolution API for Valter and finish provision resolution track. | Expose document-first reader and grounding contracts for Valter and Juca. |
 | Douto | Stage 2 of 5 - Doctrinal quality gate<br>`[####------]` | Define and measure doctrinal quality metrics for the extraction pipeline. | Establish the artifact handoff contract to Valter. |
 
 ## What This Repo Owns
