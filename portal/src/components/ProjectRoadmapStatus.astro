@@ -12,6 +12,7 @@ const isPtBr = lang === 'pt-br';
 const roadmap = project.roadmap;
 const progress = `${Math.round((roadmap.currentStage / roadmap.totalStages) * 100)}%`;
 const blockers = isPtBr ? roadmap.blockersPtBr : roadmap.blockers;
+const updates = roadmap.updates ?? [];
 const labels = isPtBr
   ? {
       kicker: 'Posicao no roadmap',
@@ -21,6 +22,7 @@ const labels = isPtBr
       next: 'Proximo',
       blockers: 'Bloqueios e dependencias',
       stageMap: 'Mapa de etapas',
+      updates: 'Atualizacoes',
       source:
         'Snapshot editorial derivado de progress, roadmap e, quando relevante, arquivos canonicos de migracao.',
     }
@@ -32,6 +34,7 @@ const labels = isPtBr
       next: 'Next',
       blockers: 'Blockers and dependencies',
       stageMap: 'Stage map',
+      updates: 'Updates',
       source:
         'Editorial snapshot derived from project progress, roadmap, and migration files when they add phase-specific context.',
     };
@@ -99,6 +102,23 @@ const labels = isPtBr
           );
         })}
       </ol>
+
+      {updates.length > 0 && (
+        <>
+          <h3>{labels.updates}</h3>
+          <div class="updates-list">
+            {updates.map((update) => (
+              <details class="update-item">
+                <summary>
+                  <span class="update-date">{new Date(update.date + 'T00:00:00').toLocaleDateString(isPtBr ? 'pt-BR' : 'en-US', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+                  <span class="update-title">{isPtBr ? update.titlePtBr : update.title}</span>
+                </summary>
+                <p class="update-summary">{isPtBr ? update.summaryPtBr : update.summary}</p>
+              </details>
+            ))}
+          </div>
+        </>
+      )}
 
       <p class="roadmap-source">{labels.source}</p>
     </>
@@ -224,6 +244,70 @@ const labels = isPtBr
     flex-shrink: 0;
   }
 
+  .updates-list {
+    display: grid;
+    gap: 0.375rem;
+    margin-top: var(--space-sm);
+  }
+
+  .update-item {
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .update-item summary {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: 0.65rem 0.8rem;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    transition: background 0.15s ease;
+  }
+
+  .update-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .update-item summary::before {
+    content: '\25B8';
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    transition: transform 0.15s ease;
+  }
+
+  .update-item[open] summary::before {
+    transform: rotate(90deg);
+  }
+
+  .update-item summary:hover {
+    background: rgba(148, 163, 184, 0.08);
+  }
+
+  .update-date {
+    font-family: var(--font-mono, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+    min-width: 5.5rem;
+  }
+
+  .update-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .update-summary {
+    padding: 0 0.8rem 0.75rem 2.5rem;
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+  }
+
   .roadmap-source {
     margin-top: var(--space-md);
     text-transform: none;
@@ -240,6 +324,10 @@ const labels = isPtBr
 
     .roadmap-current {
       text-align: left;
+    }
+
+    .update-date {
+      min-width: auto;
     }
   }
 </style>
