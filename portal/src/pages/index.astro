@@ -34,15 +34,15 @@ import ProjectRoadmapStatus from '../components/ProjectRoadmapStatus.astro';
 
   <p>
     <strong>Valter</strong> — the central jurisprudence and reasoning backend.
-    The main legal backend layer of the ecosystem is being consolidated there,
-    with graph-led retrieval, verification, and REST/MCP surfaces for Juca and
-    external agents.
+    The main legal backend layer of the ecosystem now lives there, with
+    graph-led retrieval, verification, chat orchestration, and REST/MCP
+    surfaces for Juca and external agents.
   </p>
 
   <p>
     <strong>Leci</strong> — legislation. A document-first grounding engine already
-    running a live <code>/api/search</code>, a functional shell, and validation
-    against real data.
+    running live <code>/api/search</code>, <code>/api/resolve</code>, and
+    <code>POST /api/resolve-dispositivos</code>, with validation against real data.
   </p>
 
   <p>
@@ -52,8 +52,8 @@ import ProjectRoadmapStatus from '../components/ProjectRoadmapStatus.astro';
   </p>
 
   <p>
-    <strong>Juca</strong> — interface. The frontend hub for briefing, reading, and
-    argument-building while legal backend ownership moves out of Juca and into Valter.
+    <strong>Juca</strong> — interface. The shell-first frontend hub for briefing,
+    reading, and argument-building, now running over Valter as the canonical backend.
   </p>
 
   <p>
@@ -119,7 +119,10 @@ import ProjectRoadmapStatus from '../components/ProjectRoadmapStatus.astro';
     subgraph "Valter"
         API[REST API]
         MCP[MCP]
-        CORE[Retrieval + reasoning]
+        ORCH[Service layer]
+        INGEST[Grounding adapters]
+        RETRIEVAL[Graph-led retrieval]
+        REASONING[Verification + reasoning]
     end
 
     subgraph "Grounding"
@@ -127,7 +130,7 @@ import ProjectRoadmapStatus from '../components/ProjectRoadmapStatus.astro';
         DOUTO[Douto]
     end
 
-    subgraph "Data Stores"
+    subgraph "Valter-owned stores"
         PG[(PostgreSQL)]
         QD[(Qdrant)]
         N4J[(Neo4j)]
@@ -135,11 +138,16 @@ import ProjectRoadmapStatus from '../components/ProjectRoadmapStatus.astro';
     end
 
     USERS --> JUCA --> API
-    AGENTS --> MCP --> API
-    LECI --> API
-    DOUTO --> API
-    API --> CORE
-    CORE --> PG & QD & N4J & RD</code></pre>
+    AGENTS --> MCP --> ORCH
+    API --> ORCH
+    ORCH --> INGEST
+    ORCH --> RETRIEVAL
+    ORCH --> REASONING
+    LECI --> INGEST
+    DOUTO --> INGEST
+    INGEST --> PG & QD & N4J
+    RETRIEVAL --> PG & QD & N4J & RD
+    REASONING --> PG & N4J</code></pre>
 
   <p>
     <a href="/architecture">View full architecture diagrams &rarr;</a>
