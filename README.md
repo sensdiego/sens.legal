@@ -37,10 +37,10 @@ define implementation phases more clearly than the progress log alone.
 
 | Project | Roadmap position | Now | Next |
 |---------|------------------|-----|------|
-| Valter | Stage 7 of 10 - Production stability (v1.0)<br>`[#######---]` | Finish v1.0 stability: HTTPS, Railway alerts, production runbook. | v1.1 resilience: circuit breakers, connection pools, weekly STJ ingestion. |
-| Juca | Stage 1 of 5 - Hub foundation<br>`[##--------]` | Build v0.3 hub foundation: Valter integration and adapter layer. | Ship progressive briefing (v0.4) with external backend calls. |
-| Leci | Stage 2 of 5 - Canonical legal reference resolution<br>`[####------]` | Build bulk resolution API for Valter and finish provision resolution track. | Expose document-first reader and grounding contracts for Valter and Juca. |
-| Douto | Stage 2 of 5 - Doctrinal quality gate<br>`[####------]` | Define and measure doctrinal quality metrics for the extraction pipeline. | Establish the artifact handoff contract to Valter. |
+| Valter | Stage 7 of 10 - Production stability (v1.0)<br>`[#######---]` | Finish v1.0 stability: HTTPS, Railway alerts, production runbook, and remaining public hardening. | v1.1 resilience: circuit breakers, connection pools, weekly STJ ingestion. |
+| Juca | Stage 2 of 5 - Progressive briefing<br>`[####------]` | Build the progressive briefing flow on top of the Valter-backed shell, while replacing the temporary production auth bypass. | Polish and expand hub workflows once the briefing phases are live. |
+| Leci | Stage 3 of 5 - Reader and grounding contracts<br>`[######----]` | Ship provision-context, deep-link, and reader flows on top of `/api/resolve` and `/api/resolve-dispositivos`. | Publish grounding contracts for Valter and Juca, then move into ingestion and quality hardening. |
+| Douto | Stage 1 of 5 - Reproducible foundation<br>`[##--------]` | Regularize paths and CLI behavior, remove creator-machine dependencies, and lock the local pipeline baseline. | Measure doctrinal quality for contracts and civil procedure before defining the Valter handoff contract. |
 
 ## What This Repo Owns
 

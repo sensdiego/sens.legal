@@ -23,9 +23,9 @@ if (!project) {
   </p>
 
   <p>
-    O backend juridico esta saindo do Juca e migrando para o Valter. Isso
-    significa que busca, grafo, reasoning, verificacao e pipelines juridicos
-    deixam de ser responsabilidade do frontend e passam a ser consumidos como
+    Esse cutover de backend agora esta concluido. Busca, grafo, reasoning,
+    verificacao e pipelines juridicos de chat passaram a ser responsabilidade
+    do Valter, enquanto o Juca opera como frontend shell-first consumindo esses
     servicos canonicos do backend do ecossistema.
   </p>
 
@@ -33,18 +33,18 @@ if (!project) {
 
   <ul>
     <li>Orquestrar a experiencia de briefing e argumentacao para usuarios finais</li>
-    <li>Consumir Valter como backend de jurisprudencia, reasoning e verificacao</li>
+    <li>Consumir Valter como backend canonico de jurisprudencia, reasoning, verificacao e chat</li>
     <li>Consumir Leci para grounding legislativo conforme a integracao amadurece</li>
-    <li>Manter o foco em UX, estado de interface e fluxos de trabalho</li>
+    <li>Persistir sessoes e manter o foco em UX, estado de interface e fluxos de trabalho</li>
   </ul>
 
   <h2>Stack</h2>
 
   <ul>
-    <li><strong>Framework:</strong> Next.js 15</li>
+    <li><strong>Framework:</strong> Next.js 16</li>
     <li><strong>Linguagem:</strong> TypeScript</li>
     <li><strong>UI:</strong> React, Tailwind CSS</li>
-    <li><strong>Deploy:</strong> Vercel</li>
+    <li><strong>Deploy:</strong> Docker + Railway</li>
   </ul>
 
   <h2>Status do roadmap</h2>

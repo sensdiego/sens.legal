@@ -60,13 +60,13 @@ export const projects: Project[] = [
       currentStageLabel: 'Production stability',
       currentStageLabelPtBr: 'Estabilidade de producao',
       summary:
-        'All 6 migration phases are done. Chat pipeline is live with 30 MCP tools and 7 Railway services online. Now stabilizing for v1.0 while planning the v2.0 graph reconstruction.',
+        'All 6 migration phases are done. Valter now serves the canonical chat, retrieval, verification, and reasoning backend, with the public Juca shell validated against /v1/chat in production. Current work is v1.0 stability while the v2.0 graph reconstruction is reviewed.',
       summaryPtBr:
-        'Todas as 6 fases de migracao estao concluidas. Pipeline de chat ativo com 30 tools MCP e 7 servicos Railway online. Agora estabilizando para v1.0 enquanto planeja a reconstrucao do grafo v2.0.',
+        'Todas as 6 fases da migracao estao concluidas. O Valter agora serve o backend canonico de chat, retrieval, verificacao e reasoning, com o shell publico do Juca validado contra o /v1/chat em producao. O trabalho atual e estabilizar o v1.0 enquanto a reconstrucao do grafo v2.0 e revisada.',
       now:
-        'Finish v1.0 stability: HTTPS on valter.legal, Railway alerts, and production runbook.',
+        'Finish v1.0 stability: HTTPS on valter.legal, Railway alerts, production runbook, and remaining public hardening.',
       nowPtBr:
-        'Concluir estabilidade v1.0: HTTPS no valter.legal, alertas Railway e runbook de producao.',
+        'Concluir a estabilidade do v1.0: HTTPS no valter.legal, alertas Railway, runbook de producao e hardening publico remanescente.',
       next:
         'v1.1 resilience: circuit breakers, connection pools, and weekly STJ ingestion.',
       nextPtBr:
@@ -143,11 +143,18 @@ export const projects: Project[] = [
       ],
       updates: [
         {
+          date: '2026-03-10',
+          title: 'Juca cutover completed and public shell validated',
+          titlePtBr: 'Cutover do Juca concluido e shell publico validado',
+          summary: 'Migration phases 0-5 closed. juca-home validated on Railway with Valter as the canonical backend, /v1/chat returning 200 in production, and legacy legal backend routes pruned from Juca.',
+          summaryPtBr: 'As fases 0-5 da migracao foram encerradas. O juca-home foi validado no Railway com o Valter como backend canonico, /v1/chat respondendo 200 em producao e as rotas juridicas legadas podadas do Juca.',
+        },
+        {
           date: '2026-03-11',
           title: 'Chat pipeline deployed to production',
           titlePtBr: 'Chat pipeline deployado em producao',
-          summary: '3-stage LLM pipeline (draft, critics, revision) with SSE streaming deployed to Railway. 64 new tests added.',
-          summaryPtBr: 'Pipeline LLM de 3 estagios (draft, criticos, revisao) com streaming SSE deployado no Railway. 64 novos testes adicionados.',
+          summary: '3-stage LLM pipeline (draft, critics, revision) with SSE streaming deployed to Railway. Production health checks are green and public chat is serving the canonical flow.',
+          summaryPtBr: 'Pipeline LLM de 3 estagios (draft, criticos, revisao) com streaming SSE deployado no Railway. Os health checks de producao estao verdes e o chat publico serve o fluxo canonico.',
         },
         {
           date: '2026-03-10',
@@ -204,44 +211,44 @@ export const projects: Project[] = [
   {
     name: 'Juca',
     subdomain: 'juca',
-    description: 'Frontend hub for lawyers and AI-assisted workflows, progressively decoupled from backend services now moving into Valter.',
-    descriptionPtBr: 'Hub frontend para advogados e fluxos assistidos por IA, desacoplando-se progressivamente dos servicos de backend que migram para o Valter.',
+    description: 'Frontend hub for lawyers and AI-assisted workflows, now operating shell-first over Valter as the canonical backend.',
+    descriptionPtBr: 'Hub frontend para advogados e fluxos assistidos por IA, agora operando em modo shell-first sobre o Valter como backend canonico.',
     repo: 'https://github.com/sensdiego/juca',
     status: 'dev',
     stack: ['Next.js', 'React', 'TypeScript'],
     docsUrl: 'https://juca.sens.legal',
     llms_txt_url: 'https://juca.sens.legal/llms.txt',
     roadmap: {
-      currentStage: 1,
+      currentStage: 2,
       totalStages: 5,
-      currentStageLabel: 'Hub foundation',
-      currentStageLabelPtBr: 'Fundacao do hub',
+      currentStageLabel: 'Progressive briefing',
+      currentStageLabelPtBr: 'Briefing progressivo',
       summary:
-        'v0.2 design system is complete and the UI/UX reset is done. Now building v0.3: Valter integration via adapter layer to complete the hub foundation.',
+        'The shell-first cutover is done: Juca now runs publicly with Valter as the canonical backend, and the duplicated legal backend has been pruned or left read-only. The next product step is building the progressive briefing experience on top of that frontend shell.',
       summaryPtBr:
-        'O design system v0.2 esta completo e o reset de UI/UX esta feito. Agora construindo v0.3: integracao com Valter via adapter layer para completar a fundacao do hub.',
+        'O cutover shell-first foi concluido: o Juca agora roda publicamente com o Valter como backend canonico, e o backend juridico duplicado foi podado ou deixado em modo leitura. O proximo passo de produto e construir a experiencia de briefing progressivo sobre esse shell frontend.',
       now:
-        'Build v0.3 hub foundation: Valter integration and adapter layer.',
+        'Build the progressive briefing flow on top of the Valter-backed shell, while replacing the temporary production auth bypass.',
       nowPtBr:
-        'Construir a fundacao do hub v0.3: integracao com o Valter e adapter layer.',
+        'Construir o fluxo de briefing progressivo sobre o shell ligado ao Valter, ao mesmo tempo em que substitui o bypass temporario de auth em producao.',
       next:
-        'Ship progressive briefing (v0.4) with external backend calls.',
+        'Polish and expand hub workflows once the briefing phases are live.',
       nextPtBr:
-        'Entregar o briefing progressivo (v0.4) com chamadas a backends externos.',
+        'Polir e expandir os fluxos do hub depois que as fases do briefing estiverem no ar.',
       blockers: [
-        'Adapter layer depends on Valter MCP contract stabilization.',
-        'Progressive briefing deferred to v0.4.',
+        'Production auth still needs to replace temporary ENABLE_DEV_AUTH=true on juca-home.',
+        'Progressive briefing components still need to be implemented on top of the shell-first runtime.',
       ],
       blockersPtBr: [
-        'A adapter layer depende da estabilizacao do contrato MCP do Valter.',
-        'Briefing progressivo adiado para v0.4.',
+        'A auth de producao ainda precisa substituir o ENABLE_DEV_AUTH=true temporario no juca-home.',
+        'Os componentes do briefing progressivo ainda precisam ser implementados sobre o runtime shell-first.',
       ],
       stages: [
         {
           title: 'Hub foundation',
           titlePtBr: 'Fundacao do hub',
-          description: 'Reset UI/UX with the Liquid Legal design system, integrate Valter via adapter layer, and establish the hub architecture.',
-          descriptionPtBr: 'Resetar UI/UX com o design system Liquid Legal, integrar Valter via adapter layer e estabelecer a arquitetura do hub.',
+          description: 'Reset UI/UX with the Liquid Legal design system, complete the Valter cutover, and establish Juca as a shell-first frontend hub.',
+          descriptionPtBr: 'Resetar UI/UX com o design system Liquid Legal, concluir o cutover para o Valter e estabelecer o Juca como hub frontend shell-first.',
         },
         {
           title: 'Progressive briefing',
@@ -270,6 +277,13 @@ export const projects: Project[] = [
       ],
       updates: [
         {
+          date: '2026-03-10',
+          title: 'Shell-first cutover validated in production',
+          titlePtBr: 'Cutover shell-first validado em producao',
+          summary: 'juca-home was validated on Railway with Valter as the canonical backend. /api/v2/stream proxies /v1/chat, sessions persist valterConversationId, and legacy legal backend routes were pruned.',
+          summaryPtBr: 'O juca-home foi validado no Railway com o Valter como backend canonico. O /api/v2/stream faz proxy para o /v1/chat, as sessoes persistem valterConversationId e as rotas juridicas legadas foram podadas.',
+        },
+        {
           date: '2026-03-09',
           title: 'Zustand removal and codebase cleanup',
           titlePtBr: 'Remocao do Zustand e limpeza do codebase',
@@ -296,35 +310,35 @@ export const projects: Project[] = [
   {
     name: 'Leci',
     subdomain: 'leci',
-    description: 'Document-first legislation engine with live /api/search, reliable grounding, and structured statute retrieval for Valter and Juca.',
-    descriptionPtBr: 'Engine legislativa document-first com /api/search operacional, grounding confiavel e recuperacao estruturada de normas para Valter e Juca.',
+    description: 'Document-first legislation engine with live search and resolution APIs, reliable grounding, and structured statute retrieval for Valter and Juca.',
+    descriptionPtBr: 'Engine legislativa document-first com APIs operacionais de busca e resolucao, grounding confiavel e recuperacao estruturada de normas para Valter e Juca.',
     repo: 'https://github.com/sensdiego/leci',
     status: 'dev',
     stack: ['Next.js', 'PostgreSQL', 'pgvector', 'Railway', 'TypeScript'],
     docsUrl: 'https://leci.sens.legal',
     llms_txt_url: 'https://leci.sens.legal/llms.txt',
     roadmap: {
-      currentStage: 2,
+      currentStage: 3,
       totalStages: 5,
-      currentStageLabel: 'Canonical legal reference resolution',
-      currentStageLabelPtBr: 'Resolucao canonica de referencia juridica',
+      currentStageLabel: 'Reader and grounding contracts',
+      currentStageLabelPtBr: 'Reader e contratos de grounding',
       summary:
-        'Provision resolution is underway: canonical provision IDs, a citation parser for free-form legal references, and a provision resolver with database-backed segment validation are implemented. Bulk API for Valter is next.',
+        'Canonical document and provision resolution are complete, including the bulk citation resolution API for Valter. The next stage is exposing document-first reader flows, provision context, and grounding contracts for consumers.',
       summaryPtBr:
-        'A resolucao de dispositivos esta em andamento: IDs canonicos de dispositivo, parser de citacoes juridicas em texto livre e resolver de dispositivos com validacao por segmento no banco estao implementados. API bulk para o Valter e o proximo passo.',
+        'A resolucao canonica de documentos e dispositivos esta concluida, incluindo a API bulk de resolucao de citacoes para o Valter. A etapa seguinte e expor fluxos de reader document-first, contexto de dispositivos e contratos de grounding para os consumidores.',
       now:
-        'Build the bulk resolution API for Valter integration and finish the provision resolution track.',
+        'Ship provision-context, deep-link, and reader flows on top of /api/resolve and /api/resolve-dispositivos.',
       nowPtBr:
-        'Construir a API bulk de resolucao para integracao com o Valter e finalizar a trilha de resolucao de dispositivos.',
+        'Entregar contexto de dispositivos, deep-links e fluxos de reader sobre o /api/resolve e o /api/resolve-dispositivos.',
       next:
-        'Expose document-first reader and grounding contracts for Valter and Juca.',
+        'Publish grounding contracts for Valter and Juca, then move into ingestion and quality hardening.',
       nextPtBr:
-        'Expor reader document-first e contratos de grounding para o Valter e para o Juca.',
+        'Publicar contratos de grounding para Valter e Juca, depois avancar para ingestao e hardening de qualidade.',
       blockers: [
-        'Bulk API depends on provision resolver integration tests with Railway database.',
+        'Provision context, deep-links, and reader endpoints still need to be exposed above the completed resolution layer.',
       ],
       blockersPtBr: [
-        'A API bulk depende de testes de integracao do provision resolver com o banco Railway.',
+        'Contexto de dispositivos, deep-links e endpoints de reader ainda precisam ser expostos sobre a camada de resolucao ja concluida.',
       ],
       stages: [
         {
@@ -359,6 +373,13 @@ export const projects: Project[] = [
         },
       ],
       updates: [
+        {
+          date: '2026-03-10',
+          title: 'Bulk citation resolution API shipped',
+          titlePtBr: 'API bulk de resolucao de citacoes entregue',
+          summary: 'POST /api/resolve-dispositivos is live for Valter normalization, with batch deduplication, CPC/73 vs CPC/15 temporal override, and Railway-backed integration tests. Total automated coverage reached 310 tests.',
+          summaryPtBr: 'O POST /api/resolve-dispositivos ja esta no ar para normalizacao no Valter, com deduplicacao em batch, override temporal entre CPC/73 e CPC/15 e testes de integracao apoiados no Railway. A cobertura automatizada total chegou a 310 testes.',
+        },
         {
           date: '2026-03-10',
           title: 'Provision resolver with database-backed validation',
@@ -415,27 +436,31 @@ export const projects: Project[] = [
     docsUrl: 'https://douto.sens.legal',
     llms_txt_url: 'https://douto.sens.legal/llms.txt',
     roadmap: {
-      currentStage: 2,
+      currentStage: 1,
       totalStages: 5,
-      currentStageLabel: 'Doctrinal quality gate',
-      currentStageLabelPtBr: 'Quality gate doutrinario',
+      currentStageLabel: 'Reproducible foundation',
+      currentStageLabelPtBr: 'Fundacao reproduzivel',
       summary:
-        'The reproducible foundation stage is complete. Now entering the doctrinal quality gate to measure extraction pipeline output.',
+        'Strategic realignment is done, but the immediate work is still foundational: regularize paths and CLI behavior, keep the local doctrine pipeline reproducible, and establish the baseline before quality gates.',
       summaryPtBr:
-        'O estagio de fundacao reproduzivel esta completo. Agora entrando no quality gate doutrinario para medir a saida do pipeline de extracao.',
+        'O realinhamento estrategico foi concluido, mas o trabalho imediato ainda e de fundacao: regularizar paths e CLI, manter o pipeline local de doutrina reproduzivel e estabelecer o baseline antes dos quality gates.',
       now:
-        'Define and measure doctrinal quality metrics for the extraction pipeline.',
+        'Regularize paths and CLI behavior, remove creator-machine dependencies, and lock the local pipeline baseline.',
       nowPtBr:
-        'Definir e medir metricas de qualidade doutrinaria do pipeline de extracao.',
+        'Regularizar paths e comportamento de CLI, remover dependencias da maquina do criador e fechar o baseline do pipeline local.',
       next:
-        'Establish the artifact handoff contract to Valter.',
+        'Measure doctrinal quality for contracts and civil procedure before defining the Valter handoff contract.',
       nextPtBr:
-        'Estabelecer o contrato de handoff de artefatos para o Valter.',
+        'Medir a qualidade doutrinaria em contratos e processo civil antes de definir o contrato de handoff para o Valter.',
       blockers: [
-        'Quality metrics and acceptance criteria not yet defined.',
+        'Paths and CLI behavior still need regularization.',
+        'Extraction and retrieval quality still need to be measured, not assumed.',
+        'JSON flat artifacts remain transitional rather than a final delivery format.',
       ],
       blockersPtBr: [
-        'Metricas de qualidade e criterios de aceitacao ainda nao definidos.',
+        'Paths e comportamento de CLI ainda precisam de regularizacao.',
+        'A qualidade de extracao e retrieval ainda precisa ser medida, nao presumida.',
+        'Artefatos em JSON flat seguem como formato transitorio, nao entrega final.',
       ],
       stages: [
         {

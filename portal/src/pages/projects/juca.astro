@@ -23,27 +23,28 @@ if (!project) {
   </p>
 
   <p>
-    The legal backend is moving out of Juca and into Valter. That means search,
-    graph logic, reasoning, verification, and legal pipelines stop being owned
-    by the frontend and become canonical backend services consumed by it.
+    That backend cutover is now complete. Search, graph logic, reasoning,
+    verification, and legal chat pipelines are owned by Valter, while Juca
+    operates as the shell-first frontend that consumes those canonical backend
+    services.
   </p>
 
   <h2>Responsibilities</h2>
 
   <ul>
     <li>Orchestrate briefing and argument-building experiences for end users</li>
-    <li>Consume Valter as the backend for jurisprudence, reasoning, and verification</li>
+    <li>Consume Valter as the canonical backend for jurisprudence, reasoning, verification, and chat</li>
     <li>Consume Leci for legislative grounding as the integration matures</li>
-    <li>Keep the focus on UX, interface state, and user workflows</li>
+    <li>Persist sessions and keep the focus on UX, interface state, and user workflows</li>
   </ul>
 
   <h2>Stack</h2>
 
   <ul>
-    <li><strong>Framework:</strong> Next.js 15</li>
+    <li><strong>Framework:</strong> Next.js 16</li>
     <li><strong>Language:</strong> TypeScript</li>
     <li><strong>UI:</strong> React, Tailwind CSS</li>
-    <li><strong>Deploy:</strong> Vercel</li>
+    <li><strong>Deploy:</strong> Docker + Railway</li>
   </ul>
 
   <h2>Roadmap status</h2>

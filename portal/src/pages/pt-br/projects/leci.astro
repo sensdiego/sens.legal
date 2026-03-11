@@ -24,8 +24,9 @@ if (!project) {
   </p>
 
   <p>
-    Hoje o projeto ja tem <code>/api/search</code>, shell funcional de busca e
-    leitura, contrato tipado e validacao com dados reais. Os consumidores
+    Hoje o projeto ja tem <code>/api/search</code>, o resolver canonico em
+    <code>/api/resolve</code> e o endpoint de normalizacao em lote
+    <code>POST /api/resolve-dispositivos</code> para o Valter. Os consumidores
     prioritarios do Leci sao o Valter e o Juca, que dependem dessa camada para
     recuperar texto vigente, citacao pronta, fonte oficial e contexto estrutural
     de normas brasileiras.
@@ -34,10 +35,10 @@ if (!project) {
   <h2>O que ja esta operacional</h2>
 
   <ul>
-    <li>Endpoint <code>/api/search</code> funcionando com PostgreSQL e dados reais</li>
+    <li><code>/api/search</code>, <code>/api/resolve</code> e <code>POST /api/resolve-dispositivos</code> funcionando com dados reais</li>
+    <li>Resolucao canonica de documentos e dispositivos com confidence scoring e normalizacao em lote para o Valter</li>
     <li>Shell de busca e leitura no App Router para validar a experiencia document-first</li>
-    <li>Contrato de busca validado por testes e respostas com metadados de norma</li>
-    <li>Ambiente local e validacao em Railway ja documentados</li>
+    <li>310 testes automatizados, mais ambiente local e validacao em Railway documentados</li>
   </ul>
 
   <h2>Stack</h2>

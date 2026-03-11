@@ -24,19 +24,20 @@ if (!project) {
   </p>
 
   <p>
-    The project already has a working <code>/api/search</code>, a functional search
-    and reading shell, typed contracts, and validation against live data. Leci's
-    main consumers are Valter and Juca, which depend on it for current statutory
-    text, ready-to-cite references, official sources, and structural context.
+    The project already has a working <code>/api/search</code>, a canonical
+    resolver via <code>/api/resolve</code>, and the bulk normalization endpoint
+    <code>POST /api/resolve-dispositivos</code> for Valter. Leci's main consumers
+    are Valter and Juca, which depend on it for current statutory text,
+    ready-to-cite references, official sources, and structural context.
   </p>
 
   <h2>What is already operational</h2>
 
   <ul>
-    <li><code>/api/search</code> running against PostgreSQL and live data</li>
+    <li><code>/api/search</code>, <code>/api/resolve</code>, and <code>POST /api/resolve-dispositivos</code> running against real data</li>
+    <li>Canonical document and provision resolution with confidence scoring and Valter-oriented batch normalization</li>
     <li>Search and reading shell in the App Router to validate the document-first flow</li>
-    <li>Search contract covered by tests and enriched regulation metadata</li>
-    <li>Local workflow and Railway validation already documented</li>
+    <li>310 automated tests, plus documented local workflow and Railway validation</li>
   </ul>
 
   <h2>Stack</h2>
