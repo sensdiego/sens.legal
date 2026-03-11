@@ -68,6 +68,22 @@ The root [`progress.md`](progress.md) in this repo is only for work tracked insi
 The public snapshot policy for GitHub and portal surfaces is documented in
 [`EDITORIAL_SNAPSHOT.md`](EDITORIAL_SNAPSHOT.md).
 
+## Public Update Workflow
+
+When a project's public status changes:
+
+1. Re-read that project's `progress.md` / `PROGRESS.md`.
+2. Read roadmap or migration artifacts when they define phases more clearly.
+3. Update the shared snapshot in [`portal/src/data/projects.ts`](portal/src/data/projects.ts) first.
+4. Verify the mirrored public surfaces: `README`, home, roadmap, and project pages.
+5. Build locally and spot-check the published EN and PT-BR pages after deploy.
+
+## Light Review Routine
+
+- Trigger a public review when a project changes stage, closes a migration phase, or ships a new canonical API surface.
+- Run a lightweight weekly sweep across `Valter`, `Juca`, `Leci`, and `Douto` even without a launch.
+- Treat homepage microcopy and roadmap notes as high-risk drift surfaces during every sweep.
+
 ## Repository Structure
 
 ```text

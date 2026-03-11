@@ -1,23 +1,15 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import ProjectRoadmapStatus from '../../components/ProjectRoadmapStatus.astro';
-import { projects } from '../../data/projects';
+import { ecosystemContent, projects } from '../../data/projects';
 ---
 
 <DocsLayout title="Roadmap" description="Roadmap do ecossistema sens.legal." lang="pt-br">
   <h1>Roadmap</h1>
 
-  <p>
-    Todos os projetos seguem em <strong>desenvolvimento</strong>. Esta pagina
-    agora usa o mesmo snapshot editorial de roadmap que aparece na home, nas
-    paginas individuais e na landing page do GitHub.
-  </p>
+  <p>{ecosystemContent.roadmap.introPtBr}</p>
 
-  <p>
-    A regra de leitura e simples: comece pelo arquivo de progresso de cada
-    projeto e complemente com roadmap ou artefato de migracao quando esses
-    documentos definirem melhor as etapas de implementacao.
-  </p>
+  <p>{ecosystemContent.roadmap.readingRulePtBr}</p>
 
   {projects.map((project) => (
     <>
@@ -29,9 +21,8 @@ import { projects } from '../../data/projects';
   <h2>Ecossistema</h2>
 
   <ul>
-    <li>Manter o Valter como surface canonica de backend para jurisprudencia, reasoning, REST e MCP</li>
-    <li>Manter o Juca focado nos fluxos frontend shell-first enquanto o Valter permanece como dono canonico do backend</li>
-    <li>Plugar grounding legislativo e doutrinario no backend central via Leci e Douto</li>
-    <li>Manter todas as superfices publicas sincronizadas ao mesmo snapshot editorial, sem drift entre paginas</li>
+    {ecosystemContent.roadmap.principlesPtBr.map((item) => (
+      <li>{item}</li>
+    ))}
   </ul>
 </DocsLayout>

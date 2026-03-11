@@ -1,7 +1,11 @@
 ---
 import DocsLayout from '../layouts/DocsLayout.astro';
-import { projects } from '../data/projects';
+import { ecosystemContent, homeProjectOrder, projects } from '../data/projects';
 import ProjectRoadmapStatus from '../components/ProjectRoadmapStatus.astro';
+
+const homeProjects = homeProjectOrder
+  .map((name) => projects.find((project) => project.name === name))
+  .filter((project): project is (typeof projects)[number] => Boolean(project));
 ---
 
 <DocsLayout title="Home" description="Legal intelligence infrastructure for Brazilian law.">
@@ -21,58 +25,27 @@ import ProjectRoadmapStatus from '../components/ProjectRoadmapStatus.astro';
 
   <h2>What we're building</h2>
 
-  <p>
-    Frontier models reason well but can't generate reliable legal
-    knowledge — they hallucinate citations, miss legal relationships, and offer
-    no audit trail. As AI agents take on legal work, this gap becomes
-    infrastructure-critical.
-  </p>
+  <p>{ecosystemContent.home.problem}</p>
 
-  <p>sens.legal is that infrastructure.</p>
+  <p>{ecosystemContent.home.answer}</p>
 
-  <p>Four projects, each handling a different dimension of legal knowledge:</p>
+  <p>{ecosystemContent.home.projectsIntro}</p>
 
-  <p>
-    <strong>Valter</strong> — the central jurisprudence and reasoning backend.
-    The main legal backend layer of the ecosystem now lives there, with
-    graph-led retrieval, verification, chat orchestration, and REST/MCP
-    surfaces for Juca and external agents.
-  </p>
+  {homeProjects.map((project) => (
+    <p>
+      <strong>{project.name}</strong> - {project.focus}. {project.description}
+    </p>
+  ))}
 
-  <p>
-    <strong>Leci</strong> — legislation. A document-first grounding engine already
-    running live <code>/api/search</code>, <code>/api/resolve</code>, and
-    <code>POST /api/resolve-dispositivos</code>, with validation against real data.
-  </p>
+  <p>{ecosystemContent.home.modelAgnostic}</p>
 
-  <p>
-    <strong>Douto</strong> — doctrine. A local, curated pipeline that prepares
-    doctrinal artifacts for Valter rather than positioning itself as an end-user
-    product.
-  </p>
-
-  <p>
-    <strong>Juca</strong> — interface. The shell-first frontend hub for briefing,
-    reading, and argument-building, now running over Valter as the canonical backend.
-  </p>
-
-  <p>
-    The architecture is model-agnostic: any LLM connects through the same
-    protocols. The value isn't in the model — it's in the traceability,
-    auditability, and legal structure underneath.
-  </p>
-
-  <p>Built on Brazilian Civil Law. Designed to replicate across jurisdictions.</p>
+  <p>{ecosystemContent.home.jurisdictions}</p>
 
   <hr />
 
   <h2>Projects</h2>
 
-  <p>
-    Roadmap position is editorial rather than numeric certainty: it combines each
-    project's progress file with roadmap or migration artifacts when those documents
-    define the implementation stages more clearly.
-  </p>
+  <p>{ecosystemContent.home.roadmapDisclaimer}</p>
 
   <div class="project-list">
     {projects.map((project) => (
@@ -99,12 +72,7 @@ import ProjectRoadmapStatus from '../components/ProjectRoadmapStatus.astro';
 
   <h2>Architecture</h2>
 
-  <p>
-    The ecosystem connects four projects with Valter at the center of the backend.
-    Juca concentrates the user experience; Leci and Douto provide legislative and
-    doctrinal grounding; and LLM agents can connect through the canonical REST API
-    and MCP surfaces.
-  </p>
+  <p>{ecosystemContent.home.architectureSummary}</p>
 
   <pre><code class="language-mermaid">graph LR
     subgraph Interfaces

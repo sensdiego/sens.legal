@@ -1,7 +1,8 @@
 # Editorial Snapshot Governance
 
 This note explains how to keep the public `sens.legal` narrative aligned across
-GitHub and the portal.
+GitHub and the portal without reopening copy drift every time a project
+advances.
 
 ## What This Governs
 
@@ -9,6 +10,7 @@ Use this policy whenever editing:
 
 - `README.md`
 - `portal/src/data/projects.ts`
+- `portal/src/components/ProjectRoadmapStatus.astro`
 - `portal/src/pages/index.astro`
 - `portal/src/pages/roadmap.astro`
 - `portal/src/pages/projects/*`
@@ -41,19 +43,52 @@ Project-specific supporting files:
 - Keep `Valter` framed as the central jurisprudence and reasoning backend with
   graph-led retrieval.
 
+## Shared Snapshot First
+
+Treat `portal/src/data/projects.ts` as the first edit surface for public
+ecosystem updates.
+
+It already owns:
+
+- the roadmap stages, `Now`, `Next`, blockers, and milestone updates
+- the home-page project blurbs via each project's `focus` + `description`
+- the shared roadmap intro and ecosystem principles in EN and PT-BR
+
+The goal is to update shared data first and only then touch page-level copy if a
+page truly needs extra context.
+
 ## Update Checklist
 
 When the public roadmap changes:
 
 1. Re-read the canonical source files listed above.
-2. Update `portal/src/data/projects.ts`.
-3. Verify that the shared snapshot still reads correctly in:
+2. Read roadmap or migration artifacts when they define phases more clearly than the progress log alone.
+3. Update `portal/src/data/projects.ts` first.
+4. Verify that the shared snapshot still reads correctly in:
    - `README.md`
    - home
    - roadmap
    - project pages
-4. Build the portal.
-5. Review the published site for EN and PT-BR before declaring the update done.
+5. Build the portal.
+6. Review the published site for EN and PT-BR before declaring the update done.
+
+## Review Routine
+
+Use a lightweight review cadence instead of waiting for drift to accumulate.
+
+Event-driven review:
+
+- whenever a project changes stage
+- whenever a migration phase closes
+- whenever a new public API or canonical integration surface ships
+
+Weekly sweep:
+
+- compare the public snapshot against the latest canonical files for `Valter`,
+  `Juca`, `Leci`, and `Douto`
+- verify homepage microcopy and roadmap notes, because these are the highest
+  drift-risk surfaces
+- spot-check the published EN and PT-BR pages after any update lands
 
 ## Current Implementation
 

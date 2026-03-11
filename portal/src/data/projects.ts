@@ -33,6 +33,8 @@ export interface ProjectRoadmap {
 export interface Project {
   name: string;
   subdomain: string;
+  focus: string;
+  focusPtBr: string;
   description: string;
   descriptionPtBr: string;
   repo: string;
@@ -47,6 +49,8 @@ export const projects: Project[] = [
   {
     name: 'Valter',
     subdomain: 'valter',
+    focus: 'jurisprudence',
+    focusPtBr: 'jurisprudencia',
     description: 'Ecosystem jurisprudence backend - graph-led retrieval, reasoning, verification, and API/MCP access centered in Valter.',
     descriptionPtBr: 'Backend de jurisprudencia do ecossistema - retrieval graph-led, reasoning, verificacao e acesso via API/MCP centralizados no Valter.',
     repo: 'https://github.com/sensdiego/Valter',
@@ -211,6 +215,8 @@ export const projects: Project[] = [
   {
     name: 'Juca',
     subdomain: 'juca',
+    focus: 'interface',
+    focusPtBr: 'interface',
     description: 'Frontend hub for lawyers and AI-assisted workflows, now operating shell-first over Valter as the canonical backend.',
     descriptionPtBr: 'Hub frontend para advogados e fluxos assistidos por IA, agora operando em modo shell-first sobre o Valter como backend canonico.',
     repo: 'https://github.com/sensdiego/juca',
@@ -310,6 +316,8 @@ export const projects: Project[] = [
   {
     name: 'Leci',
     subdomain: 'leci',
+    focus: 'legislation',
+    focusPtBr: 'legislacao',
     description: 'Document-first legislation engine with live search and resolution APIs, reliable grounding, and structured statute retrieval for Valter and Juca.',
     descriptionPtBr: 'Engine legislativa document-first com APIs operacionais de busca e resolucao, grounding confiavel e recuperacao estruturada de normas para Valter e Juca.',
     repo: 'https://github.com/sensdiego/leci',
@@ -428,6 +436,8 @@ export const projects: Project[] = [
   {
     name: 'Douto',
     subdomain: 'douto',
+    focus: 'doctrine',
+    focusPtBr: 'doutrina',
     description: 'Local doctrine pipeline and internal artifact supplier for Valter, turning curated legal books into reusable doctrinal material.',
     descriptionPtBr: 'Pipeline local de doutrina e fornecedor interno de artefatos para o Valter, transformando obras juridicas curadas em material doutrinario reutilizavel.',
     repo: 'https://github.com/sensdiego/douto',
@@ -506,3 +516,84 @@ export const projects: Project[] = [
     },
   },
 ];
+
+export const homeProjectOrder = ['Valter', 'Leci', 'Douto', 'Juca'] as const;
+
+export const ecosystemContent = {
+  home: {
+    problem:
+      "Frontier models reason well but can't generate reliable legal knowledge - they hallucinate citations, miss legal relationships, and offer no audit trail. As AI agents take on legal work, this gap becomes infrastructure-critical.",
+    problemPtBr:
+      'Modelos de fronteira raciocinam bem, mas nao conseguem gerar conhecimento juridico confiavel - alucinam citacoes, ignoram relacoes juridicas e nao oferecem rastreabilidade. A medida que agentes de IA assumem trabalho juridico, essa lacuna se torna um problema de infraestrutura.',
+    answer: 'sens.legal is that infrastructure.',
+    answerPtBr: 'sens.legal e essa infraestrutura.',
+    projectsIntro:
+      'Four projects, each handling a different dimension of legal knowledge:',
+    projectsIntroPtBr:
+      'Quatro projetos, cada um cobrindo uma dimensao diferente do conhecimento juridico:',
+    roadmapDisclaimer:
+      "Roadmap position is editorial rather than numeric certainty: it combines each project's progress file with roadmap or migration artifacts when those documents define the implementation stages more clearly.",
+    roadmapDisclaimerPtBr:
+      'A posicao no roadmap e editorial, nao uma porcentagem exata: ela combina o arquivo de progresso de cada projeto com roadmaps ou artefatos de migracao quando esses documentos definem melhor as etapas de implementacao.',
+    architectureSummary:
+      'The ecosystem connects four projects with Valter at the center of the backend. Juca concentrates the user experience; Leci and Douto provide legislative and doctrinal grounding; and LLM agents can connect through the canonical REST API and MCP surfaces.',
+    architectureSummaryPtBr:
+      'O ecossistema conecta quatro projetos com o Valter no centro do backend. Juca concentra a experiencia do usuario; Leci e Douto fornecem grounding legislativo e doutrinario; e agentes LLM podem entrar pelas superfices canonicas de REST API e MCP.',
+    modelAgnostic:
+      "The architecture is model-agnostic: any LLM connects through the same protocols. The value isn't in the model - it's in the traceability, auditability, and legal structure underneath.",
+    modelAgnosticPtBr:
+      'A arquitetura e model-agnostic: qualquer LLM se conecta pelos mesmos protocolos. O valor nao esta no modelo - esta na rastreabilidade, auditabilidade e estrutura juridica por baixo.',
+    jurisdictions:
+      'Built on Brazilian Civil Law. Designed to replicate across jurisdictions.',
+    jurisdictionsPtBr:
+      'Construido sobre o direito brasileiro. Projetado para replicar entre jurisdicoes.',
+  },
+  roadmap: {
+    intro:
+      'All projects remain in development. This page uses the same editorial roadmap snapshot shown on the home page, individual project pages, and GitHub landing page.',
+    introPtBr:
+      'Todos os projetos seguem em desenvolvimento. Esta pagina usa o mesmo snapshot editorial de roadmap que aparece na home, nas paginas individuais e na landing page do GitHub.',
+    readingRule:
+      "The reading rule is simple: start with each project's progress file, then use roadmap or migration artifacts when they define implementation phases more clearly than the progress log alone.",
+    readingRulePtBr:
+      'A regra de leitura e simples: comece pelo arquivo de progresso de cada projeto e complemente com roadmap ou artefato de migracao quando esses documentos definirem melhor as etapas de implementacao.',
+    principles: [
+      'Keep Valter as the canonical backend surface for jurisprudence, reasoning, REST, and MCP.',
+      'Keep Juca focused on shell-first frontend workflows while Valter remains the canonical backend owner.',
+      'Plug legislative and doctrinal grounding into the central backend through Leci and Douto.',
+      'Keep all public surfaces synced to the same editorial snapshot instead of drifting by page.',
+    ],
+    principlesPtBr: [
+      'Manter o Valter como surface canonica de backend para jurisprudencia, reasoning, REST e MCP.',
+      'Manter o Juca focado nos fluxos frontend shell-first enquanto o Valter permanece como dono canonico do backend.',
+      'Plugar grounding legislativo e doutrinario no backend central via Leci e Douto.',
+      'Manter todas as superfices publicas sincronizadas ao mesmo snapshot editorial, sem drift entre paginas.',
+    ],
+  },
+  governance: {
+    checklist: [
+      'Re-read the canonical progress file for each affected project.',
+      'Read roadmap or migration artifacts when they define phases more clearly than the progress log alone.',
+      'Update the shared snapshot in portal/src/data/projects.ts first, then review the README, home, roadmap, and project pages.',
+      'Build the portal locally before pushing.',
+      'Spot-check the published EN and PT-BR pages after deploy.',
+    ],
+    checklistPtBr: [
+      'Reler o arquivo canonico de progresso de cada projeto afetado.',
+      'Ler roadmap ou artefatos de migracao quando eles definirem as fases com mais clareza do que o log de progresso.',
+      'Atualizar primeiro o snapshot compartilhado em portal/src/data/projects.ts e depois revisar README, home, roadmap e paginas individuais.',
+      'Buildar o portal localmente antes do push.',
+      'Fazer spot-check nas paginas publicadas em EN e PT-BR depois do deploy.',
+    ],
+    reviewRoutine: [
+      'Trigger a public review whenever a project changes stage, closes a migration phase, or ships a new canonical API surface.',
+      'Run a lightweight weekly sweep across Valter, Juca, Leci, and Douto even when no major launch happened.',
+      'Treat homepage microcopy and roadmap notes as high-risk drift surfaces and verify them during every sweep.',
+    ],
+    reviewRoutinePtBr: [
+      'Disparar revisao publica sempre que um projeto mudar de etapa, encerrar uma fase de migracao ou publicar uma nova surface canonica de API.',
+      'Fazer uma varredura semanal leve em Valter, Juca, Leci e Douto mesmo quando nao houver grande lancamento.',
+      'Tratar a microcopy da home e as notas do roadmap como superfices de alto risco para drift e revisa-las em toda varredura.',
+    ],
+  },
+} as const;

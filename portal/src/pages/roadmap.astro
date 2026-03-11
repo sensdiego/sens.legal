@@ -1,23 +1,15 @@
 ---
 import DocsLayout from '../layouts/DocsLayout.astro';
 import ProjectRoadmapStatus from '../components/ProjectRoadmapStatus.astro';
-import { projects } from '../data/projects';
+import { ecosystemContent, projects } from '../data/projects';
 ---
 
 <DocsLayout title="Roadmap" description="Product roadmap for the sens.legal ecosystem.">
   <h1>Roadmap</h1>
 
-  <p>
-    All projects remain in <strong>development</strong>. This page now uses the
-    same editorial roadmap snapshot shown on the home page, individual project
-    pages, and GitHub landing page.
-  </p>
+  <p>{ecosystemContent.roadmap.intro}</p>
 
-  <p>
-    The reading rule is simple: start with each project's progress file, then
-    use roadmap or migration artifacts when they define implementation phases
-    more clearly than the progress log alone.
-  </p>
+  <p>{ecosystemContent.roadmap.readingRule}</p>
 
   {projects.map((project) => (
     <>
@@ -29,9 +21,8 @@ import { projects } from '../data/projects';
   <h2>Ecosystem</h2>
 
   <ul>
-    <li>Keep Valter as the canonical backend surface for jurisprudence, reasoning, REST, and MCP</li>
-    <li>Keep Juca focused on shell-first frontend workflows while Valter remains the canonical backend owner</li>
-    <li>Plug legislative and doctrinal grounding into the central backend through Leci and Douto</li>
-    <li>Keep all public surfaces synced to the same editorial snapshot instead of drifting by page</li>
+    {ecosystemContent.roadmap.principles.map((item) => (
+      <li>{item}</li>
+    ))}
   </ul>
 </DocsLayout>
