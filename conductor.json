@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "setup": "npm install",
+    "run": "npm -w portal run dev -- --port $CONDUCTOR_PORT"
+  },
+  "runScriptMode": "nonconcurrent",
+  "enterpriseDataPrivacy": true
+}
