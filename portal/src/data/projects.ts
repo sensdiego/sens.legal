@@ -64,24 +64,24 @@ export const projects: Project[] = [
       currentStageLabel: 'Production stability',
       currentStageLabelPtBr: 'Estabilidade de producao',
       summary:
-        'All 6 migration phases are done. Valter now serves the canonical chat, retrieval, verification, and reasoning backend, with the public Juca shell validated against /v1/chat in production. Current work is v1.0 stability while the v2.0 graph reconstruction is reviewed.',
+        'v1.0 backend is live with 50+ REST endpoints, 30 MCP tools, and 660+ tests. HTTPS, OAuth 2.0 (PKCE + 3 tiers), and App Directory Phase 1 are complete. Current work targets the ChatGPT App Directory submission and STJ Dados Abertos ingestion while the Pipeline de Peticoes is bootstrapped.',
       summaryPtBr:
-        'Todas as 6 fases da migracao estao concluidas. O Valter agora serve o backend canonico de chat, retrieval, verificacao e reasoning, com o shell publico do Juca validado contra o /v1/chat em producao. O trabalho atual e estabilizar o v1.0 enquanto a reconstrucao do grafo v2.0 e revisada.',
+        'O backend v1.0 esta no ar com 50+ endpoints REST, 30 tools MCP e 660+ testes. HTTPS, OAuth 2.0 (PKCE + 3 tiers) e Fase 1 do App Directory estao concluidos. O trabalho atual mira a submissao ao App Directory do ChatGPT e a ingestao do STJ Dados Abertos enquanto o Pipeline de Peticoes e inicializado.',
       now:
-        'Finish v1.0 stability: HTTPS on valter.legal, Railway alerts, production runbook, and remaining public hardening.',
+        'Close App Directory submission (Phases 2-4: token guardrails, OAuth consent UI, final validation) and ship public policies (privacy, terms, data retention).',
       nowPtBr:
-        'Concluir a estabilidade do v1.0: HTTPS no valter.legal, alertas Railway, runbook de producao e hardening publico remanescente.',
+        'Fechar a submissao ao App Directory (Fases 2-4: token guardrails, consent UI do OAuth, validacao final) e entregar politicas publicas (privacidade, termos, retencao de dados).',
       next:
-        'v1.1 resilience: circuit breakers, connection pools, and weekly STJ ingestion.',
+        'Pipeline de Peticoes: 5-tier ingestion of legal petitions into the knowledge graph (PDF parsing, structural extraction, LLM semantic extraction, entity resolution, Neo4j + Qdrant loading). Multi-tribunal expansion with TRF4 and TJSP scrapers.',
       nextPtBr:
-        'Resiliencia v1.1: circuit breakers, connection pools e ingestao semanal do STJ.',
+        'Pipeline de Peticoes: ingestao em 5 tiers de peticoes juridicas no knowledge graph (parsing de PDF, extracao estrutural, extracao semantica via LLM, entity resolution, carga Neo4j + Qdrant). Expansao multi-tribunal com scrapers de TRF4 e TJSP.',
       blockers: [
-        'HTTPS on valter.legal blocks App Directory submission.',
-        'Pipeline v2.0 schema redesign awaiting review before execution.',
+        'Public policies (privacy, terms, data retention) required before App Directory submission.',
+        'Token guardrails and OAuth consent UI (Phases 2-3) still in review.',
       ],
       blockersPtBr: [
-        'HTTPS no valter.legal bloqueia submissao ao App Directory.',
-        'Redesign de schema do Pipeline v2.0 aguardando revisao antes da execucao.',
+        'Politicas publicas (privacidade, termos, retencao de dados) necessarias antes da submissao ao App Directory.',
+        'Token guardrails e consent UI do OAuth (Fases 2-3) ainda em revisao.',
       ],
       stages: [
         {
@@ -135,8 +135,8 @@ export const projects: Project[] = [
         {
           title: 'Graph reconstruction (v2.0)',
           titlePtBr: 'Reconstrucao do grafo (v2.0)',
-          description: 'Redesign Neo4j schema (11 labels, 15 qualified edges), 3-stage LLM extraction, multi-layer canonicalization, and scale from 3,673 to 1.5M decisions with multi-tribunal support.',
-          descriptionPtBr: 'Redesign do schema Neo4j (11 labels, 15 edges qualificados), extracao LLM em 3 estagios, canonicalizacao multi-camada e escala de 3.673 para 1,5M decisoes com suporte multi-tribunal.',
+          description: 'Redesign Neo4j schema (11 labels, 15 qualified edges), 3-stage LLM extraction, multi-layer canonicalization, and scale from 23,400+ to 1.5M decisions with multi-tribunal support.',
+          descriptionPtBr: 'Redesign do schema Neo4j (11 labels, 15 edges qualificados), extracao LLM em 3 estagios, canonicalizacao multi-camada e escala de 23.400+ para 1,5M decisoes com suporte multi-tribunal.',
         },
         {
           title: 'Scale + public presence (v2.1)',
@@ -146,6 +146,34 @@ export const projects: Project[] = [
         },
       ],
       updates: [
+        {
+          date: '2026-03-16',
+          title: 'Pipeline de Peticoes project bootstrapped',
+          titlePtBr: 'Projeto Pipeline de Peticoes inicializado',
+          summary: '5-tier petition ingestion pipeline designed with 30+ issues across 7 EPICs (Infra, Tier 0-4, Validation, Batch). Targets 7K PDFs into the knowledge graph with PDF parsing, structural and semantic extraction, entity resolution, and Neo4j + Qdrant loading.',
+          summaryPtBr: 'Pipeline de ingestao de peticoes em 5 tiers projetado com 30+ issues em 7 EPICs (Infra, Tier 0-4, Validacao, Batch). Meta de 7K PDFs no knowledge graph com parsing de PDF, extracao estrutural e semantica, entity resolution e carga Neo4j + Qdrant.',
+        },
+        {
+          date: '2026-03-14',
+          title: 'OAuth 2.0 Authorization Code Flow implemented',
+          titlePtBr: 'OAuth 2.0 Authorization Code Flow implementado',
+          summary: 'Full OAuthAuthorizationServerProvider with PKCE (no client secret), 3 tiers (Free: 25 tools/50 req/day, Pro: 30 tools/500 req/day), PostgreSQL backing with 8 new tables, and MCP marketplace-ready auth.',
+          summaryPtBr: 'OAuthAuthorizationServerProvider completo com PKCE (sem client secret), 3 tiers (Free: 25 tools/50 req/dia, Pro: 30 tools/500 req/dia), backing PostgreSQL com 8 tabelas novas e auth pronta para marketplace MCP.',
+        },
+        {
+          date: '2026-03-13',
+          title: 'App Directory Phase 1 complete',
+          titlePtBr: 'Fase 1 do App Directory concluida',
+          summary: 'MCP tool annotations with human-readable descriptions, input_schema for all 30 tools, CORS hardening, and HTTPS on valter.legal. Added 42 tests and 780 LOC.',
+          summaryPtBr: 'Anotacoes de tools MCP com descricoes legais, input_schema para todos os 30 tools, hardening de CORS e HTTPS no valter.legal. Adicionados 42 testes e 780 LOC.',
+        },
+        {
+          date: '2026-03-12',
+          title: 'Multi-tribunal scrapers and STJ ingestion started',
+          titlePtBr: 'Scrapers multi-tribunal e ingestao STJ iniciados',
+          summary: 'TRF4 and TJSP eproc scrapers added for case decision harvesting. STJ Dados Abertos download of 895 daily ZIPs started, targeting full corpus ingestion into data/stj.jsonl.',
+          summaryPtBr: 'Scrapers de TRF4 e TJSP eproc adicionados para coleta de decisoes. Download do STJ Dados Abertos de 895 ZIPs diarios iniciado, mirando ingestao completa do corpus em data/stj.jsonl.',
+        },
         {
           date: '2026-03-10',
           title: 'Juca cutover completed and public shell validated',

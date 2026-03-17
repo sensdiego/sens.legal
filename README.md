@@ -37,7 +37,7 @@ define implementation phases more clearly than the progress log alone.
 
 | Project | Roadmap position | Now | Next |
 |---------|------------------|-----|------|
-| Valter | Stage 7 of 10 - Production stability (v1.0)<br>`[#######---]` | Finish v1.0 stability: HTTPS, Railway alerts, production runbook, and remaining public hardening. | v1.1 resilience: circuit breakers, connection pools, weekly STJ ingestion. |
+| Valter | Stage 7 of 10 - Production stability (v1.0)<br>`[#######---]` | Close App Directory submission (Phases 2-4: token guardrails, OAuth consent UI, final validation) and ship public policies (privacy, terms, data retention). | Pipeline de Peticoes: 5-tier petition ingestion into the knowledge graph. Multi-tribunal expansion with TRF4 and TJSP scrapers. |
 | Juca | Stage 2 of 5 - Progressive briefing<br>`[####------]` | Build the progressive briefing flow on top of the Valter-backed shell, while replacing the temporary production auth bypass. | Polish and expand hub workflows once the briefing phases are live. |
 | Leci | Stage 3 of 5 - Reader and grounding contracts<br>`[######----]` | Ship provision-context, deep-link, and reader flows on top of `/api/resolve` and `/api/resolve-dispositivos`. | Publish grounding contracts for Valter and Juca, then move into ingestion and quality hardening. |
 | Douto | Stage 1 of 5 - Reproducible foundation<br>`[##--------]` | Regularize paths and CLI behavior, remove creator-machine dependencies, and lock the local pipeline baseline. | Measure doctrinal quality for contracts and civil procedure before defining the Valter handoff contract. |
