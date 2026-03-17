@@ -21,7 +21,7 @@ You need three things installed:
 ## Step 1: Clone and install
 
 ```bash
-git clone <repo-url> && cd Valter
+git clone https://github.com/sensdiego/Valter && cd Valter
 
 # Create and activate virtual environment
 python -m venv .venv

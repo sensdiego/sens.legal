@@ -21,7 +21,7 @@ Você precisa de três coisas instaladas:
 ## Passo 1: Clone e instale
 
 ```bash
-git clone <repo-url> && cd Valter
+git clone https://github.com/sensdiego/Valter && cd Valter
 
 # Crie e ative o ambiente virtual
 python -m venv .venv

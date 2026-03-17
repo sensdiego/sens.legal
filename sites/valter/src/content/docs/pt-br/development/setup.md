@@ -30,7 +30,7 @@ Antes de começar, certifique-se de ter os seguintes itens instalados:
 Clone o repositório e crie um ambiente virtual Python:
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/sensdiego/Valter
 cd Valter
 python -m venv .venv
 source .venv/bin/activate
