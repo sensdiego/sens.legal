@@ -1,5 +1,23 @@
 # sens.legal — Progress
 
+## 2026-03-16
+
+### Valter snapshot sync
+
+Atualizacao do snapshot editorial do Valter em `projects.ts` e `README.md` para refletir o progresso desde 2026-03-11.
+
+**Dados atualizados:**
+- **summary**: agora reflete v1.0 live (50+ REST endpoints, 30 MCP tools, 660+ testes), HTTPS/OAuth/App Directory Phase 1 concluidos
+- **now**: foco atual em App Directory Fases 2-4 + politicas publicas
+- **next**: Pipeline de Peticoes (5 tiers) + expansao multi-tribunal (TRF4, TJSP)
+- **blockers**: removido HTTPS (concluido), adicionados politicas publicas e token guardrails/OAuth consent UI
+- **Stage 9**: contagem de decisoes atualizada de 3.673 para 23.400+
+- **updates**: 4 novos marcos adicionados (Pipeline de Peticoes, OAuth 2.0, App Directory Phase 1, scrapers multi-tribunal)
+
+**Arquivos alterados:** `portal/src/data/projects.ts`, `README.md`
+
+---
+
 ## 2026-03-03
 
 ### Issues resolvidas (7/7)
