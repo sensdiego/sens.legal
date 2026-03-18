@@ -18,27 +18,28 @@ if (!project) {
 
   <p>
     Valter is the central legal backend of the sens.legal ecosystem. It concentrates
-    jurisprudence search, verification, and reasoning over STJ case law, exposing
-    those capabilities through REST API and MCP to Juca, other clients, and LLM agents.
+    jurisprudence search, verification, and reasoning over multi-tribunal case law
+    (STJ, TJPR, TJSP, TRF4), exposing those capabilities through REST API and MCP
+    to Juca, other clients, and LLM agents.
   </p>
 
   <p>
     The current architectural paradigm is <strong>graph-led retrieval</strong>:
-    the legal graph in Neo4j becomes the primary discovery path, while lexical
-    and semantic search run in parallel as complement and fallback. That
-    consolidation is now complete: backend capabilities that used to live inside
-    Juca have been cut over into Valter, making it the canonical home for search,
-    reasoning, verification, and chat orchestration.
+    the legal graph in Neo4j Aura becomes the primary discovery path, while lexical
+    and semantic search run in parallel as complement and fallback. Pipeline v2.1
+    is actively reconstructing the knowledge graph at multi-tribunal scale, with
+    2.2M decisions classified and STJ batches fully processed through F0-F6.
   </p>
 
   <h2>Role in the ecosystem</h2>
 
   <ul>
     <li>Canonical backend for jurisprudence and reasoning across the ecosystem</li>
-    <li>Main integration surface via REST API and MCP</li>
+    <li>Main integration surface via REST API (50+ endpoints) and MCP (30 tools)</li>
     <li>Graph-led retrieval with parallel search for support and graceful degradation</li>
-    <li>Anti-hallucination verification and traceable reasoning chains</li>
-    <li>Canonical home of the backend that previously lived inside Juca</li>
+    <li>Anti-hallucination verification and traceable reasoning chains (11 chain types)</li>
+    <li>Multi-tribunal corpus: 2.2M classified decisions across STJ, TJPR, TJSP, and TRF4</li>
+    <li>Neo4j for Startups partner with $16K AuraDB Pro credits</li>
   </ul>
 
   <h2>Stack</h2>
@@ -46,7 +47,7 @@ if (!project) {
   <ul>
     <li><strong>Language:</strong> Python</li>
     <li><strong>Framework:</strong> FastAPI</li>
-    <li><strong>Databases:</strong> PostgreSQL 16, Qdrant, Neo4j / Aura, Redis 7</li>
+    <li><strong>Databases:</strong> PostgreSQL 16, Qdrant, Neo4j Aura (Neo4j for Startups), Redis 7</li>
     <li><strong>Embeddings:</strong> Legal-BERTimbau (768-dim)</li>
     <li><strong>LLM:</strong> Groq API (classification, query expansion)</li>
     <li><strong>Storage:</strong> Cloudflare R2</li>

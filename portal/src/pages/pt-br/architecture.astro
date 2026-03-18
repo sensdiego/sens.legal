@@ -112,7 +112,7 @@ const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
       <tr><th>Projeto</th><th>Papel</th><th>Integracao principal</th></tr>
     </thead>
     <tbody>
-      <tr><td><code>Valter</code></td><td>Busca, verificacao, reasoning e APIs canonicas</td><td>REST API + MCP</td></tr>
+      <tr><td><code>Valter</code></td><td>Busca, verificacao, reasoning, APIs canonicas e knowledge graph multi-tribunal (2,2M decisoes). Parceiro Neo4j for Startups.</td><td>REST API (50+ endpoints) + MCP (30 tools)</td></tr>
       <tr><td><code>Juca</code></td><td>Experiencia de usuario, briefing e canvas</td><td>Consumo do Valter e, depois, do Leci</td></tr>
       <tr><td><code>Leci</code></td><td>Legislacao document-first e grounding confiavel</td><td>Fornece normas e dispositivos aos consumidores</td></tr>
       <tr><td><code>Douto</code></td><td>Pipeline local de doutrina e artefatos internos</td><td>Handoff controlado para o Valter</td></tr>
@@ -124,7 +124,7 @@ const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
   <ul>
     <li><strong>PostgreSQL</strong> para documentos, metadados e estado operacional</li>
     <li><strong>Qdrant</strong> para busca semantica vetorial</li>
-    <li><strong>Neo4j</strong> para retrieval graph-led, explicabilidade e relacoes juridicas</li>
+    <li><strong>Neo4j Aura</strong> para retrieval graph-led, explicabilidade e relacoes juridicas (programa Neo4j for Startups)</li>
     <li><strong>Redis</strong> para cache e controle operacional</li>
   </ul>
 

@@ -51,37 +51,37 @@ export const projects: Project[] = [
     subdomain: 'valter',
     focus: 'jurisprudence',
     focusPtBr: 'jurisprudencia',
-    description: 'Ecosystem jurisprudence backend - graph-led retrieval, reasoning, verification, and API/MCP access centered in Valter.',
-    descriptionPtBr: 'Backend de jurisprudencia do ecossistema - retrieval graph-led, reasoning, verificacao e acesso via API/MCP centralizados no Valter.',
+    description: 'Ecosystem jurisprudence backend - graph-led retrieval, reasoning, verification, and API/MCP access centered in Valter. Multi-tribunal corpus of 2.2M classified decisions across STJ, TJSP, TJPR, and TRF4.',
+    descriptionPtBr: 'Backend de jurisprudencia do ecossistema - retrieval graph-led, reasoning, verificacao e acesso via API/MCP centralizados no Valter. Corpus multi-tribunal de 2,2M decisoes classificadas entre STJ, TJSP, TJPR e TRF4.',
     repo: 'https://github.com/sensdiego/Valter',
     status: 'dev',
-    stack: ['Python', 'FastAPI', 'PostgreSQL', 'Qdrant', 'Neo4j', 'Redis'],
+    stack: ['Python', 'FastAPI', 'PostgreSQL', 'Qdrant', 'Neo4j Aura', 'Redis'],
     docsUrl: 'https://valter.sens.legal',
     llms_txt_url: 'https://valter.sens.legal/llms.txt',
     roadmap: {
-      currentStage: 7,
+      currentStage: 8,
       totalStages: 10,
-      currentStageLabel: 'Production stability',
-      currentStageLabelPtBr: 'Estabilidade de producao',
+      currentStageLabel: 'Multi-tribunal graph reconstruction',
+      currentStageLabelPtBr: 'Reconstrucao do grafo multi-tribunal',
       summary:
-        'v1.0 backend is live with 50+ REST endpoints, 30 MCP tools, and 660+ tests. HTTPS, OAuth 2.0 (PKCE + 3 tiers), and App Directory Phase 1 are complete. Current work targets the ChatGPT App Directory submission and STJ Dados Abertos ingestion while the Pipeline de Peticoes is bootstrapped.',
+        'v1.0 backend is live with 50+ REST endpoints, 30 MCP tools, 37 shipped features, and 925+ tests. Pipeline v2.1 is actively ingesting multi-tribunal jurisprudence: 2.2M decisions classified across TJPR (748K), TJSP (13.5K), and TRF4 (1.4M), with STJ batches fully processed through F0-F6 and loaded into the Neo4j knowledge graph. Accepted into the Neo4j for Startups program ($16K AuraDB Pro credits). QA infrastructure (batch scorecards, utility probes, Aura diagnostic packs) is operational and validating graph integrity at scale.',
       summaryPtBr:
-        'O backend v1.0 esta no ar com 50+ endpoints REST, 30 tools MCP e 660+ testes. HTTPS, OAuth 2.0 (PKCE + 3 tiers) e Fase 1 do App Directory estao concluidos. O trabalho atual mira a submissao ao App Directory do ChatGPT e a ingestao do STJ Dados Abertos enquanto o Pipeline de Peticoes e inicializado.',
+        'O backend v1.0 esta no ar com 50+ endpoints REST, 30 tools MCP, 37 features entregues e 925+ testes. O Pipeline v2.1 esta ingerindo jurisprudencia multi-tribunal ativamente: 2,2M decisoes classificadas entre TJPR (748K), TJSP (13,5K) e TRF4 (1,4M), com batches STJ totalmente processados de F0-F6 e carregados no knowledge graph Neo4j. Aceitos no programa Neo4j for Startups ($16K em creditos AuraDB Pro). Infraestrutura de QA (scorecards de batch, probes de utilidade, packs diagnosticos Aura) esta operacional e validando a integridade do grafo em escala.',
       now:
-        'Close App Directory submission (Phases 2-4: token guardrails, OAuth consent UI, final validation) and ship public policies (privacy, terms, data retention).',
+        'Execute Pipeline v2.1 at scale: resolve 955K "review" decisions with LLM curation, run full curation on TJPR (339K) and TRF4 (453K), and proof-of-concept cross-tribunal ingestion (~500 decisions). Calibrate batch scorecard thresholds for promotion gates.',
       nowPtBr:
-        'Fechar a submissao ao App Directory (Fases 2-4: token guardrails, consent UI do OAuth, validacao final) e entregar politicas publicas (privacidade, termos, retencao de dados).',
+        'Executar Pipeline v2.1 em escala: resolver 955K decisoes "revisar" com curacao LLM, rodar curacao completa no TJPR (339K) e TRF4 (453K), e proof-of-concept de ingestao cross-tribunal (~500 decisoes). Calibrar thresholds do scorecard de batch para gates de promocao.',
       next:
-        'Pipeline de Peticoes: 5-tier ingestion of legal petitions into the knowledge graph (PDF parsing, structural extraction, LLM semantic extraction, entity resolution, Neo4j + Qdrant loading). Multi-tribunal expansion with TRF4 and TJSP scrapers.',
+        'Scale to 1.5M+ decisions with multi-tribunal graph (STJ + TRF4 + TJSP + TJPR). Cross-tribunal entity resolution and divergence detection. Multi-tenancy and SLA guarantees for the public API.',
       nextPtBr:
-        'Pipeline de Peticoes: ingestao em 5 tiers de peticoes juridicas no knowledge graph (parsing de PDF, extracao estrutural, extracao semantica via LLM, entity resolution, carga Neo4j + Qdrant). Expansao multi-tribunal com scrapers de TRF4 e TJSP.',
+        'Escalar para 1,5M+ decisoes com grafo multi-tribunal (STJ + TRF4 + TJSP + TJPR). Entity resolution cross-tribunal e deteccao de divergencias. Multi-tenancy e garantias de SLA para a API publica.',
       blockers: [
-        'Public policies (privacy, terms, data retention) required before App Directory submission.',
-        'Token guardrails and OAuth consent UI (Phases 2-3) still in review.',
+        '955K decisions in "review" status need LLM resolution before full-scale ingestion.',
+        'Cross-tribunal entity resolution (SEN-501) not yet validated at scale.',
       ],
       blockersPtBr: [
-        'Politicas publicas (privacidade, termos, retencao de dados) necessarias antes da submissao ao App Directory.',
-        'Token guardrails e consent UI do OAuth (Fases 2-3) ainda em revisao.',
+        '955K decisoes em status "revisar" precisam de resolucao LLM antes da ingestao em escala completa.',
+        'Entity resolution cross-tribunal (SEN-501) ainda nao validada em escala.',
       ],
       stages: [
         {
@@ -135,8 +135,8 @@ export const projects: Project[] = [
         {
           title: 'Graph reconstruction (v2.0)',
           titlePtBr: 'Reconstrucao do grafo (v2.0)',
-          description: 'Redesign Neo4j schema (11 labels, 15 qualified edges), 3-stage LLM extraction, multi-layer canonicalization, and scale from 23,400+ to 1.5M decisions with multi-tribunal support.',
-          descriptionPtBr: 'Redesign do schema Neo4j (11 labels, 15 edges qualificados), extracao LLM em 3 estagios, canonicalizacao multi-camada e escala de 23.400+ para 1,5M decisoes com suporte multi-tribunal.',
+          description: 'Redesign Neo4j schema (11 labels, 15 qualified edges), 3-stage LLM extraction, multi-layer canonicalization, and scale from 23,400+ to 2.2M classified decisions across STJ, TJPR, TJSP, and TRF4. Neo4j for Startups partnership with $16K AuraDB Pro credits.',
+          descriptionPtBr: 'Redesign do schema Neo4j (11 labels, 15 edges qualificados), extracao LLM em 3 estagios, canonicalizacao multi-camada e escala de 23.400+ para 2,2M decisoes classificadas entre STJ, TJPR, TJSP e TRF4. Parceria Neo4j for Startups com $16K em creditos AuraDB Pro.',
         },
         {
           title: 'Scale + public presence (v2.1)',
@@ -146,6 +146,13 @@ export const projects: Project[] = [
         },
       ],
       updates: [
+        {
+          date: '2026-03-17',
+          title: 'Multi-tribunal corpus classified (2.2M decisions) and Neo4j for Startups',
+          titlePtBr: 'Corpus multi-tribunal classificado (2,2M decisoes) e Neo4j for Startups',
+          summary: 'Full corpus classification across TJPR (748K), TJSP (13.5K), and TRF4 (1.4M) completed with regex v2 + LLM curation. 17 shared clusters identified for cross-tribunal network. Batch scorecard, utility probes, and Aura diagnostic pack operational. Accepted into Neo4j for Startups program with $16K AuraDB Pro credits, 1:1 expert graph engineers, and co-marketing support.',
+          summaryPtBr: 'Classificacao completa do corpus entre TJPR (748K), TJSP (13,5K) e TRF4 (1,4M) concluida com regex v2 + curacao LLM. 17 clusters compartilhados identificados para rede cross-tribunal. Scorecard de batch, probes de utilidade e pack diagnostico Aura operacionais. Aceitos no programa Neo4j for Startups com $16K em creditos AuraDB Pro, acesso 1:1 a engenheiros de grafo e suporte de co-marketing.',
+        },
         {
           date: '2026-03-16',
           title: 'Pipeline de Peticoes project bootstrapped',
