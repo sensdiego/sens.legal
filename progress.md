@@ -1,5 +1,30 @@
 # sens.legal — Progress
 
+## 2026-03-19
+
+### Valter snapshot sync — Autoresearch lab, cross-stage validation, Perfil Decisorio
+
+Atualizacao do snapshot editorial do Valter em `projects.ts` para refletir o progresso desde 2026-03-17.
+
+**Dados atualizados:**
+
+- **MCP tools:** 31 (era 30 — adicionou `get_perfil_decisorio` para perfilamento de juiz por materia)
+- **REST endpoints:** 50+
+- **Neo4j:** 53,870 nodes, 194,496 edges (STJ production)
+- **Pipeline v2.1:** F0-F6 concluidos, cross-stage validation operacional (check_1 a check_4)
+- **Corpus:** 2,2M decisoes classificadas (TJPR 748K + TRF4 1,43M + TJSP 13,5K), 4 scrapers ativos (TJPR, TRF4, TJSP, TJSP-eSAJ)
+- **Autoresearch lab criado:** infraestrutura de experimentacao para otimizacao de prompts via Groq API
+  - Stage B polarity: baseline 40% → 96,7% (regra 36 consolidada, verificacao final, custo $1,06)
+  - Stage B check_2: baseline 63% → 83% (repair_context e a solucao, nao mudanca de prompt)
+  - Total do lab: ~$3,70, ~3,5M tokens, 30 experimentos
+  - Aprendizado: consolidacao de regras > fragmentacao; inline patterns > exemplos separados
+- **Unico bloqueio restante:** check_2 (norm coverage) — mecanismo de repair_context resolve
+- **summary/now/next/blockers:** atualizados para refletir cross-stage validation como frente ativa e Perfil Decisorio como proximo produto
+
+**Arquivos alterados:** `portal/src/data/projects.ts`, `progress.md`
+
+---
+
 ## 2026-03-16
 
 ### Valter snapshot sync

@@ -64,24 +64,24 @@ export const projects: Project[] = [
       currentStageLabel: 'Multi-tribunal graph reconstruction',
       currentStageLabelPtBr: 'Reconstrucao do grafo multi-tribunal',
       summary:
-        'v1.0 backend is live with 50+ REST endpoints, 30 MCP tools, 37 shipped features, and 925+ tests. Pipeline v2.1 is actively ingesting multi-tribunal jurisprudence: 2.2M decisions classified across TJPR (748K), TJSP (13.5K), and TRF4 (1.4M), with STJ batches fully processed through F0-F6 and loaded into the Neo4j knowledge graph. Accepted into the Neo4j for Startups program ($16K AuraDB Pro credits). QA infrastructure (batch scorecards, utility probes, Aura diagnostic packs) is operational and validating graph integrity at scale.',
+        'v1.0 backend is live with 50+ REST endpoints, 31 MCP tools, 37 shipped features, and 925+ tests. Pipeline v2.1 with F0-F6 completed and cross-stage validation operational (check_1 through check_4). 2.2M decisions classified across TJPR (748K), TJSP (13.5K), and TRF4 (1.43M), with 4 active scrapers (TJPR, TRF4, TJSP, TJSP-eSAJ). Neo4j knowledge graph in STJ production: 53,870 nodes, 194,496 edges. Autoresearch lab running prompt optimization experiments via Groq API. Accepted into the Neo4j for Startups program ($16K AuraDB Pro credits).',
       summaryPtBr:
-        'O backend v1.0 esta no ar com 50+ endpoints REST, 30 tools MCP, 37 features entregues e 925+ testes. O Pipeline v2.1 esta ingerindo jurisprudencia multi-tribunal ativamente: 2,2M decisoes classificadas entre TJPR (748K), TJSP (13,5K) e TRF4 (1,4M), com batches STJ totalmente processados de F0-F6 e carregados no knowledge graph Neo4j. Aceitos no programa Neo4j for Startups ($16K em creditos AuraDB Pro). Infraestrutura de QA (scorecards de batch, probes de utilidade, packs diagnosticos Aura) esta operacional e validando a integridade do grafo em escala.',
+        'O backend v1.0 esta no ar com 50+ endpoints REST, 31 tools MCP, 37 features entregues e 925+ testes. Pipeline v2.1 com F0-F6 concluidos e validacao cross-stage operacional (check_1 a check_4). 2,2M decisoes classificadas entre TJPR (748K), TJSP (13,5K) e TRF4 (1,43M), com 4 scrapers ativos (TJPR, TRF4, TJSP, TJSP-eSAJ). Knowledge graph Neo4j em producao STJ: 53.870 nos, 194.496 edges. Laboratorio de autoresearch rodando experimentos de otimizacao de prompts via Groq API. Aceitos no programa Neo4j for Startups ($16K em creditos AuraDB Pro).',
       now:
-        'Execute Pipeline v2.1 at scale: resolve 955K "review" decisions with LLM curation, run full curation on TJPR (339K) and TRF4 (453K), and proof-of-concept cross-tribunal ingestion (~500 decisions). Calibrate batch scorecard thresholds for promotion gates.',
+        'Resolve cross-stage validation residuals: check_2 (norm coverage) is the single remaining blocker (21.26% incoherence). Autoresearch lab optimizing Stage B prompts — polarity fix achieved 40%→96.7% accuracy. Validate Perfil Decisorio (judge profiling) with real TJPR data in Neo4j.',
       nowPtBr:
-        'Executar Pipeline v2.1 em escala: resolver 955K decisoes "revisar" com curacao LLM, rodar curacao completa no TJPR (339K) e TRF4 (453K), e proof-of-concept de ingestao cross-tribunal (~500 decisoes). Calibrar thresholds do scorecard de batch para gates de promocao.',
+        'Resolver residuais da validacao cross-stage: check_2 (norm coverage) e o unico bloqueio restante (21,26% incoerencia). Laboratorio de autoresearch otimizando prompts do Stage B — fix de polaridade alcancou 40%→96,7% de acuracia. Validar Perfil Decisorio (perfilamento de juiz) com dados reais do TJPR no Neo4j.',
       next:
-        'Scale to 1.5M+ decisions with multi-tribunal graph (STJ + TRF4 + TJSP + TJPR). Cross-tribunal entity resolution and divergence detection. Multi-tenancy and SLA guarantees for the public API.',
+        'Scale to 1.5M+ decisions in the multi-tribunal Neo4j graph. Ship Perfil Decisorio as first intelligence product (judge profiling per subject matter). Cross-tribunal entity resolution and divergence detection. Multi-tenancy and SLA guarantees for the public API.',
       nextPtBr:
-        'Escalar para 1,5M+ decisoes com grafo multi-tribunal (STJ + TRF4 + TJSP + TJPR). Entity resolution cross-tribunal e deteccao de divergencias. Multi-tenancy e garantias de SLA para a API publica.',
+        'Escalar para 1,5M+ decisoes no grafo multi-tribunal Neo4j. Entregar Perfil Decisorio como primeiro produto de inteligencia (perfilamento de juiz por materia). Entity resolution cross-tribunal e deteccao de divergencias. Multi-tenancy e garantias de SLA para a API publica.',
       blockers: [
-        '955K decisions in "review" status need LLM resolution before full-scale ingestion.',
-        'Cross-tribunal entity resolution (SEN-501) not yet validated at scale.',
+        'check_2 (norm coverage) is the single remaining cross-stage validation blocker (21.26% incoherence > 20% threshold). The repair_context mechanism resolves it.',
+        'Perfil Decisorio needs TJPR core1000 loaded into Neo4j (F6) for real-data validation.',
       ],
       blockersPtBr: [
-        '955K decisoes em status "revisar" precisam de resolucao LLM antes da ingestao em escala completa.',
-        'Entity resolution cross-tribunal (SEN-501) ainda nao validada em escala.',
+        'check_2 (norm coverage) e o unico bloqueio restante da validacao cross-stage (21,26% incoerencia > 20% threshold). O mecanismo de repair_context resolve.',
+        'Perfil Decisorio precisa da TJPR core1000 carregada no Neo4j (F6) para validacao com dados reais.',
       ],
       stages: [
         {
@@ -146,6 +146,13 @@ export const projects: Project[] = [
         },
       ],
       updates: [
+        {
+          date: '2026-03-19',
+          title: 'Autoresearch lab and cross-stage validation operational',
+          titlePtBr: 'Laboratorio de autoresearch e validacao cross-stage operacional',
+          summary: 'Autoresearch lab created for pipeline prompt optimization via Groq API (~$3.70, ~3.5M tokens, 30 experiments). Stage B polarity fix: 40%→96.7% accuracy in check_1 ($1.06 cost). Stage B check_2: baseline 63%→83% — root cause is missing repair_context, not prompt issues. Cross-stage validation (check_1 through check_4) operational on TJPR core1000. New MCP tool get_perfil_decisorio shipped (31 total) for judge profiling pivot.',
+          summaryPtBr: 'Laboratorio de autoresearch criado para otimizacao de prompts do pipeline via Groq API (~$3,70, ~3,5M tokens, 30 experimentos). Fix de polaridade no Stage B: 40%→96,7% de acuracia no check_1 (custo $1,06). Stage B check_2: baseline 63%→83% — causa raiz e a falta de repair_context, nao problema de prompt. Validacao cross-stage (check_1 a check_4) operacional na TJPR core1000. Novo MCP tool get_perfil_decisorio entregue (31 total) para pivot de perfilamento de juiz.',
+        },
         {
           date: '2026-03-17',
           title: 'Multi-tribunal corpus classified (2.2M decisions) and Neo4j for Startups',
