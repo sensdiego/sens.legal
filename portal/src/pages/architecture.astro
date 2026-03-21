@@ -14,7 +14,9 @@ const ecosystemDiagram = `<pre><code class="language-mermaid">graph TB
     subgraph "Valter"
         API[REST API]
         MCP[MCP]
+        AUTH[OAuth 2.0 + PKCE]
         ORCH[Service layer&lt;br/&gt;routing and orchestration]
+        CHAT[Chat pipeline&lt;br/&gt;draft, critics, revision]
         INGEST[Grounding adapters&lt;br/&gt;ingestion and handoff]
         RETRIEVAL[Graph-led retrieval]
         REASONING[Verification + reasoning]
@@ -35,8 +37,9 @@ const ecosystemDiagram = `<pre><code class="language-mermaid">graph TB
     USERS --&gt; JUCA
     AGENTS --&gt; MCP
     JUCA --&gt; API
-    API --&gt; ORCH
-    MCP --&gt; ORCH
+    API --&gt; AUTH --&gt; ORCH
+    MCP --&gt; AUTH
+    ORCH --&gt; CHAT
     ORCH --&gt; INGEST
     ORCH --&gt; RETRIEVAL
     ORCH --&gt; REASONING

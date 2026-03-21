@@ -23,10 +23,10 @@ if (!project) {
   </p>
 
   <p>
-    Esse cutover de backend agora esta concluido. Busca, grafo, reasoning,
-    verificacao e pipelines juridicos de chat passaram a ser responsabilidade
-    do Valter, enquanto o Juca opera como frontend shell-first consumindo esses
-    servicos canonicos do backend do ecossistema.
+    O cutover de backend esta concluido: toda a logica de backend juridico agora
+    vive no Valter, e o Juca opera como frontend shell-first validado em producao
+    no Railway. A UI e construida sobre o design system <strong>Liquid Legal</strong>
+    (v0.2), e o codebase foi limpo (Zustand removido, rotas legadas podadas).
   </p>
 
   <h2>Responsabilidades</h2>
@@ -41,10 +41,10 @@ if (!project) {
   <h2>Stack</h2>
 
   <ul>
-    <li><strong>Framework:</strong> Next.js 16</li>
+    <li><strong>Framework:</strong> Next.js</li>
     <li><strong>Linguagem:</strong> TypeScript</li>
-    <li><strong>UI:</strong> React, Tailwind CSS</li>
-    <li><strong>Deploy:</strong> Docker + Railway</li>
+    <li><strong>UI:</strong> React (design system Liquid Legal)</li>
+    <li><strong>Deploy:</strong> Railway</li>
   </ul>
 
   <h2>Status do roadmap</h2>

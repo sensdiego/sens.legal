@@ -8,19 +8,20 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 
   <p>
     Faca upload de um PDF de processo e obtenha uma analise completa:
-    segmentacao do documento, classificacao por IA, interpretacao fase a fase,
-    matching de jurisprudencia e artefatos revisaveis por humano. O workflow
-    e gerenciado por uma maquina de estados com trilha de auditoria completa.
+    segmentacao do documento, classificacao por IA sobre dados multi-tribunal
+    (STJ, TJPR, TJSP, TRF4), interpretacao fase a fase, matching de jurisprudencia
+    e artefatos revisaveis por humano. O workflow e gerenciado pelo Pipeline v2.1
+    com validacao cross-stage e trilha de auditoria completa.
   </p>
 
   <h2>Como funciona</h2>
 
   <ol>
     <li><strong>Upload:</strong> PDF e submetido ao pipeline de ingestao</li>
-    <li><strong>Extracao:</strong> pipeline PROJUDI segmenta o documento, classificando cada secao</li>
-    <li><strong>Classificacao:</strong> Groq LLM extrai 21 campos estruturados (fatos, tese juridica, resultado, ministro, categoria...)</li>
+    <li><strong>Extracao:</strong> Pipeline v2.1 segmenta o documento em estagios F0-F6, classificando cada secao</li>
+    <li><strong>Classificacao:</strong> Groq LLM extrai 21 campos estruturados (fatos, tese juridica, resultado, ministro, categoria...) com validacao cross-stage (check_1 a check_4)</li>
     <li><strong>Analise de fases:</strong> interpretacao deterministica das fases processuais com recomendacoes de jurisprudencia por fase</li>
-    <li><strong>Matching:</strong> retriever hibrido encontra casos similares e gera sugestoes</li>
+    <li><strong>Matching:</strong> retriever hibrido encontra casos similares no corpus multi-tribunal de 2,2M decisoes</li>
     <li><strong>Revisao:</strong> advogado revisa e aprova/rejeita cada fase</li>
     <li><strong>Artefatos:</strong> analises aprovadas sao serializadas em JSON e PDF, armazenadas no Cloudflare R2</li>
   </ol>
