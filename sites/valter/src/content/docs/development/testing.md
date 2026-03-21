@@ -96,7 +96,7 @@ Regression tests guard against quality regressions in search and graph results:
 
 ### MCP Tests (1 file, ~1,700 lines)
 
-MCP tests cover all 28 MCP tools, verifying:
+MCP tests cover all 31 MCP tools, verifying:
 
 - Tool registration and metadata
 - Parameter validation (required fields, types, constraints)
@@ -195,7 +195,7 @@ Current test coverage by category:
 | Unit | 57 | ~10,000 | Core logic, routes, stores (mocked), auth, models |
 | Integration | 3 | ~350 | Neo4j Aura live queries |
 | Regression | 3 | ~130 | Golden set, KG quality, Juca parity |
-| MCP | 1 | ~1,700 | 28 tools + handlers + validation |
+| MCP | 1 | ~1,700 | 31 tools + handlers + validation |
 | Load | 0 | 0 | Placeholder (Locust available in dev deps) |
 | **Total** | **64** | **~12,200** | |
 

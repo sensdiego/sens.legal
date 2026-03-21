@@ -32,7 +32,7 @@ ADRs in Valter follow a simple structure: context, decision, alternatives, conse
 
 ### Context
 
-Valter's MCP server originally operated only via `stdio` for local use with Claude Desktop and Claude Code. To enable ChatGPT Apps to consume Valter's 28 MCP tools, a remote transport over HTTPS was needed — without breaking the existing local mode.
+Valter's MCP server originally operated only via `stdio` for local use with Claude Desktop and Claude Code. To enable ChatGPT Apps to consume Valter's 31 MCP tools, a remote transport over HTTPS was needed — without breaking the existing local mode.
 
 Two operational modes already existed: tools that execute logic locally in the MCP process, and tools that bridge to the REST API via HTTP. The decision had to avoid regressing the `stdio` mode and avoid tight coupling between the MCP contract and the internal REST API contract.
 

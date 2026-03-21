@@ -44,7 +44,7 @@ export default defineConfig({
     starlight({
       title: 'Valter',
       logo: { src: './src/assets/logo.png', alt: 'sens' },
-      description: 'Legal knowledge backend serving Brazilian STJ jurisprudence via REST API and MCP.',
+      description: 'Legal knowledge backend serving multi-tribunal Brazilian jurisprudence (STJ, TJPR, TJSP, TRF4) via REST API and MCP.',
       defaultLocale: 'root',
       locales: {
         root: { label: 'English', lang: 'en' },

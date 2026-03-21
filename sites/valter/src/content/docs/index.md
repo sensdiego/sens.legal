@@ -8,11 +8,11 @@ sidebar:
 
 # Valter
 
-> The central legal knowledge backend of the sens.legal ecosystem — serving Brazilian STJ jurisprudence through REST API and MCP.
+> The central legal knowledge backend of the sens.legal ecosystem — serving multi-tribunal Brazilian jurisprudence (STJ, TJPR, TJSP, TRF4) through REST API and MCP. 2.2M classified decisions, 50+ REST endpoints, 31 MCP tools, OAuth 2.0 with PKCE.
 
 ## What is Valter?
 
-Valter is the backend where jurisprudence retrieval, verification, and reasoning are being centralized for the ecosystem. It transforms STJ decisions into structured legal knowledge that can be consumed by frontend applications, internal workflows, and MCP-compatible LLMs.
+Valter is the central backend for jurisprudence retrieval, verification, and reasoning in the ecosystem. It transforms multi-tribunal decisions (STJ, TJPR, TJSP, TRF4 — 2.2M classified) into structured legal knowledge consumed by frontend applications, internal workflows, and MCP-compatible LLMs.
 
 Its architecture combines PostgreSQL, Qdrant, Neo4j, and Redis, but the important point is not the list of stores. The important point is the current retrieval paradigm: **graph-led retrieval**. The knowledge graph is no longer described as a small optional boost layered on top of search. It is a primary path for discovery and explainability, with lexical and semantic search acting as complementary retrieval signals and graceful fallback paths.
 
@@ -40,14 +40,17 @@ Valter is one of four projects in the sens.legal ecosystem:
 | **Leci** | Document-first legislation engine for reliable grounding |
 | **Douto** | Local doctrine pipeline that supplies doctrinal artifacts to Valter |
 
-This also means Valter is the destination of the ongoing backend migration out of Juca. Search, reasoning, and related backend concerns are being moved into Valter so the frontend can stay focused on user experience and orchestration.
+The backend migration from Juca is complete. Search, reasoning, chat, and all legal backend concerns now live in Valter, while Juca operates as a shell-first frontend hub.
 
 ## What Valter is responsible for
 
-- retrieval over STJ jurisprudence
+- retrieval over multi-tribunal jurisprudence (STJ, TJPR, TJSP, TRF4)
 - graph-led reasoning and explainability
-- verification against tribunal data
-- MCP and REST access for external consumers
+- verification against tribunal data (2.2M classified decisions)
+- 3-stage LLM chat pipeline (draft, critics, revision) with SSE streaming
+- OAuth 2.0 Authorization Code Flow with PKCE and tiered access (Free / Pro)
+- MCP (31 tools) and REST (50+ endpoints) access for external consumers
+- Pipeline v2.1 with cross-stage validation (check_1 through check_4)
 - ingest and enrichment pipelines that support the knowledge layer
 
 ## What Valter is not responsible for

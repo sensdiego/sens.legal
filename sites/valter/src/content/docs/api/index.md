@@ -169,4 +169,4 @@ Audit logging runs within the authentication middleware for all endpoints except
 | Verify & Enrich | `POST /v1/verify`, `POST /v1/context/enrich`, `POST /v1/factual/extract` | [Verify & Enrich](./verify-enrich/) |
 | Ingest | `POST /v1/ingest/*` (20+ endpoints) | [Ingest Endpoints](./ingest/) |
 | Admin | `GET /v1/health`, `GET /metrics`, `GET/POST /v1/memories`, `GET /v1/datasets/*` | [Admin & Utility](./admin/) |
-| MCP Tools | 28 tools via stdio/HTTP | [MCP Tools Reference](./mcp-tools/) |
+| MCP Tools | 31 tools via stdio/HTTP | [MCP Tools Reference](./mcp-tools/) |

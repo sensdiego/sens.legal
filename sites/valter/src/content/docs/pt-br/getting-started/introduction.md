@@ -8,7 +8,7 @@ sidebar:
 
 # Introdução
 
-O Valter é o backend de jurisprudência e reasoning do ecossistema sens.legal. Ele serve jurisprudência do STJ por REST API e MCP, e existe para transformar decisões brutas em fluxos de retrieval, verificação e reasoning ancorados em dados reais do tribunal.
+O Valter é o backend de jurisprudência e reasoning do ecossistema sens.legal. Ele serve jurisprudência multi-tribunal (STJ, TJPR, TJSP, TRF4 — 2,2M decisões classificadas) por REST API (50+ endpoints) e MCP (31 tools), transformando decisões brutas em fluxos de retrieval, verificação e reasoning ancorados em dados reais do tribunal.
 
 ## Por que o Valter existe
 
@@ -20,7 +20,7 @@ O Valter existe para resolver esse problema tornando o conhecimento jurídico ex
 
 O Valter atende três grandes grupos de consumidores:
 
-- **Juca**, o hub frontend que chama o Valter por REST enquanto responsabilidades de backend saem do frontend
+- **Juca**, o hub frontend que chama o Valter por REST (migração de backend concluída)
 - **clientes MCP** como Claude e ChatGPT, que usam o Valter como superfície de ferramentas jurídicas
 - **fluxos internos do ecossistema**, que dependem do Valter como camada central de jurisprudência e reasoning
 
@@ -40,7 +40,7 @@ Essa distinção importa porque muda a forma de explicar relevância. A saída d
 As principais capacidades do Valter se agrupam em cinco áreas:
 
 ### Retrieval
-Recuperar jurisprudência, casos similares e conjuntos filtrados de resultados sobre dados do STJ.
+Recuperar jurisprudência, casos similares e conjuntos filtrados de resultados sobre dados multi-tribunal (STJ, TJPR, TJSP, TRF4).
 
 ### Verificação
 Checar se referências, citações e afirmações realmente mapeiam para material do tribunal.
@@ -65,7 +65,7 @@ Dentro do sens.legal:
 | **Leci** | Grounding legislativo |
 | **Douto** | Artefatos de doutrina fornecidos ao Valter |
 
-O Valter é, portanto, ao mesmo tempo um backend standalone e um ponto de convergência da estratégia de migração de backend do ecossistema.
+O Valter é o backend central onde todo o retrieval, reasoning e verificação jurídica convergem para o ecossistema.
 
 ## Arquitetura resumida
 

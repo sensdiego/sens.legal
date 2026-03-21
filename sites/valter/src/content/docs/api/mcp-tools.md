@@ -1,6 +1,6 @@
 ---
 title: MCP Tools Reference
-description: Complete reference for all 28 MCP tools — parameters, return types, and usage examples for Claude and ChatGPT integration.
+description: Complete reference for all 31 MCP tools — parameters, return types, and usage examples for Claude and ChatGPT integration.
 lang: en
 sidebar:
   order: 7
@@ -9,11 +9,11 @@ sidebar:
 
 # MCP Tools Reference
 
-Complete reference for all 28 MCP tools exposed by Valter's Model Context Protocol server.
+Complete reference for all 31 MCP tools exposed by Valter's Model Context Protocol server.
 
 ## Overview
 
-Valter registers 28 tools in its MCP server, available via two transport modes:
+Valter registers 31 tools in its MCP server, available via two transport modes:
 
 | Transport | Client | Protocol |
 |---|---|---|
@@ -28,7 +28,7 @@ Authentication depends on the transport: API key for stdio mode, HMAC for HTTP m
 
 ### search_jurisprudence
 
-Free-text jurisprudence retrieval over STJ decisions using hybrid BM25 + semantic search. Start from this tool when you need candidate cases before calling other tools.
+Free-text jurisprudence retrieval over multi-tribunal decisions (STJ, TJPR, TJSP, TRF4) using hybrid BM25 + semantic search. Start from this tool when you need candidate cases before calling other tools.
 
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|

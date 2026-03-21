@@ -8,7 +8,7 @@ sidebar:
 
 # Introduction
 
-Valter is the jurisprudence and reasoning backend of the sens.legal ecosystem. It serves STJ case law through REST API and MCP, and it exists to turn raw decisions into retrieval, verification, and reasoning workflows that stay anchored in tribunal data.
+Valter is the jurisprudence and reasoning backend of the sens.legal ecosystem. It serves multi-tribunal case law (STJ, TJPR, TJSP, TRF4 — 2.2M classified decisions) through REST API (50+ endpoints) and MCP (31 tools), turning raw decisions into retrieval, verification, and reasoning workflows anchored in tribunal data.
 
 ## Why Valter exists
 
@@ -20,7 +20,7 @@ Valter exists to solve that problem by making legal knowledge explicit and query
 
 Valter serves three main kinds of consumers:
 
-- **Juca**, the frontend hub that calls Valter over REST while backend responsibilities migrate out of the frontend
+- **Juca**, the frontend hub that calls Valter over REST (backend migration is complete)
 - **MCP clients** such as Claude and ChatGPT, which use Valter as a legal tool surface
 - **Internal ecosystem workflows**, which rely on Valter as the central jurisprudence and reasoning layer
 
@@ -40,7 +40,7 @@ This distinction matters because it changes how relevance is explained. The outp
 Valter's main capabilities fall into five areas:
 
 ### Retrieval
-Retrieve jurisprudence, similar cases, and filtered result sets over STJ data.
+Retrieve jurisprudence, similar cases, and filtered result sets over multi-tribunal data (STJ, TJPR, TJSP, TRF4).
 
 ### Verification
 Check whether references, citations, and claims map back to real tribunal material.
@@ -65,7 +65,7 @@ Within sens.legal:
 | **Leci** | Legislation grounding |
 | **Douto** | Doctrine artifacts supplied into Valter |
 
-Valter is therefore both a standalone backend and a convergence point for the ecosystem's backend migration strategy.
+Valter is the central backend where all legal retrieval, reasoning, and verification converge for the ecosystem.
 
 ## Architecture at a glance
 

@@ -16,7 +16,7 @@ Valter ships with implemented capabilities spanning retrieval, graph analytics, 
 |---------|--------|-------------------|------|
 | Search and Retrieval | Implemented | `POST /v1/retrieve` | [Search and Retrieval](hybrid-search/) |
 | Graph Analytics (12 endpoints) | Implemented | `POST /v1/graph/*` | [Graph Analytics](graph-analytics/) |
-| MCP Server (28 tools) | Implemented | stdio + HTTP/SSE | [MCP Server](mcp-server/) |
+| MCP Server (31 tools) | Implemented | stdio + HTTP/SSE | [MCP Server](mcp-server/) |
 | Ingestion Workflow (17 endpoints) | Implemented | `POST /v1/ingest/*` | [Ingestion Workflow](ingestion-workflow/) |
 | Verification & Enrichment | Implemented | `POST /v1/verify`, `/v1/enrich` | [Verification & Enrichment](verification-enrichment/) |
 | Observability | Implemented | `/metrics`, structlog, OTel | [Observability](observability/) |
@@ -55,7 +55,7 @@ See [Graph Analytics](graph-analytics/) for the full endpoint reference.
 
 Valter exposes all capabilities as 28 Model Context Protocol tools, allowing any MCP-compatible LLM to act as a legal research assistant.
 
-- **28 MCP tools** organized across knowledge, graph, and workflow domains
+- **31 MCP tools** organized across knowledge, graph, and workflow domains
 - **stdio server** for Claude Desktop and Claude Code (`python -m valter.mcp`)
 - **HTTP/SSE remote server** for ChatGPT and other remote clients (`make mcp-remote`, port 8001)
 - **API key + HMAC authentication** for remote transport

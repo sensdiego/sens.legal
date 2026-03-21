@@ -259,7 +259,7 @@ O knowledge graph Neo4j e estruturado em torno da ontologia FRBR (Functional Req
 
 ### Escala
 
-O grafo atual contem aproximadamente **28.482 nos** e **207.163 arestas**, representando a estrutura relacional da jurisprudencia do STJ. Os 12 endpoints de graph analytics na API expoem diferentes padroes de travessia e agregacao sobre este grafo.
+O grafo atual contem **53.870 nos** e **194.496 arestas** em producao STJ, com o corpus multi-tribunal alcancando 2,2M decisoes classificadas entre STJ, TJPR, TJSP e TRF4. Os 12 endpoints de graph analytics na API expoem diferentes padroes de travessia e agregacao sobre este grafo.
 
 ## Arquitetura de Deploy
 

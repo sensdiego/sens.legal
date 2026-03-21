@@ -5,15 +5,15 @@
 
 # Valter
 
-> The legal knowledge backend for the Diego Sens ecosystem — serving Brazilian STJ jurisprudence via REST API and Model Context Protocol (MCP).
+> The legal knowledge backend for the sens.legal ecosystem — serving multi-tribunal Brazilian jurisprudence (STJ, TJPR, TJSP, TRF4) via REST API and Model Context Protocol (MCP). 2.2M classified decisions, 50+ REST endpoints, 31 MCP tools, OAuth 2.0 with PKCE.
 
 ## What is Valter?
 
-Valter is a specialized backend that transforms raw legal data from Brazil's Superior Tribunal de Justica (STJ) into structured, verifiable legal knowledge. It combines four purpose-built data stores — PostgreSQL for documents and metadata, Qdrant for semantic vector search, Neo4j for a knowledge graph of legal relationships, and Redis for caching — to deliver hybrid search with knowledge-graph boosting, anti-hallucination verification, and graph analytics across tens of thousands of court decisions.
+Valter is a specialized backend that transforms raw legal data from Brazilian tribunals (STJ, TJPR, TJSP, TRF4 — 2.2M classified decisions) into structured, verifiable legal knowledge. It combines four purpose-built data stores — PostgreSQL for documents and metadata, Qdrant for semantic vector search, Neo4j for a knowledge graph of legal relationships (53,870 nodes, 194,496 edges), and Redis for caching — to deliver graph-led retrieval, anti-hallucination verification, and graph analytics across millions of court decisions.
 
 Unlike general-purpose legal search engines that treat decisions as isolated text blobs, Valter connects decisions through a knowledge graph based on the FRBR ontology. Criteria, legal devices, precedents, and ministers are linked as first-class graph entities, enabling queries like "which legal arguments have the highest success rate for this minister in this category" or "how has the application of this criterion evolved over the last five years." Every claim returned by the system is traceable to a specific graph node or verified against real tribunal data.
 
-Valter is MCP-native: 28 tools are exposed via the Model Context Protocol, allowing LLMs like Claude and ChatGPT to query jurisprudence, verify references, analyze divergences, and compose arguments directly. The same capabilities are available through a REST API for traditional frontend consumption.
+Valter is MCP-native: 31 tools are exposed via the Model Context Protocol, allowing LLMs like Claude and ChatGPT to query jurisprudence, verify references, analyze divergences, and compose arguments directly. The same capabilities are available through a REST API for traditional frontend consumption.
 
 ## Key Numbers
 
@@ -36,7 +36,7 @@ Valter is MCP-native: 28 tools are exposed via the Model Context Protocol, allow
 - **[Architecture Overview](/architecture/overview)** — Modular monolith, dependency rule, 4 runtimes
 - **[Technology Stack](/architecture/stack)** — Python, FastAPI, 4 databases, and why each was chosen
 - **[API Reference](/api/)** — REST endpoints for search, verification, graph analytics, and ingestion
-- **[MCP Tools](/api/mcp-tools)** — All 28 tools available to Claude, ChatGPT, and other MCP clients
+- **[MCP Tools](/api/mcp-tools)** — All 31 tools available to Claude, ChatGPT, and other MCP clients
 - **[Features](/features/)** — Hybrid search, graph analytics, anti-hallucination, and more
 - **[Architecture Decisions](/architecture/decisions)** — ADRs documenting key choices and their rationale
 - **[Glossary](/reference/glossary)** — Legal and technical terms used throughout the project
@@ -60,7 +60,7 @@ Valter acts as the knowledge engine: Juca calls Valter's REST API for search and
 
 # Introduction
 
-Valter is a legal knowledge backend that serves Brazilian STJ jurisprudence through a REST API and Model Context Protocol (MCP) server. It transforms raw court decisions into structured, verified, composable legal reasoning — enabling LLMs and lawyers to query precedents, analyze divergences between ministers, and compose arguments backed by a knowledge graph.
+Valter is a legal knowledge backend that serves multi-tribunal Brazilian jurisprudence (STJ, TJPR, TJSP, TRF4 — 2.2M classified decisions) through a REST API (50+ endpoints) and Model Context Protocol (MCP) server (31 tools). It transforms raw court decisions into structured, verified, composable legal reasoning — enabling LLMs and lawyers to query precedents, analyze divergences between ministers, and compose arguments backed by a knowledge graph.
 
 Valter is part of the [sens.legal](https://sens.legal) ecosystem, alongside Leci (legislation) and Juca (frontend for lawyers).
 
@@ -116,7 +116,7 @@ Valter serves three types of consumers through two protocols:
 
 **ChatGPT** connects via MCP remote — an HTTP/SSE server running on port 8001 with HMAC authentication. This is deployed on Railway alongside the main API.
 
-All three consumers access the same 28 MCP tools and the same underlying data stores.
+All three consumers access the same 31 MCP tools and the same underlying data stores.
 
 ## What makes Valter different
 
@@ -189,7 +189,7 @@ For a deeper dive into the architecture, see [Architecture Overview](/architectu
 - **[Quickstart](/getting-started/quickstart/)** — Get Valter running locally in under 5 minutes
 - **[Installation](/getting-started/installation/)** — Full setup guide with all databases and options
 - **[API Reference](/api/)** — Complete endpoint documentation
-- **[MCP Tools](/api/mcp-tools/)** — All 28 MCP tools with parameters and examples
+- **[MCP Tools](/api/mcp-tools/)** — All 31 MCP tools with parameters and examples
 
 ---
 # docs/getting-started/quickstart.md
@@ -348,7 +348,7 @@ To use Valter as a tool in Claude Desktop, add this to your `claude_desktop_conf
 }
 ```
 
-Restart Claude Desktop. You should see 28 tools available under "valter" in the MCP tools panel.
+Restart Claude Desktop. You should see 31 tools available under "valter" in the MCP tools panel.
 
 :::caution
 The MCP stdio server runs as a separate process from the REST API. It needs its own environment variables because it doesn't read from the same `.env` file — pass them explicitly in the `env` block.
@@ -389,7 +389,7 @@ After completing this quickstart, you have:
 
 - **[Installation](/getting-started/installation/)** — Full setup with Neo4j, Groq, R2, and production configuration
 - **[API Reference](/api/)** — All endpoints with request/response schemas
-- **[MCP Tools](/api/mcp-tools/)** — Complete reference for the 28 MCP tools
+- **[MCP Tools](/api/mcp-tools/)** — Complete reference for the 31 MCP tools
 - **[Architecture](/architecture/overview/)** — How the layers and data stores fit together
 
 ---
@@ -960,7 +960,7 @@ Valter uses four specialized databases, each chosen for a specific workload:
 |-------|---------|------|-------------|----------------|
 | PostgreSQL | 16 (Alpine) | Documents, features, STJ metadata, ingestion jobs, workflow state, session memory, API keys, audit logs | ~23,441 docs, 2,119 features, 810,225 metadata records | Relational integrity for legal documents, JSONB for flexible metadata, mature async support via `asyncpg`, Alembic migrations |
 | Qdrant | latest | Semantic vector search | ~3,673 vectors (768-dim, cosine similarity) | Purpose-built vector database with payload filtering, native cosine similarity, and sub-second query latency for legal embeddings |
-| Neo4j | 5.x / Aura | Knowledge graph (FRBR ontology) | ~28,482 nodes, ~207,163 edges | Native graph traversal for multi-hop queries (citation chains, divergence detection, community discovery), Cypher query language, managed Aura option for production |
+| Neo4j | 5.x / Aura | Knowledge graph (FRBR ontology) | 53,870 nodes, 194,496 edges (STJ production); 2.2M classified decisions multi-tribunal | Native graph traversal for multi-hop queries (citation chains, divergence detection, community discovery), Cypher query language, Neo4j for Startups partner ($16K AuraDB Pro credits) |
 | Redis | 7 (Alpine) | Cache, rate limiting, job queue | Ephemeral | Sub-millisecond latency for query cache (180s TTL), native TTL for rate limiting sliding windows, ARQ integration for background job queues |
 
 :::note
@@ -1108,7 +1108,7 @@ ADRs in Valter follow a simple structure: context, decision, alternatives, conse
 
 ### Context
 
-Valter's MCP server originally operated only via `stdio` for local use with Claude Desktop and Claude Code. To enable ChatGPT Apps to consume Valter's 28 MCP tools, a remote transport over HTTPS was needed — without breaking the existing local mode.
+Valter's MCP server originally operated only via `stdio` for local use with Claude Desktop and Claude Code. To enable ChatGPT Apps to consume Valter's 31 MCP tools, a remote transport over HTTPS was needed — without breaking the existing local mode.
 
 Two operational modes already existed: tools that execute logic locally in the MCP process, and tools that bridge to the REST API via HTTP. The decision had to avoid regressing the `stdio` mode and avoid tight coupling between the MCP contract and the internal REST API contract.
 
@@ -1516,7 +1516,7 @@ The Neo4j knowledge graph is structured around the FRBR (Functional Requirements
 
 ### Scale
 
-The current graph contains approximately **28,482 nodes** and **207,163 edges**, representing the relational structure of STJ jurisprudence. The 12 graph analytics endpoints in the API expose different traversal and aggregation patterns over this graph.
+The current graph contains **53,870 nodes** and **194,496 edges** in STJ production, with the multi-tribunal corpus reaching 2.2M classified decisions across STJ, TJPR, TJSP, and TRF4. The 12 graph analytics endpoints in the API expose different traversal and aggregation patterns over this graph.
 
 ## Deployment Architecture
 
@@ -1585,7 +1585,7 @@ Valter ships with 33 implemented features spanning search, graph analytics, LLM 
 |---------|--------|-------------------|------|
 | Hybrid Search | Implemented | `POST /v1/retrieve` | [Hybrid Search](hybrid-search/) |
 | Graph Analytics (12 endpoints) | Implemented | `POST /v1/graph/*` | [Graph Analytics](graph-analytics/) |
-| MCP Server (28 tools) | Implemented | stdio + HTTP/SSE | [MCP Server](mcp-server/) |
+| MCP Server (31 tools) | Implemented | stdio + HTTP/SSE | [MCP Server](mcp-server/) |
 | Ingestion Workflow (17 endpoints) | Implemented | `POST /v1/ingest/*` | [Ingestion Workflow](ingestion-workflow/) |
 | Verification & Enrichment | Implemented | `POST /v1/verify`, `/v1/enrich` | [Verification & Enrichment](verification-enrichment/) |
 | Observability | Implemented | `/metrics`, structlog, OTel | [Observability](observability/) |
@@ -1624,7 +1624,7 @@ See [Graph Analytics](graph-analytics/) for the full endpoint reference.
 
 Valter exposes all capabilities as 28 Model Context Protocol tools, allowing any MCP-compatible LLM to act as a legal research assistant.
 
-- **28 MCP tools** organized across knowledge, graph, and workflow domains
+- **31 MCP tools** organized across knowledge, graph, and workflow domains
 - **stdio server** for Claude Desktop and Claude Code (`python -m valter.mcp`)
 - **HTTP/SSE remote server** for ChatGPT and other remote clients (`make mcp-remote`, port 8001)
 - **API key + HMAC authentication** for remote transport
@@ -2016,13 +2016,13 @@ Supports two modes: **batch** (explicit `decisao_ids` list) and **sample** (rand
 
 # MCP Server
 
-Valter exposes 28 MCP tools via two transport modes -- stdio for Claude Desktop/Code and HTTP/SSE for ChatGPT -- enabling any MCP-compatible LLM to act as a legal research assistant backed by real jurisprudence data.
+Valter exposes 31 MCP tools via two transport modes -- stdio for Claude Desktop/Code and HTTP/SSE for ChatGPT -- enabling any MCP-compatible LLM to act as a legal research assistant backed by real jurisprudence data.
 
 ## What is MCP?
 
 Model Context Protocol (MCP) is an open standard for structured communication between LLMs and external tools. Instead of building custom API integrations for each LLM provider, MCP provides a single interface that any compatible client can consume.
 
-For Valter, this means that Claude Desktop, Claude Code, ChatGPT, and any future MCP client can all use the same 28 tools without separate integration work.
+For Valter, this means that Claude Desktop, Claude Code, ChatGPT, and any future MCP client can all use the same 31 tools without separate integration work.
 
 ## Transport Modes
 
@@ -3883,7 +3883,7 @@ Regression tests guard against quality regressions in search and graph results:
 
 ### MCP Tests (1 file, ~1,700 lines)
 
-MCP tests cover all 28 MCP tools, verifying:
+MCP tests cover all 31 MCP tools, verifying:
 
 - Tool registration and metadata
 - Parameter validation (required fields, types, constraints)
@@ -3982,7 +3982,7 @@ Current test coverage by category:
 | Unit | 57 | ~10,000 | Core logic, routes, stores (mocked), auth, models |
 | Integration | 3 | ~350 | Neo4j Aura live queries |
 | Regression | 3 | ~130 | Golden set, KG quality, Juca parity |
-| MCP | 1 | ~1,700 | 28 tools + handlers + validation |
+| MCP | 1 | ~1,700 | 31 tools + handlers + validation |
 | Load | 0 | 0 | Placeholder (Locust available in dev deps) |
 | **Total** | **64** | **~12,200** | |
 
@@ -4360,7 +4360,7 @@ Audit logging runs within the authentication middleware for all endpoints except
 | Verify & Enrich | `POST /v1/verify`, `POST /v1/context/enrich`, `POST /v1/factual/extract` | [Verify & Enrich](./verify-enrich/) |
 | Ingest | `POST /v1/ingest/*` (20+ endpoints) | [Ingest Endpoints](./ingest/) |
 | Admin | `GET /v1/health`, `GET /metrics`, `GET/POST /v1/memories`, `GET /v1/datasets/*` | [Admin & Utility](./admin/) |
-| MCP Tools | 28 tools via stdio/HTTP | [MCP Tools Reference](./mcp-tools/) |
+| MCP Tools | 31 tools via stdio/HTTP | [MCP Tools Reference](./mcp-tools/) |
 
 ---
 # docs/api/search.md
@@ -5673,11 +5673,11 @@ curl http://localhost:8000/v1/datasets/uploads/ds-item-789 \
 
 # MCP Tools Reference
 
-Complete reference for all 28 MCP tools exposed by Valter's Model Context Protocol server.
+Complete reference for all 31 MCP tools exposed by Valter's Model Context Protocol server.
 
 ## Overview
 
-Valter registers 28 tools in its MCP server, available via two transport modes:
+Valter registers 31 tools in its MCP server, available via two transport modes:
 
 | Transport | Client | Protocol |
 |---|---|---|

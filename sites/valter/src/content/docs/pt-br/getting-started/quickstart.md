@@ -158,7 +158,7 @@ Para usar o Valter como ferramenta no Claude Desktop, adicione isto ao seu `clau
 }
 ```
 
-Reinicie o Claude Desktop. Você deve ver 28 tools disponíveis em "valter" no painel de tools MCP.
+Reinicie o Claude Desktop. Você deve ver 31 tools disponíveis em "valter" no painel de tools MCP.
 
 :::caution
 O servidor MCP stdio roda como um processo separado da API REST. Ele precisa de suas próprias variáveis de ambiente porque não lê do mesmo arquivo `.env` — passe-as explicitamente no bloco `env`.
@@ -199,5 +199,5 @@ Após completar este quickstart, você tem:
 
 - **[Instalação](/pt-br/getting-started/installation/)** — Setup completo com Neo4j, Groq, R2 e configuração de produção
 - **[Referência da API](/api/)** — Todos os endpoints com schemas de request/response
-- **[Tools MCP](/api/mcp-tools/)** — Referência completa das 28 tools MCP
+- **[Tools MCP](/api/mcp-tools/)** — Referência completa das 31 tools MCP
 - **[Arquitetura](/architecture/overview/)** — Como as camadas e data stores se conectam

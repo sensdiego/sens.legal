@@ -1,6 +1,6 @@
 ---
 title: Referencia de MCP Tools
-description: Referencia completa para todas as 28 MCP tools — parametros, tipos de retorno e exemplos de uso para integracao com Claude e ChatGPT.
+description: Referencia completa para todas as 31 MCP tools — parametros, tipos de retorno e exemplos de uso para integracao com Claude e ChatGPT.
 lang: pt-BR
 sidebar:
   order: 7
@@ -9,11 +9,11 @@ sidebar:
 
 # Referencia de MCP Tools
 
-Referencia completa para todas as 28 MCP tools expostas pelo servidor Model Context Protocol do Valter.
+Referencia completa para todas as 31 MCP tools expostas pelo servidor Model Context Protocol do Valter.
 
 ## Visao Geral
 
-O Valter registra 28 tools em seu servidor MCP, disponiveis em dois modos de transporte:
+O Valter registra 31 tools em seu servidor MCP, disponiveis em dois modos de transporte:
 
 | Transporte | Cliente | Protocolo |
 |---|---|---|

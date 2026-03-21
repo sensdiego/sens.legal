@@ -8,13 +8,13 @@ lang: en
 
 # MCP Server
 
-Valter exposes 28 MCP tools via two transport modes -- stdio for Claude Desktop/Code and HTTP/SSE for ChatGPT -- enabling any MCP-compatible LLM to act as a legal research assistant backed by real jurisprudence data.
+Valter exposes 31 MCP tools via two transport modes -- stdio for Claude Desktop/Code and HTTP/SSE for ChatGPT -- enabling any MCP-compatible LLM to act as a legal research assistant backed by real jurisprudence data.
 
 ## What is MCP?
 
 Model Context Protocol (MCP) is an open standard for structured communication between LLMs and external tools. Instead of building custom API integrations for each LLM provider, MCP provides a single interface that any compatible client can consume.
 
-For Valter, this means that Claude Desktop, Claude Code, ChatGPT, and any future MCP client can all use the same 28 tools without separate integration work.
+For Valter, this means that Claude Desktop, Claude Code, ChatGPT, and any future MCP client can all use the same 31 tools without separate integration work.
 
 ## Transport Modes
 

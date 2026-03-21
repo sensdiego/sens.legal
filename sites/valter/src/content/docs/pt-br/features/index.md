@@ -16,7 +16,7 @@ O Valter conta com capacidades implementadas que abrangem retrieval, analise de 
 |----------------|--------|--------------------|------|
 | Busca e Retrieval | Implementado | `POST /v1/retrieve` | [Busca e Retrieval](hybrid-search/) |
 | Graph Analytics (12 endpoints) | Implementado | `POST /v1/graph/*` | [Graph Analytics](graph-analytics/) |
-| MCP Server (28 tools) | Implementado | stdio + HTTP/SSE | [MCP Server](mcp-server/) |
+| MCP Server (31 tools) | Implementado | stdio + HTTP/SSE | [MCP Server](mcp-server/) |
 | Workflow de Ingestao (17 endpoints) | Implementado | `POST /v1/ingest/*` | [Workflow de Ingestao](ingestion-workflow/) |
 | Verificacao e Enriquecimento | Implementado | `POST /v1/verify`, `/v1/enrich` | [Verificacao e Enriquecimento](verification-enrichment/) |
 | Observabilidade | Implementado | `/metrics`, structlog, OTel | [Observabilidade](observability/) |
@@ -53,9 +53,9 @@ Veja [Graph Analytics](graph-analytics/) para a referencia completa de endpoints
 
 ### Integracao com LLMs (MCP)
 
-O Valter expoe todas as suas capacidades como 28 tools do Model Context Protocol, permitindo que qualquer LLM compativel com MCP atue como assistente de pesquisa juridica.
+O Valter expoe todas as suas capacidades como 31 tools do Model Context Protocol, permitindo que qualquer LLM compativel com MCP atue como assistente de pesquisa juridica.
 
-- **28 MCP tools** organizadas em dominios de conhecimento, grafo e workflow
+- **31 MCP tools** organizadas em dominios de conhecimento, grafo e workflow
 - **stdio server** para Claude Desktop e Claude Code (`python -m valter.mcp`)
 - **HTTP/SSE remote server** para ChatGPT e outros clientes remotos (`make mcp-remote`, porta 8001)
 - **Autenticacao por API key + HMAC** para transporte remoto

@@ -55,7 +55,7 @@ Issue, Rule, Application, Conclusion -- um framework padrao de analise juridica.
 ### J
 
 **Jurisprudencia**
-Conjunto de decisoes judiciais sobre um tema. O dominio principal do Valter e a jurisprudencia do STJ em materias de direito federal.
+Conjunto de decisoes judiciais sobre um tema. O dominio do Valter abrange jurisprudencia multi-tribunal (STJ, TJPR, TJSP, TRF4) com 2,2M decisoes classificadas.
 
 ### M
 

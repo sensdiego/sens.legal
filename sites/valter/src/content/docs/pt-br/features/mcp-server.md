@@ -1,6 +1,6 @@
 ---
 title: MCP Server
-description: 28 tools do Model Context Protocol que permitem ao Claude e ChatGPT consultar conhecimento juridico, analisar casos e compor argumentos.
+description: 31 tools do Model Context Protocol que permitem ao Claude e ChatGPT consultar conhecimento juridico, analisar casos e compor argumentos.
 sidebar:
   order: 4
 lang: pt-BR
@@ -8,13 +8,13 @@ lang: pt-BR
 
 # MCP Server
 
-O Valter expoe 28 MCP tools via dois modos de transporte -- stdio para Claude Desktop/Code e HTTP/SSE para ChatGPT -- permitindo que qualquer LLM compativel com MCP atue como assistente de pesquisa juridica respaldado por dados reais de jurisprudencia.
+O Valter expoe 31 MCP tools via dois modos de transporte -- stdio para Claude Desktop/Code e HTTP/SSE para ChatGPT -- permitindo que qualquer LLM compativel com MCP atue como assistente de pesquisa juridica respaldado por dados reais de jurisprudencia.
 
 ## O Que e MCP?
 
 O Model Context Protocol (MCP) e um padrao aberto para comunicacao estruturada entre LLMs e ferramentas externas. Em vez de construir integracoes de API customizadas para cada provedor de LLM, o MCP fornece uma unica interface que qualquer cliente compativel pode consumir.
 
-Para o Valter, isso significa que Claude Desktop, Claude Code, ChatGPT e qualquer futuro cliente MCP podem usar as mesmas 28 tools sem trabalho de integracao separado.
+Para o Valter, isso significa que Claude Desktop, Claude Code, ChatGPT e qualquer futuro cliente MCP podem usar as mesmas 31 tools sem trabalho de integracao separado.
 
 ## Modos de Transporte
 
