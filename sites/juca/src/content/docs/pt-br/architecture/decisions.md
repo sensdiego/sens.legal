@@ -85,7 +85,7 @@ CREATE TABLE chat_messages (
 | **Data** | 2026-02 |
 | **Issue** | [#253](https://github.com/sensdiego/juca/issues/253) |
 
-**Contexto:** Os dados do grafo de conhecimento precisavam de dois caminhos de acesso: desenvolvimento local (arquivos JSON, ~1M arestas) e produção (Neo4j Aura, 6K+ nós, 104K+ relacionamentos).
+**Contexto:** Os dados do grafo de conhecimento precisavam de dois caminhos de acesso: desenvolvimento local (arquivos JSON, ~1M arestas) e produção (Neo4j Aura). O KG canônico agora vive no Valter com 53.870 nós e 194.496 edges em produção STJ, mais um corpus multi-tribunal de 2,2M decisões classificadas.
 
 **Decisão:** Feature flag `KG_PROVIDER=json|neo4j` com adapter pattern. Mesma interface (`KGAdapter`), backend trocável via variável de ambiente.
 
@@ -146,7 +146,7 @@ CREATE TABLE chat_messages (
 | **Status** | Aceito — v0.3 em andamento |
 | **Data** | 2026-02 |
 
-**Contexto:** O Juca era um monolito fullstack: motor de busca, pipeline de LLM (5 provedores), grafo de conhecimento, validação — tudo embutido na aplicação Next.js. Enquanto isso, o Valter foi construído como um backend especializado para o STJ com as mesmas capacidades, só que melhor: 23,4K decisões (vs 1,5K do Juca), 28 ferramentas MCP, Neo4j Aura + Qdrant + Redis, deployado no Railway. Manter lógica de backend idêntica nos dois projetos era desperdício.
+**Contexto:** O Juca era um monolito fullstack: motor de busca, pipeline de LLM (5 provedores), grafo de conhecimento, validação — tudo embutido na aplicação Next.js. Enquanto isso, o Valter foi construído como um backend especializado para o STJ com as mesmas capacidades, só que melhor: 2,2M decisões multi-tribunal (vs 1,5K do Juca), 31 ferramentas MCP, Neo4j Aura + Qdrant + Redis, deployado no Railway. Manter lógica de backend idêntica nos dois projetos era desperdício.
 
 **Decisão:** Transformar o Juca em um hub frontend leve. Delegar toda a inteligência de backend ao Valter (e futuros agentes como o Leci). O Juca mantém: UI, gerenciamento de sessão, orquestração leve, SSE streaming, autenticação.
 

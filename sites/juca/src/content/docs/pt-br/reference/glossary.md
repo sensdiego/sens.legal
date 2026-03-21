@@ -24,7 +24,7 @@ sidebar:
 | **Parecer** | Opinião jurídica formal — um dos 4 modos de entrega no Briefing Progressivo. |
 | **Precedente** | Uma decisão judicial anterior usada como autoridade para sustentar um argumento jurídico. |
 | **Ratio Decidendi** | O raciocínio ou princípio jurídico central de uma decisão — o que a torna um precedente. |
-| **STJ** | Superior Tribunal de Justiça — o mais alto tribunal do Brasil para matérias federais não constitucionais. O corpus do Juca contém 23.400+ decisões do STJ. |
+| **STJ** | Superior Tribunal de Justiça — o mais alto tribunal do Brasil para matérias federais não constitucionais. O corpus do Juca contém 2,2M+ decisões multi-tribunal. |
 | **Súmula** | Resumo vinculante de jurisprudência consolidada emitido pelo STJ. Validado pelo sistema anti-alucinação do Juca. |
 | **Tese** | Tese jurídica ou argumento extraído de uma decisão. Campo pesquisável no motor de busca do Juca. |
 | **Turma** | Divisão ou câmara do STJ que julgou um caso (ex.: 1ª Turma, 2ª Turma). |
@@ -50,7 +50,7 @@ sidebar:
 | Termo | Definição |
 |-------|----------|
 | **sens.legal** | A plataforma mãe que engloba Juca, Valter e Leci — um ecossistema de análise jurídica com IA. |
-| **Valter** | Agente de backend para jurisprudência do STJ. Serviço Python/FastAPI com 23.400+ decisões, 28 ferramentas MCP, busca BM25 + semântica, grafo de conhecimento Neo4j e pipeline multi-LLM. URL de produção: `https://valter-api-production.up.railway.app`. |
+| **Valter** | Agente de backend para jurisprudência do STJ. Serviço Python/FastAPI com 2,2M+ decisões multi-tribunal, 31 ferramentas MCP, busca BM25 + semântica, grafo de conhecimento Neo4j e pipeline multi-LLM. URL de produção: `https://valter-api-production.up.railway.app`. |
 | **Leci** | Agente de backend para legislação federal. TypeScript/Next.js com Drizzle ORM. Atualmente em desenvolvimento inicial (v0.1-pre) com schema de banco de dados pronto, mas ainda sem API pública. |
-| **MCP** | Model Context Protocol — interface padronizada para interação de ferramentas de IA. O Valter expõe 28 ferramentas MCP para busca, verificação, análise de grafo e ingestão. |
+| **MCP** | Model Context Protocol — interface padronizada para interação de ferramentas de IA. O Valter expõe 31 ferramentas MCP para busca, verificação, análise de grafo e ingestão. |
 | **Camada de Adapter** | Abstração planejada (v0.3) que fornece uma interface unificada para o Juca se comunicar com qualquer agente de backend (Valter, Leci, futuros agentes). |

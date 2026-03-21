@@ -663,7 +663,7 @@ The orchestrator output includes a `transparency` field exposing the detected in
 
 ## Overview
 
-Valter is Juca's primary backend agent — a FastAPI service hosting 23,400+ STJ decisions with search, verification, knowledge graph, and LLM capabilities.
+Valter is Juca's primary backend agent — a FastAPI service hosting 2.2M+ multi-tribunal decisions with search, verification, knowledge graph, and LLM capabilities.
 
 Currently, Juca communicates with Valter indirectly through its own internal API routes that replicate some of Valter's logic locally. The **adapter layer** (planned for v0.3) will provide a unified interface for calling any backend agent (Valter, Leci, future agents) directly from the orchestrator.
 
@@ -832,7 +832,7 @@ CREATE TABLE chat_messages (
 | **Date** | 2026-02 |
 | **Issue** | [#253](https://github.com/sensdiego/juca/issues/253) |
 
-**Context:** Knowledge graph data needed both local dev (JSON files, ~1M edges) and production (Neo4j Aura, 6K+ nodes, 104K+ relationships) access paths.
+**Context:** Knowledge graph data needed both local dev (JSON files, ~1M edges) and production (Neo4j Aura) access paths. The canonical KG now lives in Valter with 53,870 nodes and 194,496 edges in STJ production, plus a 2.2M multi-tribunal classified corpus.
 
 **Decision:** Feature flag `KG_PROVIDER=json|neo4j` with adapter pattern. Same interface (`KGAdapter`), swappable backend via environment variable.
 
@@ -893,7 +893,7 @@ CREATE TABLE chat_messages (
 | **Status** | Accepted — v0.3 in progress |
 | **Date** | 2026-02 |
 
-**Context:** Juca was a fullstack monolith: search engine, LLM pipeline (5 providers), knowledge graph, validation — all embedded in the Next.js app. Meanwhile, Valter was built as a specialized STJ backend with the same capabilities but better: 23.4K decisions (vs Juca's 1.5K), 28 MCP tools, Neo4j Aura + Qdrant + Redis, deployed on Railway. Maintaining identical backend logic in both projects was wasteful.
+**Context:** Juca was a fullstack monolith: search engine, LLM pipeline (5 providers), knowledge graph, validation — all embedded in the Next.js app. Meanwhile, Valter was built as a specialized STJ backend with the same capabilities but better: 2.2M multi-tribunal decisions (vs Juca's 1.5K), 31 MCP tools, Neo4j Aura + Qdrant + Redis, deployed on Railway. Maintaining identical backend logic in both projects was wasteful.
 
 **Decision:** Transform Juca into a lightweight frontend hub. Delegate all backend intelligence to Valter (and future agents like Leci). Juca keeps: UI, session management, lightweight orchestration, SSE streaming, authentication.
 
@@ -953,7 +953,7 @@ graph LR
         Juca["🖥️ Juca<br/>Frontend Hub<br/>Next.js 16 · React 19"]
     end
     subgraph "Backend Agents"
-        Valter["⚖️ Valter<br/>STJ Jurisprudence<br/>FastAPI · 23.4K decisions"]
+        Valter["⚖️ Valter<br/>STJ Jurisprudence<br/>FastAPI · 2.2M multi-tribunal decisions"]
         Leci["📜 Leci<br/>Federal Legislation<br/>Next.js · Drizzle"]
     end
     subgraph "Infrastructure"
@@ -1117,7 +1117,7 @@ graph TB
         Juca["Juca<br/>Frontend Hub<br/>Next.js 16 · React 19<br/>Block System · SSE · Auth"]
     end
     subgraph "Backend Layer"
-        Valter["Valter<br/>STJ Jurisprudence Agent<br/>FastAPI · Python 3.12+<br/>23.4K decisions · 28 MCP tools"]
+        Valter["Valter<br/>STJ Jurisprudence Agent<br/>FastAPI · Python 3.12+<br/>2.2M multi-tribunal decisions · 31 MCP tools"]
         Leci["Leci<br/>Federal Legislation Agent<br/>Next.js · Drizzle ORM<br/>PostgreSQL + pgvector"]
     end
 
@@ -1164,8 +1164,8 @@ graph TB
 | **Repository** | Separate repo (`/Dev/Valter/`) |
 
 **Key capabilities:**
-- **23,400+ STJ decisions** indexed and searchable
-- **28 MCP tools** across 3 categories (7 knowledge, 13 graph, 8 workflow)
+- **2.2M+ multi-tribunal decisions** indexed and searchable
+- **31 MCP tools** across 3 categories (7 knowledge, 13 graph, 8 workflow)
 - **Knowledge Graph:** 28.5K nodes, 207K edges in Neo4j Aura
 - **4 runtimes:** REST API (port 8000), MCP stdio, MCP HTTP/SSE (port 8001), ARQ worker
 - **Full ingest pipeline:** Download → Extract → Transform → Enrich → Index
@@ -1213,7 +1213,7 @@ graph TB
 
 **Authentication:** Valter uses API key authentication via the `X-API-Key` header. Juca stores the key in `VALTER_API_KEY` environment variable. The auth model for multi-user scenarios is a [pending decision](/roadmap/#pending-decisions).
 
-> 🚧 **Planned Feature** — MCP (Model Context Protocol) integration is planned for richer tool interaction between Juca and backend agents. Valter already supports MCP with 28 tools.
+> 🚧 **Planned Feature** — MCP (Model Context Protocol) integration is planned for richer tool interaction between Juca and backend agents. Valter already supports MCP with 31 tools.
 
 ## Shared Conventions
 
@@ -3579,7 +3579,7 @@ graph TB
         Juca["Juca<br/>Next.js 16 · React 19<br/>Block System · SSE<br/>Lightweight Orchestrator"]
     end
     subgraph "Backend Agents"
-        Valter["Valter<br/>FastAPI · Python<br/>23.4K STJ Decisions<br/>KG · Search · LLM Pipeline"]
+        Valter["Valter<br/>FastAPI · Python<br/>2.2M Multi-tribunal Decisions<br/>KG · Search · LLM Pipeline"]
         Leci["Leci<br/>Next.js · Drizzle<br/>Federal Legislation<br/>DB-first · v0.1-pre"]
     end
     Juca -->|"REST API"| Valter
@@ -3716,7 +3716,7 @@ See [Troubleshooting](/reference/troubleshooting) for detailed solutions.
 | **Parecer** | Formal legal opinion — one of the 4 delivery modes in the Briefing Progressivo. |
 | **Precedente** | A previous court decision used as authority to support a legal argument. |
 | **Ratio Decidendi** | The core legal reasoning or principle behind a decision — what makes it a precedent. |
-| **STJ** | Superior Tribunal de Justica — Brazil's highest court for non-constitutional federal matters. Juca's corpus contains 23,400+ STJ decisions. |
+| **STJ** | Superior Tribunal de Justica — Brazil's highest court for non-constitutional federal matters. Juca's corpus contains 2.2M+ multi-tribunal decisions. |
 | **Sumula** | Binding summary of consolidated jurisprudence issued by the STJ. Validated by Juca's anti-hallucination system. |
 | **Tese** | Legal thesis or argument extracted from a decision. Searchable field in Juca's search engine. |
 | **Turma** | Division or panel of the STJ that decided a case (e.g., 1a Turma, 2a Turma). |
@@ -3742,9 +3742,9 @@ See [Troubleshooting](/reference/troubleshooting) for detailed solutions.
 | Term | Definition |
 |------|-----------|
 | **sens.legal** | The parent platform encompassing Juca, Valter, and Leci — an AI-powered legal analysis ecosystem. |
-| **Valter** | Backend agent for STJ jurisprudence. Python/FastAPI service with 23,400+ decisions, 28 MCP tools, BM25 + semantic search, Neo4j knowledge graph, and multi-LLM pipeline. Production URL: `https://valter-api-production.up.railway.app`. |
+| **Valter** | Backend agent for STJ jurisprudence. Python/FastAPI service with 2.2M+ multi-tribunal decisions, 31 MCP tools, BM25 + semantic search, Neo4j knowledge graph, and multi-LLM pipeline. Production URL: `https://valter-api-production.up.railway.app`. |
 | **Leci** | Backend agent for federal legislation. TypeScript/Next.js with Drizzle ORM. Currently in early development (v0.1-pre) with database schema ready but no public API yet. |
-| **MCP** | Model Context Protocol — standardized interface for AI tool interaction. Valter exposes 28 MCP tools for search, verification, graph analysis, and ingestion. |
+| **MCP** | Model Context Protocol — standardized interface for AI tool interaction. Valter exposes 31 MCP tools for search, verification, graph analysis, and ingestion. |
 | **Adapter Layer** | Planned abstraction (v0.3) that provides a unified interface for Juca to communicate with any backend agent (Valter, Leci, future agents). |
 
 ---
@@ -4002,7 +4002,7 @@ This is a **project rule** from `CLAUDE.md`, not a bug. Builds consume >50% CPU 
 
 ## Earlier History
 
-**Project origins:** Juca started as a fullstack Next.js application for STJ jurisprudence analysis. The initial corpus contained 1,556 decisions, later expanded to 23,400+ via Valter.
+**Project origins:** Juca started as a fullstack Next.js application for STJ jurisprudence analysis. The initial corpus contained 1,556 decisions, later expanded to 2.2M+ multi-tribunal decisions via Valter.
 
 **Original architecture:**
 - Embedded hybrid search (BM25 + semantic + KG fusion)

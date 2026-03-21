@@ -12,7 +12,7 @@ sidebar:
 
 ## Overview
 
-Valter is Juca's primary backend agent — a FastAPI service hosting 23,400+ STJ decisions with search, verification, knowledge graph, and LLM capabilities.
+Valter is Juca's primary backend agent — a FastAPI service hosting 2.2M+ multi-tribunal decisions with search, verification, knowledge graph, and LLM capabilities.
 
 Currently, Juca communicates with Valter indirectly through its own internal API routes that replicate some of Valter's logic locally. The **adapter layer** (planned for v0.3) will provide a unified interface for calling any backend agent (Valter, Leci, future agents) directly from the orchestrator.
 

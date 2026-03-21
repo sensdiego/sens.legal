@@ -12,7 +12,7 @@ sidebar:
 
 ## Visão Geral
 
-O Valter é o agente de backend principal do Juca — um serviço FastAPI com 23.400+ decisões do STJ, com busca, verificação, grafo de conhecimento e capacidades de LLM.
+O Valter é o agente de backend principal do Juca — um serviço FastAPI com 2,2M+ decisões multi-tribunal, com busca, verificação, grafo de conhecimento e capacidades de LLM.
 
 Atualmente, o Juca se comunica com o Valter de forma indireta, por meio de suas próprias rotas de API internas que replicam localmente parte da lógica do Valter. A **camada de adapter** (planejada para v0.3) fornecerá uma interface unificada para chamar qualquer agente de backend (Valter, Leci, futuros agentes) diretamente do orquestrador.
 

@@ -33,7 +33,7 @@ graph TB
         Juca["Juca<br/>Next.js 16 · React 19<br/>Block System · SSE<br/>Lightweight Orchestrator"]
     end
     subgraph "Backend Agents"
-        Valter["Valter<br/>FastAPI · Python<br/>23.4K STJ Decisions<br/>KG · Search · LLM Pipeline"]
+        Valter["Valter<br/>FastAPI · Python<br/>2.2M Multi-tribunal Decisions<br/>KG · Search · LLM Pipeline"]
         Leci["Leci<br/>Next.js · Drizzle<br/>Federal Legislation<br/>DB-first · v0.1-pre"]
     end
     Juca -->|"REST API"| Valter

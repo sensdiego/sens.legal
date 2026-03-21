@@ -18,7 +18,7 @@ graph TB
         Juca["Juca<br/>Hub Frontend<br/>Next.js 16 · React 19<br/>Block System · SSE · Auth"]
     end
     subgraph "Camada Backend"
-        Valter["Valter<br/>Agente de Jurisprudência STJ<br/>FastAPI · Python 3.12+<br/>23.4K decisões · 28 ferramentas MCP"]
+        Valter["Valter<br/>Agente de Jurisprudência STJ<br/>FastAPI · Python 3.12+<br/>2,2M decisões multi-tribunal · 31 ferramentas MCP"]
         Leci["Leci<br/>Agente de Legislação Federal<br/>Next.js · Drizzle ORM<br/>PostgreSQL + pgvector"]
     end
 
@@ -65,8 +65,8 @@ graph TB
 | **Repositório** | Repositório separado (`/Dev/Valter/`) |
 
 **Capacidades principais:**
-- **23.400+ decisões do STJ** indexadas e pesquisáveis
-- **28 ferramentas MCP** em 3 categorias (7 knowledge, 13 graph, 8 workflow)
+- **2,2M+ decisões multi-tribunal** indexadas e pesquisáveis
+- **31 ferramentas MCP** em 3 categorias (7 knowledge, 13 graph, 8 workflow)
 - **Grafo de Conhecimento:** 28,5K nós, 207K arestas no Neo4j Aura
 - **4 runtimes:** REST API (porta 8000), MCP stdio, MCP HTTP/SSE (porta 8001), worker ARQ
 - **Pipeline de ingestão completo:** Download → Extração → Transformação → Enriquecimento → Indexação
@@ -114,7 +114,7 @@ graph TB
 
 **Autenticação:** O Valter usa autenticação por chave de API via header `X-API-Key`. O Juca armazena a chave na variável de ambiente `VALTER_API_KEY`. O modelo de autenticação para cenários multi-usuário é uma [decisão pendente](/roadmap/#pending-decisions).
 
-> 🚧 **Funcionalidade Planejada** — A integração com MCP (Model Context Protocol) está planejada para interação mais rica entre o Juca e os agentes backend. O Valter já suporta MCP com 28 ferramentas.
+> 🚧 **Funcionalidade Planejada** — A integração com MCP (Model Context Protocol) está planejada para interação mais rica entre o Juca e os agentes backend. O Valter já suporta MCP com 31 ferramentas.
 
 ## Convenções Compartilhadas
 

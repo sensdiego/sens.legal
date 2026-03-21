@@ -20,7 +20,7 @@ graph LR
         Juca["🖥️ Juca<br/>Hub Frontend<br/>Next.js 16 · React 19"]
     end
     subgraph "Agentes Backend"
-        Valter["⚖️ Valter<br/>Jurisprudência STJ<br/>FastAPI · 23.4K decisões"]
+        Valter["⚖️ Valter<br/>Jurisprudência STJ<br/>FastAPI · 2,2M decisões multi-tribunal"]
         Leci["📜 Leci<br/>Legislação Federal<br/>Next.js · Drizzle"]
     end
     subgraph "Infraestrutura"

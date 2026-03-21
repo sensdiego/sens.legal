@@ -24,7 +24,7 @@ sidebar:
 | **Parecer** | Formal legal opinion — one of the 4 delivery modes in the Briefing Progressivo. |
 | **Precedente** | A previous court decision used as authority to support a legal argument. |
 | **Ratio Decidendi** | The core legal reasoning or principle behind a decision — what makes it a precedent. |
-| **STJ** | Superior Tribunal de Justica — Brazil's highest court for non-constitutional federal matters. Juca's corpus contains 23,400+ STJ decisions. |
+| **STJ** | Superior Tribunal de Justica — Brazil's highest court for non-constitutional federal matters. Juca's corpus contains 2.2M+ multi-tribunal decisions. |
 | **Sumula** | Binding summary of consolidated jurisprudence issued by the STJ. Validated by Juca's anti-hallucination system. |
 | **Tese** | Legal thesis or argument extracted from a decision. Searchable field in Juca's search engine. |
 | **Turma** | Division or panel of the STJ that decided a case (e.g., 1a Turma, 2a Turma). |
@@ -50,7 +50,7 @@ sidebar:
 | Term | Definition |
 |------|-----------|
 | **sens.legal** | The parent platform encompassing Juca, Valter, and Leci — an AI-powered legal analysis ecosystem. |
-| **Valter** | Backend agent for STJ jurisprudence. Python/FastAPI service with 23,400+ decisions, 28 MCP tools, BM25 + semantic search, Neo4j knowledge graph, and multi-LLM pipeline. Production URL: `https://valter-api-production.up.railway.app`. |
+| **Valter** | Backend agent for STJ jurisprudence. Python/FastAPI service with 2.2M+ multi-tribunal decisions, 31 MCP tools, BM25 + semantic search, Neo4j knowledge graph, and multi-LLM pipeline. Production URL: `https://valter-api-production.up.railway.app`. |
 | **Leci** | Backend agent for federal legislation. TypeScript/Next.js with Drizzle ORM. Currently in early development (v0.1-pre) with database schema ready but no public API yet. |
-| **MCP** | Model Context Protocol — standardized interface for AI tool interaction. Valter exposes 28 MCP tools for search, verification, graph analysis, and ingestion. |
+| **MCP** | Model Context Protocol — standardized interface for AI tool interaction. Valter exposes 31 MCP tools for search, verification, graph analysis, and ingestion. |
 | **Adapter Layer** | Planned abstraction (v0.3) that provides a unified interface for Juca to communicate with any backend agent (Valter, Leci, future agents). |

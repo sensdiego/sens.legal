@@ -60,7 +60,7 @@ sidebar:
 
 ## História Anterior
 
-**Origens do projeto:** O Juca começou como uma aplicação fullstack Next.js para análise de jurisprudência do STJ. O corpus inicial continha 1.556 decisões, posteriormente expandido para 23.400+ via Valter.
+**Origens do projeto:** O Juca começou como uma aplicação fullstack Next.js para análise de jurisprudência do STJ. O corpus inicial continha 1.556 decisões, posteriormente expandido para 2,2M+ decisoes multi-tribunal via Valter.
 
 **Arquitetura original:**
 - Busca híbrida embutida (BM25 + semântica + fusão de GC)

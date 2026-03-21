@@ -85,7 +85,7 @@ CREATE TABLE chat_messages (
 | **Date** | 2026-02 |
 | **Issue** | [#253](https://github.com/sensdiego/juca/issues/253) |
 
-**Context:** Knowledge graph data needed both local dev (JSON files, ~1M edges) and production (Neo4j Aura, 6K+ nodes, 104K+ relationships) access paths.
+**Context:** Knowledge graph data needed both local dev (JSON files, ~1M edges) and production (Neo4j Aura) access paths. The canonical KG now lives in Valter with 53,870 nodes and 194,496 edges in STJ production, plus a 2.2M multi-tribunal classified corpus.
 
 **Decision:** Feature flag `KG_PROVIDER=json|neo4j` with adapter pattern. Same interface (`KGAdapter`), swappable backend via environment variable.
 
@@ -146,7 +146,7 @@ CREATE TABLE chat_messages (
 | **Status** | Accepted — v0.3 in progress |
 | **Date** | 2026-02 |
 
-**Context:** Juca was a fullstack monolith: search engine, LLM pipeline (5 providers), knowledge graph, validation — all embedded in the Next.js app. Meanwhile, Valter was built as a specialized STJ backend with the same capabilities but better: 23.4K decisions (vs Juca's 1.5K), 28 MCP tools, Neo4j Aura + Qdrant + Redis, deployed on Railway. Maintaining identical backend logic in both projects was wasteful.
+**Context:** Juca was a fullstack monolith: search engine, LLM pipeline (5 providers), knowledge graph, validation — all embedded in the Next.js app. Meanwhile, Valter was built as a specialized STJ backend with the same capabilities but better: 2.2M multi-tribunal decisions (vs Juca's 1.5K), 31 MCP tools, Neo4j Aura + Qdrant + Redis, deployed on Railway. Maintaining identical backend logic in both projects was wasteful.
 
 **Decision:** Transform Juca into a lightweight frontend hub. Delegate all backend intelligence to Valter (and future agents like Leci). Juca keeps: UI, session management, lightweight orchestration, SSE streaming, authentication.
 
