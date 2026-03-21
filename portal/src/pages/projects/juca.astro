@@ -12,57 +12,47 @@ if (!project) {
 
 <DocsLayout title="Juca" description="Frontend hub for lawyers in the sens.legal ecosystem.">
   <h1>Juca</h1>
-  <p class="subtitle">Frontend hub for lawyers</p>
+  <p class="subtitle">{project.description}</p>
 
-  <span class="badge badge-dev">dev</span>
+  <span class="badge badge-dev">{project.status}</span>
 
-  <p>
-    Juca is the interface through which legal professionals interact with the
-    sens.legal ecosystem. It organizes briefing, reading, canvas, and workflow
-    experiences for Brazilian lawyers, acting as the frontend hub of the product.
-  </p>
-
-  <p>
-    The backend cutover is complete: all legal backend logic now lives in Valter,
-    and Juca operates as a shell-first frontend validated in production on Railway.
-    The UI is built on the <strong>Liquid Legal</strong> design system (v0.2),
-    and the codebase has been cleaned up (Zustand fully removed, legacy routes pruned).
-  </p>
-
-  <h2>Responsibilities</h2>
-
-  <ul>
-    <li>Orchestrate briefing and argument-building experiences for end users</li>
-    <li>Consume Valter as the canonical backend for jurisprudence, reasoning, verification, and chat</li>
-    <li>Consume Leci for legislative grounding as the integration matures</li>
-    <li>Persist sessions and keep the focus on UX, interface state, and user workflows</li>
-  </ul>
-
-  <h2>Stack</h2>
-
-  <ul>
-    <li><strong>Framework:</strong> Next.js</li>
-    <li><strong>Language:</strong> TypeScript</li>
-    <li><strong>UI:</strong> React (Liquid Legal design system)</li>
-    <li><strong>Deploy:</strong> Railway</li>
-  </ul>
-
-  <h2>Roadmap status</h2>
+  <div class="project-stack">
+    {project.stack.map((tech) => (
+      <code>{tech}</code>
+    ))}
+  </div>
 
   <ProjectRoadmapStatus project={project} />
 
-  <h2>Links</h2>
-
-  <ul>
-    <li><a href="https://juca.sens.legal" target="_blank" rel="noopener">Documentation</a></li>
-  </ul>
+  <p class="docs-link">
+    <a href="https://juca.sens.legal" target="_blank" rel="noopener">
+      Full documentation at juca.sens.legal &rarr;
+    </a>
+  </p>
 </DocsLayout>
 
 <style>
   .subtitle {
     color: var(--color-text-muted);
-    font-size: 1.125rem;
+    font-size: 1rem;
     margin-top: -0.5rem;
     margin-bottom: var(--space-md);
+    line-height: 1.5;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-lg);
+  }
+
+  .project-stack code {
+    font-size: 0.75rem;
+  }
+
+  .docs-link {
+    margin-top: var(--space-lg);
+    font-size: 0.95rem;
   }
 </style>

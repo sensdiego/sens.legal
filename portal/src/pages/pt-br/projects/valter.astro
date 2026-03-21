@@ -12,71 +12,47 @@ if (!project) {
 
 <DocsLayout title="Valter" description="Backend central de jurisprudencia e reasoning do ecossistema sens.legal." lang="pt-br">
   <h1>Valter</h1>
-  <p class="subtitle">Backend central de jurisprudencia e reasoning</p>
+  <p class="subtitle">{project.descriptionPtBr}</p>
 
-  <span class="badge badge-dev">dev</span>
+  <span class="badge badge-dev">{project.status}</span>
 
-  <p>
-    Valter e o backend juridico central do ecossistema sens.legal. Ele concentra
-    a busca, a verificacao e o reasoning sobre jurisprudencia multi-tribunal
-    (STJ, TJPR, TJSP, TRF4), expondo essas capacidades por REST API e MCP para
-    o Juca, para outros clientes e para agentes LLM.
-  </p>
-
-  <p>
-    O paradigma atual do projeto e <strong>graph-led retrieval</strong>: o grafo
-    juridico no Neo4j Aura passa a ser o caminho primario de descoberta, enquanto a
-    busca lexical e semantica roda em paralelo como complemento e fallback. O
-    Pipeline v2.1 esta reconstruindo o knowledge graph em escala multi-tribunal,
-    com 2,2M decisoes classificadas e validacao cross-stage operacional em F0-F6.
-  </p>
-
-  <h2>Papel no ecossistema</h2>
-
-  <ul>
-    <li>Backend canonico de jurisprudencia e reasoning para todo o ecossistema</li>
-    <li>Surface principal de integracao por REST API (50+ endpoints) e MCP (31 tools)</li>
-    <li>Retrieval graph-led com busca paralela como complemento e degradacao graciosa</li>
-    <li>Verificacao anti-alucinacao e cadeias de reasoning rastreaveis (11 chain types)</li>
-    <li>Corpus multi-tribunal: 2,2M decisoes classificadas entre STJ, TJPR, TJSP e TRF4, com 4 scrapers ativos</li>
-    <li>Chat pipeline LLM de 3 estagios (draft, criticos, revisao) com streaming SSE em producao</li>
-    <li>OAuth 2.0 Authorization Code Flow com PKCE, acesso em tiers (Free / Pro) e auth pronta para marketplace MCP</li>
-    <li>Validacao cross-stage operacional (check_1 a check_4) e laboratorio de autoresearch para otimizacao de prompts</li>
-    <li>Pipeline de Peticoes inicializado: pipeline de ingestao em 5 tiers mirando 7K PDFs no knowledge graph</li>
-    <li>Parceiro Neo4j for Startups com $16K em creditos AuraDB Pro</li>
-    <li>925+ testes automatizados</li>
-  </ul>
-
-  <h2>Stack</h2>
-
-  <ul>
-    <li><strong>Linguagem:</strong> Python</li>
-    <li><strong>Framework:</strong> FastAPI</li>
-    <li><strong>Bancos de dados:</strong> PostgreSQL 16, Qdrant, Neo4j Aura (Neo4j for Startups), Redis 7</li>
-    <li><strong>Embeddings:</strong> Legal-BERTimbau (768-dim)</li>
-    <li><strong>LLM:</strong> Groq API (classificacao, expansao de queries)</li>
-    <li><strong>Armazenamento:</strong> Cloudflare R2</li>
-    <li><strong>Deploy:</strong> Railway</li>
-  </ul>
-
-  <h2>Status do roadmap</h2>
+  <div class="project-stack">
+    {project.stack.map((tech) => (
+      <code>{tech}</code>
+    ))}
+  </div>
 
   <ProjectRoadmapStatus project={project} lang="pt-br" />
 
-  <h2>Links</h2>
-
-  <ul>
-    <li><a href="https://valter.sens.legal" target="_blank" rel="noopener">Documentacao</a></li>
-    <li><a href="/pt-br/api/rest">Gateway da REST API canonica</a></li>
-    <li><a href="/pt-br/api/mcp">Gateway das tools MCP canonicas</a></li>
-  </ul>
+  <p class="docs-link">
+    <a href="https://valter.sens.legal" target="_blank" rel="noopener">
+      Documentacao completa em valter.sens.legal &rarr;
+    </a>
+  </p>
 </DocsLayout>
 
 <style>
   .subtitle {
     color: var(--color-text-muted);
-    font-size: 1.125rem;
+    font-size: 1rem;
     margin-top: -0.5rem;
     margin-bottom: var(--space-md);
+    line-height: 1.5;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-lg);
+  }
+
+  .project-stack code {
+    font-size: 0.75rem;
+  }
+
+  .docs-link {
+    margin-top: var(--space-lg);
+    font-size: 0.95rem;
   }
 </style>

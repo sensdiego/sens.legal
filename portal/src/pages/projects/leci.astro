@@ -12,59 +12,47 @@ if (!project) {
 
 <DocsLayout title="Leci" description="Document-first legislation engine for reliable grounding in the sens.legal ecosystem.">
   <h1>Leci</h1>
-  <p class="subtitle">Document-first legislation engine</p>
+  <p class="subtitle">{project.description}</p>
 
-  <span class="badge badge-dev">dev</span>
+  <span class="badge badge-dev">{project.status}</span>
 
-  <p>
-    Leci is the legislation engine of the sens.legal ecosystem. Its role is to
-    provide reliable legislative grounding: resolving statutes, provisions, and
-    document context through a <strong>document-first</strong> strategy instead of
-    treating legislation as a vague extension of the jurisprudence backend.
-  </p>
-
-  <p>
-    The project already has a working <code>/api/search</code>, a canonical
-    resolver via <code>/api/resolve</code>, and the bulk normalization endpoint
-    <code>POST /api/resolve-dispositivos</code> for Valter. Leci's main consumers
-    are Valter and Juca, which depend on it for current statutory text,
-    ready-to-cite references, official sources, and structural context.
-  </p>
-
-  <h2>What is already operational</h2>
-
-  <ul>
-    <li><code>/api/search</code>, <code>/api/resolve</code>, and <code>POST /api/resolve-dispositivos</code> running against real data</li>
-    <li>Canonical document and provision resolution with confidence scoring and Valter-oriented batch normalization</li>
-    <li>Search and reading shell in the App Router to validate the document-first flow</li>
-    <li>310 automated tests, plus documented local workflow and Railway validation</li>
-  </ul>
-
-  <h2>Stack</h2>
-
-  <ul>
-    <li><strong>Framework:</strong> Next.js App Router</li>
-    <li><strong>Language:</strong> TypeScript</li>
-    <li><strong>Database:</strong> PostgreSQL + pgvector</li>
-    <li><strong>Infra:</strong> Railway</li>
-  </ul>
-
-  <h2>Roadmap status</h2>
+  <div class="project-stack">
+    {project.stack.map((tech) => (
+      <code>{tech}</code>
+    ))}
+  </div>
 
   <ProjectRoadmapStatus project={project} />
 
-  <h2>Links</h2>
-
-  <ul>
-    <li><a href="https://leci.sens.legal" target="_blank" rel="noopener">Documentation</a></li>
-  </ul>
+  <p class="docs-link">
+    <a href="https://leci.sens.legal" target="_blank" rel="noopener">
+      Full documentation at leci.sens.legal &rarr;
+    </a>
+  </p>
 </DocsLayout>
 
 <style>
   .subtitle {
     color: var(--color-text-muted);
-    font-size: 1.125rem;
+    font-size: 1rem;
     margin-top: -0.5rem;
     margin-bottom: var(--space-md);
+    line-height: 1.5;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-lg);
+  }
+
+  .project-stack code {
+    font-size: 0.75rem;
+  }
+
+  .docs-link {
+    margin-top: var(--space-lg);
+    font-size: 0.95rem;
   }
 </style>

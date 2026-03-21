@@ -12,57 +12,47 @@ if (!project) {
 
 <DocsLayout title="Juca" description="Hub frontend para advogados no ecossistema sens.legal." lang="pt-br">
   <h1>Juca</h1>
-  <p class="subtitle">Hub frontend para advogados</p>
+  <p class="subtitle">{project.descriptionPtBr}</p>
 
-  <span class="badge badge-dev">dev</span>
+  <span class="badge badge-dev">{project.status}</span>
 
-  <p>
-    Juca e a interface pela qual profissionais do direito interagem com o
-    ecossistema sens.legal. Ele organiza briefing, leitura, canvas e fluxos de
-    trabalho para advogados brasileiros, servindo como hub frontend da experiencia.
-  </p>
-
-  <p>
-    O cutover de backend esta concluido: toda a logica de backend juridico agora
-    vive no Valter, e o Juca opera como frontend shell-first validado em producao
-    no Railway. A UI e construida sobre o design system <strong>Liquid Legal</strong>
-    (v0.2), e o codebase foi limpo (Zustand removido, rotas legadas podadas).
-  </p>
-
-  <h2>Responsabilidades</h2>
-
-  <ul>
-    <li>Orquestrar a experiencia de briefing e argumentacao para usuarios finais</li>
-    <li>Consumir Valter como backend canonico de jurisprudencia, reasoning, verificacao e chat</li>
-    <li>Consumir Leci para grounding legislativo conforme a integracao amadurece</li>
-    <li>Persistir sessoes e manter o foco em UX, estado de interface e fluxos de trabalho</li>
-  </ul>
-
-  <h2>Stack</h2>
-
-  <ul>
-    <li><strong>Framework:</strong> Next.js</li>
-    <li><strong>Linguagem:</strong> TypeScript</li>
-    <li><strong>UI:</strong> React (design system Liquid Legal)</li>
-    <li><strong>Deploy:</strong> Railway</li>
-  </ul>
-
-  <h2>Status do roadmap</h2>
+  <div class="project-stack">
+    {project.stack.map((tech) => (
+      <code>{tech}</code>
+    ))}
+  </div>
 
   <ProjectRoadmapStatus project={project} lang="pt-br" />
 
-  <h2>Links</h2>
-
-  <ul>
-    <li><a href="https://juca.sens.legal" target="_blank" rel="noopener">Documentacao</a></li>
-  </ul>
+  <p class="docs-link">
+    <a href="https://juca.sens.legal" target="_blank" rel="noopener">
+      Documentacao completa em juca.sens.legal &rarr;
+    </a>
+  </p>
 </DocsLayout>
 
 <style>
   .subtitle {
     color: var(--color-text-muted);
-    font-size: 1.125rem;
+    font-size: 1rem;
     margin-top: -0.5rem;
     margin-bottom: var(--space-md);
+    line-height: 1.5;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-lg);
+  }
+
+  .project-stack code {
+    font-size: 0.75rem;
+  }
+
+  .docs-link {
+    margin-top: var(--space-lg);
+    font-size: 0.95rem;
   }
 </style>

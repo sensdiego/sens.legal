@@ -12,60 +12,47 @@ if (!project) {
 
 <DocsLayout title="Douto" description="Pipeline local de doutrina e fornecedor interno de artefatos doutrinarios para o Valter." lang="pt-br">
   <h1>Douto</h1>
-  <p class="subtitle">Pipeline local de doutrina</p>
+  <p class="subtitle">{project.descriptionPtBr}</p>
 
-  <span class="badge badge-dev">dev</span>
+  <span class="badge badge-dev">{project.status}</span>
 
-  <p>
-    O Douto nao e apresentado aqui como um produto final para usuario final. Hoje ele e um
-    pipeline local de doutrina, com busca em CLI, corpus curado e camada editorial
-    em markdown, pensado para produzir artefatos reutilizaveis por outros sistemas
-    do ecossistema.
-  </p>
-
-  <p>
-    O consumidor prioritario do Douto e o <strong>Valter</strong>. A prioridade do
-    projeto e montar um pipeline reproduzivel e auditavel para contratos e processo
-    civil, com gates de qualidade e handoff controlado, antes de qualquer narrativa
-    de "assistente de doutrina" para usuario final.
-  </p>
-
-  <h2>Papel no ecossistema</h2>
-
-  <ul>
-    <li>Fornecedor interno de artefatos doutrinarios para o Valter</li>
-    <li>Corpus curado com foco inicial em contratos e processo civil</li>
-    <li>Pipeline local e editorial, nao uma experiencia web de produto final</li>
-    <li>Precisao e reproducibilidade acima de velocidade de entrega</li>
-  </ul>
-
-  <h2>Stack</h2>
-
-  <ul>
-    <li><strong>Linguagem:</strong> Python 3</li>
-    <li><strong>Operacao:</strong> CLI local</li>
-    <li><strong>Extracao de PDF:</strong> LlamaParse</li>
-    <li><strong>Enriquecimento:</strong> MiniMax M2.5</li>
-    <li><strong>Embeddings:</strong> Legal-BERTimbau (768-dim)</li>
-    <li><strong>Base editorial:</strong> Markdown + convencoes Obsidian</li>
-  </ul>
-
-  <h2>Status do roadmap</h2>
+  <div class="project-stack">
+    {project.stack.map((tech) => (
+      <code>{tech}</code>
+    ))}
+  </div>
 
   <ProjectRoadmapStatus project={project} lang="pt-br" />
 
-  <h2>Links</h2>
-
-  <ul>
-    <li><a href="https://douto.sens.legal" target="_blank" rel="noopener">Documentacao</a></li>
-  </ul>
+  <p class="docs-link">
+    <a href="https://douto.sens.legal" target="_blank" rel="noopener">
+      Documentacao completa em douto.sens.legal &rarr;
+    </a>
+  </p>
 </DocsLayout>
 
 <style>
   .subtitle {
     color: var(--color-text-muted);
-    font-size: 1.125rem;
+    font-size: 1rem;
     margin-top: -0.5rem;
     margin-bottom: var(--space-md);
+    line-height: 1.5;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-lg);
+  }
+
+  .project-stack code {
+    font-size: 0.75rem;
+  }
+
+  .docs-link {
+    margin-top: var(--space-lg);
+    font-size: 0.95rem;
   }
 </style>
