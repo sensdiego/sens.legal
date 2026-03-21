@@ -48,9 +48,9 @@ import DocsLayout from '../layouts/DocsLayout.astro';
       has a clear role and integration contract.
     </li>
     <li>
-      <strong>Valter as central backend</strong> — the current direction is to move
-      legal backend logic out of Juca and consolidate retrieval, reasoning,
-      verification, and API/MCP surfaces in Valter.
+      <strong>Valter as central backend</strong> — all legal backend logic has moved
+      from Juca to Valter, which now owns retrieval, reasoning, verification,
+      chat, and all API/MCP surfaces (50+ REST endpoints, 31 MCP tools, 925+ tests).
     </li>
     <li>
       <strong>Grounding by authority source</strong> — Leci is responsible for what
@@ -61,6 +61,17 @@ import DocsLayout from '../layouts/DocsLayout.astro';
       <strong>Canonical integration surfaces</strong> — REST API and MCP live in
       Valter's docs, avoiding stale manual inventories in the portal.
     </li>
+  </ul>
+
+  <h2>Current scale</h2>
+
+  <ul>
+    <li><strong>2.2M</strong> classified court decisions across STJ, TJPR, TJSP, and TRF4</li>
+    <li><strong>53,870</strong> nodes and <strong>194,496</strong> edges in the Neo4j knowledge graph (STJ production)</li>
+    <li><strong>50+</strong> REST endpoints and <strong>31</strong> MCP tools</li>
+    <li><strong>925+</strong> automated tests across the backend</li>
+    <li>OAuth 2.0 with PKCE, 3-stage LLM chat pipeline in production, and ChatGPT App Directory submission</li>
+    <li>Accepted into the <strong>Neo4j for Startups</strong> program ($16K AuraDB Pro credits)</li>
   </ul>
 
   <h2>Contact</h2>

@@ -567,8 +567,10 @@ export const ecosystemContent = {
       "Frontier models reason well but can't generate reliable legal knowledge - they hallucinate citations, miss legal relationships, and offer no audit trail. As AI agents take on legal work, this gap becomes infrastructure-critical.",
     problemPtBr:
       'Modelos de fronteira raciocinam bem, mas nao conseguem gerar conhecimento juridico confiavel - alucinam citacoes, ignoram relacoes juridicas e nao oferecem rastreabilidade. A medida que agentes de IA assumem trabalho juridico, essa lacuna se torna um problema de infraestrutura.',
-    answer: 'sens.legal is that infrastructure.',
-    answerPtBr: 'sens.legal e essa infraestrutura.',
+    answer:
+      'sens.legal is that infrastructure. We index 2.2M court decisions across four Brazilian tribunals, expose 50+ REST endpoints and 31 MCP tools for agents, and verify every claim against a real knowledge graph — so no legal answer ships without evidence.',
+    answerPtBr:
+      'sens.legal e essa infraestrutura. Indexamos 2,2M decisoes de quatro tribunais brasileiros, expomos 50+ endpoints REST e 31 tools MCP para agentes, e verificamos toda alegacao contra um knowledge graph real — nenhuma resposta juridica sai sem evidencia.',
     projectsIntro:
       'Four projects, each handling a different dimension of legal knowledge:',
     projectsIntroPtBr:

@@ -2,15 +2,15 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 ---
 
-<DocsLayout title="Verificar Alegacoes" description="Verificacao anti-alucinacao de alegacoes juridicas contra dados reais do STJ." lang="pt-br">
+<DocsLayout title="Verificar Alegacoes" description="Verificacao anti-alucinacao de alegacoes juridicas contra dados multi-tribunal." lang="pt-br">
   <h1>Verificar Alegacoes</h1>
   <span class="badge badge-dev">em desenvolvimento</span>
 
   <p>
-    Verifique alegacoes juridicas contra dados reais do tribunal. O sistema
+    Verifique alegacoes juridicas contra dados reais de tribunais. O sistema
     checa se uma posicao juridica declarada e suportada por decisoes reais
-    do STJ, traca a cadeia de citacoes no knowledge graph e retorna um score
-    de confianca por alegacao.
+    de STJ, TJPR, TJSP e TRF4, traca a cadeia de citacoes no knowledge graph
+    e retorna um score de confianca por alegacao.
   </p>
 
   <h2>Como funciona</h2>
@@ -19,7 +19,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
     <li>A alegacao e decomposta em componentes verificaveis (posicao juridica, casos citados, criterios)</li>
     <li>Cada componente e buscado no knowledge graph e no armazenamento de documentos</li>
     <li>Cadeias de citacao sao tracadas: a decisao A realmente cita a decisao B?</li>
-    <li>Numeros de processo sao validados contra metadados reais do STJ (810K+ registros)</li>
+    <li>Numeros de processo sao validados contra metadados multi-tribunal (2,2M decisoes classificadas)</li>
     <li>Um score de confianca e computado baseado nas evidencias encontradas</li>
   </ol>
 

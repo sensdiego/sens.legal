@@ -10,7 +10,15 @@ const homeProjects = homeProjectOrder
 
 <DocsLayout title="Home" description="Legal intelligence infrastructure for Brazilian law.">
   <img src="/logo-hero.png" alt="sens.legal" class="hero-logo" />
-  <p class="tagline">Legal intelligence infrastructure</p>
+  <p class="tagline">Legal intelligence infrastructure for AI agents and lawyers</p>
+
+  <div class="proof-points">
+    <span>2.2M decisions</span>
+    <span>4 tribunals</span>
+    <span>31 MCP tools</span>
+    <span>50+ REST endpoints</span>
+    <span>925+ tests</span>
+  </div>
 
   <div class="waitlist-cta">
     <p>Join the waitlist for early access.</p>
@@ -133,7 +141,21 @@ const homeProjects = homeProjectOrder
   .tagline {
     color: var(--color-text-muted);
     font-size: 1.125rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .proof-points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-lg);
     margin-bottom: var(--space-xl);
+  }
+
+  .proof-points span {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.02em;
   }
 
   hr {

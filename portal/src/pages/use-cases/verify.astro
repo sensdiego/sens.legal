@@ -2,15 +2,15 @@
 import DocsLayout from '../../layouts/DocsLayout.astro';
 ---
 
-<DocsLayout title="Verify Claims" description="Anti-hallucination verification of legal claims against real STJ data.">
+<DocsLayout title="Verify Claims" description="Anti-hallucination verification of legal claims against multi-tribunal court data.">
   <h1>Verify Claims</h1>
   <span class="badge badge-dev">in development</span>
 
   <p>
     Verify legal claims against real court data. The system checks whether a
-    stated legal position is supported by actual STJ decisions, traces the
-    citation chain in the knowledge graph, and returns a confidence score
-    per claim.
+    stated legal position is supported by actual decisions across STJ, TJPR,
+    TJSP, and TRF4, traces the citation chain in the knowledge graph, and
+    returns a confidence score per claim.
   </p>
 
   <h2>How it works</h2>
@@ -19,7 +19,7 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
     <li>The claim is parsed into verifiable components (legal position, cited cases, criteria)</li>
     <li>Each component is searched against the knowledge graph and document store</li>
     <li>Citation chains are traced: does decision A actually cite decision B?</li>
-    <li>Case numbers are validated against real STJ metadata (810K+ records)</li>
+    <li>Case numbers are validated against multi-tribunal metadata (2.2M classified decisions)</li>
     <li>A confidence score is computed based on evidence found</li>
   </ol>
 

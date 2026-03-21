@@ -28,18 +28,23 @@ if (!project) {
     the legal graph in Neo4j Aura becomes the primary discovery path, while lexical
     and semantic search run in parallel as complement and fallback. Pipeline v2.1
     is actively reconstructing the knowledge graph at multi-tribunal scale, with
-    2.2M decisions classified and STJ batches fully processed through F0-F6.
+    2.2M decisions classified and cross-stage validation operational across F0-F6.
   </p>
 
   <h2>Role in the ecosystem</h2>
 
   <ul>
     <li>Canonical backend for jurisprudence and reasoning across the ecosystem</li>
-    <li>Main integration surface via REST API (50+ endpoints) and MCP (30 tools)</li>
+    <li>Main integration surface via REST API (50+ endpoints) and MCP (31 tools)</li>
     <li>Graph-led retrieval with parallel search for support and graceful degradation</li>
     <li>Anti-hallucination verification and traceable reasoning chains (11 chain types)</li>
-    <li>Multi-tribunal corpus: 2.2M classified decisions across STJ, TJPR, TJSP, and TRF4</li>
+    <li>Multi-tribunal corpus: 2.2M classified decisions across STJ, TJPR, TJSP, and TRF4, with 4 active scrapers</li>
+    <li>3-stage LLM chat pipeline (draft, critics, revision) with SSE streaming in production</li>
+    <li>OAuth 2.0 Authorization Code Flow with PKCE, tiered access (Free / Pro), and MCP marketplace-ready auth</li>
+    <li>Cross-stage validation operational (check_1 through check_4) and autoresearch lab for prompt optimization</li>
+    <li>Pipeline de Petições bootstrapped: 5-tier ingestion pipeline targeting 7K PDFs into the knowledge graph</li>
     <li>Neo4j for Startups partner with $16K AuraDB Pro credits</li>
+    <li>925+ automated tests</li>
   </ul>
 
   <h2>Stack</h2>

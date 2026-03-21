@@ -10,7 +10,15 @@ const homeProjects = homeProjectOrder
 
 <DocsLayout title="Inicio" description="Infraestrutura de inteligencia juridica para o direito brasileiro." lang="pt-br">
   <img src="/logo-hero.png" alt="sens.legal" class="hero-logo" />
-  <p class="tagline">Infraestrutura de inteligencia juridica</p>
+  <p class="tagline">Infraestrutura de inteligencia juridica para agentes de IA e advogados</p>
+
+  <div class="proof-points">
+    <span>2,2M decisoes</span>
+    <span>4 tribunais</span>
+    <span>31 tools MCP</span>
+    <span>50+ endpoints REST</span>
+    <span>925+ testes</span>
+  </div>
 
   <div class="waitlist-cta">
     <p>Entre na lista de espera para acesso antecipado.</p>
@@ -133,7 +141,21 @@ const homeProjects = homeProjectOrder
   .tagline {
     color: var(--color-text-muted);
     font-size: 1.125rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .proof-points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-lg);
     margin-bottom: var(--space-xl);
+  }
+
+  .proof-points span {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.02em;
   }
 
   hr {

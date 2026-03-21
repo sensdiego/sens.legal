@@ -49,9 +49,9 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
       Cada uma tem papel proprio e contrato de integracao claro.
     </li>
     <li>
-      <strong>Valter como backend central</strong> — a diretriz atual e retirar do
-      Juca a logica de backend juridico e concentrar retrieval, reasoning,
-      verificacao e superfices de API/MCP no Valter.
+      <strong>Valter como backend central</strong> — toda a logica de backend juridico
+      ja foi movida do Juca para o Valter, que agora e dono de retrieval, reasoning,
+      verificacao, chat e todas as superficies de API/MCP (50+ endpoints REST, 31 tools MCP, 925+ testes).
     </li>
     <li>
       <strong>Grounding por fonte de autoridade</strong> — Leci responde pelo que
@@ -62,6 +62,17 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
       <strong>Interfaces canonicas para integracao</strong> — REST API e MCP vivem
       na documentacao do Valter, evitando inventarios manuais desatualizados no portal.
     </li>
+  </ul>
+
+  <h2>Escala atual</h2>
+
+  <ul>
+    <li><strong>2,2M</strong> decisoes classificadas entre STJ, TJPR, TJSP e TRF4</li>
+    <li><strong>53.870</strong> nos e <strong>194.496</strong> edges no knowledge graph Neo4j (producao STJ)</li>
+    <li><strong>50+</strong> endpoints REST e <strong>31</strong> tools MCP</li>
+    <li><strong>925+</strong> testes automatizados no backend</li>
+    <li>OAuth 2.0 com PKCE, chat pipeline LLM de 3 estagios em producao e submissao ao App Directory do ChatGPT</li>
+    <li>Aceitos no programa <strong>Neo4j for Startups</strong> ($16K em creditos AuraDB Pro)</li>
   </ul>
 
   <h2>Contato</h2>
