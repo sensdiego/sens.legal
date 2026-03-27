@@ -3,7 +3,7 @@
 > Legal knowledge backend serving multi-tribunal Brazilian jurisprudence (STJ, TJPR, TJSP, TRF4) via REST API and MCP (Model Context Protocol). Transforms raw court decisions into structured, verified, composable legal reasoning — enabling LLMs and lawyers to query precedents, analyze divergences between ministers, and compose arguments backed by a knowledge graph.
 
 Important notes:
-- Valter serves 2.2M classified decisions across 4 tribunals, 53,870 knowledge graph nodes, 194,496 graph edges, and 31 MCP tools
+- Valter serves 2.2M classified decisions across 4 tribunals, 77,828 knowledge graph nodes, 128,021 graph edges, 5,310 decisions fully processed in graph, and 31 MCP tools
 - All legal references are verified against real tribunal data (anti-hallucination)
 - Two protocols: REST API with 50+ endpoints and OAuth 2.0/PKCE for frontends, MCP (stdio + HTTP/SSE) for LLMs
 - 3-stage LLM chat pipeline (draft, critics, revision) with SSE streaming in production

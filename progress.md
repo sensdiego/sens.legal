@@ -1,5 +1,30 @@
 # sens.legal — Progress
 
+## 2026-03-27
+
+### Retro-driven site update — Valter v0.6.0, Juca stage 3, KG numbers refresh
+
+Atualizacao completa do snapshot editorial a partir de `/retro` (semana 2026-03-20 a 2026-03-27).
+
+**Dados atualizados:**
+
+- **Valter stage:** 8 → 9 (Scale + public presence). Graph reconstruction concluida.
+- **Valter KG:** 53.870/194.496 → **77.828 nodes / 128.021 edges** (multi-tribunal, schema v2.1). 5.310 decisoes totalmente processadas no grafo.
+- **Valter versao:** v0.6.0 (5 bumps nesta semana: v0.2.0→v0.6.0)
+- **Valter testes:** 925+ → **1.900+** (1.917 funcoes de teste)
+- **Valter features:** 37 → **50+** (judge profile catalog, ER provenance, similar cases expansion, TJPR sentencas, STJ importer)
+- **Valter now:** similar cases expansion, ER cross-tribunal, AWS/NuageIT, OAuth App Directory
+- **Scale-up target:** 800K decisoes pelo pipeline; longo prazo 35M
+- **Juca stage:** 2 → 3 (Polish and expand). Briefing progressivo ENTREGUE (4 fases, block system, PDF export). Migracao encerrada. 42 issues legadas canceladas, 2 projetos fechados.
+- **Juca now:** QA Perfil Decisorio end-to-end, auth de producao, expansao de UX catalogo
+- **Leci:** +1 update (design spec acervo legislativo + handoff Valter)
+- **Proof points:** 925+ → 1.900+ testes (home EN/PT-BR, about EN/PT-BR)
+- **KG numbers atualizados em:** about (EN/PT-BR), llms.txt, llms-full.txt (Valter/Juca), architecture diagrams (EN/PT-BR), decisions.md (EN/PT-BR)
+
+**Arquivos alterados:** `projects.ts`, `README.md`, `index.astro` (EN/PT-BR), `about.astro` (EN/PT-BR), `llms.txt`, `llms-full.txt` (Valter/Juca), `diagrams.md` (EN/PT-BR), `decisions.md` (EN/PT-BR), `progress.md`
+
+---
+
 ## 2026-03-19
 
 ### Valter snapshot sync — Autoresearch lab, cross-stage validation, Perfil Decisorio

@@ -59,29 +59,29 @@ export const projects: Project[] = [
     docsUrl: 'https://valter.sens.legal',
     llms_txt_url: 'https://valter.sens.legal/llms.txt',
     roadmap: {
-      currentStage: 8,
+      currentStage: 9,
       totalStages: 10,
-      currentStageLabel: 'Multi-tribunal graph reconstruction',
-      currentStageLabelPtBr: 'Reconstrucao do grafo multi-tribunal',
+      currentStageLabel: 'Scale + public presence',
+      currentStageLabelPtBr: 'Escala + presenca publica',
       summary:
-        'v1.0 backend is live with 50+ REST endpoints, 31 MCP tools, 37 shipped features, and 925+ tests. Pipeline v2.1 with F0-F6 completed and cross-stage validation operational (check_1 through check_4). 2.2M decisions classified across TJPR (748K), TJSP (13.5K), and TRF4 (1.43M), with 4 active scrapers (TJPR, TRF4, TJSP, TJSP-eSAJ). Neo4j knowledge graph in STJ production: 53,870 nodes, 194,496 edges. Autoresearch lab running prompt optimization experiments via Groq API. Accepted into the Neo4j for Startups program ($16K AuraDB Pro credits).',
+        'v0.6.0 backend live with 50+ REST endpoints, 31 MCP tools, 50+ shipped features, and 1,900+ tests. Pipeline v2.1 operational with F0-F6 and cross-stage validation (check_1 through check_4). 2.2M decisions classified across TJPR (748K), TJSP (13.5K), and TRF4 (1.43M), with 5,310 fully processed in the production Neo4j graph (77,828 nodes, 128,021 edges, schema v2.1). Scale-up target: 800K decisions through the pipeline; long-term: 35M (all Brazilian tribunals). Judge profile catalog product launched with 7 endpoints. Entity resolution with legal provenance on SAME_AS edges. Similar cases expansion with free-text queries, graph scoring, and LLM narratives. TJPR 1st instance sentencas scraped and loaded (433 sentencas). AWS infrastructure exploration underway (NuageIT partnership). Accepted into the Neo4j for Startups program ($16K AuraDB Pro credits).',
       summaryPtBr:
-        'O backend v1.0 esta no ar com 50+ endpoints REST, 31 tools MCP, 37 features entregues e 925+ testes. Pipeline v2.1 com F0-F6 concluidos e validacao cross-stage operacional (check_1 a check_4). 2,2M decisoes classificadas entre TJPR (748K), TJSP (13,5K) e TRF4 (1,43M), com 4 scrapers ativos (TJPR, TRF4, TJSP, TJSP-eSAJ). Knowledge graph Neo4j em producao STJ: 53.870 nos, 194.496 edges. Laboratorio de autoresearch rodando experimentos de otimizacao de prompts via Groq API. Aceitos no programa Neo4j for Startups ($16K em creditos AuraDB Pro).',
+        'O backend v0.6.0 esta no ar com 50+ endpoints REST, 31 tools MCP, 50+ features entregues e 1.900+ testes. Pipeline v2.1 operacional com F0-F6 e validacao cross-stage (check_1 a check_4). 2,2M decisoes classificadas entre TJPR (748K), TJSP (13,5K) e TRF4 (1,43M), com 5.310 totalmente processadas no grafo de producao Neo4j (77.828 nos, 128.021 edges, schema v2.1). Meta de scale-up: 800K decisoes pelo pipeline; longo prazo: 35M (todos os tribunais brasileiros). Produto de catalogo de perfil de juiz lancado com 7 endpoints. Entity resolution com proveniencia juridica nos edges SAME_AS. Expansao de casos similares com queries em texto livre, scoring de grafo e narrativas LLM. Sentencas de 1a instancia do TJPR coletadas e carregadas (433 sentencas). Exploracao de infraestrutura AWS em andamento (parceria NuageIT). Aceitos no programa Neo4j for Startups ($16K em creditos AuraDB Pro).',
       now:
-        'Resolve cross-stage validation residuals: check_2 (norm coverage) is the single remaining blocker (21.26% incoherence). Autoresearch lab optimizing Stage B prompts — polarity fix achieved 40%→96.7% accuracy. Validate Perfil Decisorio (judge profiling) with real TJPR data in Neo4j.',
+        'Ship similar cases expansion to production. Scale entity resolution cross-tribunal with legal provenance. Plan AWS infrastructure migration (NuageIT partnership). OAuth 2.0 token flow for ChatGPT App Directory marketplace submission.',
       nowPtBr:
-        'Resolver residuais da validacao cross-stage: check_2 (norm coverage) e o unico bloqueio restante (21,26% incoerencia). Laboratorio de autoresearch otimizando prompts do Stage B — fix de polaridade alcancou 40%→96,7% de acuracia. Validar Perfil Decisorio (perfilamento de juiz) com dados reais do TJPR no Neo4j.',
+        'Entregar expansao de casos similares em producao. Escalar entity resolution cross-tribunal com proveniencia juridica. Planejar migracao de infraestrutura AWS (parceria NuageIT). Fluxo de token OAuth 2.0 para submissao ao marketplace do ChatGPT App Directory.',
       next:
-        'Scale to 1.5M+ decisions in the multi-tribunal Neo4j graph. Ship Perfil Decisorio as first intelligence product (judge profiling per subject matter). Cross-tribunal entity resolution and divergence detection. Multi-tenancy and SLA guarantees for the public API.',
+        'Scale to 1.5M+ decisions in the multi-tribunal Neo4j graph. AWS deployment via NuageIT. Multi-tenancy and SLA guarantees for the public API. Cross-tribunal divergence detection.',
       nextPtBr:
-        'Escalar para 1,5M+ decisoes no grafo multi-tribunal Neo4j. Entregar Perfil Decisorio como primeiro produto de inteligencia (perfilamento de juiz por materia). Entity resolution cross-tribunal e deteccao de divergencias. Multi-tenancy e garantias de SLA para a API publica.',
+        'Escalar para 1,5M+ decisoes no grafo multi-tribunal Neo4j. Deploy AWS via NuageIT. Multi-tenancy e garantias de SLA para a API publica. Deteccao de divergencias cross-tribunal.',
       blockers: [
-        'check_2 (norm coverage) is the single remaining cross-stage validation blocker (21.26% incoherence > 20% threshold). The repair_context mechanism resolves it.',
-        'Perfil Decisorio needs TJPR core1000 loaded into Neo4j (F6) for real-data validation.',
+        'OAuth 2.0 token flow pending completion for ChatGPT App Directory marketplace submission.',
+        'AWS infrastructure migration planning underway — NuageIT partnership to be finalized.',
       ],
       blockersPtBr: [
-        'check_2 (norm coverage) e o unico bloqueio restante da validacao cross-stage (21,26% incoerencia > 20% threshold). O mecanismo de repair_context resolve.',
-        'Perfil Decisorio precisa da TJPR core1000 carregada no Neo4j (F6) para validacao com dados reais.',
+        'Fluxo de token OAuth 2.0 pendente para submissao ao marketplace do ChatGPT App Directory.',
+        'Planejamento de migracao de infraestrutura AWS em andamento — parceria NuageIT a ser finalizada.',
       ],
       stages: [
         {
@@ -141,11 +141,32 @@ export const projects: Project[] = [
         {
           title: 'Scale + public presence (v2.1)',
           titlePtBr: 'Escala + presenca publica (v2.1)',
-          description: 'ChatGPT App Directory submission, MCP remote hardening, multi-tenancy, SLA guarantees, and load testing.',
-          descriptionPtBr: 'Submissao ao App Directory do ChatGPT, hardening MCP remoto, multi-tenancy, garantias de SLA e testes de carga.',
+          description: 'Scale from 5.3K to 800K+ decisions in the pipeline. ChatGPT App Directory submission with OAuth 2.0. AWS infrastructure migration (NuageIT partnership). Judge profile catalog and similar cases as first intelligence products. Multi-tenancy, SLA guarantees, and load testing.',
+          descriptionPtBr: 'Escalar de 5,3K para 800K+ decisoes no pipeline. Submissao ao App Directory do ChatGPT com OAuth 2.0. Migracao de infraestrutura AWS (parceria NuageIT). Catalogo de perfil de juiz e casos similares como primeiros produtos de inteligencia. Multi-tenancy, garantias de SLA e testes de carga.',
         },
       ],
       updates: [
+        {
+          date: '2026-03-25',
+          title: 'Entity resolution provenance and similar cases expansion (v0.5.0-v0.6.0)',
+          titlePtBr: 'Proveniencia de entity resolution e expansao de casos similares (v0.5.0-v0.6.0)',
+          summary: 'Legal provenance propagated to 487 SAME_AS synonym pairs with LLM enrichment. Similar cases expansion: free-text query support, real graph scoring factors in score_breakdown, relator enrichment via batch Cypher, and opt-in LLM narratives with corpus briefing. Schema truth sprint fixing Cypher alignment with Aura v2.1 schema. Synonym dict governance with stateless benchmark escape hatch.',
+          summaryPtBr: 'Proveniencia juridica propagada para 487 pares de sinonimos SAME_AS com enriquecimento LLM. Expansao de casos similares: suporte a query em texto livre, fatores reais de scoring do grafo no score_breakdown, enriquecimento de relator via Cypher batch e narrativas LLM opt-in com briefing de corpus. Sprint de schema truth corrigindo alinhamento Cypher com schema Aura v2.1. Governanca do dicionario de sinonimos com escape hatch stateless para benchmark.',
+        },
+        {
+          date: '2026-03-22',
+          title: 'Judge profile catalog product surfaces shipped (v0.2.0-v0.4.1)',
+          titlePtBr: 'Superficies de produto do catalogo de perfil de juiz entregues (v0.2.0-v0.4.1)',
+          summary: '7 new product endpoints for judge profiling: catalog stats, freshness labels, enriched previews, conversion opportunities, comparison, change feed, and facet preservation. Criterio granularity normalization with 62 approved rules. Entity resolution eval harness and quick wins deployed. 26 PRs merged and 5 version bumps in one week.',
+          summaryPtBr: '7 novos endpoints de produto para perfilamento de juiz: stats do catalogo, labels de freshness, previews enriquecidos, oportunidades de conversao, comparacao, change feed e preservacao de facetas. Normalizacao de granularidade de criterios com 62 regras aprovadas. Harness de avaliacao de entity resolution e quick wins deployados. 26 PRs merged e 5 bumps de versao em uma semana.',
+        },
+        {
+          date: '2026-03-20',
+          title: 'TJPR sentencas scraping and production hardening',
+          titlePtBr: 'Scraping de sentencas TJPR e hardening de producao',
+          summary: 'TJPR 1st instance sentencas scraped via combined DataJud+Qlik mode (50% hit rate on 814 processes), 433 sentencas loaded into Neo4j. DataJud enricher added for vara/sistema resolution across all 3,010 graph processes. Production hardening: startup/deploy path, external contracts, profile flow stabilization, and except-Exception catch-all elimination.',
+          summaryPtBr: 'Sentencas de 1a instancia do TJPR coletadas via modo combinado DataJud+Qlik (50% de taxa de acerto em 814 processos), 433 sentencas carregadas no Neo4j. Enricher DataJud adicionado para resolucao de vara/sistema em todos os 3.010 processos do grafo. Hardening de producao: path de startup/deploy, contratos externos, estabilizacao de fluxo de perfil e eliminacao de catch-all except-Exception.',
+        },
         {
           date: '2026-03-19',
           title: 'Autoresearch lab and cross-stage validation operational',
@@ -259,37 +280,37 @@ export const projects: Project[] = [
     subdomain: 'juca',
     focus: 'interface',
     focusPtBr: 'interface',
-    description: 'Frontend hub for lawyers and AI-assisted workflows, now operating shell-first over Valter as the canonical backend.',
-    descriptionPtBr: 'Hub frontend para advogados e fluxos assistidos por IA, agora operando em modo shell-first sobre o Valter como backend canonico.',
+    description: 'Frontend hub for lawyers and AI-assisted workflows. Shell-first over Valter as canonical backend. Progressive briefing (4-phase workflow) shipped. First intelligence product (judge profiling) live in the frontend.',
+    descriptionPtBr: 'Hub frontend para advogados e fluxos assistidos por IA. Shell-first sobre o Valter como backend canonico. Briefing progressivo (workflow de 4 fases) entregue. Primeiro produto de inteligencia (perfilamento de juiz) no ar no frontend.',
     repo: 'https://github.com/sensdiego/juca',
     status: 'dev',
     stack: ['Next.js', 'React', 'TypeScript'],
     docsUrl: 'https://juca.sens.legal',
     llms_txt_url: 'https://juca.sens.legal/llms.txt',
     roadmap: {
-      currentStage: 2,
+      currentStage: 3,
       totalStages: 5,
-      currentStageLabel: 'Progressive briefing',
-      currentStageLabelPtBr: 'Briefing progressivo',
+      currentStageLabel: 'Polish and expand',
+      currentStageLabelPtBr: 'Polimento e expansao',
       summary:
-        'The shell-first cutover is done: Juca now runs publicly with Valter as the canonical backend, and the duplicated legal backend has been pruned or left read-only. The next product step is building the progressive briefing experience on top of that frontend shell.',
+        'Progressive briefing (4-phase workflow: Diagnosis, Precedents, Risks, Delivery) is shipped with block system, PDF export, and Valter-backed data. Juca-to-Valter migration fully closed (SEN-616, SEN-617). First intelligence product (Perfil Decisorio — judge profiling) integrated with dedicated page and catalog-driven navigation. 42 legacy issues canceled, 2 projects closed. Next: polish hub workflows, production auth, and catalog UX expansion.',
       summaryPtBr:
-        'O cutover shell-first foi concluido: o Juca agora roda publicamente com o Valter como backend canonico, e o backend juridico duplicado foi podado ou deixado em modo leitura. O proximo passo de produto e construir a experiencia de briefing progressivo sobre esse shell frontend.',
+        'O briefing progressivo (workflow de 4 fases: Diagnostico, Precedentes, Riscos, Entrega) foi entregue com sistema de blocos, exportacao PDF e dados do Valter. A migracao Juca→Valter foi totalmente encerrada (SEN-616, SEN-617). Primeiro produto de inteligencia (Perfil Decisorio — perfilamento de juiz) integrado com pagina dedicada e navegacao por catalogo. 42 issues legadas canceladas, 2 projetos fechados. Proximo: polir fluxos do hub, auth de producao e expansao de UX do catalogo.',
       now:
-        'Build the progressive briefing flow on top of the Valter-backed shell, while replacing the temporary production auth bypass.',
+        'Polish judge profile catalog UX (end-to-end QA with real TJPR data). Replace temporary production auth bypass (ENABLE_DEV_AUTH=true). Expand catalog-driven navigation for intelligence products.',
       nowPtBr:
-        'Construir o fluxo de briefing progressivo sobre o shell ligado ao Valter, ao mesmo tempo em que substitui o bypass temporario de auth em producao.',
+        'Polir UX do catalogo de perfil de juiz (QA end-to-end com dados reais do TJPR). Substituir bypass temporario de auth de producao (ENABLE_DEV_AUTH=true). Expandir navegacao catalog-driven para produtos de inteligencia.',
       next:
-        'Polish and expand hub workflows once the briefing phases are live.',
+        'Multi-agent orchestration (Valter, Leci, future agents). Cost ledger and session security. PWA and expanded corpus coverage.',
       nextPtBr:
-        'Polir e expandir os fluxos do hub depois que as fases do briefing estiverem no ar.',
+        'Orquestracao multiagente (Valter, Leci, futuros agentes). Ledger de custos e seguranca de sessao. PWA e cobertura de corpus expandida.',
       blockers: [
         'Production auth still needs to replace temporary ENABLE_DEV_AUTH=true on juca-home.',
-        'Progressive briefing components still need to be implemented on top of the shell-first runtime.',
+        'Perfil Decisorio end-to-end QA with real TJPR data pending.',
       ],
       blockersPtBr: [
         'A auth de producao ainda precisa substituir o ENABLE_DEV_AUTH=true temporario no juca-home.',
-        'Os componentes do briefing progressivo ainda precisam ser implementados sobre o runtime shell-first.',
+        'QA end-to-end do Perfil Decisorio com dados reais do TJPR pendente.',
       ],
       stages: [
         {
@@ -324,6 +345,13 @@ export const projects: Project[] = [
         },
       ],
       updates: [
+        {
+          date: '2026-03-21',
+          title: 'Perfil Decisorio UI and shell-only cutover finalized',
+          titlePtBr: 'UI de Perfil Decisorio e cutover shell-only finalizado',
+          summary: 'First intelligence product (judge profiling) integrated into Juca frontend with dedicated page and catalog-driven dropdown navigation. Shell-only cutover completed — all backend logic now lives in Valter. Linear cleanup session for project hygiene.',
+          summaryPtBr: 'Primeiro produto de inteligencia (perfilamento de juiz) integrado ao frontend do Juca com pagina dedicada e navegacao por dropdown do catalogo. Cutover shell-only concluido — toda a logica de backend agora reside no Valter. Sessao de cleanup do Linear para higiene do projeto.',
+        },
         {
           date: '2026-03-10',
           title: 'Shell-first cutover validated in production',
@@ -423,6 +451,13 @@ export const projects: Project[] = [
         },
       ],
       updates: [
+        {
+          date: '2026-03-25',
+          title: 'Legislation acervo design spec and Valter handoff',
+          titlePtBr: 'Design spec do acervo legislativo e handoff para Valter',
+          summary: 'Design spec completed for legislation acervo integration with Valter, defining the contract for statute-level grounding. HANDOFF.md added for session continuity across development sessions.',
+          summaryPtBr: 'Design spec concluido para integracao do acervo legislativo com o Valter, definindo o contrato para grounding no nivel de norma. HANDOFF.md adicionado para continuidade de sessao entre sessoes de desenvolvimento.',
+        },
         {
           date: '2026-03-10',
           title: 'Bulk citation resolution API shipped',
