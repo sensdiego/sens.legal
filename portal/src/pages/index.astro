@@ -5,8 +5,16 @@ import { capabilities } from '../data/constants';
 ---
 
 <DocsLayout title="Home" description="Traceable legal intelligence infrastructure for Brazilian law.">
-  <img src="/logo-hero.png" alt="Silo" class="hero-logo" />
+  <img src="/logo-hero.png" alt="sens.legal" class="hero-logo" />
   <p class="tagline">Traceable legal intelligence infrastructure</p>
+
+  <p class="intro">
+    sens.legal builds and documents the infrastructure behind
+    <strong>Silo</strong> — a legal knowledge graph that turns frontier LLMs
+    into traceable, auditable legal consultants.
+  </p>
+
+  <h2>Silo</h2>
 
   <ProofPoints lang="en" />
 
@@ -76,7 +84,13 @@ import { capabilities } from '../data/constants';
   .tagline {
     color: var(--color-text-muted);
     font-size: 1.125rem;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  .intro {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: var(--space-xl);
   }
 
   hr {
