@@ -14,17 +14,17 @@ import { capabilities } from '../data/constants';
     into traceable, auditable legal consultants.
   </p>
 
-  <h2 class="silo-name">Silo</h2>
-
-  <ProofPoints lang="en" />
-
-  <div class="waitlist-cta">
-    <p>Join the waitlist for early access.</p>
-    <form id="waitlist-form" class="waitlist-form">
-      <input type="email" name="email" placeholder="you@example.com" required />
-      <button type="submit">Join waitlist</button>
-    </form>
-    <p id="waitlist-msg" class="waitlist-msg" style="display:none;"></p>
+  <div class="silo-card">
+    <h2 class="silo-name">Silo</h2>
+    <ProofPoints lang="en" />
+    <div class="waitlist-cta">
+      <p>Join the waitlist for early access.</p>
+      <form id="waitlist-form" class="waitlist-form">
+        <input type="email" name="email" placeholder="you@example.com" required />
+        <button type="submit">Join waitlist</button>
+      </form>
+      <p id="waitlist-msg" class="waitlist-msg" style="display:none;"></p>
+    </div>
   </div>
 
   <hr />
@@ -116,8 +116,20 @@ import { capabilities } from '../data/constants';
     color: var(--color-text);
   }
 
+  .silo-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: var(--space-xl) var(--space-xl) var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .silo-card .silo-name {
+    margin-bottom: var(--space-sm);
+  }
+
   .waitlist-cta {
-    margin-bottom: var(--space-lg);
+    margin-bottom: 0;
   }
 
   .waitlist-cta > p {
