@@ -1,40 +1,51 @@
-/* sens.legal Portal — B&W Design System (Base Web inspired) */
+/* sens.legal Portal — Warm editorial design system (DESIGN.md) */
+
+@font-face {
+  font-family: 'Silo';
+  src: url('/fonts/Silo-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   /* Background */
-  --color-bg: #ffffff;
-  --color-bg-secondary: #f6f6f6;
-  --color-bg-code: #f0f0f0;
+  --color-bg: #FAFAF8;
+  --color-bg-secondary: #F2F1EE;
+  --color-bg-code: #F2F1EE;
+  --color-surface: #F2F1EE;
 
   /* Text */
-  --color-text: #000000;
-  --color-text-secondary: #545454;
-  --color-text-muted: #8f8f8f;
+  --color-text: #1A1A18;
+  --color-text-secondary: #5C5C58;
+  --color-text-muted: #9C9C96;
 
   /* Borders */
-  --color-border: #e2e2e2;
-  --color-border-active: #000000;
+  --color-border: #E4E3DF;
+  --color-border-active: #1A1A18;
 
   /* Accent */
-  --color-accent: #000000;
+  --color-accent: #2B579A;
+  --color-accent-hover: #1E3F70;
 
   /* Layout */
   --sidebar-width: 16rem;
   --content-max-width: 42rem;
   --header-height: 3.5rem;
 
-  /* Typography — system font stack (Base Web style) */
-  --font-sans: system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  /* Typography */
+  --font-sans: 'Instrument Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-display: 'Silo', sans-serif;
 
   /* Spacing */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
-  --space-lg: 2rem;
-  --space-xl: 3rem;
-  --space-2xl: 4rem;
-  --space-3xl: 6rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
 }
 
 /* Reset */
@@ -54,11 +65,12 @@ html {
 
 body {
   font-family: var(--font-sans);
+  font-size: 0.9375rem;
   background-color: var(--color-bg);
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  line-height: 1.6;
+  line-height: 1.65;
   overflow-x: hidden;
 }
 
@@ -68,9 +80,9 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
 }
 
-h1 { font-size: 2.5rem; letter-spacing: -0.02em; }
-h2 { font-size: 1.75rem; letter-spacing: -0.01em; }
-h3 { font-size: 1.25rem; }
+h1 { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: 1.75rem; font-weight: 600; }
+h3 { font-size: 1.25rem; font-weight: 600; }
 h4 { font-size: 1rem; }
 
 p {
@@ -130,6 +142,11 @@ pre code {
 .badge-dev {
   border-color: var(--color-text-muted);
   color: var(--color-text-muted);
+}
+
+/* Silo product name — uses custom display font */
+.silo-name {
+  font-family: var(--font-display);
 }
 
 /* Utility */
