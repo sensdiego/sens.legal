@@ -1,5 +1,37 @@
 # sens.legal — Progress
 
+## 2026-03-29
+
+### Silo Unification — site redesign completo
+
+Consolidacao radical do site de 4 projetos separados (Valter, Juca, Leci, Douto) para 1 produto unificado (Silo). Net -1.939 linhas.
+
+**Estrutura:**
+- 32 rotas → 16 rotas (8 EN + 8 PT-BR)
+- Nova pagina /silo (hub do produto com 7 capabilities, mini-nav, numeros honestos)
+- Home reescrita: sens.legal como infra, Silo como produto
+- 20 redirects 301 no vercel.json para URLs antigas
+- Codenames (Valter/Juca/Leci/Douto) substituidos por nomes funcionais em todas as paginas
+
+**Data layer:**
+- `projects.ts` (678 linhas) substituido por `constants.ts` (~80 linhas)
+- Novos componentes: ProofPoints, CapabilityCard, MilestoneStatus
+
+**Design system (DESIGN.md):**
+- Estetica editorial warm: off-white #FAFAF8, neutrals warm
+- Tipografia: Silo font Bold (nome do produto) + Instrument Sans (tudo mais) + JetBrains Mono (code)
+- Accent: Word blue #2B579A
+- Fonte Silo Bold self-hosted em portal/public/fonts/
+
+**Documentacao:**
+- Spec: `docs/superpowers/specs/2026-03-29-silo-unification-redesign.md`
+- Plano: `docs/superpowers/plans/2026-03-29-silo-unification.md`
+- Reviews: CEO + Eng + Codex outside voice (todos passaram)
+
+**PR:** sensdiego/sens.legal#2 (squash merged)
+
+---
+
 ## 2026-03-27
 
 ### Retro-driven site update — Valter v0.6.0, Juca stage 3, KG numbers refresh
