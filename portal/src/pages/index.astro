@@ -5,7 +5,7 @@ import { capabilities } from '../data/constants';
 ---
 
 <DocsLayout title="Home" description="Traceable legal intelligence infrastructure for Brazilian law.">
-  <img src="/logo-hero.png" alt="sens.legal" class="hero-logo" />
+  <p class="hero-brand">sens.legal</p>
   <p class="tagline">Traceable legal intelligence infrastructure</p>
 
   <p class="intro">
@@ -74,11 +74,13 @@ import { capabilities } from '../data/constants';
 </DocsLayout>
 
 <style>
-  .hero-logo {
-    display: block;
-    max-width: 16rem;
-    height: auto;
-    margin-bottom: var(--space-sm);
+  .hero-brand {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--color-text);
+    letter-spacing: 0.01em;
+    margin-bottom: var(--space-xs);
   }
 
   .tagline {
