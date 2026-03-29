@@ -23,9 +23,9 @@ const prefix = lang === 'pt-br' ? '/pt-br' : '';
     </div>
 
     <nav class="header-nav">
+      <a href={`${prefix}/silo`}>Silo</a>
+      <a href={`${prefix}/architecture`}>{lang === 'pt-br' ? 'Arquitetura' : 'Architecture'}</a>
       <a href={`${prefix}/about`}>{lang === 'pt-br' ? 'Sobre' : 'About'}</a>
-      <a href={`${prefix}/projects/valter`}>{lang === 'pt-br' ? 'Projetos' : 'Projects'}</a>
-      <a href={`${prefix}/use-cases/search`}>{lang === 'pt-br' ? 'Casos de Uso' : 'Use Cases'}</a>
     </nav>
 
     <div class="header-right">
