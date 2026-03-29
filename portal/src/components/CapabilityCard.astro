@@ -1,0 +1,75 @@
+---
+import type { CapabilityStatus } from '../data/constants';
+
+interface Props {
+  name: string;
+  status: CapabilityStatus;
+  id: string;
+}
+
+const { name, status, id } = Astro.props;
+
+const statusColors: Record<CapabilityStatus, string> = {
+  operational: 'var(--color-green, #4caf50)',
+  functional: 'var(--color-blue, #2196f3)',
+  building: 'var(--color-orange, #ff9800)',
+};
+
+const statusLabels: Record<CapabilityStatus, string> = {
+  operational: 'Operational',
+  functional: 'Functional',
+  building: 'Building',
+};
+---
+
+<div class="capability-card" id={id}>
+  <div class="capability-header">
+    <h3 class="capability-name">{name}</h3>
+    <span class="capability-badge" style={`background: ${statusColors[status]}20; color: ${statusColors[status]}; border-color: ${statusColors[status]}40;`}>
+      {statusLabels[status]}
+    </span>
+  </div>
+  <div class="capability-body">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .capability-card {
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: var(--space-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .capability-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .capability-name {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .capability-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    border: 1px solid;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .capability-body {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+  }
+
+  .capability-body :global(p) {
+    margin: 0;
+  }
+</style>
