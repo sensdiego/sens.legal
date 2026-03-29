@@ -1,28 +1,24 @@
 ---
 import DocsLayout from '../layouts/DocsLayout.astro';
-import ProjectRoadmapStatus from '../components/ProjectRoadmapStatus.astro';
-import { ecosystemContent, projects } from '../data/projects';
+import MilestoneStatus from '../components/MilestoneStatus.astro';
+import { milestones } from '../data/constants';
 ---
 
-<DocsLayout title="Roadmap" description="Product roadmap for the sens.legal ecosystem.">
+<DocsLayout title="Roadmap" description="Silo development roadmap and milestones.">
   <h1>Roadmap</h1>
 
-  <p>{ecosystemContent.roadmap.intro}</p>
+  <p>
+    Silo is in active development. The roadmap below shows the major milestones
+    from foundation to pitch readiness.
+  </p>
 
-  <p>{ecosystemContent.roadmap.readingRule}</p>
+  <MilestoneStatus milestones={milestones} lang="en" />
 
-  {projects.map((project) => (
-    <>
-      <h2>{project.name}</h2>
-      <ProjectRoadmapStatus project={project} />
-    </>
-  ))}
+  <hr />
 
-  <h2>Ecosystem</h2>
-
-  <ul>
-    {ecosystemContent.roadmap.principles.map((item) => (
-      <li>{item}</li>
-    ))}
-  </ul>
+  <h2>How to read this</h2>
+  <p>
+    This is an editorial snapshot, not a numeric certainty. Milestones reflect
+    current priorities and may shift as we learn from validation.
+  </p>
 </DocsLayout>

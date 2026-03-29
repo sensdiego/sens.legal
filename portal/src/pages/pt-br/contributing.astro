@@ -2,33 +2,33 @@
 import DocsLayout from '../../layouts/DocsLayout.astro';
 ---
 
-<DocsLayout title="Contribuir" description="Como contribuir para o ecossistema sens.legal." lang="pt-br">
+<DocsLayout title="Contribuir" description="Como contribuir para o Silo." lang="pt-br">
   <h1>Contribuir</h1>
 
   <p>
-    sens.legal esta em desenvolvimento e recebemos contribuidores. Seja voce desenvolvedor,
+    O Silo esta em desenvolvimento e recebemos contribuidores. Seja voce desenvolvedor,
     advogado ou pesquisador, ha formas de participar.
   </p>
 
   <h2>Como Comecar</h2>
 
   <ol>
-    <li>Escolha um projeto: <a href="/pt-br/projects/valter">Valter</a>, <a href="/pt-br/projects/juca">Juca</a>, <a href="/pt-br/projects/leci">Leci</a> ou <a href="/pt-br/projects/douto">Douto</a></li>
-    <li>Leia a documentacao do projeto para entender a arquitetura</li>
-    <li>Solicite acesso de contribuidor (os repositorios sao atualmente privados)</li>
+    <li>Leia a <a href="/pt-br/silo">visao geral do Silo</a> para entender a arquitetura de componentes</li>
+    <li>Revise a <a href="/pt-br/architecture">pagina de arquitetura</a> para fluxo de dados e fronteiras do sistema</li>
+    <li>Solicite acesso de contribuidor (o codebase e atualmente privado)</li>
     <li>Faca um fork e crie uma branch de feature</li>
     <li>Envie um pull request com descricao clara</li>
   </ol>
 
-  <h2>Repositorios</h2>
+  <h2>Codebase</h2>
 
-  <p>Todos os repositorios dos projetos sao atualmente privados. Para solicitar acesso de contribuidor, entre em contato pela <a href="/pt-br/contact">pagina de contato</a>.</p>
+  <p>O codebase do Silo e atualmente privado. Para solicitar acesso de contribuidor, entre em contato pela <a href="/pt-br/contact">pagina de contato</a>.</p>
 
   <ul>
-    <li><a href="https://valter.sens.legal" target="_blank" rel="noopener">Valter</a> — Backend central de jurisprudencia e reasoning (Python, FastAPI)</li>
-    <li><a href="https://juca.sens.legal" target="_blank" rel="noopener">Juca</a> — Hub frontend para advogados (Next.js, TypeScript)</li>
-    <li><a href="https://leci.sens.legal" target="_blank" rel="noopener">Leci</a> — Engine legislativa document-first com busca ao vivo (Next.js, PostgreSQL)</li>
-    <li><a href="https://douto.sens.legal" target="_blank" rel="noopener">Douto</a> — Pipeline local de doutrina que abastece o Valter (Python, Legal-BERTimbau, LlamaParse)</li>
+    <li><strong>Motor</strong> — Backend de jurisprudencia e reasoning (Python, FastAPI)</li>
+    <li><strong>Interface</strong> — Hub frontend para advogados (Next.js, TypeScript)</li>
+    <li><strong>Resolucao Legislativa</strong> — Engine legislativa document-first com busca ao vivo (Next.js, PostgreSQL)</li>
+    <li><strong>Pipeline de Doutrina</strong> — Pipeline local de doutrina (Python, Legal-BERTimbau, LlamaParse)</li>
   </ul>
 
   <h2>Areas Onde Precisamos de Ajuda</h2>

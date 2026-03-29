@@ -7,11 +7,11 @@ const ecosystemDiagram = `<pre><code class="language-mermaid">graph TB
         AGENTS[LLMs e agentes]
     end
 
-    subgraph "Juca"
+    subgraph "Interface"
         JUCA[Frontend hub&lt;br/&gt;briefing, canvas, leitura]
     end
 
-    subgraph "Valter"
+    subgraph "Motor"
         API[REST API]
         MCP[MCP]
         AUTH[OAuth 2.0 + PKCE]
@@ -23,11 +23,11 @@ const ecosystemDiagram = `<pre><code class="language-mermaid">graph TB
     end
 
     subgraph "Fornecedores internos"
-        LECI[Leci&lt;br/&gt;legislacao document-first&lt;br/&gt;runtime e storage proprios]
-        DOUTO[Douto&lt;br/&gt;artefatos doutrinarios&lt;br/&gt;pipeline local e corpus proprio]
+        LECI[Resolucao Legislativa&lt;br/&gt;legislacao document-first&lt;br/&gt;runtime e storage proprios]
+        DOUTO[Pipeline de Doutrina&lt;br/&gt;artefatos doutrinarios&lt;br/&gt;pipeline local e corpus proprio]
     end
 
-    subgraph "Stores do Valter"
+    subgraph "Stores do Silo"
         PG[(PostgreSQL)]
         QD[(Qdrant)]
         N4J[(Neo4j)]
@@ -52,12 +52,12 @@ const ecosystemDiagram = `<pre><code class="language-mermaid">graph TB
     REASONING --&gt; PG &amp; N4J</code></pre>`;
 
 const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
-    Q[Pergunta juridica] --&gt; ENTRY[Entrada no Valter]
+    Q[Pergunta juridica] --&gt; ENTRY[Entrada no Motor]
     ENTRY --&gt; GRAPH[Neo4j traversal + graph retrieval&lt;br/&gt;path primario]
     ENTRY --&gt; SEARCH[Busca lexical e semantica paralela&lt;br/&gt;complemento e fallback]
     GRAPH --&gt; FUSE[Fusao e calibracao]
     SEARCH --&gt; FUSE
-    FUSE --&gt; GROUND[Grounding e verificacao&lt;br/&gt;Leci e Douto quando aplicavel]
+    FUSE --&gt; GROUND[Grounding e verificacao&lt;br/&gt;Resolucao Legislativa e Pipeline de Doutrina quando aplicavel]
     GROUND --&gt; EXPLAIN[Reasoning chain rastreavel]
     EXPLAIN --&gt; RESULT[Resposta via REST ou MCP]</code></pre>`;
 ---
@@ -66,31 +66,33 @@ const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
   <h1>Arquitetura</h1>
 
   <p>
-    sens.legal e um ecossistema de <strong>quatro projetos</strong>. Juca e o hub
-    frontend; Valter e o backend central de jurisprudencia e reasoning; Leci
-    cuida do grounding legislativo document-first; e Douto fornece artefatos
-    doutrinarios internos. Os diagramas abaixo resumem essa divisao.
+    O Silo e composto por componentes funcionais com responsabilidades claras. A Interface
+    e o hub frontend; o Motor e o backend central de jurisprudencia e reasoning; a
+    Resolucao Legislativa cuida do grounding legislativo document-first; e o Pipeline
+    de Doutrina fornece artefatos doutrinarios internos. Os diagramas abaixo resumem
+    essa divisao.
   </p>
 
-  <h2>Visao Geral do Ecossistema</h2>
+  <h2>Visao Geral do Silo</h2>
 
   <p>
-    O frontend e os agentes entram por superfices diferentes, mas a camada canonica
-    de backend fica no Valter. Leci e Douto alimentam esse backend com grounding
-    especializado, sem disputar o papel de frontend ou de backend juridico central.
+    O frontend e os agentes entram por superficies diferentes, mas a camada canonica
+    de backend fica no Motor. A Resolucao Legislativa e o Pipeline de Doutrina alimentam
+    esse backend com grounding especializado, sem disputar o papel de frontend ou de
+    backend juridico central.
   </p>
 
   <p>
     O diagrama abaixo e uma <strong>visao de fronteiras e ownership</strong>. Os
-    bancos a direita pertencem ao Valter, enquanto Leci e Douto continuam como
-    fornecedores upstream com runtimes e pipelines de dados proprios. Eles entram
-    por contratos de ingestao e grounding, em vez de acoplarem diretamente a
-    camada interna de storage do Valter.
+    bancos a direita pertencem ao Silo, enquanto a Resolucao Legislativa e o Pipeline
+    de Doutrina continuam como fornecedores upstream com runtimes e pipelines de dados
+    proprios. Eles entram por contratos de ingestao e grounding, em vez de acoplarem
+    diretamente a camada interna de storage.
   </p>
 
   <p>
     REST e MCP sao <strong>superficies paralelas de entrada</strong> para a mesma
-    camada de servico do Valter. O protocolo do cliente muda, mas o ownership do
+    camada de servico do Motor. O protocolo do cliente muda, mas o ownership do
     sistema nao: os dois alcancam a mesma orquestracao, retrieval, verificacao e
     reasoning por baixo.
   </p>
@@ -100,7 +102,7 @@ const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
   <h2>Pipeline de Busca</h2>
 
   <p>
-    A arquitetura atual do Valter e <strong>graph-led</strong>: o grafo juridico
+    A arquitetura atual do Motor e <strong>graph-led</strong>: o grafo juridico
     virou caminho primario de descoberta, enquanto busca lexical e semantica
     rodam em paralelo para complementar resultados e garantir degradacao graciosa.
     A resposta final pode incluir verificacao, grounding adicional e reasoning chain.
@@ -108,21 +110,21 @@ const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
 
   <Fragment set:html={searchDiagram} />
 
-  <h2>Papeis por projeto</h2>
+  <h2>Papeis por componente</h2>
 
   <table>
     <thead>
-      <tr><th>Projeto</th><th>Papel</th><th>Integracao principal</th></tr>
+      <tr><th>Componente</th><th>Papel</th><th>Integracao principal</th></tr>
     </thead>
     <tbody>
-      <tr><td><code>Valter</code></td><td>Busca, verificacao, reasoning, APIs canonicas, knowledge graph multi-tribunal (2,2M decisoes), chat pipeline LLM de 3 estagios e auth OAuth 2.0. Parceiro Neo4j for Startups.</td><td>REST API (50+ endpoints) + MCP (31 tools)</td></tr>
-      <tr><td><code>Juca</code></td><td>Experiencia de usuario, briefing e canvas</td><td>Consumo do Valter e, depois, do Leci</td></tr>
-      <tr><td><code>Leci</code></td><td>Legislacao document-first e grounding confiavel</td><td>Fornece normas e dispositivos aos consumidores</td></tr>
-      <tr><td><code>Douto</code></td><td>Pipeline local de doutrina e artefatos internos</td><td>Handoff controlado para o Valter</td></tr>
+      <tr><td><code>Motor</code></td><td>Busca, verificacao, reasoning, APIs canonicas, knowledge graph multi-tribunal (2,2M decisoes), chat pipeline LLM de 3 estagios e auth OAuth 2.0. Parceiro Neo4j for Startups.</td><td>REST API (50+ endpoints) + MCP (35+ tools)</td></tr>
+      <tr><td><code>Interface</code></td><td>Experiencia de usuario, briefing e canvas</td><td>Consumo do Motor e, depois, da Resolucao Legislativa</td></tr>
+      <tr><td><code>Resolucao Legislativa</code></td><td>Legislacao document-first e grounding confiavel</td><td>Fornece normas e dispositivos aos consumidores</td></tr>
+      <tr><td><code>Pipeline de Doutrina</code></td><td>Pipeline local de doutrina e artefatos internos</td><td>Handoff controlado para o Motor</td></tr>
     </tbody>
   </table>
 
-  <h2>Camada de dados sob ownership do Valter</h2>
+  <h2>Camada de dados do Silo</h2>
 
   <ul>
     <li><strong>PostgreSQL</strong> para documentos, metadados e estado operacional</li>
@@ -133,7 +135,7 @@ const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
 
   <p>
     <a href="https://valter.sens.legal/architecture/diagrams/" target="_blank" rel="noopener">
-      Ver a documentacao canonica de arquitetura nos docs do Valter &rarr;
+      Ver a documentacao canonica de arquitetura &rarr;
     </a>
   </p>
 </DocsLayout>
