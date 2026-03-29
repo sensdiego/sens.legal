@@ -85,7 +85,7 @@ CREATE TABLE chat_messages (
 | **Data** | 2026-02 |
 | **Issue** | [#253](https://github.com/sensdiego/juca/issues/253) |
 
-**Contexto:** Os dados do grafo de conhecimento precisavam de dois caminhos de acesso: desenvolvimento local (arquivos JSON, ~1M arestas) e produção (Neo4j Aura). O KG canônico agora vive no Valter com 53.870 nós e 194.496 edges em produção STJ, mais um corpus multi-tribunal de 2,2M decisões classificadas.
+**Contexto:** Os dados do grafo de conhecimento precisavam de dois caminhos de acesso: desenvolvimento local (arquivos JSON, ~1M arestas) e produção (Neo4j Aura). O KG canonico agora vive no Valter com 77.828 nos e 128.021 edges em producao multi-tribunal (schema v2.1, 5.310 decisoes totalmente processadas), mais um corpus classificado de 2,2M decisoes.
 
 **Decisão:** Feature flag `KG_PROVIDER=json|neo4j` com adapter pattern. Mesma interface (`KGAdapter`), backend trocável via variável de ambiente.
 

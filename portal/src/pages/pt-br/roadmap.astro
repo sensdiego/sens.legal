@@ -1,28 +1,24 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import ProjectRoadmapStatus from '../../components/ProjectRoadmapStatus.astro';
-import { ecosystemContent, projects } from '../../data/projects';
+import MilestoneStatus from '../../components/MilestoneStatus.astro';
+import { milestones } from '../../data/constants';
 ---
 
-<DocsLayout title="Roadmap" description="Roadmap do ecossistema sens.legal." lang="pt-br">
+<DocsLayout title="Roadmap" description="Roadmap de desenvolvimento do Silo e marcos." lang="pt-br">
   <h1>Roadmap</h1>
 
-  <p>{ecosystemContent.roadmap.introPtBr}</p>
+  <p>
+    O Silo esta em desenvolvimento ativo. O roadmap abaixo mostra os marcos
+    principais da fundacao ate a prontidao para pitch.
+  </p>
 
-  <p>{ecosystemContent.roadmap.readingRulePtBr}</p>
+  <MilestoneStatus milestones={milestones} lang="pt-br" />
 
-  {projects.map((project) => (
-    <>
-      <h2>{project.name}</h2>
-      <ProjectRoadmapStatus project={project} lang="pt-br" />
-    </>
-  ))}
+  <hr />
 
-  <h2>Ecossistema</h2>
-
-  <ul>
-    {ecosystemContent.roadmap.principlesPtBr.map((item) => (
-      <li>{item}</li>
-    ))}
-  </ul>
+  <h2>Como ler isso</h2>
+  <p>
+    Este e um snapshot editorial, nao uma certeza numerica. Os marcos refletem
+    prioridades atuais e podem mudar conforme aprendemos com a validacao.
+  </p>
 </DocsLayout>

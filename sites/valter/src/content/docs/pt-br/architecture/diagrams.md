@@ -259,7 +259,7 @@ O knowledge graph Neo4j e estruturado em torno da ontologia FRBR (Functional Req
 
 ### Escala
 
-O grafo atual contem **53.870 nos** e **194.496 arestas** em producao STJ, com o corpus multi-tribunal alcancando 2,2M decisoes classificadas entre STJ, TJPR, TJSP e TRF4. Os 12 endpoints de graph analytics na API expoem diferentes padroes de travessia e agregacao sobre este grafo.
+O grafo atual contem **77.828 nos** e **128.021 arestas** em producao multi-tribunal (schema v2.1), com 5.310 decisoes totalmente processadas e o corpus classificado alcancando 2,2M decisoes entre STJ, TJPR, TJSP e TRF4. Meta de scale-up: 800K decisoes pelo pipeline. Os 12 endpoints de graph analytics na API expoem diferentes padroes de travessia e agregacao sobre este grafo.
 
 ## Arquitetura de Deploy
 

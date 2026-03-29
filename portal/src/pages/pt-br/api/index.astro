@@ -1,0 +1,37 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="API" description="Referencia da API do Silo — endpoints REST e tools MCP." lang="pt-br">
+  <h1>Referencia da API</h1>
+
+  <p>
+    O Silo expoe endpoints REST e tools MCP para agentes de IA, integradores e desenvolvedores.
+  </p>
+
+  <h2>API REST</h2>
+  <p>
+    A API REST fornece endpoints para chat, perfil decisorio, operacoes de grafo, busca,
+    workflow de processos e mais. Autenticacao via API key. Streaming SSE para chat.
+  </p>
+  <p>
+    <a href="https://valter.sens.legal" target="_blank" rel="noopener">Documentacao completa da API REST →</a>
+  </p>
+
+  <h2>Tools MCP</h2>
+  <p>
+    As tools MCP permitem que agentes de IA (Claude, ChatGPT e outros) busquem jurisprudencia,
+    analisem perfis decisorios, naveguem o grafo de conhecimento e verifiquem alegacoes juridicas.
+  </p>
+  <p>
+    <a href="https://valter.sens.legal" target="_blank" rel="noopener">Documentacao completa das tools MCP →</a>
+  </p>
+
+  <h2>Primeiros Passos</h2>
+  <ul>
+    <li><strong>Auth:</strong> API key obrigatoria para todos os endpoints</li>
+    <li><strong>Rate limits:</strong> Aplicados por key, fail-safe quando Redis indisponivel</li>
+    <li><strong>Streaming:</strong> SSE para endpoints de chat</li>
+    <li><strong>MCP remoto:</strong> Disponivel para Claude Desktop e ChatGPT Apps</li>
+  </ul>
+</DocsLayout>

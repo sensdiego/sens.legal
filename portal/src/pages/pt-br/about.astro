@@ -15,11 +15,10 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
   </p>
 
   <p>
-    A plataforma e composta por quatro projetos: <a href="/pt-br/projects/valter">Valter</a>
-    como backend central de jurisprudencia e reasoning, <a href="/pt-br/projects/juca">Juca</a>
-    como hub frontend para advogados, <a href="/pt-br/projects/leci">Leci</a> como
-    engine legislativa document-first e <a href="/pt-br/projects/douto">Douto</a>
-    como pipeline local de doutrina e fornecedor interno de artefatos.
+    A plataforma e construida ao redor do <strong>Silo</strong>, que integra um motor
+    central de jurisprudencia e reasoning, uma interface frontend para advogados,
+    um componente de resolucao legislativa document-first e um pipeline de doutrina
+    para fornecimento interno de artefatos.
   </p>
 
   <h2>Quem</h2>
@@ -44,23 +43,25 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 
   <ul>
     <li>
-      <strong>Ecossistema de quatro projetos</strong> — o portal institucional
-      descreve quatro pecas complementares, nao tres: Valter, Juca, Leci e Douto.
-      Cada uma tem papel proprio e contrato de integracao claro.
+      <strong>Silo com papeis claros por componente</strong> — o portal institucional
+      descreve os componentes do Silo, cada um com papel proprio e contrato de
+      integracao claro: o motor, a interface, a resolucao legislativa e o pipeline
+      de doutrina.
     </li>
     <li>
-      <strong>Valter como backend central</strong> — toda a logica de backend juridico
-      ja foi movida do Juca para o Valter, que agora e dono de retrieval, reasoning,
-      verificacao, chat e todas as superficies de API/MCP (50+ endpoints REST, 31 tools MCP, 925+ testes).
+      <strong>Motor como backend central</strong> — toda a logica de backend juridico
+      vive no motor, que e dono de retrieval, reasoning, verificacao, chat e todas
+      as superficies de API/MCP (50+ endpoints REST, 35+ tools MCP, 1.900+ testes).
     </li>
     <li>
-      <strong>Grounding por fonte de autoridade</strong> — Leci responde pelo que
-      a norma diz, Douto prepara artefatos doutrinarios internos e Valter organiza
-      jurisprudencia e reasoning sobre esses insumos.
+      <strong>Grounding por fonte de autoridade</strong> — a resolucao legislativa
+      responde pelo que a norma diz, o pipeline de doutrina prepara artefatos
+      doutrinarios internos e o motor organiza jurisprudencia e reasoning sobre
+      esses insumos.
     </li>
     <li>
       <strong>Interfaces canonicas para integracao</strong> — REST API e MCP vivem
-      na documentacao do Valter, evitando inventarios manuais desatualizados no portal.
+      na documentacao canonica, evitando inventarios manuais desatualizados no portal.
     </li>
   </ul>
 
@@ -68,9 +69,9 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 
   <ul>
     <li><strong>2,2M</strong> decisoes classificadas entre STJ, TJPR, TJSP e TRF4</li>
-    <li><strong>53.870</strong> nos e <strong>194.496</strong> edges no knowledge graph Neo4j (producao STJ)</li>
-    <li><strong>50+</strong> endpoints REST e <strong>31</strong> tools MCP</li>
-    <li><strong>925+</strong> testes automatizados no backend</li>
+    <li><strong>75K+</strong> nos e <strong>120K+</strong> edges no knowledge graph Neo4j (producao multi-tribunal)</li>
+    <li><strong>50+</strong> endpoints REST e <strong>35+</strong> tools MCP</li>
+    <li><strong>1.900+</strong> testes automatizados no backend</li>
     <li>OAuth 2.0 com PKCE, chat pipeline LLM de 3 estagios em producao e submissao ao App Directory do ChatGPT</li>
     <li>Aceitos no programa <strong>Neo4j for Startups</strong> ($16K em creditos AuraDB Pro)</li>
   </ul>

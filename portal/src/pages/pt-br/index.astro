@@ -1,129 +1,73 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import { ecosystemContent, homeProjectOrder, projects } from '../../data/projects';
-import ProjectRoadmapStatus from '../../components/ProjectRoadmapStatus.astro';
-
-const homeProjects = homeProjectOrder
-  .map((name) => projects.find((project) => project.name === name))
-  .filter((project): project is (typeof projects)[number] => Boolean(project));
+import ProofPoints from '../../components/ProofPoints.astro';
+import { capabilities } from '../../data/constants';
 ---
 
-<DocsLayout title="Inicio" description="Infraestrutura de inteligencia juridica para o direito brasileiro." lang="pt-br">
-  <img src="/logo-hero.png" alt="sens.legal" class="hero-logo" />
-  <p class="tagline">Infraestrutura de inteligencia juridica para agentes de IA e advogados</p>
+<DocsLayout title="Inicio" description="Infraestrutura de inteligencia juridica rastreavel para o direito brasileiro." lang="pt-br">
+  <p class="hero-brand">sens.legal</p>
+  <p class="tagline">Infraestrutura de inteligencia juridica rastreavel</p>
 
-  <div class="proof-points">
-    <span>2,2M decisoes</span>
-    <span>4 tribunais</span>
-    <span>31 tools MCP</span>
-    <span>50+ endpoints REST</span>
-    <span>925+ testes</span>
-  </div>
+  <p class="intro">
+    sens.legal constroi e documenta a infraestrutura por tras do
+    <strong>Silo</strong> — um grafo de conhecimento juridico que transforma
+    LLMs de fronteira em consultores juridicos rastreaveis e auditaveis.
+  </p>
 
-  <div class="waitlist-cta">
-    <p>Entre na lista de espera para acesso antecipado.</p>
-    <form id="waitlist-form" class="waitlist-form">
-      <input type="email" name="email" placeholder="voce@exemplo.com" required />
-      <button type="submit">Entrar na lista</button>
-    </form>
-    <p id="waitlist-msg" class="waitlist-msg" style="display:none;"></p>
+  <div class="silo-card">
+    <h2 class="silo-name">Silo</h2>
+    <ProofPoints lang="pt-br" />
+    <div class="waitlist-cta">
+      <p>Entre na lista de espera para acesso antecipado.</p>
+      <form id="waitlist-form" class="waitlist-form">
+        <input type="email" name="email" placeholder="voce@exemplo.com" required />
+        <button type="submit">Entrar na lista</button>
+      </form>
+      <p id="waitlist-msg" class="waitlist-msg" style="display:none;"></p>
+    </div>
   </div>
 
   <hr />
 
-  <h2>O que estamos construindo</h2>
+  <h2>O que e o Silo</h2>
 
-  <p>{ecosystemContent.home.problemPtBr}</p>
+  <p>
+    Modelos de fronteira alucinam citacoes, perdem relacoes entre decisoes
+    e nao oferecem trilha de auditoria. Advogados nao podem confiar em
+    respostas de IA sem evidencias.
+  </p>
 
-  <p>{ecosystemContent.home.answerPtBr}</p>
+  <p>
+    Silo e um grafo de conhecimento juridico 360 graus que materializa o
+    silogismo juridico em uma estrutura de dados navegavel. Ele equipa LLMs
+    com dados estruturados, relacionais e verificaveis sobre como tribunais
+    brasileiros decidem — para que cada resposta seja rastreavel ate decisoes reais.
+  </p>
 
-  <p>{ecosystemContent.home.projectsIntroPtBr}</p>
-
-  {homeProjects.map((project) => (
-    <p>
-      <strong>{project.name}</strong> - {project.focusPtBr}. {project.descriptionPtBr}
-    </p>
-  ))}
-
-  <p>{ecosystemContent.home.modelAgnosticPtBr}</p>
-
-  <p>{ecosystemContent.home.jurisdictionsPtBr}</p>
+  <p>
+    <a href="/pt-br/silo">Saiba mais sobre o Silo &rarr;</a>
+  </p>
 
   <hr />
 
-  <h2>Projetos</h2>
+  <h2>Capacidades</h2>
 
-  <p>{ecosystemContent.home.roadmapDisclaimerPtBr}</p>
-
-  <div class="project-list">
-    {projects.map((project) => (
-      <div class="project-item">
-        <div class="project-header">
-          <h3><a href={`/pt-br/projects/${project.subdomain}`}>{project.name}</a></h3>
-          <span class="badge badge-dev">{project.status}</span>
-        </div>
-        <p class="project-desc">{project.descriptionPtBr}</p>
-        <ProjectRoadmapStatus project={project} lang="pt-br" compact />
-        <div class="project-stack">
-          {project.stack.map((tech) => (
-            <code>{tech}</code>
-          ))}
-        </div>
-        <div class="project-links">
-          <a href={project.docsUrl}>Docs</a>
-        </div>
-      </div>
+  <ul class="capability-list">
+    {capabilities.map((c) => (
+      <li><a href={`/pt-br/silo#${c.id}`}>{c.namePtBr}</a></li>
     ))}
-  </div>
+  </ul>
 
   <hr />
 
   <h2>Arquitetura</h2>
 
-  <p>{ecosystemContent.home.architectureSummaryPtBr}</p>
-
-  <pre><code class="language-mermaid">graph LR
-    subgraph Interfaces
-        USERS[Advogados]
-        AGENTS[LLMs / agentes]
-    end
-
-    subgraph "Juca"
-        JUCA[Frontend hub]
-    end
-
-    subgraph "Valter"
-        API[REST API]
-        MCP[MCP]
-        ORCH[Camada de servico]
-        INGEST[Adaptadores de grounding]
-        RETRIEVAL[Graph-led retrieval]
-        REASONING[Verificacao + reasoning]
-    end
-
-    subgraph "Grounding"
-        LECI[Leci]
-        DOUTO[Douto]
-    end
-
-    subgraph "Stores do Valter"
-        PG[(PostgreSQL)]
-        QD[(Qdrant)]
-        N4J[(Neo4j)]
-        RD[(Redis)]
-    end
-
-    USERS --> JUCA --> API
-    AGENTS --> MCP --> ORCH
-    API --> ORCH
-    ORCH --> INGEST
-    ORCH --> RETRIEVAL
-    ORCH --> REASONING
-    LECI --> INGEST
-    DOUTO --> INGEST
-    INGEST --> PG & QD & N4J
-    RETRIEVAL --> PG & QD & N4J & RD
-    REASONING --> PG & N4J</code></pre>
+  <p>
+    Silo e construido sobre PostgreSQL, Neo4j, Qdrant e Redis — com uma API REST
+    e servidor MCP que permitem a qualquer LLM ou agente consultar o grafo.
+    O sistema ingere decisoes de tribunais, extrai entidades e relacoes, e as
+    serve por meio de retrieval guiado por grafo.
+  </p>
 
   <p>
     <a href="/pt-br/architecture">Ver diagramas completos de arquitetura &rarr;</a>
@@ -131,31 +75,25 @@ const homeProjects = homeProjectOrder
 </DocsLayout>
 
 <style>
-  .hero-logo {
-    display: block;
-    max-width: 16rem;
-    height: auto;
-    margin-bottom: var(--space-sm);
+  .hero-brand {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--color-text);
+    letter-spacing: 0.01em;
+    margin-bottom: var(--space-xs);
   }
 
   .tagline {
     color: var(--color-text-muted);
     font-size: 1.125rem;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
   }
 
-  .proof-points {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm) var(--space-lg);
-    margin-bottom: var(--space-xl);
-  }
-
-  .proof-points span {
-    font-size: 0.8125rem;
-    font-weight: 600;
+  .intro {
     color: var(--color-text-secondary);
-    letter-spacing: 0.02em;
+    font-size: 0.95rem;
+    margin-bottom: var(--space-xl);
   }
 
   hr {
@@ -164,63 +102,37 @@ const homeProjects = homeProjectOrder
     margin: var(--space-2xl) 0;
   }
 
-  .project-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-  }
-
-  .project-item {
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    padding: var(--space-lg);
-  }
-
-  .project-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-sm);
-  }
-
-  .project-header h3 {
-    font-size: 1.125rem;
-    margin: 0;
-  }
-
-  .project-desc {
-    color: var(--color-text-secondary);
-    font-size: 0.9rem;
-    margin-bottom: var(--space-sm);
-  }
-
-  .project-stack {
+  .capability-list {
+    list-style: none;
+    padding: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-xs);
-    margin-bottom: var(--space-sm);
+    gap: var(--space-sm) var(--space-lg);
   }
 
-  .project-stack code {
-    font-size: 0.75rem;
-  }
-
-  .project-links {
-    display: flex;
-    gap: var(--space-md);
-    font-size: 0.875rem;
-  }
-
-  .project-links a {
+  .capability-list li a {
+    font-size: 0.9rem;
     color: var(--color-text-secondary);
   }
 
-  .project-links a:hover {
+  .capability-list li a:hover {
     color: var(--color-text);
   }
 
+  .silo-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: var(--space-xl) var(--space-xl) var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .silo-card .silo-name {
+    margin-bottom: var(--space-sm);
+  }
+
   .waitlist-cta {
-    margin-bottom: var(--space-lg);
+    margin-bottom: 0;
   }
 
   .waitlist-cta > p {
@@ -264,23 +176,6 @@ const homeProjects = homeProjectOrder
     margin-top: var(--space-xs);
   }
 </style>
-
-<script>
-  // @ts-ignore — CDN module, no type declarations
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-  mermaid.initialize({ startOnLoad: false, theme: 'default' });
-
-  document.querySelectorAll('pre:has(code.language-mermaid)').forEach((pre) => {
-    const code = pre.querySelector('code');
-    if (!code) return;
-    const div = document.createElement('div');
-    div.className = 'mermaid';
-    div.textContent = code.textContent;
-    pre.replaceWith(div);
-  });
-
-  mermaid.run();
-</script>
 
 <script>
   const form = document.getElementById('waitlist-form') as HTMLFormElement | null;

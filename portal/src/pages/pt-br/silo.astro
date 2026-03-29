@@ -1,0 +1,124 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import ProofPoints from '../../components/ProofPoints.astro';
+import CapabilityCard from '../../components/CapabilityCard.astro';
+import { capabilities } from '../../data/constants';
+---
+
+<DocsLayout title="Silo" description="Infraestrutura de inteligencia juridica rastreavel — hub do produto." lang="pt-br">
+  <h1 class="silo-name">Silo</h1>
+
+  <nav class="mini-nav">
+    {capabilities.map((c) => (
+      <a href={`#${c.id}`}>{c.namePtBr}</a>
+    ))}
+  </nav>
+
+  <hr />
+
+  <h2>O problema</h2>
+  <p>
+    Modelos de fronteira alucinam citacoes, perdem relacoes entre decisoes,
+    e nao oferecem trilha de auditoria. Advogados nao podem confiar em
+    respostas sem evidencia.
+  </p>
+
+  <h2>O que e o Silo</h2>
+  <p>
+    Grafo de conhecimento juridico 360 graus que materializa o silogismo
+    juridico (premissa maior + menor = conclusao) em estrutura de dados
+    navegavel. Potencializa LLMs com dados estruturados, relacionais e
+    verificaveis sobre como tribunais decidem.
+  </p>
+
+  <h2>Numeros</h2>
+  <ProofPoints lang="pt-br" />
+  <p class="detail-numbers">
+    Neo4j Aura, schema v2.1, 9 labels, 15 tipos de relacao.
+    6K+ SAME_AS edges (entity resolution cross-tribunal).
+    Corpus: STJ, TJPR, TJSP, TRF4.
+  </p>
+
+  <hr />
+
+  <h2>Capacidades</h2>
+
+  <CapabilityCard name="Grafo de Conhecimento" status="operational" id="graph">
+    <p>
+      Neo4j Aura. 9 labels, 15 tipos de relacao. O no de Subsuncao materializa
+      o silogismo juridico. Entity resolution cross-tribunal (SAME_AS). Schema v2.1.
+    </p>
+  </CapabilityCard>
+
+  <CapabilityCard name="Inteligencia Decisoria" status="operational" id="judge-intelligence">
+    <p>
+      Como cada ministro decide por tema. Catalogo de recortes, comparacao entre
+      julgadores, conversao de perfil em argumentacao. Primeiro produto com uso real.
+    </p>
+  </CapabilityCard>
+
+  <CapabilityCard name="Busca Graph-Led" status="functional" id="search">
+    <p>
+      Neo4j como fonte primaria, busca semantica como fallback.
+      Cross-encoder reranking. Filtros por ministro, tribunal, data, resultado.
+    </p>
+  </CapabilityCard>
+
+  <CapabilityCard name="Pipeline de Ingestao" status="functional" id="pipeline">
+    <p>
+      v2.2, 12 estagios: ingestao, segmentacao, metadados (LLM), analise
+      normativa, analise fatica, canonicalizacao (regex + embedding +
+      cross-tribunal), carga Neo4j. Coerencia cross-stage com 4 checks.
+    </p>
+  </CapabilityCard>
+
+  <CapabilityCard name="Acervo Estruturado" status="building" id="archive">
+    <p>
+      Camada agent-friendly sobre peticoes. Extracao de citacoes, priorizacao
+      de pipeline por demanda real de advogados. Normalizacao CNJ operacional.
+      Camada LLM pendente de validacao (GATE).
+    </p>
+  </CapabilityCard>
+
+  <CapabilityCard name="Resolucao Legislativa" status="building" id="legislation">
+    <p>
+      Referencia legal para ID canonico. Parser de citacoes, alias registry
+      (19 leis), bulk resolution com temporal override. 322 testes, 0 falhas.
+      3 leis no banco (CF, CC, CPC). Roda local apenas.
+    </p>
+  </CapabilityCard>
+
+  <CapabilityCard name="Doutrina" status="building" id="doctrine">
+    <p>
+      Pipeline local: livros juridicos para chunks para embeddings para busca CLI.
+      Foco em contratos e processo civil. Fornecedor interno do motor. Pre-release.
+    </p>
+  </CapabilityCard>
+</DocsLayout>
+
+<style>
+  .mini-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .mini-nav a {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+  }
+
+  .mini-nav a:hover {
+    color: var(--color-text);
+    border-color: var(--color-border-active);
+  }
+
+  .detail-numbers {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+</style>

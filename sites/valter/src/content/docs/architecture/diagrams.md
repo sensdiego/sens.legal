@@ -259,7 +259,7 @@ The Neo4j knowledge graph is structured around the FRBR (Functional Requirements
 
 ### Scale
 
-The current graph contains **53,870 nodes** and **194,496 edges** in STJ production, with the multi-tribunal corpus reaching 2.2M classified decisions across STJ, TJPR, TJSP, and TRF4. The 12 graph analytics endpoints in the API expose different traversal and aggregation patterns over this graph.
+The current graph contains **77,828 nodes** and **128,021 edges** in multi-tribunal production (schema v2.1), with 5,310 decisions fully processed and the classified corpus reaching 2.2M decisions across STJ, TJPR, TJSP, and TRF4. Scale-up target: 800K decisions through the pipeline. The 12 graph analytics endpoints in the API expose different traversal and aggregation patterns over this graph.
 
 ## Deployment Architecture
 

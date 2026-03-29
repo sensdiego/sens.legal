@@ -1,0 +1,31 @@
+---
+import { proofPoints } from '../data/constants';
+
+interface Props {
+  lang?: 'en' | 'pt-br';
+}
+
+const { lang = 'en' } = Astro.props;
+---
+
+<div class="proof-points">
+  {proofPoints.map((p) => (
+    <span>{p.value} {lang === 'pt-br' ? p.labelPtBr : p.label}</span>
+  ))}
+</div>
+
+<style>
+  .proof-points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .proof-points span {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.02em;
+  }
+</style>

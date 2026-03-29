@@ -9,7 +9,7 @@
 
 ## What is Valter?
 
-Valter is a specialized backend that transforms raw legal data from Brazilian tribunals (STJ, TJPR, TJSP, TRF4 — 2.2M classified decisions) into structured, verifiable legal knowledge. It combines four purpose-built data stores — PostgreSQL for documents and metadata, Qdrant for semantic vector search, Neo4j for a knowledge graph of legal relationships (53,870 nodes, 194,496 edges), and Redis for caching — to deliver graph-led retrieval, anti-hallucination verification, and graph analytics across millions of court decisions.
+Valter is a specialized backend that transforms raw legal data from Brazilian tribunals (STJ, TJPR, TJSP, TRF4 — 2.2M classified decisions) into structured, verifiable legal knowledge. It combines four purpose-built data stores — PostgreSQL for documents and metadata, Qdrant for semantic vector search, Neo4j for a knowledge graph of legal relationships (77,828 nodes, 128,021 edges, schema v2.1), and Redis for caching — to deliver graph-led retrieval, anti-hallucination verification, and graph analytics across millions of court decisions.
 
 Unlike general-purpose legal search engines that treat decisions as isolated text blobs, Valter connects decisions through a knowledge graph based on the FRBR ontology. Criteria, legal devices, precedents, and ministers are linked as first-class graph entities, enabling queries like "which legal arguments have the highest success rate for this minister in this category" or "how has the application of this criterion evolved over the last five years." Every claim returned by the system is traceable to a specific graph node or verified against real tribunal data.
 
@@ -960,7 +960,7 @@ Valter uses four specialized databases, each chosen for a specific workload:
 |-------|---------|------|-------------|----------------|
 | PostgreSQL | 16 (Alpine) | Documents, features, STJ metadata, ingestion jobs, workflow state, session memory, API keys, audit logs | ~23,441 docs, 2,119 features, 810,225 metadata records | Relational integrity for legal documents, JSONB for flexible metadata, mature async support via `asyncpg`, Alembic migrations |
 | Qdrant | latest | Semantic vector search | ~3,673 vectors (768-dim, cosine similarity) | Purpose-built vector database with payload filtering, native cosine similarity, and sub-second query latency for legal embeddings |
-| Neo4j | 5.x / Aura | Knowledge graph (FRBR ontology) | 53,870 nodes, 194,496 edges (STJ production); 2.2M classified decisions multi-tribunal | Native graph traversal for multi-hop queries (citation chains, divergence detection, community discovery), Cypher query language, Neo4j for Startups partner ($16K AuraDB Pro credits) |
+| Neo4j | 5.x / Aura | Knowledge graph (FRBR ontology) | 77,828 nodes, 128,021 edges (multi-tribunal production, schema v2.1); 2.2M classified decisions multi-tribunal | Native graph traversal for multi-hop queries (citation chains, divergence detection, community discovery), Cypher query language, Neo4j for Startups partner ($16K AuraDB Pro credits) |
 | Redis | 7 (Alpine) | Cache, rate limiting, job queue | Ephemeral | Sub-millisecond latency for query cache (180s TTL), native TTL for rate limiting sliding windows, ARQ integration for background job queues |
 
 :::note
@@ -1516,7 +1516,7 @@ The Neo4j knowledge graph is structured around the FRBR (Functional Requirements
 
 ### Scale
 
-The current graph contains **53,870 nodes** and **194,496 edges** in STJ production, with the multi-tribunal corpus reaching 2.2M classified decisions across STJ, TJPR, TJSP, and TRF4. The 12 graph analytics endpoints in the API expose different traversal and aggregation patterns over this graph.
+The current graph contains **77,828 nodes** and **128,021 edges** in multi-tribunal production (schema v2.1, 5,310 decisions fully processed), with the multi-tribunal corpus reaching 2.2M classified decisions across STJ, TJPR, TJSP, and TRF4. The 12 graph analytics endpoints in the API expose different traversal and aggregation patterns over this graph.
 
 ## Deployment Architecture
 

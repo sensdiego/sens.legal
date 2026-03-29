@@ -7,11 +7,11 @@ const ecosystemDiagram = `<pre><code class="language-mermaid">graph TB
         AGENTS[LLMs and agents]
     end
 
-    subgraph "Juca"
+    subgraph "Interface"
         JUCA[Frontend hub&lt;br/&gt;briefing, canvas, reading]
     end
 
-    subgraph "Valter"
+    subgraph "Core Engine"
         API[REST API]
         MCP[MCP]
         AUTH[OAuth 2.0 + PKCE]
@@ -23,11 +23,11 @@ const ecosystemDiagram = `<pre><code class="language-mermaid">graph TB
     end
 
     subgraph "Internal providers"
-        LECI[Leci&lt;br/&gt;document-first legislation&lt;br/&gt;own runtime and storage]
-        DOUTO[Douto&lt;br/&gt;doctrinal artifacts&lt;br/&gt;local pipeline and corpus]
+        LECI[Legislative Resolution&lt;br/&gt;document-first legislation&lt;br/&gt;own runtime and storage]
+        DOUTO[Doctrine Pipeline&lt;br/&gt;doctrinal artifacts&lt;br/&gt;local pipeline and corpus]
     end
 
-    subgraph "Valter-owned stores"
+    subgraph "Silo stores"
         PG[(PostgreSQL)]
         QD[(Qdrant)]
         N4J[(Neo4j)]
@@ -52,12 +52,12 @@ const ecosystemDiagram = `<pre><code class="language-mermaid">graph TB
     REASONING --&gt; PG &amp; N4J</code></pre>`;
 
 const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
-    Q[Legal question] --&gt; ENTRY[Entry into Valter]
+    Q[Legal question] --&gt; ENTRY[Entry into Core Engine]
     ENTRY --&gt; GRAPH[Neo4j traversal + graph retrieval&lt;br/&gt;primary path]
     ENTRY --&gt; SEARCH[Parallel lexical and semantic search&lt;br/&gt;support and fallback]
     GRAPH --&gt; FUSE[Fusion and calibration]
     SEARCH --&gt; FUSE
-    FUSE --&gt; GROUND[Grounding and verification&lt;br/&gt;Leci and Douto when needed]
+    FUSE --&gt; GROUND[Grounding and verification&lt;br/&gt;Legislative Resolution and Doctrine Pipeline when needed]
     GROUND --&gt; EXPLAIN[Traceable reasoning chain]
     EXPLAIN --&gt; RESULT[REST or MCP response]</code></pre>`;
 ---
@@ -66,30 +66,32 @@ const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
   <h1>Architecture</h1>
 
   <p>
-    sens.legal is an ecosystem of <strong>four projects</strong>. Juca is the
-    frontend hub; Valter is the central jurisprudence and reasoning backend; Leci
-    handles document-first legislative grounding; and Douto supplies internal
-    doctrinal artifacts. The diagrams below summarize that split.
+    Silo is composed of functional components with clear responsibilities. The Interface
+    is the frontend hub; the Core Engine is the central jurisprudence and reasoning
+    backend; Legislative Resolution handles document-first legislative grounding; and
+    the Doctrine Pipeline supplies internal doctrinal artifacts. The diagrams below
+    summarize that split.
   </p>
 
-  <h2>Ecosystem Overview</h2>
+  <h2>Silo Overview</h2>
 
   <p>
     The frontend and LLM agents enter through different surfaces, but the canonical
-    backend remains Valter. Leci and Douto feed that backend with specialized
-    grounding rather than competing to be the frontend or the central legal backend.
+    backend remains the Core Engine. Legislative Resolution and the Doctrine Pipeline
+    feed that backend with specialized grounding rather than competing to be the
+    frontend or the central legal backend.
   </p>
 
   <p>
     The diagram below is a <strong>boundary and ownership view</strong>. The data
-    stores on the right belong to Valter, while Leci and Douto remain upstream
-    providers with their own runtimes and data pipelines. They contribute through
-    ingestion and grounding contracts instead of coupling directly to Valter's
-    internal storage layer.
+    stores on the right belong to Silo, while Legislative Resolution and the Doctrine
+    Pipeline remain upstream providers with their own runtimes and data pipelines.
+    They contribute through ingestion and grounding contracts instead of coupling
+    directly to the internal storage layer.
   </p>
 
   <p>
-    REST and MCP are <strong>parallel entry surfaces</strong> into the same Valter
+    REST and MCP are <strong>parallel entry surfaces</strong> into the same Core Engine
     service layer. They differ in client protocol, not in system ownership: both
     can reach the same orchestration, retrieval, verification, and reasoning
     capabilities underneath.
@@ -100,7 +102,7 @@ const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
   <h2>Search Pipeline</h2>
 
   <p>
-    Valter now follows a <strong>graph-led</strong> architecture: the legal graph
+    The Core Engine follows a <strong>graph-led</strong> architecture: the legal graph
     becomes the primary discovery path, while lexical and semantic search run in
     parallel to expand coverage and provide graceful degradation. The final answer
     may include verification, additional grounding, and a reasoning chain.
@@ -108,21 +110,21 @@ const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
 
   <Fragment set:html={searchDiagram} />
 
-  <h2>Project roles</h2>
+  <h2>Component roles</h2>
 
   <table>
     <thead>
-      <tr><th>Project</th><th>Role</th><th>Main integration</th></tr>
+      <tr><th>Component</th><th>Role</th><th>Main integration</th></tr>
     </thead>
     <tbody>
-      <tr><td><code>Valter</code></td><td>Search, verification, reasoning, canonical APIs, multi-tribunal knowledge graph (2.2M decisions), 3-stage LLM chat pipeline, and OAuth 2.0 auth. Neo4j for Startups partner.</td><td>REST API (50+ endpoints) + MCP (31 tools)</td></tr>
-      <tr><td><code>Juca</code></td><td>User experience, briefing, and canvas</td><td>Consumes Valter and, later, Leci</td></tr>
-      <tr><td><code>Leci</code></td><td>Document-first legislation and reliable grounding</td><td>Supplies statutes and provisions to consumers</td></tr>
-      <tr><td><code>Douto</code></td><td>Local doctrine pipeline and internal artifacts</td><td>Controlled handoff into Valter</td></tr>
+      <tr><td><code>Core Engine</code></td><td>Search, verification, reasoning, canonical APIs, multi-tribunal knowledge graph (2.2M decisions), 3-stage LLM chat pipeline, and OAuth 2.0 auth. Neo4j for Startups partner.</td><td>REST API (50+ endpoints) + MCP (35+ tools)</td></tr>
+      <tr><td><code>Interface</code></td><td>User experience, briefing, and canvas</td><td>Consumes the Core Engine and, later, Legislative Resolution</td></tr>
+      <tr><td><code>Legislative Resolution</code></td><td>Document-first legislation and reliable grounding</td><td>Supplies statutes and provisions to consumers</td></tr>
+      <tr><td><code>Doctrine Pipeline</code></td><td>Local doctrine pipeline and internal artifacts</td><td>Controlled handoff into the Core Engine</td></tr>
     </tbody>
   </table>
 
-  <h2>Valter-owned data layer</h2>
+  <h2>Silo data layer</h2>
 
   <ul>
     <li><strong>PostgreSQL</strong> for documents, metadata, and operational state</li>
@@ -133,7 +135,7 @@ const searchDiagram = `<pre><code class="language-mermaid">flowchart LR
 
   <p>
     <a href="https://valter.sens.legal/architecture/diagrams/" target="_blank" rel="noopener">
-      View the canonical architecture docs on Valter &rarr;
+      View the canonical architecture docs &rarr;
     </a>
   </p>
 </DocsLayout>

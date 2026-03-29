@@ -15,11 +15,10 @@ import DocsLayout from '../layouts/DocsLayout.astro';
   </p>
 
   <p>
-    The platform is composed of four projects: <a href="/projects/valter">Valter</a>
-    as the central jurisprudence and reasoning backend, <a href="/projects/juca">Juca</a>
-    as the frontend hub for lawyers, <a href="/projects/leci">Leci</a> as the
-    document-first legislation engine, and <a href="/projects/douto">Douto</a> as
-    a local doctrine pipeline and internal artifact supplier.
+    The platform is built around <strong>Silo</strong>, which integrates a core engine
+    for jurisprudence and reasoning, a frontend interface for lawyers, a legislative
+    resolution component for document-first legislation, and a doctrine pipeline for
+    internal artifact supply.
   </p>
 
   <h2>Who</h2>
@@ -43,23 +42,23 @@ import DocsLayout from '../layouts/DocsLayout.astro';
 
   <ul>
     <li>
-      <strong>Four-project ecosystem</strong> — the institutional portal describes
-      four complementary pieces, not three: Valter, Juca, Leci, and Douto. Each
-      has a clear role and integration contract.
+      <strong>Silo with clear component roles</strong> — the institutional portal describes
+      Silo's components, each with a clear role and integration contract: the core engine,
+      the interface, legislative resolution, and the doctrine pipeline.
     </li>
     <li>
-      <strong>Valter as central backend</strong> — all legal backend logic has moved
-      from Juca to Valter, which now owns retrieval, reasoning, verification,
-      chat, and all API/MCP surfaces (50+ REST endpoints, 31 MCP tools, 925+ tests).
+      <strong>Core engine as central backend</strong> — all legal backend logic lives in
+      the core engine, which owns retrieval, reasoning, verification,
+      chat, and all API/MCP surfaces (50+ REST endpoints, 35+ MCP tools, 1,900+ tests).
     </li>
     <li>
-      <strong>Grounding by authority source</strong> — Leci is responsible for what
-      statutes say, Douto prepares internal doctrinal artifacts, and Valter organizes
-      jurisprudence and reasoning over those inputs.
+      <strong>Grounding by authority source</strong> — legislative resolution is responsible
+      for what statutes say, the doctrine pipeline prepares internal doctrinal artifacts,
+      and the core engine organizes jurisprudence and reasoning over those inputs.
     </li>
     <li>
       <strong>Canonical integration surfaces</strong> — REST API and MCP live in
-      Valter's docs, avoiding stale manual inventories in the portal.
+      the canonical docs, avoiding stale manual inventories in the portal.
     </li>
   </ul>
 
@@ -67,9 +66,9 @@ import DocsLayout from '../layouts/DocsLayout.astro';
 
   <ul>
     <li><strong>2.2M</strong> classified court decisions across STJ, TJPR, TJSP, and TRF4</li>
-    <li><strong>53,870</strong> nodes and <strong>194,496</strong> edges in the Neo4j knowledge graph (STJ production)</li>
-    <li><strong>50+</strong> REST endpoints and <strong>31</strong> MCP tools</li>
-    <li><strong>925+</strong> automated tests across the backend</li>
+    <li><strong>75K+</strong> nodes and <strong>120K+</strong> edges in the Neo4j knowledge graph (multi-tribunal production)</li>
+    <li><strong>50+</strong> REST endpoints and <strong>35+</strong> MCP tools</li>
+    <li><strong>1,900+</strong> automated tests across the backend</li>
     <li>OAuth 2.0 with PKCE, 3-stage LLM chat pipeline in production, and ChatGPT App Directory submission</li>
     <li>Accepted into the <strong>Neo4j for Startups</strong> program ($16K AuraDB Pro credits)</li>
   </ul>
