@@ -1,0 +1,83 @@
+---
+import DocsLayout from '../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Data Retention Policy" description="Operational retention guidance for logs, memories, conversations, workflow artifacts, and support records.">
+  <h1>Data Retention Policy</h1>
+
+  <p>Last updated: 2026-03-24</p>
+
+  <p>This page explains how Silo approaches data retention at an operational level. Exact retention can vary by deployment, contract, or legal hold, but the categories below describe the default model used by the product.</p>
+
+  <h2>Retention model by category</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Data category</th>
+        <th>Typical use</th>
+        <th>Retention approach</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Access logs, audit events, auth failures, rate-limit events</td>
+        <td>Security, abuse prevention, incident response, support</td>
+        <td>Retained as long as reasonably needed for operational security and troubleshooting; exact duration depends on deployment controls</td>
+      </tr>
+      <tr>
+        <td>Session memories (<code>remember</code> / <code>recall</code>)</td>
+        <td>Session-scoped helper memory</td>
+        <td>Retained for the TTL chosen by the caller, from 60 seconds up to 30 days</td>
+      </tr>
+      <tr>
+        <td>Chat conversations and messages</td>
+        <td>Multi-turn chat support</td>
+        <td>Retained until deleted by product controls or operator action</td>
+      </tr>
+      <tr>
+        <td>Workflow records and review events</td>
+        <td>Async processing, reviewability, audit trail</td>
+        <td>Retained while needed to operate, inspect, or support the workflow</td>
+      </tr>
+      <tr>
+        <td>Generated artifacts and uploaded files</td>
+        <td>PDF workflow execution and downloadable outputs</td>
+        <td>Retained while the workflow and its artifacts remain operationally necessary, until deleted or lifecycle-managed by the deployment</td>
+      </tr>
+      <tr>
+        <td>Temporary caches and short-lived control keys</td>
+        <td>Performance and rate limiting</td>
+        <td>Short-lived only; expires automatically through cache TTLs</td>
+      </tr>
+      <tr>
+        <td>Backups and recovery copies</td>
+        <td>Service recovery and continuity</td>
+        <td>Retained according to infrastructure backup policies, then expires on provider-managed schedules</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Deletion and exceptions</h2>
+
+  <p>Deletion can be delayed or limited when retention is required for:</p>
+
+  <ul>
+    <li>security investigations;</li>
+    <li>fraud or abuse response;</li>
+    <li>legal or contractual obligations;</li>
+    <li>backup or disaster-recovery windows that have not yet expired.</li>
+  </ul>
+
+  <p>Even after content deletion, aggregated metrics or sanitized operational records may remain if they no longer identify the original content and are still needed for observability or audit purposes.</p>
+
+  <h2>Requesting deletion</h2>
+
+  <p>For deletion or retention questions, use:</p>
+
+  <ul>
+    <li><a href="/support/">Support</a></li>
+  </ul>
+
+  <p>Please do not post sensitive data in a public ticket. If you need a private path and do not have one yet, request a private follow-up first.</p>
+</DocsLayout>

@@ -1,0 +1,84 @@
+---
+import DocsLayout from '../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Privacy Policy" description="How Silo handles service data, request telemetry, uploaded content, and support requests.">
+  <h1>Privacy Policy</h1>
+
+  <p>Last updated: 2026-03-24</p>
+
+  <p>Silo is operated by Diego Sens. This page explains, at a high level, what data Silo processes, why it is processed, and how to request support or deletion.</p>
+
+  <h2>What data Silo may process</h2>
+
+  <p>Depending on the feature you use, Silo may process:</p>
+
+  <ul>
+    <li>access and integration data, such as API keys, scope information, client identifiers, and marketplace auth metadata when enabled for a deployment;</li>
+    <li>request telemetry, such as timestamps, IP address, user agent, route or tool name, latency, and <code>trace_id</code>;</li>
+    <li>user-submitted content, such as search queries, prompts, uploaded PDFs, workflow payloads, memories, and conversation content;</li>
+    <li>generated workflow artifacts, such as extracted text, structured analysis outputs, and review records;</li>
+    <li>operational and security events, such as authentication failures, rate-limit events, and audit records.</li>
+  </ul>
+
+  <h2>Why this data is processed</h2>
+
+  <p>Silo processes data to:</p>
+
+  <ul>
+    <li>authenticate and authorize access to the service;</li>
+    <li>execute API, MCP, chat, and workflow features;</li>
+    <li>store and retrieve workflow state and artifacts;</li>
+    <li>detect abuse, investigate incidents, and protect the service;</li>
+    <li>debug failures and improve reliability;</li>
+    <li>comply with legal, contractual, and security obligations.</li>
+  </ul>
+
+  <h2>Sharing and subprocessors</h2>
+
+  <p>Silo may rely on infrastructure and storage providers to run the service, including hosting, databases, object storage, and observability tooling. Data is shared only to the extent needed to operate the service and fulfill the purposes above.</p>
+
+  <h2>Security summary</h2>
+
+  <p>Silo is designed to run with access controls and auditability enabled in production, including:</p>
+
+  <ul>
+    <li>authenticated access for protected API and remote MCP surfaces;</li>
+    <li>scope-based authorization for sensitive operations;</li>
+    <li>rate limiting and abuse controls;</li>
+    <li>structured logs with <code>trace_id</code> for incident investigation;</li>
+    <li>protected operational endpoints such as <code>/metrics</code>.</li>
+  </ul>
+
+  <p>No internet-facing system is perfectly secure, so please avoid sending secrets or unnecessary personal data unless your use case requires it.</p>
+
+  <h2>Retention</h2>
+
+  <p>Retention depends on the kind of data and the deployment context. A separate page describes the operational retention model:</p>
+
+  <ul>
+    <li><a href="/data-retention/">Data Retention Policy</a></li>
+  </ul>
+
+  <p>Examples:</p>
+
+  <ul>
+    <li>session memories use explicit TTLs chosen by the caller;</li>
+    <li>conversations can be deleted through product controls where available;</li>
+    <li>workflow artifacts and audit records may persist while they are needed for operation, support, or compliance.</li>
+  </ul>
+
+  <h2>Your requests</h2>
+
+  <p>For support, privacy, or deletion requests, use:</p>
+
+  <ul>
+    <li><a href="/support/">Support</a></li>
+  </ul>
+
+  <p>Do not post secrets, API keys, or sensitive case material in public issue trackers. If you only have a public contact path, request a private follow-up first.</p>
+
+  <h2>Changes</h2>
+
+  <p>This policy may be updated as Silo's product surface, infrastructure, or compliance posture evolves. The latest version will be published at this URL.</p>
+</DocsLayout>
