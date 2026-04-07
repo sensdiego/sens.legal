@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { trackView } from '../lib/track-view';
 
 interface Props {
   title: string;
@@ -11,6 +12,17 @@ interface Props {
 }
 
 const { title, chapter, prev, next, viewerName = '', expiresAt = '' } = Astro.props;
+
+// View tracking — fire-and-forget, runs once per render
+if (Astro.locals.shouldLogView && Astro.locals.userId && Astro.locals.userEmail) {
+  trackView({
+    userId: Astro.locals.userId,
+    email: Astro.locals.userEmail,
+    page: Astro.url.pathname,
+    ip: Astro.clientAddress,
+    userAgent: Astro.request.headers.get('user-agent') ?? undefined,
+  });
+}
 
 const chapters = [
   { num: '01', slug: 'thesis', label: 'Thesis' },
