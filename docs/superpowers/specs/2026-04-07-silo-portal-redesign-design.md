@@ -152,11 +152,11 @@ Coisas que esta spec **não** entrega:
 | Rota | Acesso | Layout | Origem do conteúdo |
 |---|---|---|---|
 | `/` | público | `PublicLayout` (sem sidebar) | escrita nova, base no `silo-site/docs/product-overview.md` |
-| `/about` | público | `PublicLayout` | escrita nova, base no perfil do Diego |
+| `/about` | público | `PublicLayout` | escrita nova, base no perfil do Diego; usa avatar `portal/public/about/diego.png` (extraído do GitHub `sensdiego`, 400x400 PNG, já comitado em `chore: add diego avatar` se separado) |
 | `/sign-in` | público | `MinimalLayout` | scaffold |
 | `/pending` | autenticado | `MinimalLayout` | scaffold |
-| `/contact` | público | `PublicLayout` | scaffold (1 email + 1 frase) |
-| `/privacy` | público | `LegalLayout` | manter o atual + atualizar para cobrir OAuth + tracking |
+| `/contact` | público | `PublicLayout` | scaffold: 1 frase + `mailto:` link único, sem formulário (resolvido 2026-04-07) |
+| `/privacy` | público | `LegalLayout` | Claude rascunha update do atual incluindo OAuth + tracking; Diego revisa (resolvido 2026-04-07) |
 | `/terms` | público | `LegalLayout` | manter o atual + revisar |
 | `/data-retention` | público | `LegalLayout` | manter o atual + revisar |
 | `/inside` | approved | `InsideLayout` (sidebar numerada) | scaffold com landing personalizado |
@@ -209,6 +209,18 @@ Quatro layouts compartilhando o mesmo design system:
   empilha as 7 seções pra export PDF.
   Usado em `/inside` e `/inside/*`.
 
+  **Welcome modal on first visit:** quando `profiles.welcomed_at` é null
+  pra o usuário corrente, renderiza um card centralizado dismissable
+  na primeira visita a `/inside` (NÃO em outras páginas). Card mantém
+  a mesma estética (background `--color-bg-secondary`, border, sem
+  overlay escuro de modal típico). Texto: "Welcome, Jane. The data
+  room is structured as 7 chapters meant to be read in order, ~30 min
+  total. Start with Thesis →". Botão único "Got it" que dispara
+  `PATCH /api/auth/welcome` (set `profiles.welcomed_at = now()`) e
+  remove o card via client-side. Persistência server-side garante
+  que funciona cross-device. Não é overlay bloqueante — usuário pode
+  scroll passar e clicar nos cards de chapter mesmo sem dismiss.
+
 - **`AdminLayout.astro`**
   Top bar com `Silo / Admin`. Sidebar simples (2 itens: Access, Views).
   Conteúdo full-width pra tabelas. Cookie verificado é admin role.
@@ -229,6 +241,11 @@ JetBrains Mono).
 - `<PrincipleList>` + `<Principle number="01" title="...">` — usado no /
 - `<TodoBlock>` — só em scaffold/dev; não vai pra produção
 - `<AdminTable>` — wrapper pra tabelas do /admin/access
+- `<OrgCell>` — exibe `org` na tabela de access_requests; aplica estilo
+  muted quando o domínio é pessoal (`gmail.com`, `outlook.com`,
+  `yahoo.com`, `icloud.com`, `hotmail.com`, `proton.me`)
+- `<WelcomeCard>` — card centralizado on-first-visit em `/inside`,
+  dismissable, persiste via `profiles.welcomed_at`
 
 Componentes existentes (`ProofPoints.astro`, `CapabilityCard.astro`,
 `DocsLayout.astro`) são deletados ou rebuildados sob esta nova
@@ -420,6 +437,7 @@ CREATE TABLE profiles (
   id              uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
   role            text NOT NULL DEFAULT 'reviewer'
                   CHECK (role IN ('reviewer', 'admin')),
+  welcomed_at     timestamptz,                -- set when user dismisses /inside welcome modal
   created_at      timestamptz NOT NULL DEFAULT now()
 );
 
@@ -700,16 +718,22 @@ Branch: `feat/silo-gated-portal`
     - access_requests status check for /inside/*
     - profiles role check for /admin/*
 
-15  feat(portal/admin): rebuild /admin as DD allowlist + views dashboard
-    - portal/src/pages/admin/index.astro (overview + landing)
+15  feat(portal/admin): rebuild /admin from scratch as DD dashboard
+    - DELETE existing /admin/index.astro and any waitlist-specific code
+    - portal/src/pages/admin/index.astro (NEW landing: 2 cards, "Access requests" and "Views")
     - portal/src/pages/admin/access.astro (pending/approved/rejected tabs)
     - portal/src/pages/admin/views.astro (per-reviewer view log)
     - portal/src/pages/api/admin/access/[id].ts (PATCH approve/reject)
+    - admin/access UI: emails de provider pessoais (gmail/outlook/yahoo/icloud)
+      mostram org em cinza muted (--color-text-muted) sinalizando "personal"
 
-16  feat(portal/dd): view tracking + access notification emails
+16  feat(portal/dd): view tracking + access notification emails + welcome modal
     - portal/src/lib/track-view.ts
     - portal/src/lib/email-templates.ts
-    - Resend integration: notify-diego, notify-approved
+    - Resend integration: notify-diego (new request), notify-approved (granted)
+    - portal/src/components/silo/WelcomeCard.astro (first-visit dismissable card)
+    - portal/src/pages/api/auth/welcome.ts (PATCH profiles.welcomed_at = now())
+    - inside/index.astro: conditionally renders WelcomeCard if profiles.welcomed_at IS NULL
 
 17  feat(db): migration for access_requests, dd_views, profiles
     - supabase/migrations/<timestamp>_silo_gated_portal.sql
@@ -798,7 +822,7 @@ In Vercel dashboard → portal project → Settings → Environment Variables:
 | `SUPABASE_SERVICE_ROLE_KEY` | (existing or new) | Production, Preview |
 | `RESEND_API_KEY` | (existing) | Production, Preview |
 | `RESEND_FROM_EMAIL` | `silo@sens.legal` (or verified domain) | All |
-| `DIEGO_NOTIFY_EMAIL` | `diego@sens.legal` | All |
+| `DIEGO_NOTIFY_EMAIL` | `diego@sens.legal` (resolved 2026-04-07) | All |
 | `PORTAL_BASE_URL` | `https://sens.legal` | Production |
 | `PORTAL_BASE_URL` | `http://localhost:4321` | Development |
 
@@ -872,17 +896,27 @@ Se necessário, Diego envia novo link manualmente.
 | Reviewer encaminha link `/inside/thesis` pra outra pessoa | Não há vazamento — o destinatário cai em `/sign-in` porque sem cookie. OAuth + per-user check protege. |
 | Performance do middleware (extra query no Supabase em cada request) | Cache de status na sessão (cookie httpOnly assinado) — possível otimização futura. Por enquanto, query simples por user_id é <50ms. Se virar problema, cachear no edge. |
 
-### Questões abertas (a resolver no implementation plan ou em PRs futuros)
+### Questões resolvidas em 2026-04-07
 
-- **Qual email exatamente Diego usa como `DIEGO_NOTIFY_EMAIL`?** Pode haver mais de um (pessoal + escritório). Resolver no setup.
-- **`portal/src/pages/admin/index.astro` atual** — Diego vai querer revisar antes de eu reescrever, ou OK eu propor desde o scaffold?
-- **`/contact` — só email ou tem formulário?** Recomendação: só email (mailto:), sem formulário (formulário público em site gated é incoerente).
-- **Privacy policy texto:** Diego escreve, Claude scaffolda? Ou Claude propõe draft baseado no atual + clausulas OAuth/tracking? Recomendação: Claude propõe draft, Diego revisa e ajusta.
-- **`/about` precisa de foto?** Recomendação: não nessa rodada (mais bagagem visual). Pode entrar depois.
-- **Reviewer com email pessoal (gmail) vs corporativo (sequoia.com)** — `org` extraído do domínio dá `gmail.com` que é inútil. Tratamento: na UI do `/admin/access`, mostrar `gmail.com` em cinza ou esconder. Diego decide caso a caso quando aprovar.
-- **Quando o reviewer é aprovado, ele precisa de algum onboarding tour?** Recomendação: não. O `/inside` landing já explica. Reading time stamp ("~30 min total, 7 chapters") basta.
-- **Tradução das legal pages pro inglês** — atualmente em PT-BR? Verificar e converter se necessário.
-- **`/admin/access` deve ter botão "send reminder" pra rows pending há > X dias?** Out of scope. Pode entrar depois se virar fricção real.
+Originalmente abertas no momento de redação da spec, todas resolvidas
+no chat após review do Diego. Cada resolução está refletida nas seções
+correspondentes acima.
+
+| # | Pergunta | Resolução |
+|---|---|---|
+| Q1 | Qual `DIEGO_NOTIFY_EMAIL`? | `diego@sens.legal` |
+| Q2 | `/admin/index.astro` — revisar antes ou descartar? | Descartar tudo, scaffold do zero. Toda lógica de waitlist morre. Nova landing tem 2 cards: Access requests + Views. |
+| Q3 | `/contact` — formulário ou mailto? | Mailto único. Sem formulário. Coerente com site gated. |
+| Q4 | Privacy policy autoria? | Claude rascunha update do `privacy.astro` atual incluindo cláusulas OAuth + tracking; Diego revisa e ajusta tom. |
+| Q5 | `/about` precisa de foto? | Sim, usar avatar do GitHub do Diego. **Já baixado** em `portal/public/about/diego.png` (400x400 PNG, 240 KB, extraído de `https://github.com/sensdiego.png`). |
+| Q6 | Reviewer com email pessoal vs corporativo? | `<OrgCell>` mostra org em cor muted (`--color-text-muted`) quando domínio é pessoal (gmail.com / outlook.com / yahoo.com / icloud.com / hotmail.com / proton.me). Sinaliza visualmente sem bloquear. |
+| Q7 | Onboarding tour pós-aprovação? | Welcome card dismissable na primeira visita a `/inside` (não overlay bloqueante; usa estética do site). Persistência via `profiles.welcomed_at` (cross-device). NÃO aparece em outras páginas. |
+| Q8 | Legal pages em PT-BR? | Pré-resolvida pelo Claude antes do review: `privacy.astro`, `terms.astro`, `data-retention.astro` já estão em EN nativo. Removida do escopo de questões abertas. |
+| Q9 | Botão "send reminder" em rows pending? | Out of scope. YAGNI puro. Adicionar depois se virar fricção real. |
+
+### Questões ainda abertas
+
+Nenhuma. Spec pronta para `superpowers:writing-plans`.
 
 ---
 
@@ -920,19 +954,25 @@ sens.legal/
 │           └── 2026-04-07-silo-portal-redesign-design.md   ← ESTA SPEC
 ├── portal/
 │   ├── src/
+│   ├── public/
+│   │   └── about/
+│   │       └── diego.png             (NOVO — avatar GitHub, 400x400)
+│   ├── src/
 │   │   ├── components/
 │   │   │   ├── silo/                  (NOVO — design system)
 │   │   │   │   ├── AdminTable.astro
 │   │   │   │   ├── ConfidentialBadge.astro
 │   │   │   │   ├── Diagram.astro
 │   │   │   │   ├── OauthButton.astro
+│   │   │   │   ├── OrgCell.astro
 │   │   │   │   ├── Pager.astro
 │   │   │   │   ├── PageLede.astro
 │   │   │   │   ├── Principle.astro
 │   │   │   │   ├── PrincipleList.astro
 │   │   │   │   ├── ProofRow.astro
 │   │   │   │   ├── SectionLabel.astro
-│   │   │   │   └── TodoBlock.astro
+│   │   │   │   ├── TodoBlock.astro
+│   │   │   │   └── WelcomeCard.astro
 │   │   │   └── ... (existing minus deletions)
 │   │   ├── data/
 │   │   │   └── constants.ts          (mantido)
@@ -949,17 +989,18 @@ sens.legal/
 │   │   │   └── track-view.ts         (NOVO)
 │   │   ├── middleware.ts             (NOVO)
 │   │   ├── pages/
-│   │   │   ├── about.astro           (NOVO)
+│   │   │   ├── about.astro           (NOVO — usa /about/diego.png)
 │   │   │   ├── admin/
 │   │   │   │   ├── access.astro      (NOVO)
-│   │   │   │   ├── index.astro       (REESCRITO)
+│   │   │   │   ├── index.astro       (REESCRITO do zero — descarta waitlist)
 │   │   │   │   └── views.astro       (NOVO)
 │   │   │   ├── api/
 │   │   │   │   ├── admin/
 │   │   │   │   │   └── access/[id].ts (NOVO)
 │   │   │   │   └── auth/
 │   │   │   │       ├── callback.ts   (NOVO)
-│   │   │   │       └── sign-out.ts   (NOVO)
+│   │   │   │       ├── sign-out.ts   (NOVO)
+│   │   │   │       └── welcome.ts    (NOVO — PATCH profiles.welcomed_at)
 │   │   │   ├── contact.astro         (NOVO)
 │   │   │   ├── data-retention.astro  (mantido, atualizado)
 │   │   │   ├── index.astro           (REESCRITO — public home)
