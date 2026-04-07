@@ -1,0 +1,51 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { supabaseAdmin } from '../../lib/supabase-server';
+
+const { data: views } = await supabaseAdmin
+  .from('dd_views')
+  .select('id, email, page, ip, user_agent, viewed_at')
+  .order('viewed_at', { ascending: false })
+  .limit(200);
+
+function fmtTs(iso: string): string {
+  return new Date(iso).toISOString().replace('T', ' ').slice(0, 19);
+}
+---
+
+<AdminLayout title="Views" active="views">
+  <h1>Views</h1>
+  <p class="hint">Last 200 page views across the data room.</p>
+
+  {!views || views.length === 0 ? (
+    <p class="empty">No views logged yet.</p>
+  ) : (
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>When</th>
+          <th>Reviewer</th>
+          <th>Page</th>
+          <th>IP</th>
+        </tr>
+      </thead>
+      <tbody>
+        {views.map((v: any) => (
+          <tr>
+            <td class="mono">{fmtTs(v.viewed_at)}</td>
+            <td class="mono">{v.email}</td>
+            <td class="mono">{v.page}</td>
+            <td class="mono ip">{v.ip ?? ''}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )}
+</AdminLayout>
+
+<style>
+  .hint { color: var(--color-text-secondary); font-size: 0.875rem; margin-bottom: 1.5rem; }
+  .empty { color: var(--color-text-secondary); padding: 2rem 0; }
+  .mono { font-family: var(--font-mono); font-size: 0.8125rem; }
+  .ip { color: var(--color-text-muted); }
+</style>
