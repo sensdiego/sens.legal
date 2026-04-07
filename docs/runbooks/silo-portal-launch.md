@@ -35,6 +35,39 @@ Execute phases in order. Each phase is independently revertible.
 
 ---
 
+## Phase 1.5 — Configure Supabase Auth URL Configuration (CRITICAL)
+
+This is the step that will silently break Phase 4 if you skip it. Supabase
+Auth ships with `Site URL = http://localhost:3000` by default. After the OAuth
+provider exchange completes, Supabase Auth redirects the browser to whatever
+is in `Site URL` (or to a URL from the Redirect URLs allowlist if the original
+`redirect_to` matches one). If neither is set to your production domain, the
+user lands on `http://localhost:3000/?code=...` after a successful Google
+sign-in — visible failure mode.
+
+Supabase dashboard → **Authentication → URL Configuration**:
+
+1. **Site URL** — change from `http://localhost:3000` to:
+   ```
+   https://sens.legal
+   ```
+   Click **Save changes**.
+
+2. **Redirect URLs** — click **Add URL** and add:
+   ```
+   https://sens.legal/api/auth/callback
+   ```
+   Click **Save URLs**. Repeat to add the local dev callback so `npm -w portal run dev` also works:
+   ```
+   http://localhost:4321/api/auth/callback
+   ```
+
+Verify both fields are saved (the input should still show the new value after
+the page re-renders). The URL Configuration is global per project, not per
+environment, so a single setting covers production + local dev.
+
+---
+
 ## Phase 2 — Apply Supabase migration
 
 1. Open Supabase dashboard → SQL editor
