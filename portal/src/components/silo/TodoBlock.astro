@@ -1,0 +1,35 @@
+---
+interface Props {
+  hideInProd?: boolean;
+}
+const { hideInProd = false } = Astro.props;
+const isProd = import.meta.env.PROD;
+const hidden = hideInProd && isProd;
+---
+
+{!hidden && (
+  <span class="todo">
+    <strong>TODO</strong>
+    <slot />
+  </span>
+)}
+
+<style>
+  .todo {
+    display: block;
+    background: rgba(43, 87, 154, 0.04);
+    border-left: 2px solid var(--color-accent);
+    padding: 0.625rem 0.875rem;
+    margin: 0.75rem 0 1.5rem 0;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-accent);
+    line-height: 1.55;
+  }
+  .todo strong {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    margin-right: 0.5rem;
+  }
+</style>
