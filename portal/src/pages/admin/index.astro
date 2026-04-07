@@ -1,16 +1,17 @@
 ---
 import AdminLayout from '../../layouts/AdminLayout.astro';
 import { supabaseAdmin } from '../../lib/supabase-server';
+import { ACCESS_STATUS } from '../../lib/access';
 
 // Counts for the overview cards
 const { count: pendingCount } = await supabaseAdmin
   .from('access_requests')
   .select('*', { count: 'exact', head: true })
-  .eq('status', 'pending');
+  .eq('status', ACCESS_STATUS.PENDING);
 const { count: approvedCount } = await supabaseAdmin
   .from('access_requests')
   .select('*', { count: 'exact', head: true })
-  .eq('status', 'approved');
+  .eq('status', ACCESS_STATUS.APPROVED);
 const { count: viewsCount } = await supabaseAdmin
   .from('dd_views')
   .select('*', { count: 'exact', head: true });

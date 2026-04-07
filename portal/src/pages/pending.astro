@@ -1,23 +1,36 @@
 ---
 import MinimalLayout from '../layouts/MinimalLayout.astro';
-import { createSupabaseServerClient } from '../lib/supabase-server';
+import { createSupabaseServerClient, supabaseAdmin } from '../lib/supabase-server';
+import { ACCESS_STATUS, type AccessStatus } from '../lib/access';
 
 const supabase = createSupabaseServerClient(Astro.cookies);
 const { data: { user } } = await supabase.auth.getUser();
-const { data: req } = await supabase
+// Defense in depth: middleware already redirects unauthed /pending to
+// /sign-in, but if middleware ever fails open we redirect from the page too
+// instead of crashing on user!.id below.
+if (!user) {
+  return Astro.redirect('/sign-in');
+}
+
+// Service role bypass — user identity was just verified by getUser().
+const { data: req, error } = await supabaseAdmin
   .from('access_requests')
   .select('status, name, email')
-  .eq('user_id', user?.id ?? '')
+  .eq('user_id', user.id)
   .maybeSingle();
 
-const status = req?.status ?? 'pending';
-const name = req?.name ?? user?.user_metadata?.name ?? 'there';
-const email = req?.email ?? user?.email ?? '';
+if (error) {
+  console.error('[pending] access_requests lookup failed', error);
+}
+
+const status: AccessStatus = req?.status ?? ACCESS_STATUS.PENDING;
+const name = req?.name ?? user.user_metadata?.name ?? 'there';
+const email = req?.email ?? user.email ?? '';
 ---
 
 <MinimalLayout title="Pending">
   <div class="pending-card">
-    {status === 'pending' && (
+    {status === ACCESS_STATUS.PENDING && (
       <>
         <h1>Thanks, {name}.</h1>
         <p>
@@ -30,7 +43,7 @@ const email = req?.email ?? user?.email ?? '';
         </p>
       </>
     )}
-    {status === 'rejected' && (
+    {status === ACCESS_STATUS.REJECTED && (
       <>
         <h1>Request not accepted.</h1>
         <p>
@@ -40,7 +53,7 @@ const email = req?.email ?? user?.email ?? '';
         </p>
       </>
     )}
-    {status === 'approved' && (
+    {status === ACCESS_STATUS.APPROVED && (
       <>
         <h1>You're in.</h1>
         <p>Head to <a href="/inside">the data room →</a></p>

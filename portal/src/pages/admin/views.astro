@@ -1,23 +1,26 @@
 ---
 import AdminLayout from '../../layouts/AdminLayout.astro';
 import { supabaseAdmin } from '../../lib/supabase-server';
+import { formatTimestamp } from '../../lib/format';
+import type { DdViewRow } from '../../lib/database.types';
+
+const VIEWS_PAGE_SIZE = 200;
 
 const { data: views } = await supabaseAdmin
   .from('dd_views')
   .select('id, email, page, ip, user_agent, viewed_at')
   .order('viewed_at', { ascending: false })
-  .limit(200);
+  .limit(VIEWS_PAGE_SIZE);
 
-function fmtTs(iso: string): string {
-  return new Date(iso).toISOString().replace('T', ' ').slice(0, 19);
-}
+type Row = Pick<DdViewRow, 'id' | 'email' | 'page' | 'ip' | 'user_agent' | 'viewed_at'>;
+const list: Row[] = (views ?? []) as Row[];
 ---
 
 <AdminLayout title="Views" active="views">
   <h1>Views</h1>
-  <p class="hint">Last 200 page views across the data room.</p>
+  <p class="hint">Last {VIEWS_PAGE_SIZE} page views across the data room.</p>
 
-  {!views || views.length === 0 ? (
+  {list.length === 0 ? (
     <p class="empty">No views logged yet.</p>
   ) : (
     <table class="admin-table">
@@ -30,9 +33,9 @@ function fmtTs(iso: string): string {
         </tr>
       </thead>
       <tbody>
-        {views.map((v: any) => (
+        {list.map((v) => (
           <tr>
-            <td class="mono">{fmtTs(v.viewed_at)}</td>
+            <td class="mono">{formatTimestamp(v.viewed_at)}</td>
             <td class="mono">{v.email}</td>
             <td class="mono">{v.page}</td>
             <td class="mono ip">{v.ip ?? ''}</td>

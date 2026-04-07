@@ -2,8 +2,14 @@
 import AdminLayout from '../../layouts/AdminLayout.astro';
 import OrgCell from '../../components/silo/OrgCell.astro';
 import { supabaseAdmin } from '../../lib/supabase-server';
+import { ACCESS_STATUS, isAccessStatus, type AccessStatus } from '../../lib/access';
+import { formatDate } from '../../lib/format';
+import type { AccessRequestRow } from '../../lib/database.types';
 
-const status = (Astro.url.searchParams.get('status') ?? 'pending') as 'pending' | 'approved' | 'rejected';
+// Validate status from query string against the enum to prevent arbitrary
+// strings from flowing into the DB query and the tab highlight.
+const rawStatus = Astro.url.searchParams.get('status');
+const status: AccessStatus = isAccessStatus(rawStatus) ? rawStatus : ACCESS_STATUS.PENDING;
 
 const { data: rows } = await supabaseAdmin
   .from('access_requests')
@@ -11,21 +17,23 @@ const { data: rows } = await supabaseAdmin
   .eq('status', status)
   .order('created_at', { ascending: false });
 
-function fmtDate(iso: string): string {
-  return new Date(iso).toISOString().slice(0, 10);
-}
+type Row = Pick<
+  AccessRequestRow,
+  'id' | 'user_id' | 'email' | 'name' | 'avatar_url' | 'provider' | 'github_handle' | 'org' | 'status' | 'created_at'
+>;
+const list: Row[] = (rows ?? []) as Row[];
 ---
 
 <AdminLayout title="Access requests" active="access">
   <h1>Access requests</h1>
 
   <nav class="tabs">
-    <a href="/admin/access?status=pending" class:list={[{ active: status === 'pending' }]}>Pending</a>
-    <a href="/admin/access?status=approved" class:list={[{ active: status === 'approved' }]}>Approved</a>
-    <a href="/admin/access?status=rejected" class:list={[{ active: status === 'rejected' }]}>Rejected</a>
+    <a href={`/admin/access?status=${ACCESS_STATUS.PENDING}`} class:list={[{ active: status === ACCESS_STATUS.PENDING }]}>Pending</a>
+    <a href={`/admin/access?status=${ACCESS_STATUS.APPROVED}`} class:list={[{ active: status === ACCESS_STATUS.APPROVED }]}>Approved</a>
+    <a href={`/admin/access?status=${ACCESS_STATUS.REJECTED}`} class:list={[{ active: status === ACCESS_STATUS.REJECTED }]}>Rejected</a>
   </nav>
 
-  {!rows || rows.length === 0 ? (
+  {list.length === 0 ? (
     <p class="empty">No requests with status "{status}".</p>
   ) : (
     <table class="admin-table">
@@ -40,11 +48,11 @@ function fmtDate(iso: string): string {
         </tr>
       </thead>
       <tbody>
-        {rows.map((r: any) => (
+        {list.map((r) => (
           <tr>
             <td>
               <div class="reviewer">
-                {r.avatar_url && <img src={r.avatar_url} alt={r.name ?? ''} />}
+                {r.avatar_url && <img src={r.avatar_url} alt={r.name ?? ''} referrerpolicy="no-referrer" />}
                 <div>
                   <div class="name">{r.name ?? '(no name)'}</div>
                   {r.github_handle && <div class="handle">@{r.github_handle}</div>}
@@ -54,9 +62,9 @@ function fmtDate(iso: string): string {
             <td class="mono">{r.email}</td>
             <td><OrgCell email={r.email} org={r.org} /></td>
             <td class="mono">{r.provider}</td>
-            <td class="mono">{fmtDate(r.created_at)}</td>
+            <td class="mono">{formatDate(r.created_at)}</td>
             <td class="actions">
-              {status === 'pending' && (
+              {status === ACCESS_STATUS.PENDING && (
                 <>
                   <form method="POST" action={`/api/admin/access/${r.id}`} class="inline">
                     <input type="hidden" name="action" value="approve" />
@@ -68,7 +76,7 @@ function fmtDate(iso: string): string {
                   </form>
                 </>
               )}
-              {status === 'approved' && (
+              {status === ACCESS_STATUS.APPROVED && (
                 <form method="POST" action={`/api/admin/access/${r.id}`} class="inline">
                   <input type="hidden" name="action" value="reject" />
                   <button type="submit" class="reject">Revoke</button>

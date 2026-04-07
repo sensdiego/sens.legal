@@ -13,13 +13,22 @@ interface Props {
 
 const { title, chapter, prev, next, viewerName = '', expiresAt = '' } = Astro.props;
 
-// View tracking — fire-and-forget, runs once per render
+// View tracking — awaited so the insert completes before the Vercel
+// serverless function returns. Fire-and-forget loses writes when the
+// container freezes after the response. Astro.clientAddress can throw on
+// some adapters, so guard it.
 if (Astro.locals.shouldLogView && Astro.locals.userId && Astro.locals.userEmail) {
-  trackView({
+  let ip: string | undefined;
+  try {
+    ip = Astro.clientAddress;
+  } catch {
+    ip = undefined;
+  }
+  await trackView({
     userId: Astro.locals.userId,
     email: Astro.locals.userEmail,
     page: Astro.url.pathname,
-    ip: Astro.clientAddress,
+    ip,
     userAgent: Astro.request.headers.get('user-agent') ?? undefined,
   });
 }

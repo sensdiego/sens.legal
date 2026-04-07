@@ -5,12 +5,8 @@ import ProofRow from '../../components/silo/ProofRow.astro';
 import SectionLabel from '../../components/silo/SectionLabel.astro';
 import TodoBlock from '../../components/silo/TodoBlock.astro';
 import { proofPoints } from '../../data/constants';
-import { createSupabaseServerClient } from '../../lib/supabase-server';
 
-const supabase = createSupabaseServerClient(Astro.cookies);
-const { data: { user } } = await supabase.auth.getUser();
-const { data: req } = await supabase.from('access_requests').select('name').eq('user_id', user!.id).single();
-const viewerName = req?.name ?? '';
+const viewerName = Astro.locals.viewerName ?? '';
 ---
 
 {/*

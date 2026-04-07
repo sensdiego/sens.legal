@@ -2,12 +2,9 @@
 import InsideLayout from '../../layouts/InsideLayout.astro';
 import PageLede from '../../components/silo/PageLede.astro';
 import TodoBlock from '../../components/silo/TodoBlock.astro';
-import { createSupabaseServerClient } from '../../lib/supabase-server';
 
-const supabase = createSupabaseServerClient(Astro.cookies);
-const { data: { user } } = await supabase.auth.getUser();
-const { data: req } = await supabase.from('access_requests').select('name').eq('user_id', user!.id).single();
-const viewerName = req?.name ?? '';
+// Viewer info pre-loaded by middleware (see portal/src/middleware.ts).
+const viewerName = Astro.locals.viewerName ?? '';
 ---
 
 {/*
