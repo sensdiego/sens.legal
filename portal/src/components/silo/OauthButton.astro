@@ -30,7 +30,15 @@ const { provider, label = provider === 'google' ? 'Continue with Google' : 'Cont
 <script>
   import { supabaseBrowser } from '../../lib/supabase-browser';
 
+  // Guard against double-binding when this component is rendered multiple
+  // times on the same page (sign-in.astro renders both Google and GitHub
+  // buttons → script block runs once with two matching elements, but on view
+  // transitions / partial re-renders the script can re-execute and stack
+  // listeners → a single click fires two signInWithOAuth calls → race on the
+  // PKCE code_verifier cookie → exchange fails on the callback.
   document.querySelectorAll<HTMLButtonElement>('button.oauth-btn').forEach((btn) => {
+    if (btn.dataset.bound === '1') return;
+    btn.dataset.bound = '1';
     btn.addEventListener('click', async () => {
       const provider = btn.dataset.provider as 'google' | 'github';
       btn.disabled = true;

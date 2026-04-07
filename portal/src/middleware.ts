@@ -1,5 +1,6 @@
 import { defineMiddleware } from 'astro:middleware';
-import { createSupabaseServerClient } from './lib/supabase-server';
+import { createSupabaseServerClient, supabaseAdmin } from './lib/supabase-server';
+import { ACCESS_STATUS } from './lib/access';
 
 const PUBLIC_PATHS = new Set<string>([
   '/',
@@ -27,6 +28,11 @@ function isPublic(path: string): boolean {
   return PUBLIC_PREFIXES.some((p) => path.startsWith(p));
 }
 
+// Anchored prefix match: '/inside' OR '/inside/...' but NOT '/insidious'.
+function matchesGate(path: string, base: string): boolean {
+  return path === base || path.startsWith(`${base}/`);
+}
+
 export const onRequest = defineMiddleware(async (context, next) => {
   const url = new URL(context.request.url);
   const path = url.pathname;
@@ -36,45 +42,76 @@ export const onRequest = defineMiddleware(async (context, next) => {
   }
 
   const supabase = createSupabaseServerClient(context.cookies);
-  const { data: { session } } = await supabase.auth.getSession();
+  // Use getUser() — verifies the JWT against the Supabase Auth server. NEVER
+  // use getSession() server-side: it returns cookie data without revalidation,
+  // so a stale or revoked refresh token within its expiry window passes the
+  // gate. https://supabase.com/docs/guides/auth/server-side
+  const { data: { user } } = await supabase.auth.getUser();
 
-  // Pending page is for authenticated users only
+  // Pending page is for authenticated users only.
   if (path === '/pending') {
-    if (!session) return context.redirect('/sign-in');
+    if (!user) return context.redirect('/sign-in');
     return next();
   }
 
-  // /inside/* requires approved status
-  if (path.startsWith('/inside')) {
-    if (!session) return context.redirect('/sign-in');
-    const { data: req } = await supabase
-      .from('access_requests')
-      .select('status')
-      .eq('user_id', session.user.id)
-      .single();
-    if (!req || req.status !== 'approved') {
+  // /inside/* requires approved status. We pre-fetch the viewer's display name
+  // and welcome state and stash them on Astro.locals so the 7 inside pages
+  // (and the inside/index landing) don't each repeat the queries.
+  if (matchesGate(path, '/inside')) {
+    if (!user) return context.redirect('/sign-in');
+    // Service role bypasses RLS on the lookup. The user identity was just
+    // verified via getUser() above, so .eq('user_id', user.id) is safe.
+    const [reqResult, profileResult] = await Promise.all([
+      supabaseAdmin
+        .from('access_requests')
+        .select('status, name, org')
+        .eq('user_id', user.id)
+        .maybeSingle(),
+      supabaseAdmin
+        .from('profiles')
+        .select('welcomed_at')
+        .eq('id', user.id)
+        .maybeSingle(),
+    ]);
+    if (reqResult.error) {
+      console.error('[middleware] access_requests lookup failed', reqResult.error);
+      return context.redirect('/sign-in?error=lookup_failed');
+    }
+    if (profileResult.error) {
+      console.error('[middleware] profiles lookup failed', profileResult.error);
+      return context.redirect('/sign-in?error=lookup_failed');
+    }
+    const req = reqResult.data;
+    const profile = profileResult.data;
+    if (!req || req.status !== ACCESS_STATUS.APPROVED) {
       return context.redirect('/pending');
     }
-    // Surface a flag for the page to log the view
     context.locals.shouldLogView = true;
-    context.locals.userId = session.user.id;
-    context.locals.userEmail = session.user.email ?? '';
+    context.locals.userId = user.id;
+    context.locals.userEmail = user.email ?? '';
+    context.locals.viewerName = req.name ?? user.email ?? 'reviewer';
+    context.locals.viewerOrg = req.org ?? null;
+    context.locals.welcomedAt = profile?.welcomed_at ?? null;
     return next();
   }
 
-  // /admin/* requires admin role
-  if (path.startsWith('/admin')) {
-    if (!session) return context.redirect('/sign-in');
-    const { data: profile } = await supabase
+  // /admin/* requires admin role.
+  if (matchesGate(path, '/admin')) {
+    if (!user) return context.redirect('/sign-in');
+    const { data: profile, error } = await supabaseAdmin
       .from('profiles')
       .select('role')
-      .eq('id', session.user.id)
-      .single();
+      .eq('id', user.id)
+      .maybeSingle();
+    if (error) {
+      console.error('[middleware] profiles lookup failed', error);
+      return context.redirect('/sign-in?error=lookup_failed');
+    }
     if (!profile || profile.role !== 'admin') {
       return context.redirect('/');
     }
-    context.locals.userId = session.user.id;
-    context.locals.userEmail = session.user.email ?? '';
+    context.locals.userId = user.id;
+    context.locals.userEmail = user.email ?? '';
     return next();
   }
 

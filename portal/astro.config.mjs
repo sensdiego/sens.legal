@@ -8,6 +8,11 @@ export default defineConfig({
   output: 'server',
   adapter: vercel(),
   integrations: [sitemap()],
+  // CSRF protection: reject cross-origin POST/PATCH/DELETE based on Origin header.
+  // Mitigates CSRF on /api/admin/access/[id], /api/auth/welcome, /api/auth/sign-out.
+  security: {
+    checkOrigin: true,
+  },
   vite: {
     ssr: {
       noExternal: [],
