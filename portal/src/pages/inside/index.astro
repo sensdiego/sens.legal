@@ -1,0 +1,62 @@
+---
+import InsideLayout from '../../layouts/InsideLayout.astro';
+import WelcomeCard from '../../components/silo/WelcomeCard.astro';
+import { createSupabaseServerClient } from '../../lib/supabase-server';
+
+const supabase = createSupabaseServerClient(Astro.cookies);
+const { data: { user } } = await supabase.auth.getUser();
+const { data: req } = await supabase
+  .from('access_requests')
+  .select('name')
+  .eq('user_id', user!.id)
+  .single();
+const { data: profile } = await supabase
+  .from('profiles')
+  .select('welcomed_at')
+  .eq('id', user!.id)
+  .single();
+
+const viewerName = req?.name ?? user?.email ?? 'reviewer';
+const showWelcome = !profile?.welcomed_at;
+
+const chapters = [
+  { num: '01', slug: 'thesis', label: 'Thesis', summary: 'What we are building, in five minutes.' },
+  { num: '02', slug: 'system', label: 'System', summary: 'Architecture, data flow, the syllogism graph.' },
+  { num: '03', slug: 'proof', label: 'Proof', summary: 'What is running today — numbers, traces.' },
+  { num: '04', slug: 'depth', label: 'Depth', summary: 'Deep dives into the hard problems.' },
+  { num: '05', slug: 'decisions', label: 'Decisions', summary: 'ADRs, premortems, why we chose X.' },
+  { num: '06', slug: 'roadmap', label: 'Roadmap & Risks', summary: 'What is next; what could go wrong.' },
+  { num: '07', slug: 'team', label: 'Team & Velocity', summary: 'Who decides, how fast we ship.' },
+];
+---
+
+<InsideLayout title="Data Room" chapter="01" viewerName={viewerName} next={{ num: '01', title: 'Thesis', href: '/inside/thesis' }}>
+  {showWelcome && <WelcomeCard name={viewerName.split(' ')[0] ?? viewerName} />}
+
+  <h1>Silo Technical Data Room</h1>
+  <p class="lede">
+    Seven chapters meant to be read in order. Total reading time is roughly
+    30 minutes. You can also read each chapter in isolation — they cross-link
+    where it helps but each stands on its own.
+  </p>
+
+  <div class="chapter-grid">
+    {chapters.map((c) => (
+      <a class="chapter-card" href={`/inside/${c.slug}`}>
+        <span class="num">{c.num}</span>
+        <span class="title">{c.label}</span>
+        <span class="summary">{c.summary}</span>
+      </a>
+    ))}
+  </div>
+</InsideLayout>
+
+<style>
+  .lede { font-size: 1.0625rem; color: var(--color-text-secondary); margin-bottom: 2.5rem; line-height: 1.55; max-width: 36rem; }
+  .chapter-grid { display: grid; gap: 0.75rem; margin-top: 1rem; }
+  .chapter-card { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; padding: 1.25rem 1.5rem; border: 1px solid var(--color-border); border-radius: 4px; text-decoration: none; transition: border-color 0.15s; }
+  .chapter-card:hover { border-color: var(--color-border-active); border-bottom-color: var(--color-border-active); }
+  .chapter-card .num { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-accent); font-weight: 600; padding-top: 0.25rem; }
+  .chapter-card .title { font-weight: 600; font-size: 1.0625rem; color: var(--color-text); display: block; }
+  .chapter-card .summary { color: var(--color-text-secondary); font-size: 0.875rem; grid-column: 2; display: block; margin-top: 0.125rem; }
+</style>
