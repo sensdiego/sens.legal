@@ -1,0 +1,49 @@
+---
+import InsideLayout from '../../layouts/InsideLayout.astro';
+import PageLede from '../../components/silo/PageLede.astro';
+import TodoBlock from '../../components/silo/TodoBlock.astro';
+import { createSupabaseServerClient } from '../../lib/supabase-server';
+
+const supabase = createSupabaseServerClient(Astro.cookies);
+const { data: { user } } = await supabase.auth.getUser();
+const { data: req } = await supabase.from('access_requests').select('name').eq('user_id', user!.id).single();
+const viewerName = req?.name ?? '';
+---
+
+{/*
+  NO CORPUS — Diego writes from scratch. Suggested deep dives:
+  - The syllogism node (graph schema)
+  - Cross-tribunal entity resolution (SAME_AS edges)
+  - Hybrid search (vector + structural)
+  - The MCP tool surface
+  - The ingestion pipeline
+*/}
+
+<InsideLayout
+  title="Depth"
+  chapter="04"
+  viewerName={viewerName}
+  prev={{ num: '03', title: 'Proof', href: '/inside/proof' }}
+  next={{ num: '05', title: 'Decisions', href: '/inside/decisions' }}
+>
+  <h1>Where the engineering lives</h1>
+  <PageLede>{/* TODO: 2 sentences explaining what this chapter offers vs the System chapter — System is end-to-end, Depth is the hard parts */}</PageLede>
+
+  <h2>The syllogism node</h2>
+  <TodoBlock>Diego: 200-300 words on what the syllogism node is, how it materializes legal reasoning structurally, why it's the crown jewel of the schema.</TodoBlock>
+
+  <h2>Cross-tribunal entity resolution</h2>
+  <TodoBlock>Diego: 200 words on the SAME_AS edges, the hard cases (same justice, multiple name variants), and the heuristics that work.</TodoBlock>
+
+  <h2>Hybrid search</h2>
+  <TodoBlock>Diego: 200 words on how vector retrieval is combined with graph traversal, why neither alone is enough.</TodoBlock>
+
+  <h2>The MCP tool surface</h2>
+  <TodoBlock>Diego: 150 words on the 31 MCP tools, what they expose, how Anthropic's MCP made this stable interface possible.</TodoBlock>
+
+  <h2>The ingestion pipeline</h2>
+  <TodoBlock>Diego: 200 words on Pipeline v2.1 — how decisions flow from raw PDFs to graph nodes with provenance preserved at every step.</TodoBlock>
+
+  <h2>What this document does not cover</h2>
+  <TodoBlock>Bullet list — exact algorithms, vendor specifics, current infrastructure layout. Diego can offer to walk reviewer through code in a session.</TodoBlock>
+</InsideLayout>
