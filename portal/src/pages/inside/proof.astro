@@ -1,0 +1,46 @@
+---
+import InsideLayout from '../../layouts/InsideLayout.astro';
+import PageLede from '../../components/silo/PageLede.astro';
+import ProofRow from '../../components/silo/ProofRow.astro';
+import SectionLabel from '../../components/silo/SectionLabel.astro';
+import TodoBlock from '../../components/silo/TodoBlock.astro';
+import { proofPoints } from '../../data/constants';
+import { createSupabaseServerClient } from '../../lib/supabase-server';
+
+const supabase = createSupabaseServerClient(Astro.cookies);
+const { data: { user } } = await supabase.auth.getUser();
+const { data: req } = await supabase.from('access_requests').select('name').eq('user_id', user!.id).single();
+const viewerName = req?.name ?? '';
+---
+
+{/*
+  CORPUS REFERENCE — portal/src/data/constants.ts (proofPoints, capabilities)
+  Numbers must remain accurate; update constants.ts when they change rather
+  than hardcoding here.
+*/}
+
+<InsideLayout
+  title="Proof"
+  chapter="03"
+  viewerName={viewerName}
+  prev={{ num: '02', title: 'System', href: '/inside/system' }}
+  next={{ num: '04', title: 'Depth', href: '/inside/depth' }}
+>
+  <h1>What is running today</h1>
+  <PageLede>{/* TODO: 2 sentences framing — "we report what is live, not what is planned" */}</PageLede>
+
+  <SectionLabel>Live numbers</SectionLabel>
+  {proofPoints.map((p) => (
+    <ProofRow value={p.value} label={p.label} />
+  ))}
+  <TodoBlock>Update each ProofRow with a `source` field — provenance line ("live · Apr 2026", "Neo4j Aura", etc.). Requires updating constants.ts to add source.</TodoBlock>
+
+  <h2>What's already in production</h2>
+  <TodoBlock>3-5 bullet points naming concrete capabilities that work end-to-end today, with one-line description and the date they shipped.</TodoBlock>
+
+  <h2>A recorded trace</h2>
+  <TodoBlock>Walk through one query from input to output, showing each system layer. ~200 words. Screenshot or terminal capture would help — store in /diagrams/.</TodoBlock>
+
+  <h2>What is not yet production</h2>
+  <TodoBlock>Honest list of capabilities that are functional but not stable, and capabilities that are still building. Explicit so reviewer trusts the rest.</TodoBlock>
+</InsideLayout>
