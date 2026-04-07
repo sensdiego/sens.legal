@@ -9,9 +9,13 @@ export const PATCH: APIRoute = async ({ cookies }) => {
   if (!user) {
     return new Response('Unauthorized', { status: 401 });
   }
-  await supabaseAdmin
+  const { error } = await supabaseAdmin
     .from('profiles')
     .update({ welcomed_at: new Date().toISOString() })
     .eq('id', user.id);
+  if (error) {
+    console.error('[welcome] profiles update failed', error);
+    return new Response('Update failed', { status: 500 });
+  }
   return new Response(null, { status: 204 });
 };
