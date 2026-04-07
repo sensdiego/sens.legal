@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mockup — sens.legal/ (public landing)</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-bg: #FAFAF8;
+    --color-bg-secondary: #F2F1EE;
+    --color-surface: #F2F1EE;
+    --color-text: #1A1A18;
+    --color-text-secondary: #5C5C58;
+    --color-text-muted: #9C9C96;
+    --color-border: #E4E3DF;
+    --color-border-active: #1A1A18;
+    --color-accent: #2B579A;
+    --color-accent-hover: #1E3F70;
+    --content-max-width: 38rem;
+    --header-height: 3.5rem;
+    --font-sans: 'Instrument Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  *, *::before, *::after {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    background: var(--color-bg);
+    color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.65;
+  }
+
+  h1 {
+    font-size: 3.25rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    margin-bottom: 1.25rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+  }
+  h3 { font-size: 1.0625rem; font-weight: 600; line-height: 1.35; margin-bottom: 0.5rem; }
+  p { margin-bottom: 1.25rem; color: var(--color-text); }
+  a { color: var(--color-text); text-decoration: none; }
+
+  /* ===== Top bar ===== */
+  .topbar {
+    height: var(--header-height);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    background: var(--color-bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    gap: 2rem;
+  }
+  .brand {
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+  }
+  .topbar-nav {
+    margin-left: auto;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+  .topbar-nav a {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+  .topbar-nav a:hover { color: var(--color-text); }
+  .topbar-nav .signin {
+    color: var(--color-text);
+    font-weight: 600;
+    border-left: 1px solid var(--color-border);
+    padding-left: 2rem;
+  }
+  .topbar-nav .signin::after {
+    content: ' →';
+    color: var(--color-accent);
+  }
+
+  /* ===== Page wrap ===== */
+  .page {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    padding: 6rem 0 4rem 0;
+  }
+  .hero .pre-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+  .hero .pre-label .dot {
+    color: var(--color-accent);
+    margin: 0 0.5rem;
+  }
+  .hero .lede {
+    font-size: 1.1875rem;
+    line-height: 1.55;
+    color: var(--color-text-secondary);
+    margin-bottom: 0;
+    max-width: 34rem;
+  }
+
+  /* ===== Section ===== */
+  section {
+    padding: 4rem 0;
+    border-top: 1px solid var(--color-border);
+  }
+  section .label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ===== Proof rows ===== */
+  .proof-row {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: 1.25rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-border);
+    align-items: baseline;
+  }
+  .proof-row:last-child { border-bottom: none; }
+  .proof-row .v {
+    font-family: var(--font-mono);
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+  .proof-row .l {
+    color: var(--color-text-secondary);
+    font-size: 0.9375rem;
+  }
+  .proof-row .l .src {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--color-text-muted);
+    margin-left: 0.5rem;
+  }
+
+  /* ===== Approach principles list ===== */
+  .approach {
+    display: grid;
+    gap: 2rem;
+    margin-top: 0.5rem;
+  }
+  .approach .principle {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+  .approach .num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-accent);
+    font-weight: 500;
+    padding-top: 0.25rem;
+  }
+  .approach h3 { margin-bottom: 0.25rem; }
+  .approach p { margin-bottom: 0; color: var(--color-text-secondary); font-size: 0.9375rem; }
+
+  /* ===== CTA section ===== */
+  .cta {
+    padding: 5rem 0 6rem 0;
+    border-top: 1px solid var(--color-border);
+  }
+  .cta-card {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 2.5rem 2.25rem;
+  }
+  .cta-card h2 {
+    font-size: 1.625rem;
+    margin-bottom: 0.75rem;
+  }
+  .cta-card p {
+    color: var(--color-text-secondary);
+    margin-bottom: 2rem;
+    max-width: 30rem;
+  }
+  .cta-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .oauth-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid var(--color-border-active);
+    border-radius: 4px;
+    background: var(--color-bg);
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: background-color 0.15s, border-color 0.15s;
+  }
+  .oauth-btn:hover {
+    background: var(--color-text);
+    color: var(--color-bg);
+  }
+  .oauth-btn .icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+  .cta-fineprint {
+    margin-top: 1.5rem;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    line-height: 1.55;
+  }
+  .cta-fineprint a {
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .cta-fineprint a:hover { color: var(--color-text); border-bottom-color: var(--color-text); }
+
+  /* ===== Footer ===== */
+  footer {
+    border-top: 1px solid var(--color-border);
+    padding: 2rem 0 3rem 0;
+  }
+  .footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .footer-row a {
+    color: var(--color-text-muted);
+    transition: color 0.15s;
+  }
+  .footer-row a:hover { color: var(--color-text); }
+  .footer-row .links { display: flex; gap: 1.5rem; }
+
+  /* Mockup annotation */
+  .mockup-note {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background: #1A1A18;
+    color: #FAFAF8;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    padding: 0.625rem 0.875rem;
+    border-radius: 4px;
+    max-width: 22rem;
+    line-height: 1.5;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .mockup-note strong { color: #9CB6E0; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">Silo</div>
+  <nav class="topbar-nav">
+    <a href="#approach">Approach</a>
+    <a href="#about">About</a>
+    <a href="#cta" class="signin">Sign in</a>
+  </nav>
+</header>
+
+<main class="page">
+
+  <section class="hero" style="border-top:none;padding-top:6rem">
+    <span class="pre-label">Silo<span class="dot">·</span>Legal Intelligence</span>
+    <h1>Verifiable<br>legal reasoning.</h1>
+    <p class="lede">
+      Frontier models hallucinate citations and offer no audit trail.
+      Silo grounds them in a knowledge graph of how courts actually decide —
+      and shows its work.
+    </p>
+  </section>
+
+  <section>
+    <span class="label">What's running today</span>
+    <div>
+      <div class="proof-row"><span class="v">2.2M</span><span class="l">classified decisions <span class="src">live · Apr 2026</span></span></div>
+      <div class="proof-row"><span class="v">75K+</span><span class="l">graph nodes <span class="src">Neo4j Aura</span></span></div>
+      <div class="proof-row"><span class="v">120K+</span><span class="l">relationships <span class="src">15 edge types · schema v2.1</span></span></div>
+      <div class="proof-row"><span class="v">31</span><span class="l">MCP tools exposed <span class="src">stable · ≥1mo prod</span></span></div>
+      <div class="proof-row"><span class="v">4</span><span class="l">tribunals ingested <span class="src">STJ · TJPR · TJSP · TRF4</span></span></div>
+    </div>
+  </section>
+
+  <section id="approach">
+    <span class="label">Approach</span>
+
+    <p>
+      Silo is built on the bet that the unit of legal reasoning is the relationship
+      between decisions, not the text of any single one. Vector retrieval finds passages
+      that look similar to a query. It cannot answer the questions a litigator actually
+      asks: which precedents bind this court, which decisions overrule which, which
+      arguments tend to win when the panel includes these justices.
+    </p>
+
+    <div class="approach">
+      <div class="principle">
+        <span class="num">01</span>
+        <div>
+          <h3>Better than an LLM-only workflow</h3>
+          <p>Silo does not compete with frontier models. It amplifies them with structured legal data, case context, and traceable evidence the model alone does not have.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <span class="num">02</span>
+        <div>
+          <h3>Traceability before fluency</h3>
+          <p>A good legal answer must allow inspection. Every output points back to where it came from — what was retrieved, what was derived, what was assumed.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <span class="num">03</span>
+        <div>
+          <h3>One product, specialized gears</h3>
+          <p>For users and observers, there is one product: Silo. Internally, the work is organized into specialized modules — main interface, intelligence engine, legislative grounding, document intelligence, evaluation layer.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <span class="num">04</span>
+        <div>
+          <h3>Utility before feature volume</h3>
+          <p>The focus is to solve real legal workflow pain points, not to pile up AI features with low adoption.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <span class="label">About</span>
+    <h2>A practicing lawyer, building the workflow he wished existed.</h2>
+    <p>
+      Silo is built by Diego Sens, a Brazilian corporate and litigation attorney
+      writing the system from inside a working firm. The product reflects what a
+      real practice needs from AI — not what a generic chatbot can plausibly demo.
+    </p>
+    <p>
+      The current phase is private build and validation, with foundations focused on
+      densification of the knowledge graph in the corporate and M&amp;A niche.
+      The roadmap is in <a href="#cta" style="border-bottom:1px solid var(--color-border)">the data room</a>.
+    </p>
+  </section>
+
+  <section class="cta" id="cta">
+    <div class="cta-card">
+      <h2>Investors and partners evaluating Silo</h2>
+      <p>
+        Sign in to request access to the technical data room. We approve manually,
+        usually within a day. Your sign-in tells us who you are; nothing else is required.
+      </p>
+      <div class="cta-buttons">
+        <button class="oauth-btn" onclick="">
+          <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          Continue with Google
+        </button>
+        <button class="oauth-btn" onclick="">
+          <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M12 .3a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.57v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.08-.73.08-.73 1.2.09 1.83 1.24 1.83 1.24 1.07 1.84 2.81 1.31 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.31-.54-1.52.12-3.18 0 0 1.01-.32 3.31 1.23a11.5 11.5 0 0 1 6.02 0c2.3-1.55 3.31-1.23 3.31-1.23.66 1.66.25 2.87.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22v3.29c0 .31.21.69.83.57A12 12 0 0 0 12 .3"/>
+          </svg>
+          Continue with GitHub
+        </button>
+      </div>
+      <p class="cta-fineprint">
+        By signing in, you agree to the <a href="#">privacy policy</a> and
+        <a href="#">terms</a>. We do not require an organization, NDA, or
+        sales call. Curious lawyers and operators can also request access —
+        we read every request.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="page footer-row">
+    <span>Silo · Built in São Paulo · MMXXVI</span>
+    <div class="links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Data Retention</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<div class="mockup-note">
+  <strong>Mockup of public /</strong>
+  Same design system as the data room mockup. No sidebar (this is a landing,
+  not a chapter). Everything else — colors, type, proof rows — is shared canon.
+</div>
+
+</body>
+</html>
