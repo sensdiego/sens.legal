@@ -265,3 +265,22 @@ Todas as issues do backlog inicial foram resolvidas em 2026-03-10.
 
 **Arquivos criados:** `.github/workflows/ci.yml`
 **Arquivos alterados:** `portal/package.json`, `portal/src/pages/index.astro`, `portal/src/pages/pt-br/index.astro`, `portal/src/pages/architecture.astro`, `portal/src/pages/pt-br/architecture.astro`
+
+---
+
+## 2026-04-07 — Silo gated portal redesign
+
+- Spec: `docs/superpowers/specs/2026-04-07-silo-portal-redesign-design.md`
+- Plan: `docs/superpowers/plans/2026-04-07-silo-portal-redesign.md`
+- PR: `feat/silo-gated-portal` (link after merge)
+
+What this rebuild ships:
+
+- The 4 codename docs sites (`sites/{valter,juca,leci,douto}/`) deleted; their content was autosynced from external repos and is no longer needed.
+- silo-site repo (`~/Dev/silo-site`) archived; its 6 EN markdown files preserved under `docs/legacy/silo-site/` as corpus.
+- The portal becomes a single Astro app gated behind Supabase OAuth (Google + GitHub) with manual approval.
+- Public surface reduced to 5 pages (`/`, `/about`, `/sign-in`, `/pending`, `/contact`) plus legal pages; everything else lives behind the gate at `/inside/*`.
+- The data room is structured as 7 chapters meant to be read in order: thesis, system, proof, depth, decisions, roadmap, team.
+- PT-BR mirror deleted entirely under EN-only discipline.
+- Editorial design from the brainstorm session mockups (`docs/design-mockups/`) is canonical: warm off-white, accent #2B579A, Instrument Sans + JetBrains Mono.
+- Admin dashboard rebuilt from the ground up: overview, access requests with approve/reject, view tracking.
