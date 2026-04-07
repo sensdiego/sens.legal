@@ -1,0 +1,37 @@
+---
+import InsideLayout from '../../layouts/InsideLayout.astro';
+import PageLede from '../../components/silo/PageLede.astro';
+import TodoBlock from '../../components/silo/TodoBlock.astro';
+import { createSupabaseServerClient } from '../../lib/supabase-server';
+
+const supabase = createSupabaseServerClient(Astro.cookies);
+const { data: { user } } = await supabase.auth.getUser();
+const { data: req } = await supabase.from('access_requests').select('name').eq('user_id', user!.id).single();
+const viewerName = req?.name ?? '';
+---
+
+{/*
+  NO CORPUS — Diego writes from scratch.
+*/}
+
+<InsideLayout
+  title="Team & Velocity"
+  chapter="07"
+  viewerName={viewerName}
+  prev={{ num: '06', title: 'Roadmap & Risks', href: '/inside/roadmap' }}
+>
+  <h1>Who decides, how fast we ship</h1>
+  <PageLede>{/* TODO: 2 sentences naming the team shape and the operating model */}</PageLede>
+
+  <h2>Team</h2>
+  <TodoBlock>Diego: 2 paragraphs — who you are, who else (current and planned), the practitioner-as-builder bet.</TodoBlock>
+
+  <h2>Operating model</h2>
+  <TodoBlock>Diego: 2 paragraphs on how you make decisions, how AI is integrated into your build loop, why a 1-person team can ship at this velocity.</TodoBlock>
+
+  <h2>Cadence</h2>
+  <TodoBlock>Diego: concrete numbers — commits per week, releases per month, decisions per sprint. Shows momentum.</TodoBlock>
+
+  <h2>What this document does not cover</h2>
+  <TodoBlock>Hiring plans, comp structure, equity. Available on request.</TodoBlock>
+</InsideLayout>
