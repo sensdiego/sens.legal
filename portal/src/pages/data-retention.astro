@@ -1,16 +1,23 @@
 ---
-import DocsLayout from '../layouts/DocsLayout.astro';
+import LegalLayout from '../layouts/LegalLayout.astro';
 ---
 
-<DocsLayout title="Data Retention Policy" description="Operational retention guidance for logs, memories, conversations, workflow artifacts, and support records.">
-  <h1>Data Retention Policy</h1>
-
-  <p>Last updated: 2026-03-24</p>
-
+<LegalLayout title="Data Retention Policy" description="Operational retention guidance for logs, memories, conversations, workflow artifacts, support records, and data room view logs." lastUpdated="2026-04-07">
   <p>This page explains how Silo approaches data retention at an operational level. Exact retention can vary by deployment, contract, or legal hold, but the categories below describe the default model used by the product.</p>
 
-  <h2>Retention model by category</h2>
+  <h2>Data room access requests and view logs</h2>
+  <p>Two new categories were added with the gated portal launch:</p>
+  <table>
+    <thead>
+      <tr><th>Category</th><th>Default retention</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>access_requests</code> — sign-in identity and approval status</td><td>Retained while the portal is operational; deleted on user request.</td></tr>
+      <tr><td><code>dd_views</code> — per-page view logs of reviewers</td><td>Retained for 12 months from the date of view, then anonymized (user_id and IP cleared).</td></tr>
+    </tbody>
+  </table>
 
+  <h2>Retention model by category</h2>
   <table>
     <thead>
       <tr>
@@ -59,25 +66,16 @@ import DocsLayout from '../layouts/DocsLayout.astro';
   </table>
 
   <h2>Deletion and exceptions</h2>
-
   <p>Deletion can be delayed or limited when retention is required for:</p>
-
   <ul>
     <li>security investigations;</li>
     <li>fraud or abuse response;</li>
     <li>legal or contractual obligations;</li>
     <li>backup or disaster-recovery windows that have not yet expired.</li>
   </ul>
-
   <p>Even after content deletion, aggregated metrics or sanitized operational records may remain if they no longer identify the original content and are still needed for observability or audit purposes.</p>
 
   <h2>Requesting deletion</h2>
-
-  <p>For deletion or retention questions, use:</p>
-
-  <ul>
-    <li><a href="/support/">Support</a></li>
-  </ul>
-
+  <p>For deletion or retention questions, write to <a href="mailto:diego@sens.legal">diego@sens.legal</a>.</p>
   <p>Please do not post sensitive data in a public ticket. If you need a private path and do not have one yet, request a private follow-up first.</p>
-</DocsLayout>
+</LegalLayout>

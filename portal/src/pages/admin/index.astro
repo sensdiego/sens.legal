@@ -1,0 +1,49 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { supabaseAdmin } from '../../lib/supabase-server';
+import { ACCESS_STATUS } from '../../lib/access';
+
+// Counts for the overview cards
+const { count: pendingCount } = await supabaseAdmin
+  .from('access_requests')
+  .select('*', { count: 'exact', head: true })
+  .eq('status', ACCESS_STATUS.PENDING);
+const { count: approvedCount } = await supabaseAdmin
+  .from('access_requests')
+  .select('*', { count: 'exact', head: true })
+  .eq('status', ACCESS_STATUS.APPROVED);
+const { count: viewsCount } = await supabaseAdmin
+  .from('dd_views')
+  .select('*', { count: 'exact', head: true });
+---
+
+<AdminLayout title="Overview" active="index">
+  <h1>Overview</h1>
+
+  <div class="cards">
+    <a class="card" href="/admin/access">
+      <span class="label">Access requests</span>
+      <span class="num">{pendingCount ?? 0}</span>
+      <span class="hint">pending review</span>
+    </a>
+    <a class="card" href="/admin/access?status=approved">
+      <span class="label">Approved reviewers</span>
+      <span class="num">{approvedCount ?? 0}</span>
+      <span class="hint">currently active</span>
+    </a>
+    <a class="card" href="/admin/views">
+      <span class="label">Views logged</span>
+      <span class="num">{viewsCount ?? 0}</span>
+      <span class="hint">total since launch</span>
+    </a>
+  </div>
+</AdminLayout>
+
+<style>
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem; margin-top: 1rem; }
+  .card { display: block; padding: 1.5rem 1.75rem; border: 1px solid var(--color-border); border-radius: 6px; text-decoration: none; transition: border-color 0.15s; }
+  .card:hover { border-color: var(--color-border-active); }
+  .card .label { display: block; font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); margin-bottom: 0.5rem; }
+  .card .num { display: block; font-family: var(--font-mono); font-size: 2rem; font-weight: 500; color: var(--color-text); line-height: 1; }
+  .card .hint { display: block; font-size: 0.8125rem; color: var(--color-text-secondary); margin-top: 0.5rem; }
+</style>

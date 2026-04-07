@@ -1,214 +1,120 @@
 ---
-import DocsLayout from '../layouts/DocsLayout.astro';
-import ProofPoints from '../components/ProofPoints.astro';
-import { capabilities } from '../data/constants';
+import PublicLayout from '../layouts/PublicLayout.astro';
+import ProofRow from '../components/silo/ProofRow.astro';
+import SectionLabel from '../components/silo/SectionLabel.astro';
+import PrincipleList from '../components/silo/PrincipleList.astro';
+import Principle from '../components/silo/Principle.astro';
+import OauthButton from '../components/silo/OauthButton.astro';
+import TodoBlock from '../components/silo/TodoBlock.astro';
+import { proofPoints } from '../data/constants';
+
+const description = 'Verifiable legal reasoning. Silo grounds frontier models in a knowledge graph of how courts actually decide.';
 ---
 
-<DocsLayout title="Home" description="Traceable legal intelligence infrastructure for Brazilian law.">
-  <p class="hero-brand">sens.legal</p>
-  <p class="tagline">Traceable legal intelligence infrastructure</p>
+<PublicLayout title="Silo" description={description}>
+  <section class="hero">
+    <span class="pre-label">Silo<span class="dot">·</span>Legal Intelligence</span>
+    <h1>Verifiable<br />legal reasoning.</h1>
+    <p class="lede">
+      Frontier models hallucinate citations and offer no audit trail.
+      Silo grounds them in a knowledge graph of how courts actually decide —
+      and shows its work.
+    </p>
+    <TodoBlock>Tighten or replace the lede in Diego's voice. ~2 lines max.</TodoBlock>
+  </section>
 
-  <p class="intro">
-    sens.legal builds and documents the infrastructure behind
-    <strong>Silo</strong> — a legal knowledge graph that turns frontier LLMs
-    into traceable, auditable legal consultants.
-  </p>
-
-  <div class="silo-card">
-    <h2 class="silo-name">Silo</h2>
-    <ProofPoints lang="en" />
-    <div class="waitlist-cta">
-      <p>Join the waitlist for early access.</p>
-      <form id="waitlist-form" class="waitlist-form">
-        <input type="email" name="email" placeholder="you@example.com" required />
-        <button type="submit">Join waitlist</button>
-      </form>
-      <p id="waitlist-msg" class="waitlist-msg" style="display:none;"></p>
-    </div>
-  </div>
-
-  <hr />
-
-  <h2>What is Silo</h2>
-
-  <p>
-    Frontier models hallucinate citations, miss relationships between decisions,
-    and offer no audit trail. Lawyers cannot trust AI answers without evidence.
-  </p>
-
-  <p>
-    Silo is a 360-degree legal knowledge graph that materializes the legal syllogism
-    into a navigable data structure. It empowers LLMs with structured, relational,
-    and verifiable data about how Brazilian courts decide — so every answer is
-    traceable back to real decisions.
-  </p>
-
-  <p>
-    <a href="/silo">Learn more about Silo &rarr;</a>
-  </p>
-
-  <hr />
-
-  <h2>Capabilities</h2>
-
-  <ul class="capability-list">
-    {capabilities.map((c) => (
-      <li><a href={`/silo#${c.id}`}>{c.name}</a></li>
+  <section>
+    <SectionLabel>What's running today</SectionLabel>
+    {proofPoints.map((p) => (
+      <ProofRow value={p.value} label={p.label} />
     ))}
-  </ul>
+    <TodoBlock>Add `source` field per row when constants.ts is updated with provenance — e.g., "live · Apr 2026", "Neo4j Aura", "schema v2.1".</TodoBlock>
+  </section>
 
-  <hr />
+  <section id="approach">
+    <SectionLabel>Approach</SectionLabel>
 
-  <h2>Architecture</h2>
+    <p>
+      Silo is built on the bet that the unit of legal reasoning is the
+      relationship between decisions, not the text of any single one.
+      Vector retrieval finds passages that look similar to a query. It
+      cannot answer the questions a litigator actually asks: which
+      precedents bind this court, which decisions overrule which, which
+      arguments tend to win when the panel includes these justices.
+    </p>
 
-  <p>
-    Silo is built on PostgreSQL, Neo4j, Qdrant, and Redis — with a REST API
-    and MCP server that let any LLM or agent query the graph. The system ingests
-    tribunal decisions, extracts entities and relationships, and serves them
-    through graph-led retrieval.
-  </p>
+    <PrincipleList>
+      <Principle number="01" title="Better than an LLM-only workflow">
+        Silo does not compete with frontier models. It amplifies them with
+        structured legal data, case context, and traceable evidence the
+        model alone does not have.
+      </Principle>
+      <Principle number="02" title="Traceability before fluency">
+        A good legal answer must allow inspection. Every output points back
+        to where it came from — what was retrieved, what was derived, what
+        was assumed.
+      </Principle>
+      <Principle number="03" title="One product, specialized gears">
+        For users and observers, there is one product: Silo. Internally,
+        the work is organized into specialized modules — main interface,
+        intelligence engine, legislative grounding, document intelligence,
+        evaluation layer.
+      </Principle>
+      <Principle number="04" title="Utility before feature volume">
+        The focus is to solve real legal workflow pain points, not to pile
+        up AI features with low adoption.
+      </Principle>
+    </PrincipleList>
+    <TodoBlock>Diego: confirm voice on these 4 principles, edit if needed.</TodoBlock>
+  </section>
 
-  <p>
-    <a href="/architecture">View full architecture diagrams &rarr;</a>
-  </p>
-</DocsLayout>
+  <section id="about">
+    <SectionLabel>About</SectionLabel>
+    <h2>A practicing lawyer, building the workflow he wished existed.</h2>
+    <p>
+      Silo is built by Diego Sens, a Brazilian corporate and litigation
+      attorney writing the system from inside a working firm.
+    </p>
+    <TodoBlock>Diego: 1-2 more sentences in your voice. End with subtle invitation to /about.</TodoBlock>
+  </section>
+
+  <section class="cta" id="cta">
+    <div class="cta-card">
+      <h2>Investors and partners evaluating Silo</h2>
+      <p>
+        Sign in to request access to the technical data room. We approve
+        manually, usually within a day.
+      </p>
+      <div class="cta-buttons">
+        <OauthButton provider="google" />
+        <OauthButton provider="github" />
+      </div>
+      <p class="cta-fineprint">
+        By signing in, you agree to the <a href="/privacy">privacy policy</a> and
+        <a href="/terms">terms</a>. We do not require an organization, NDA, or
+        sales call.
+      </p>
+    </div>
+  </section>
+</PublicLayout>
 
 <style>
-  .hero-brand {
-    font-family: var(--font-sans);
-    font-weight: 600;
-    font-size: 1.125rem;
-    color: var(--color-text);
-    letter-spacing: 0.01em;
-    margin-bottom: var(--space-xs);
-  }
+  .hero { padding: 6rem 0 4rem 0; }
+  .hero .pre-label { font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-text-muted); margin-bottom: 1.5rem; display: block; }
+  .hero .pre-label .dot { color: var(--color-accent); margin: 0 0.5rem; }
+  .hero h1 { font-size: 3.25rem; font-weight: 700; letter-spacing: -0.025em; line-height: 1.05; margin-bottom: 1.25rem; }
+  .hero .lede { font-size: 1.1875rem; line-height: 1.55; color: var(--color-text-secondary); margin-bottom: 0; max-width: 34rem; }
 
-  .tagline {
-    color: var(--color-text-muted);
-    font-size: 1.125rem;
-    margin-bottom: var(--space-sm);
-  }
+  section { padding: 4rem 0; border-top: 1px solid var(--color-border); }
+  section h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; }
+  section p { margin-bottom: 1.25rem; }
 
-  .intro {
-    color: var(--color-text-secondary);
-    font-size: 0.95rem;
-    margin-bottom: var(--space-xl);
-  }
-
-  hr {
-    border: none;
-    border-top: 1px solid var(--color-border);
-    margin: var(--space-2xl) 0;
-  }
-
-  .capability-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm) var(--space-lg);
-  }
-
-  .capability-list li a {
-    font-size: 0.9rem;
-    color: var(--color-text-secondary);
-  }
-
-  .capability-list li a:hover {
-    color: var(--color-text);
-  }
-
-  .silo-card {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 6px;
-    padding: var(--space-xl) var(--space-xl) var(--space-lg);
-    margin-bottom: var(--space-xl);
-  }
-
-  .silo-card .silo-name {
-    margin-bottom: var(--space-sm);
-  }
-
-  .waitlist-cta {
-    margin-bottom: 0;
-  }
-
-  .waitlist-cta > p {
-    color: var(--color-text-secondary);
-    margin-bottom: var(--space-sm);
-  }
-
-  .waitlist-form {
-    display: flex;
-    gap: var(--space-sm);
-    max-width: 28rem;
-  }
-
-  .waitlist-form input {
-    flex: 1;
-    padding: 0.5rem 0.75rem;
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    font-size: 0.9rem;
-    background: var(--color-bg);
-    color: var(--color-text);
-  }
-
-  .waitlist-form button {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    background: var(--color-text);
-    color: var(--color-bg);
-    font-size: 0.9rem;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-
-  .waitlist-form button:hover {
-    opacity: 0.9;
-  }
-
-  .waitlist-msg {
-    font-size: 0.85rem;
-    margin-top: var(--space-xs);
-  }
+  .cta { padding: 5rem 0 6rem 0; }
+  .cta-card { background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: 6px; padding: 2.5rem 2.25rem; }
+  .cta-card h2 { font-size: 1.625rem; margin-bottom: 0.75rem; }
+  .cta-card p { color: var(--color-text-secondary); max-width: 30rem; margin-bottom: 2rem; }
+  .cta-buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .cta-fineprint { margin-top: 1.5rem; font-size: 0.8125rem; color: var(--color-text-muted); line-height: 1.55; }
+  .cta-fineprint a { color: var(--color-text-secondary); border-bottom: 1px solid var(--color-border); }
+  .cta-fineprint a:hover { color: var(--color-text); border-bottom-color: var(--color-text); }
 </style>
-
-<script>
-  const form = document.getElementById('waitlist-form') as HTMLFormElement | null;
-  const msg = document.getElementById('waitlist-msg') as HTMLElement | null;
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn = form.querySelector('button') as HTMLButtonElement | null;
-    if (!btn || !msg) return;
-    btn.disabled = true;
-    btn.textContent = '...';
-    try {
-      const input = form.querySelector('input[name="email"]') as HTMLInputElement | null;
-      if (!input) return;
-      const res = await fetch('/api/waitlist', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: input.value }),
-      });
-      const data = await res.json();
-      if (data.ok) {
-        msg.textContent = 'You\'re on the list!';
-        msg.style.display = 'block';
-        form.style.display = 'none';
-      } else {
-        msg.textContent = data.error || 'Something went wrong.';
-        msg.style.display = 'block';
-        btn.disabled = false;
-        btn.textContent = 'Join waitlist';
-      }
-    } catch {
-      msg.textContent = 'Something went wrong.';
-      msg.style.display = 'block';
-      btn.disabled = false;
-      btn.textContent = 'Join waitlist';
-    }
-  });
-</script>

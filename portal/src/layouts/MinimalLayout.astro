@@ -1,0 +1,31 @@
+---
+import '../styles/global.css';
+interface Props { title: string; }
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title} — Silo</title>
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body class="minimal">
+    <header class="minimal-topbar">
+      <a class="brand" href="/">Silo</a>
+    </header>
+    <main class="minimal-content">
+      <slot />
+    </main>
+    <style is:global>
+      .minimal { font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text); min-height: 100vh; display: flex; flex-direction: column; }
+      .minimal-topbar { height: var(--header-height); border-bottom: 1px solid var(--color-border); display: flex; align-items: center; padding: 0 2rem; }
+      .minimal-topbar .brand { font-weight: 700; font-size: 1rem; color: var(--color-text); text-decoration: none; }
+      .minimal-content { flex: 1; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem; }
+    </style>
+  </body>
+</html>

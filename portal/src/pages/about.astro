@@ -1,83 +1,49 @@
 ---
-import DocsLayout from '../layouts/DocsLayout.astro';
+import PublicLayout from '../layouts/PublicLayout.astro';
+import SectionLabel from '../components/silo/SectionLabel.astro';
+import TodoBlock from '../components/silo/TodoBlock.astro';
 ---
 
-<DocsLayout title="About" description="What is sens.legal and who is behind it.">
-  <h1>About</h1>
+<PublicLayout title="About" description="A practicing lawyer building Silo from inside a working firm.">
+  <section class="about-page">
+    <SectionLabel>About</SectionLabel>
 
-  <h2>What is sens.legal?</h2>
+    <div class="about-header">
+      <img src="/about/diego.png" alt="Diego Sens" class="portrait" />
+      <div>
+        <h1>Diego Sens</h1>
+        <p class="role">Founder, Silo</p>
+      </div>
+    </div>
 
-  <p>
-    sens.legal is an ecosystem in development for traceable legal infrastructure
-    in Brazil. Instead of collapsing everything into a single product, it separates
-    responsibilities by source of authority: jurisprudence, legislation, doctrine,
-    and user experience.
-  </p>
+    <p>
+      Silo is built by Diego Sens, a Brazilian corporate and litigation
+      attorney writing the system from inside a working firm. The product
+      reflects what a real practice needs from AI — not what a generic
+      chatbot can plausibly demo.
+    </p>
 
-  <p>
-    The platform is built around <strong>Silo</strong>, which integrates a core engine
-    for jurisprudence and reasoning, a frontend interface for lawyers, a legislative
-    resolution component for document-first legislation, and a doctrine pipeline for
-    internal artifact supply.
-  </p>
+    <TodoBlock>Diego: write 2-3 paragraphs about your bar background, the moment you decided to build Silo, and why a practicing lawyer is the right person to build this.</TodoBlock>
 
-  <h2>Who</h2>
+    <h2>Why a practitioner, not a generalist</h2>
+    <TodoBlock>Diego: 1-2 paragraphs on the insight asymmetry — what a practicing lawyer sees that a generalist tech founder cannot.</TodoBlock>
 
-  <p>
-    sens.legal is created by <strong>Diego Sens</strong>, a lawyer (OAB/PR 96.036) and
-    software engineer building the tools he wished he had as a legal professional.
-    The combination of domain expertise and engineering means every design decision
-    comes from real practice — not an outside interpretation of the field.
-  </p>
+    <h2>Current phase</h2>
+    <p>
+      Silo is in private build and validation. Foundations are focused on
+      densification of the knowledge graph in the corporate and M&A niche.
+    </p>
+    <TodoBlock>Diego: short paragraph naming a current concrete focus or recent milestone.</TodoBlock>
+  </section>
+</PublicLayout>
 
-  <h2>Vision</h2>
+<style>
+  .about-page { padding: 6rem 0 4rem 0; }
+  .about-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2.5rem; }
+  .portrait { width: 5rem; height: 5rem; border-radius: 50%; object-fit: cover; border: 1px solid var(--color-border); }
+  .about-header h1 { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.25rem; line-height: 1.1; }
+  .about-header .role { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin: 0; }
 
-  <p>
-    Make legal research, grounding, argumentation, and verification accessible to
-    lawyers and LLMs without giving up traceability. Every claim should point to a
-    real source; every answer should remain explainable.
-  </p>
-
-  <h2>What makes it different</h2>
-
-  <ul>
-    <li>
-      <strong>Silo with clear component roles</strong> — the institutional portal describes
-      Silo's components, each with a clear role and integration contract: the core engine,
-      the interface, legislative resolution, and the doctrine pipeline.
-    </li>
-    <li>
-      <strong>Core engine as central backend</strong> — all legal backend logic lives in
-      the core engine, which owns retrieval, reasoning, verification,
-      chat, and all API/MCP surfaces (50+ REST endpoints, 35+ MCP tools, 1,900+ tests).
-    </li>
-    <li>
-      <strong>Grounding by authority source</strong> — legislative resolution is responsible
-      for what statutes say, the doctrine pipeline prepares internal doctrinal artifacts,
-      and the core engine organizes jurisprudence and reasoning over those inputs.
-    </li>
-    <li>
-      <strong>Canonical integration surfaces</strong> — REST API and MCP live in
-      the canonical docs, avoiding stale manual inventories in the portal.
-    </li>
-  </ul>
-
-  <h2>Current scale</h2>
-
-  <ul>
-    <li><strong>2.2M</strong> classified court decisions across STJ, TJPR, TJSP, and TRF4</li>
-    <li><strong>75K+</strong> nodes and <strong>120K+</strong> edges in the Neo4j knowledge graph (multi-tribunal production)</li>
-    <li><strong>50+</strong> REST endpoints and <strong>35+</strong> MCP tools</li>
-    <li><strong>1,900+</strong> automated tests across the backend</li>
-    <li>OAuth 2.0 with PKCE, 3-stage LLM chat pipeline in production, and ChatGPT App Directory submission</li>
-    <li>Accepted into the <strong>Neo4j for Startups</strong> program ($16K AuraDB Pro credits)</li>
-  </ul>
-
-  <h2>Contact</h2>
-
-  <ul>
-    <li>GitHub: <a href="https://github.com/sensdiego" target="_blank" rel="noopener">@sensdiego</a></li>
-    <li>X: <a href="https://x.com/sensdiego" target="_blank" rel="noopener">@sensdiego</a></li>
-    <li>Email: <a href="mailto:diegomeyersens@gmail.com">diegomeyersens@gmail.com</a></li>
-  </ul>
-</DocsLayout>
+  .about-page h2 { font-size: 1.375rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 1rem; }
+  .about-page p { margin-bottom: 1.25rem; }
+</style>

@@ -1,25 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
-    { "source": "/projects/valter", "destination": "/silo", "permanent": true },
-    { "source": "/projects/juca", "destination": "/silo", "permanent": true },
-    { "source": "/projects/leci", "destination": "/silo", "permanent": true },
-    { "source": "/projects/douto", "destination": "/silo", "permanent": true },
-    { "source": "/use-cases/search", "destination": "/silo", "permanent": true },
-    { "source": "/use-cases/verify", "destination": "/silo", "permanent": true },
-    { "source": "/use-cases/argument", "destination": "/silo", "permanent": true },
-    { "source": "/use-cases/case", "destination": "/silo", "permanent": true },
-    { "source": "/api/rest", "destination": "/api", "permanent": true },
-    { "source": "/api/mcp", "destination": "/api", "permanent": true },
-    { "source": "/pt-br/projects/valter", "destination": "/pt-br/silo", "permanent": true },
-    { "source": "/pt-br/projects/juca", "destination": "/pt-br/silo", "permanent": true },
-    { "source": "/pt-br/projects/leci", "destination": "/pt-br/silo", "permanent": true },
-    { "source": "/pt-br/projects/douto", "destination": "/pt-br/silo", "permanent": true },
-    { "source": "/pt-br/use-cases/search", "destination": "/pt-br/silo", "permanent": true },
-    { "source": "/pt-br/use-cases/verify", "destination": "/pt-br/silo", "permanent": true },
-    { "source": "/pt-br/use-cases/argument", "destination": "/pt-br/silo", "permanent": true },
-    { "source": "/pt-br/use-cases/case", "destination": "/pt-br/silo", "permanent": true },
-    { "source": "/pt-br/api/rest", "destination": "/pt-br/api", "permanent": true },
-    { "source": "/pt-br/api/mcp", "destination": "/pt-br/api", "permanent": true }
+    { "source": "/silo", "destination": "/", "permanent": true },
+    { "source": "/architecture", "destination": "/inside/system", "permanent": true },
+    { "source": "/api", "destination": "/inside/depth", "permanent": true },
+    { "source": "/roadmap", "destination": "/inside/roadmap", "permanent": true },
+    { "source": "/projects/:slug*", "destination": "/", "permanent": true },
+    { "source": "/use-cases/:slug*", "destination": "/", "permanent": true },
+    { "source": "/pt-br/:path*", "destination": "/", "permanent": true }
   ]
 }

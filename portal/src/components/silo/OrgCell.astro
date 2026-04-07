@@ -1,0 +1,25 @@
+---
+import { isPersonalDomain, emailDomain } from '../../lib/personal-domains';
+
+interface Props {
+  email: string;
+  org?: string | null;
+}
+const { email, org } = Astro.props;
+const personal = isPersonalDomain(email);
+const display = org ?? emailDomain(email) ?? 'unknown';
+---
+
+<span class:list={['org-cell', { personal }]}>{display}</span>
+
+<style>
+  .org-cell {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+  }
+  .org-cell.personal {
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+</style>

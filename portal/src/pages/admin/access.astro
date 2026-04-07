@@ -1,0 +1,110 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import OrgCell from '../../components/silo/OrgCell.astro';
+import { supabaseAdmin } from '../../lib/supabase-server';
+import { ACCESS_STATUS, isAccessStatus, type AccessStatus } from '../../lib/access';
+import { formatDate } from '../../lib/format';
+import type { AccessRequestRow } from '../../lib/database.types';
+
+// Validate status from query string against the enum to prevent arbitrary
+// strings from flowing into the DB query and the tab highlight.
+const rawStatus = Astro.url.searchParams.get('status');
+const status: AccessStatus = isAccessStatus(rawStatus) ? rawStatus : ACCESS_STATUS.PENDING;
+
+const { data: rows } = await supabaseAdmin
+  .from('access_requests')
+  .select('id, user_id, email, name, avatar_url, provider, github_handle, org, status, created_at')
+  .eq('status', status)
+  .order('created_at', { ascending: false });
+
+type Row = Pick<
+  AccessRequestRow,
+  'id' | 'user_id' | 'email' | 'name' | 'avatar_url' | 'provider' | 'github_handle' | 'org' | 'status' | 'created_at'
+>;
+const list: Row[] = (rows ?? []) as Row[];
+---
+
+<AdminLayout title="Access requests" active="access">
+  <h1>Access requests</h1>
+
+  <nav class="tabs">
+    <a href={`/admin/access?status=${ACCESS_STATUS.PENDING}`} class:list={[{ active: status === ACCESS_STATUS.PENDING }]}>Pending</a>
+    <a href={`/admin/access?status=${ACCESS_STATUS.APPROVED}`} class:list={[{ active: status === ACCESS_STATUS.APPROVED }]}>Approved</a>
+    <a href={`/admin/access?status=${ACCESS_STATUS.REJECTED}`} class:list={[{ active: status === ACCESS_STATUS.REJECTED }]}>Rejected</a>
+  </nav>
+
+  {list.length === 0 ? (
+    <p class="empty">No requests with status "{status}".</p>
+  ) : (
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Reviewer</th>
+          <th>Email</th>
+          <th>Org</th>
+          <th>Provider</th>
+          <th>Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {list.map((r) => (
+          <tr>
+            <td>
+              <div class="reviewer">
+                {r.avatar_url && <img src={r.avatar_url} alt={r.name ?? ''} referrerpolicy="no-referrer" />}
+                <div>
+                  <div class="name">{r.name ?? '(no name)'}</div>
+                  {r.github_handle && <div class="handle">@{r.github_handle}</div>}
+                </div>
+              </div>
+            </td>
+            <td class="mono">{r.email}</td>
+            <td><OrgCell email={r.email} org={r.org} /></td>
+            <td class="mono">{r.provider}</td>
+            <td class="mono">{formatDate(r.created_at)}</td>
+            <td class="actions">
+              {status === ACCESS_STATUS.PENDING && (
+                <>
+                  <form method="POST" action={`/api/admin/access/${r.id}`} class="inline">
+                    <input type="hidden" name="action" value="approve" />
+                    <button type="submit" class="approve">Approve</button>
+                  </form>
+                  <form method="POST" action={`/api/admin/access/${r.id}`} class="inline">
+                    <input type="hidden" name="action" value="reject" />
+                    <button type="submit" class="reject">Reject</button>
+                  </form>
+                </>
+              )}
+              {status === ACCESS_STATUS.APPROVED && (
+                <form method="POST" action={`/api/admin/access/${r.id}`} class="inline">
+                  <input type="hidden" name="action" value="reject" />
+                  <button type="submit" class="reject">Revoke</button>
+                </form>
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )}
+</AdminLayout>
+
+<style>
+  .tabs { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem; }
+  .tabs a { font-size: 0.875rem; color: var(--color-text-secondary); text-decoration: none; padding: 0.375rem 0.125rem; font-weight: 500; }
+  .tabs a.active { color: var(--color-text); border-bottom: 2px solid var(--color-accent); padding-bottom: calc(0.375rem - 2px); }
+  .empty { color: var(--color-text-secondary); padding: 2rem 0; }
+  .reviewer { display: flex; gap: 0.625rem; align-items: center; }
+  .reviewer img { width: 1.75rem; height: 1.75rem; border-radius: 50%; object-fit: cover; border: 1px solid var(--color-border); }
+  .reviewer .name { font-weight: 600; }
+  .reviewer .handle { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-text-muted); }
+  .mono { font-family: var(--font-mono); font-size: 0.8125rem; }
+  .actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
+  .actions form.inline { display: inline; margin: 0; }
+  .actions button { font-family: var(--font-sans); font-size: 0.75rem; font-weight: 600; padding: 0.375rem 0.75rem; border-radius: 3px; cursor: pointer; border: 1px solid; }
+  .actions .approve { background: var(--color-bg); color: var(--color-accent); border-color: var(--color-accent); }
+  .actions .approve:hover { background: var(--color-accent); color: var(--color-bg); }
+  .actions .reject { background: var(--color-bg); color: var(--color-text-secondary); border-color: var(--color-border); }
+  .actions .reject:hover { color: var(--color-text); border-color: var(--color-border-active); }
+</style>

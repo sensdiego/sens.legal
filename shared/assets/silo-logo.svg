@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" fill="none">
-  <!-- Silo logo — geometric sans-serif, dark charcoal -->
-  <defs>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@600&amp;display=swap');
-    </style>
-  </defs>
-  <text x="10" y="62" font-family="'DM Sans', 'Outfit', 'Inter', system-ui, sans-serif" font-size="68" font-weight="600" letter-spacing="-2" fill="#1d1d1d">Silo</text>
-</svg>

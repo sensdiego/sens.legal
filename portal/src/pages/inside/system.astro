@@ -1,0 +1,43 @@
+---
+import InsideLayout from '../../layouts/InsideLayout.astro';
+import PageLede from '../../components/silo/PageLede.astro';
+import TodoBlock from '../../components/silo/TodoBlock.astro';
+// import Diagram from '../../components/silo/Diagram.astro';
+
+const viewerName = Astro.locals.viewerName ?? '';
+---
+
+{/*
+  CORPUS REFERENCE — docs/legacy/silo-site/architecture.md
+  Includes a Mermaid diagram and per-layer descriptions.
+  For the SVG diagram referenced below, render the Mermaid source from
+  docs/legacy/silo-site/architecture.md to docs/design-mockups/silo-system.svg
+  before merging this PR (or ship Diego a Figma export).
+*/}
+
+<InsideLayout
+  title="System"
+  chapter="02"
+  viewerName={viewerName}
+  prev={{ num: '01', title: 'Thesis', href: '/inside/thesis' }}
+  next={{ num: '03', title: 'Proof', href: '/inside/proof' }}
+>
+  <h1>The system in five minutes</h1>
+  <PageLede>{/* TODO: 2 sentences orienting the reader for the architecture walk */}</PageLede>
+
+  <h2>Why a graph, not a vector store</h2>
+  <TodoBlock>2 paragraphs: vectors find similar passages, graphs answer the actual litigator questions. Concrete examples.</TodoBlock>
+
+  <h2>Architecture, end to end</h2>
+  <TodoBlock>Render the Mermaid diagram from docs/legacy/silo-site/architecture.md as SVG to /diagrams/silo-system.svg, then enable the Diagram component below.</TodoBlock>
+  {/* <Diagram src="/diagrams/silo-system.svg" caption="Pipeline → Graph → Surfaces (sourced from silo-site/architecture.md)" /> */}
+
+  <h2>What each layer does</h2>
+  <TodoBlock>5 short subsections — Main interface, Intelligence engine, Legislative grounding, Document intelligence, Evaluation. Each 2-4 sentences. Keep functional names; never use codenames.</TodoBlock>
+
+  <h2>The hard problem</h2>
+  <TodoBlock>Cross-tribunal entity resolution. ~150 words on why this is the part competitors who index PDFs cannot do.</TodoBlock>
+
+  <h2>What this document does not cover</h2>
+  <TodoBlock>Bullet list — internal repo names, private infrastructure, vendor specifics, technical backlog. Borrowed from silo-site convention.</TodoBlock>
+</InsideLayout>

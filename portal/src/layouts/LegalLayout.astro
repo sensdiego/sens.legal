@@ -1,0 +1,70 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  lastUpdated: string;
+}
+
+const { title, description, lastUpdated } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} — Silo</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body class="legal">
+    <header class="legal-topbar">
+      <a class="brand" href="/">Silo</a>
+      <nav class="legal-nav"><a href="/sign-in" class="signin">Sign in →</a></nav>
+    </header>
+    <main class="legal-page">
+      <article class="legal-article">
+        <h1>{title}</h1>
+        <p class="last-updated">Last updated: {lastUpdated}</p>
+        <slot />
+      </article>
+    </main>
+    <footer class="legal-footer">
+      <div class="footer-row">
+        <span>Silo · MMXXVI</span>
+        <div class="links">
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+          <a href="/data-retention">Data Retention</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+    </footer>
+    <style is:global>
+      .legal { font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text); line-height: 1.7; }
+      .legal-topbar { height: var(--header-height); border-bottom: 1px solid var(--color-border); display: flex; align-items: center; padding: 0 2rem; }
+      .legal-topbar .brand { font-weight: 700; font-size: 1rem; color: var(--color-text); text-decoration: none; }
+      .legal-nav { margin-left: auto; }
+      .legal-nav .signin { color: var(--color-text); font-weight: 600; text-decoration: none; }
+      .legal-page { max-width: 38rem; margin: 0 auto; padding: 4rem 2rem; }
+      .legal-article h1 { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+      .legal-article .last-updated { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2.5rem; }
+      .legal-article h2 { font-size: 1.375rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 1rem; }
+      .legal-article h3 { font-size: 1.0625rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem; }
+      .legal-article p, .legal-article ul, .legal-article ol { margin-bottom: 1.25rem; color: var(--color-text); }
+      .legal-article ul, .legal-article ol { padding-left: 1.5rem; }
+      .legal-article li { margin-bottom: 0.5rem; }
+      .legal-article code { font-family: var(--font-mono); font-size: 0.875em; background: var(--color-bg-secondary); padding: 0.125rem 0.375rem; border-radius: 3px; }
+      .legal-article table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+      .legal-article th, .legal-article td { border: 1px solid var(--color-border); padding: 0.75rem; text-align: left; font-size: 0.875rem; }
+      .legal-article th { background: var(--color-bg-secondary); font-weight: 600; }
+      .legal-footer { border-top: 1px solid var(--color-border); padding: 2rem 0 3rem 0; margin-top: 4rem; }
+      .legal-footer .footer-row { max-width: 38rem; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; gap: 1rem; font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+      .legal-footer .footer-row a { color: var(--color-text-muted); text-decoration: none; }
+      .legal-footer .footer-row .links { display: flex; gap: 1.5rem; }
+    </style>
+  </body>
+</html>

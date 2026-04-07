@@ -1,0 +1,40 @@
+---
+import InsideLayout from '../../layouts/InsideLayout.astro';
+import PageLede from '../../components/silo/PageLede.astro';
+import TodoBlock from '../../components/silo/TodoBlock.astro';
+
+// Viewer info pre-loaded by middleware (see portal/src/middleware.ts).
+const viewerName = Astro.locals.viewerName ?? '';
+---
+
+{/*
+  CORPUS REFERENCE — docs/legacy/silo-site/product-overview.md
+  Use as raw material for the final copy. Don't paste verbatim;
+  rewrite in editorial voice for an investor DD reader.
+*/}
+
+<InsideLayout
+  title="Thesis"
+  chapter="01"
+  viewerName={viewerName}
+  next={{ num: '02', title: 'System', href: '/inside/system' }}
+>
+  <h1>{/* TODO: 4-6 word headline naming the bet */}</h1>
+  <PageLede>{/* TODO: 2 sentences naming the wedge and what's contrarian about it */}</PageLede>
+
+  <h2>The problem</h2>
+  <TodoBlock>2-3 paragraphs distilling the legal workflow pain. Use silo-site product-overview.md "Problem" section as starting material — but tighten for a DD reader who has 5 minutes.</TodoBlock>
+
+  <h2>What Silo bets on</h2>
+  <TodoBlock>3 paragraphs: (1) the unit of legal reasoning is relationships between decisions, not similarity of text; (2) traceability is non-negotiable; (3) the moat is the graph + the practitioner-built taxonomy.</TodoBlock>
+
+  <h2>Why this bet beats vector retrieval</h2>
+  <TodoBlock>1-2 paragraphs explaining why graph + structure beats RAG for litigation. Concrete example helps.</TodoBlock>
+
+  <h2>Where to go next</h2>
+  <p>
+    For the architecture and data flow that delivers on this bet, continue to
+    <a href="/inside/system">02 · System</a>. For the live numbers and a
+    recorded trace, jump to <a href="/inside/proof">03 · Proof</a>.
+  </p>
+</InsideLayout>

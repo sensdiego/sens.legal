@@ -1,0 +1,22 @@
+---
+interface Props {
+  number: string;
+  title: string;
+}
+const { number, title } = Astro.props;
+---
+
+<div class="principle">
+  <span class="num">{number}</span>
+  <div>
+    <h3>{title}</h3>
+    <p><slot /></p>
+  </div>
+</div>
+
+<style>
+  .principle { display: grid; grid-template-columns: 2rem 1fr; gap: 1rem; align-items: start; }
+  .principle .num { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-accent); font-weight: 500; padding-top: 0.25rem; }
+  .principle h3 { margin-bottom: 0.25rem; font-size: 1.0625rem; font-weight: 600; }
+  .principle p { margin-bottom: 0; color: var(--color-text-secondary); font-size: 0.9375rem; }
+</style>

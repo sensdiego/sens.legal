@@ -1,3 +1,14 @@
+## 2026-04-07 — EN-only and gated portal
+
+The portal is now English-only. PT-BR mirror was deleted in the gated
+portal redesign (spec `docs/superpowers/specs/2026-04-07-silo-portal-redesign-design.md`).
+
+Editorial discipline carried over from `~/Dev/silo-site` (now archived):
+- Functional names only — no internal codenames in public copy
+- Restraint over marketing voice
+- "What this document does not cover" sections where helpful
+- No emojis in copy
+
 # Editorial Snapshot Governance
 
 This note explains how to keep the public `sens.legal` narrative aligned across
