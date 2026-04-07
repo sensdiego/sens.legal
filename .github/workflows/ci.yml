@@ -25,15 +25,3 @@ jobs:
 
       - name: Build portal
         run: npm -w portal run build
-
-      - name: Build Valter docs
-        run: npm -w sites/valter run build
-
-      - name: Build Juca docs
-        run: npm -w sites/juca run build
-
-      - name: Build Leci docs
-        run: npm -w sites/leci run build
-
-      - name: Build Douto docs
-        run: npm -w sites/douto run build
