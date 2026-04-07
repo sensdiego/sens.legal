@@ -1,0 +1,43 @@
+---
+import InsideLayout from '../../layouts/InsideLayout.astro';
+import PageLede from '../../components/silo/PageLede.astro';
+import TodoBlock from '../../components/silo/TodoBlock.astro';
+import { createSupabaseServerClient } from '../../lib/supabase-server';
+
+const supabase = createSupabaseServerClient(Astro.cookies);
+const { data: { user } } = await supabase.auth.getUser();
+const { data: req } = await supabase.from('access_requests').select('name').eq('user_id', user!.id).single();
+const viewerName = req?.name ?? '';
+---
+
+{/*
+  CORPUS REFERENCE — docs/legacy/silo-site/project-history.md + git log
+  Pull notable decisions from history: graph-not-vectors, codename
+  consolidation under Silo, EN-only discipline, etc.
+*/}
+
+<InsideLayout
+  title="Decisions"
+  chapter="05"
+  viewerName={viewerName}
+  prev={{ num: '04', title: 'Depth', href: '/inside/depth' }}
+  next={{ num: '06', title: 'Roadmap & Risks', href: '/inside/roadmap' }}
+>
+  <h1>How we got here</h1>
+  <PageLede>{/* TODO: 2 sentences on the value of seeing decisions, not just outcomes */}</PageLede>
+
+  <h2>Decision · Graph not vectors</h2>
+  <TodoBlock>~150 words: when, why, what we tried before, what changed our mind.</TodoBlock>
+
+  <h2>Decision · Single product, not 4 codenames</h2>
+  <TodoBlock>~150 words: the Silo unification of Mar 2026, why we collapsed 4 internal codenames under one product story.</TodoBlock>
+
+  <h2>Decision · EN-first editorial discipline</h2>
+  <TodoBlock>~100 words on why public materials (and the data room) are EN-first.</TodoBlock>
+
+  <h2>Premortems</h2>
+  <TodoBlock>List 3-5 things we have explicitly thought could kill Silo, and what we did about each.</TodoBlock>
+
+  <h2>What this document does not cover</h2>
+  <TodoBlock>Pricing, GTM, customer segmentation — those are not engineering decisions.</TodoBlock>
+</InsideLayout>
