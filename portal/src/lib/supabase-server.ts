@@ -35,12 +35,15 @@ export function createSupabaseServerClient(cookies: AstroCookies) {
  * after verifying the caller is admin.
  * Lazy singleton — created on first access so build-time SSG doesn't fail
  * when env vars are absent.
+ * Typed as `any` because we have no generated Supabase DB types yet.
  */
-let _supabaseAdmin: ReturnType<typeof createClient> | undefined;
-export const supabaseAdmin = new Proxy({} as ReturnType<typeof createClient>, {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let _supabaseAdmin: any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const supabaseAdmin: any = new Proxy({} as ReturnType<typeof createClient>, {
   get(_target, prop) {
     if (!_supabaseAdmin) {
-      _supabaseAdmin = createClient(supabaseUrl, supabaseServiceRoleKey, {
+      _supabaseAdmin = createClient(supabaseUrl || 'https://placeholder.supabase.co', supabaseServiceRoleKey || 'placeholder', {
         auth: { persistSession: false },
       });
     }
