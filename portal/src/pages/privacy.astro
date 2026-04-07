@@ -1,18 +1,25 @@
 ---
-import DocsLayout from '../layouts/DocsLayout.astro';
+import LegalLayout from '../layouts/LegalLayout.astro';
 ---
 
-<DocsLayout title="Privacy Policy" description="How Silo handles service data, request telemetry, uploaded content, and support requests.">
-  <h1>Privacy Policy</h1>
-
-  <p>Last updated: 2026-03-24</p>
-
+<LegalLayout title="Privacy Policy" description="How Silo handles service data, request telemetry, uploaded content, and support requests." lastUpdated="2026-04-07">
   <p>Silo is operated by Diego Sens. This page explains, at a high level, what data Silo processes, why it is processed, and how to request support or deletion.</p>
 
+  <h2>Authentication and access requests</h2>
+  <p>The sens.legal portal is gated. To request access to the technical data room, you sign in via Google or GitHub OAuth. When you sign in, Silo receives:</p>
+  <ul>
+    <li>your email address (verified by the OAuth provider);</li>
+    <li>your display name and avatar URL as provided by the OAuth provider;</li>
+    <li>your provider identity (Google account ID or GitHub user handle);</li>
+    <li>a session cookie that keeps you signed in to sens.legal.</li>
+  </ul>
+  <p>This data is stored in a row in the <code>access_requests</code> table on Silo's Supabase project. Diego reviews each request manually and either approves or leaves it pending.</p>
+
+  <h2>Data room view tracking</h2>
+  <p>When you visit a page under <code>/inside/*</code> (the data room), Silo logs a row in the <code>dd_views</code> table containing your user ID, email, the page path, your IP address, your user-agent, and a timestamp. This is used to understand how reviewers engage with the data room. It is not shared with third parties.</p>
+
   <h2>What data Silo may process</h2>
-
   <p>Depending on the feature you use, Silo may process:</p>
-
   <ul>
     <li>access and integration data, such as API keys, scope information, client identifiers, and marketplace auth metadata when enabled for a deployment;</li>
     <li>request telemetry, such as timestamps, IP address, user agent, route or tool name, latency, and <code>trace_id</code>;</li>
@@ -22,9 +29,7 @@ import DocsLayout from '../layouts/DocsLayout.astro';
   </ul>
 
   <h2>Why this data is processed</h2>
-
   <p>Silo processes data to:</p>
-
   <ul>
     <li>authenticate and authorize access to the service;</li>
     <li>execute API, MCP, chat, and workflow features;</li>
@@ -35,13 +40,10 @@ import DocsLayout from '../layouts/DocsLayout.astro';
   </ul>
 
   <h2>Sharing and subprocessors</h2>
-
   <p>Silo may rely on infrastructure and storage providers to run the service, including hosting, databases, object storage, and observability tooling. Data is shared only to the extent needed to operate the service and fulfill the purposes above.</p>
 
   <h2>Security summary</h2>
-
   <p>Silo is designed to run with access controls and auditability enabled in production, including:</p>
-
   <ul>
     <li>authenticated access for protected API and remote MCP surfaces;</li>
     <li>scope-based authorization for sensitive operations;</li>
@@ -49,36 +51,23 @@ import DocsLayout from '../layouts/DocsLayout.astro';
     <li>structured logs with <code>trace_id</code> for incident investigation;</li>
     <li>protected operational endpoints such as <code>/metrics</code>.</li>
   </ul>
-
   <p>No internet-facing system is perfectly secure, so please avoid sending secrets or unnecessary personal data unless your use case requires it.</p>
 
   <h2>Retention</h2>
-
   <p>Retention depends on the kind of data and the deployment context. A separate page describes the operational retention model:</p>
-
   <ul>
-    <li><a href="/data-retention/">Data Retention Policy</a></li>
+    <li><a href="/data-retention">Data Retention Policy</a></li>
   </ul>
-
   <p>Examples:</p>
-
   <ul>
     <li>session memories use explicit TTLs chosen by the caller;</li>
     <li>conversations can be deleted through product controls where available;</li>
     <li>workflow artifacts and audit records may persist while they are needed for operation, support, or compliance.</li>
   </ul>
 
-  <h2>Your requests</h2>
-
-  <p>For support, privacy, or deletion requests, use:</p>
-
-  <ul>
-    <li><a href="/support/">Support</a></li>
-  </ul>
-
-  <p>Do not post secrets, API keys, or sensitive case material in public issue trackers. If you only have a public contact path, request a private follow-up first.</p>
+  <h2>Requesting deletion</h2>
+  <p>To delete your access_requests and dd_views rows, write to <a href="mailto:diego@sens.legal">diego@sens.legal</a> with the subject "Silo data deletion".</p>
 
   <h2>Changes</h2>
-
   <p>This policy may be updated as Silo's product surface, infrastructure, or compliance posture evolves. The latest version will be published at this URL.</p>
-</DocsLayout>
+</LegalLayout>
