@@ -1,40 +1,28 @@
 ---
-import DocsLayout from '../layouts/DocsLayout.astro';
+import PublicLayout from '../layouts/PublicLayout.astro';
+import SectionLabel from '../components/silo/SectionLabel.astro';
 ---
 
-<DocsLayout title="Contact" description="Get in touch with the sens.legal team.">
-  <h1>Contact</h1>
+<PublicLayout title="Contact" description="One email for everything.">
+  <section class="contact-page">
+    <SectionLabel>Contact</SectionLabel>
+    <h1>One email.</h1>
+    <p>
+      No form, no chat widget, no sales funnel. Write to
+      <a href="mailto:diego@sens.legal">diego@sens.legal</a> and you'll hear back.
+    </p>
+    <p class="fineprint">
+      For data room access, sign in at <a href="/sign-in">sens.legal/sign-in</a> instead — it's
+      faster and gives us your identity automatically.
+    </p>
+  </section>
+</PublicLayout>
 
-  <p>
-    sens.legal is created by Diego Sens. For questions, collaboration
-    opportunities, API access requests, or general inquiries:
-  </p>
-
-  <ul>
-    <li><strong>GitHub:</strong> <a href="https://github.com/sensdiego" target="_blank" rel="noopener">@sensdiego</a></li>
-    <li><strong>X:</strong> <a href="https://x.com/sensdiego" target="_blank" rel="noopener">@sensdiego</a></li>
-    <li><strong>Email:</strong> <a href="mailto:diegomeyersens@gmail.com">diegomeyersens@gmail.com</a></li>
-  </ul>
-
-  <h2>API Access</h2>
-
-  <p>
-    The canonical REST API and MCP tools documentation is available at
-    <a href="/api">the API reference</a>. To request access, send an email
-    with your name, organization, intended use case, and which integration
-    you want to consume.
-  </p>
-
-  <p>
-    Mention whether you need jurisprudence and reasoning (core engine),
-    legislative grounding, doctrinal grounding, or a workflow through
-    the interface.
-  </p>
-
-  <h2>Wait List</h2>
-
-  <p>
-    Interested in being notified when new features are available?
-    <a href="/">Join the waitlist on the home page</a>.
-  </p>
-</DocsLayout>
+<style>
+  .contact-page { padding: 6rem 0 4rem 0; }
+  .contact-page h1 { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1.25rem; }
+  .contact-page p { margin-bottom: 1.25rem; }
+  .contact-page p a { color: var(--color-text); border-bottom: 1px solid var(--color-border); }
+  .contact-page p a:hover { color: var(--color-accent); border-bottom-color: var(--color-accent); }
+  .fineprint { font-size: 0.875rem; color: var(--color-text-muted); }
+</style>
