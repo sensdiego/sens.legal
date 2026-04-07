@@ -1,0 +1,57 @@
+---
+import InsideLayout from '../../layouts/InsideLayout.astro';
+import PageLede from '../../components/silo/PageLede.astro';
+import TodoBlock from '../../components/silo/TodoBlock.astro';
+import { milestones } from '../../data/constants';
+import { createSupabaseServerClient } from '../../lib/supabase-server';
+
+const supabase = createSupabaseServerClient(Astro.cookies);
+const { data: { user } } = await supabase.auth.getUser();
+const { data: req } = await supabase.from('access_requests').select('name').eq('user_id', user!.id).single();
+const viewerName = req?.name ?? '';
+---
+
+{/*
+  CORPUS REFERENCE — docs/legacy/silo-site/roadmap.md + portal/src/data/constants.ts (milestones)
+*/}
+
+<InsideLayout
+  title="Roadmap & Risks"
+  chapter="06"
+  viewerName={viewerName}
+  prev={{ num: '05', title: 'Decisions', href: '/inside/decisions' }}
+  next={{ num: '07', title: 'Team & Velocity', href: '/inside/team' }}
+>
+  <h1>Where Silo is going</h1>
+  <PageLede>{/* TODO: 2 sentences orienting the reader: we name the next 4-6 months, then the kill criteria */}</PageLede>
+
+  <h2>Phases</h2>
+  <ol class="phases">
+    {milestones.map((m, i) => (
+      <li>
+        <span class="phase-num">{String(i + 1).padStart(2, '0')}</span>
+        <div>
+          <h3>{m.name}</h3>
+          <p>{m.description}</p>
+          <p class="status">Status: {m.status}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+  <TodoBlock>Diego: refine each phase description for DD voice. The current copy comes from constants.ts which was written for the marketing /silo page.</TodoBlock>
+
+  <h2>Risks</h2>
+  <TodoBlock>3-5 risks, each with a one-line description and a one-line mitigation. Examples: (a) corpus growth cost, (b) vendor concentration, (c) regulatory shift around legal AI in Brazil, (d) sales motion not validated.</TodoBlock>
+
+  <h2>Kill criteria</h2>
+  <TodoBlock>2-3 explicit conditions under which Silo would stop. The test of credibility is being able to say it.</TodoBlock>
+</InsideLayout>
+
+<style>
+  .phases { list-style: none; padding: 0; margin: 0; display: grid; gap: 1.5rem; }
+  .phases li { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; }
+  .phase-num { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-accent); font-weight: 600; padding-top: 0.25rem; }
+  .phases h3 { font-size: 1.0625rem; font-weight: 600; margin-bottom: 0.25rem; }
+  .phases p { margin-bottom: 0.25rem; color: var(--color-text-secondary); font-size: 0.9375rem; }
+  .phases .status { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+</style>
