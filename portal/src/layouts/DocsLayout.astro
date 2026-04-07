@@ -2,8 +2,6 @@
 import Header from '../components/Header.astro';
 import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
-import Search from '../components/Search.astro';
-
 interface Props {
   title: string;
   description?: string;
@@ -61,7 +59,6 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
   <body>
     <Header lang={lang} />
     <Sidebar currentPath={currentPath} lang={lang} />
-    <Search lang={lang} />
 
     <main class="content">
       <article class="content-inner">
