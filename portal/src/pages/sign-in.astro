@@ -1,0 +1,45 @@
+---
+import MinimalLayout from '../layouts/MinimalLayout.astro';
+import OauthButton from '../components/silo/OauthButton.astro';
+
+const error = Astro.url.searchParams.get('error');
+const errorMessages: Record<string, string> = {
+  missing_code: 'Sign-in did not complete. Please try again.',
+  exchange_failed: 'Sign-in could not be verified. Please try again.',
+  no_user: 'Sign-in succeeded but no profile was found. Please contact diego@sens.legal.',
+};
+const errorMsg = error ? (errorMessages[error] ?? 'Sign-in error.') : null;
+---
+
+<MinimalLayout title="Sign in">
+  <div class="signin-card">
+    <h1>Sign in</h1>
+    <p>
+      Signing in tells us who you are and creates a request to access the
+      Silo technical data room. We review every request manually, usually
+      within a day.
+    </p>
+
+    {errorMsg && <p class="error">{errorMsg}</p>}
+
+    <div class="buttons">
+      <OauthButton provider="google" />
+      <OauthButton provider="github" />
+    </div>
+
+    <p class="fineprint">
+      By signing in, you agree to the <a href="/privacy">privacy policy</a> and
+      <a href="/terms">terms</a>.
+    </p>
+  </div>
+</MinimalLayout>
+
+<style>
+  .signin-card { max-width: 26rem; }
+  .signin-card h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem; }
+  .signin-card p { color: var(--color-text-secondary); margin-bottom: 1.5rem; line-height: 1.6; }
+  .signin-card .error { color: #8a1a1a; background: rgba(138, 26, 26, 0.06); border-left: 2px solid #8a1a1a; padding: 0.75rem 1rem; border-radius: 3px; font-size: 0.875rem; }
+  .signin-card .buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .signin-card .fineprint { font-size: 0.75rem; color: var(--color-text-muted); }
+  .signin-card .fineprint a { color: var(--color-text-secondary); border-bottom: 1px solid var(--color-border); }
+</style>

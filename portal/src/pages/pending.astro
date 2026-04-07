@@ -1,0 +1,66 @@
+---
+import MinimalLayout from '../layouts/MinimalLayout.astro';
+import { createSupabaseServerClient } from '../lib/supabase-server';
+
+const supabase = createSupabaseServerClient(Astro.cookies);
+const { data: { user } } = await supabase.auth.getUser();
+const { data: req } = await supabase
+  .from('access_requests')
+  .select('status, name, email')
+  .eq('user_id', user?.id ?? '')
+  .maybeSingle();
+
+const status = req?.status ?? 'pending';
+const name = req?.name ?? user?.user_metadata?.name ?? 'there';
+const email = req?.email ?? user?.email ?? '';
+---
+
+<MinimalLayout title="Pending">
+  <div class="pending-card">
+    {status === 'pending' && (
+      <>
+        <h1>Thanks, {name}.</h1>
+        <p>
+          Your request to access the Silo technical data room is under
+          review. We'll email <strong>{email}</strong> when it's approved,
+          usually within a day.
+        </p>
+        <p class="fineprint">
+          You can close this tab. There's nothing else to do on your end.
+        </p>
+      </>
+    )}
+    {status === 'rejected' && (
+      <>
+        <h1>Request not accepted.</h1>
+        <p>
+          Your request to access the Silo data room was not accepted at
+          this time. If you believe this is a mistake, write to
+          <a href="mailto:diego@sens.legal"> diego@sens.legal</a>.
+        </p>
+      </>
+    )}
+    {status === 'approved' && (
+      <>
+        <h1>You're in.</h1>
+        <p>Head to <a href="/inside">the data room →</a></p>
+      </>
+    )}
+    <form method="POST" action="/api/auth/sign-out" class="signout">
+      <button type="submit">Sign out</button>
+    </form>
+  </div>
+</MinimalLayout>
+
+<style>
+  .pending-card { max-width: 26rem; text-align: center; }
+  .pending-card h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1.25rem; }
+  .pending-card p { color: var(--color-text-secondary); margin-bottom: 1.5rem; line-height: 1.6; }
+  .pending-card p strong { color: var(--color-text); font-weight: 600; }
+  .pending-card .fineprint { font-size: 0.875rem; color: var(--color-text-muted); }
+  .pending-card a { color: var(--color-text); border-bottom: 1px solid var(--color-border); }
+  .pending-card a:hover { color: var(--color-accent); border-bottom-color: var(--color-accent); }
+  .signout { margin-top: 2rem; }
+  .signout button { background: none; border: 1px solid var(--color-border); border-radius: 4px; padding: 0.5rem 1rem; font-family: var(--font-sans); font-size: 0.8125rem; color: var(--color-text-secondary); cursor: pointer; }
+  .signout button:hover { color: var(--color-text); border-color: var(--color-border-active); }
+</style>
