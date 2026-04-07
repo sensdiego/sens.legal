@@ -11,7 +11,11 @@ const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
  * Use this from middleware and SSR pages to read/write the session.
  */
 export function createSupabaseServerClient(cookies: AstroCookies) {
-  return createServerClient(supabaseUrl, supabaseAnonKey, {
+  // During build-time SSG, env vars may be absent; use placeholders so
+  // createServerClient doesn't throw. No live requests happen during build.
+  const url = supabaseUrl || 'https://placeholder.supabase.co';
+  const key = supabaseAnonKey || 'placeholder';
+  return createServerClient(url, key, {
     cookies: {
       get(name: string) {
         return cookies.get(name)?.value;
@@ -29,7 +33,17 @@ export function createSupabaseServerClient(cookies: AstroCookies) {
 /**
  * Service-role client. Bypasses RLS. Use only in admin endpoints
  * after verifying the caller is admin.
+ * Lazy singleton — created on first access so build-time SSG doesn't fail
+ * when env vars are absent.
  */
-export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceRoleKey, {
-  auth: { persistSession: false },
+let _supabaseAdmin: ReturnType<typeof createClient> | undefined;
+export const supabaseAdmin = new Proxy({} as ReturnType<typeof createClient>, {
+  get(_target, prop) {
+    if (!_supabaseAdmin) {
+      _supabaseAdmin = createClient(supabaseUrl, supabaseServiceRoleKey, {
+        auth: { persistSession: false },
+      });
+    }
+    return (_supabaseAdmin as unknown as Record<string | symbol, unknown>)[prop];
+  },
 });
