@@ -7,6 +7,10 @@ const errorMessages: Record<string, string> = {
   missing_code: 'Sign-in did not complete. Please try again.',
   exchange_failed: 'Sign-in could not be verified. Please try again.',
   no_user: 'Sign-in succeeded but no profile was found. Please contact diego@sens.legal.',
+  insert_failed: 'We could not create your access request. Please try again.',
+  update_failed: 'We could not sync your access right now. Please try again.',
+  lookup_failed: 'We could not verify your access right now. Please try again.',
+  status_check_failed: 'Sign-in completed, but access status could not be confirmed. Please try again.',
 };
 const errorMsg = error ? (errorMessages[error] ?? 'Sign-in error.') : null;
 ---

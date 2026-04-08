@@ -3,6 +3,7 @@ import { Resend } from 'resend';
 import { createSupabaseServerClient, supabaseAdmin } from '../../../lib/supabase-server';
 import { orgFromEmail } from '../../../lib/personal-domains';
 import { ACCESS_STATUS } from '../../../lib/access';
+import { ensureBootstrapAdminAccess, isBootstrapAdminEmail } from '../../../lib/bootstrap-admin';
 import type { Database } from '../../../lib/database.types';
 
 type AccessRequestUpdate = Database['public']['Tables']['access_requests']['Update'];
@@ -80,6 +81,7 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
       ? ((meta.user_name ?? meta.preferred_username ?? null) as string | null)
       : null;
   const org = orgFromEmail(email);
+  const shouldBootstrapAdmin = isBootstrapAdminEmail(email);
 
   // INSERT-first pattern (race-safe). Two concurrent callbacks for the same
   // user (double-click on the OAuth button, browser retry, prefetch) used to
@@ -124,8 +126,25 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
     return redirect('/sign-in?error=insert_failed');
   }
 
+  if (shouldBootstrapAdmin) {
+    try {
+      await ensureBootstrapAdminAccess({
+        userId: user.id,
+        email,
+        name,
+        avatarUrl,
+        provider,
+        githubHandle,
+        org,
+      });
+    } catch (err) {
+      console.error('[callback] bootstrap admin sync failed', err);
+      return redirect('/sign-in?error=update_failed');
+    }
+  }
+
   // Notify Diego of the new request (best-effort, capped at 3s).
-  if (isNewRequest) {
+  if (isNewRequest && !shouldBootstrapAdmin) {
     const resendKey = process.env.RESEND_API_KEY;
     const notifyTo = process.env.DIEGO_NOTIFY_EMAIL ?? 'diego@sens.legal';
     const fromAddr = process.env.RESEND_FROM_EMAIL ?? 'silo@sens.legal';
@@ -158,6 +177,9 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
     return redirect('/sign-in?error=status_check_failed');
   }
 
+  if (shouldBootstrapAdmin) {
+    return redirect('/admin');
+  }
   if (req.status === ACCESS_STATUS.APPROVED) {
     return redirect('/inside');
   }

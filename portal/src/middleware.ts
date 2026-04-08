@@ -1,6 +1,7 @@
 import { defineMiddleware } from 'astro:middleware';
 import { createSupabaseServerClient, supabaseAdmin } from './lib/supabase-server';
 import { ACCESS_STATUS } from './lib/access';
+import { ensureBootstrapAdminAccess } from './lib/bootstrap-admin';
 
 const PUBLIC_PATHS = new Set<string>([
   '/',
@@ -47,6 +48,30 @@ export const onRequest = defineMiddleware(async (context, next) => {
   // so a stale or revoked refresh token within its expiry window passes the
   // gate. https://supabase.com/docs/guides/auth/server-side
   const { data: { user } } = await supabase.auth.getUser();
+
+  if (user?.email) {
+    try {
+      await ensureBootstrapAdminAccess({
+        userId: user.id,
+        email: user.email,
+        name:
+          (user.user_metadata?.full_name ??
+            user.user_metadata?.name ??
+            user.user_metadata?.user_name ??
+            user.email) as string,
+        avatarUrl:
+          (user.user_metadata?.avatar_url ?? user.user_metadata?.picture ?? null) as string | null,
+        provider: (user.app_metadata?.provider ?? 'google') as 'google' | 'github',
+        githubHandle:
+          (user.user_metadata?.user_name ?? user.user_metadata?.preferred_username ?? null) as
+            | string
+            | null,
+      });
+    } catch (error) {
+      console.error('[middleware] bootstrap admin sync failed', error);
+      return context.redirect('/sign-in?error=lookup_failed');
+    }
+  }
 
   // Pending page is for authenticated users only.
   if (path === '/pending') {
