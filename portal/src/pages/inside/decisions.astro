@@ -1,7 +1,6 @@
 ---
 import InsideLayout from '../../layouts/InsideLayout.astro';
 import PageLede from '../../components/silo/PageLede.astro';
-import TodoBlock from '../../components/silo/TodoBlock.astro';
 
 const viewerName = Astro.locals.viewerName ?? '';
 ---
@@ -20,20 +19,144 @@ const viewerName = Astro.locals.viewerName ?? '';
   next={{ num: '06', title: 'Roadmap & Risks', href: '/inside/roadmap' }}
 >
   <h1>How we got here</h1>
-  <PageLede>{/* TODO: 2 sentences on the value of seeing decisions, not just outcomes */}</PageLede>
+  <PageLede>Outcomes are the easy half of an engineering team's history. The hard half is the decisions: what was on the table, what was cut, what was bet on, and why.</PageLede>
 
   <h2>Decision · Graph not vectors</h2>
-  <TodoBlock>~150 words: when, why, what we tried before, what changed our mind.</TodoBlock>
+  <p>
+    When Silo started, text search was the primary discovery path: BM25
+    plus semantic, with the graph relegated to a 10% post-hoc boost that
+    was off by default. The graph was, in effect, a V8 engine running
+    the air conditioning.
+  </p>
+  <p>
+    The realization that changed the design was that the questions a
+    litigator actually asks — which precedents bind, which line was
+    overruled, how a panel ruled on an argument — are not
+    text-similarity questions. They are structural questions whose
+    answers live in graph traversals, not in the closeness of one
+    passage to another. Trying to rescue text search by giving the graph
+    more weight in the fusion formula would still leave the wrong
+    primitive at the center.
+  </p>
+  <p>
+    The decision was to invert the architecture at the interface level.
+    The graph became a first-class tool surface — citation chains,
+    similar cases, minister profiles, optimal arguments, contested
+    criteria — exposed as MCP tools the model can compose directly,
+    without going through text retrieval. Text search remains as one
+    tool among many, useful for keyword grounding, but it is no longer
+    the entry point.
+  </p>
 
-  <h2>Decision · Single product, not 4 codenames</h2>
-  <TodoBlock>~150 words: the Silo unification of Mar 2026, why we collapsed 4 internal codenames under one product story.</TodoBlock>
+  <h2>Decision · Single product, not several codenames</h2>
+  <p>
+    Silo started in December 2025 as a constellation of specialized
+    engines, each with its own repository, codename, and roadmap. The
+    codenames were useful for separating the work in commits and
+    tickets; they were terrible for telling anyone what the product was
+    — and as the engines started to converge functionally, the
+    separation began to feel less like clarity and more like
+    fragmentation.
+  </p>
+  <p>
+    The decision in late March 2026 was to collapse all of it under a
+    single name and a single story: Silo. The internal repositories
+    kept their codenames where convenient, but every public artifact —
+    website, MCP server, REST API, app directory submission — would
+    refer only to Silo.
+  </p>
+  <p>
+    The reason was not branding. It was that the codenames were
+    creating an illusion of separability that did not match how the
+    system actually works. The intelligence engine, the document
+    intelligence layer, and the case analysis agent are not products in
+    any meaningful sense. They are layers of one product, and the only
+    honest way to talk about them publicly is as one thing.
+  </p>
 
-  <h2>Decision · EN-first editorial discipline</h2>
-  <TodoBlock>~100 words on why public materials (and the data room) are EN-first.</TodoBlock>
+  <h2>Decision · MCP-first distribution</h2>
+  <p>
+    When Silo started, the obvious question was what kind of UI to
+    build. The default answer in legal AI was a proprietary chat
+    application — <em>"ChatGPT for lawyers"</em> — with a custom
+    interface, a custom auth flow, a custom support stack, and a
+    marketing motion built around getting lawyers to switch contexts
+    every time they want legal intelligence in their workflow.
+  </p>
+  <p>
+    The decision was not to do that. The proprietary chat UI is a
+    category that frontier models will keep getting better at, and
+    where the lawyer's switching cost is high precisely because the
+    lawyer is already using a frontier model for everything else.
+    Competing with Claude and ChatGPT for the lawyer's attention is the
+    wrong battle.
+  </p>
+  <p>
+    The choice was to be MCP-first instead. Silo runs as a remote Model
+    Context Protocol server. When a lawyer asks a question inside
+    Claude or ChatGPT, the model decides whether to call Silo's tools
+    — and if it does, it gets back graph traversal results, citation
+    chains, minister profiles, or a full case dossier from the
+    autonomous agent. The lawyer's interface does not change.
+  </p>
+  <p>
+    The trade-off is real and current. Being MCP-first means the user
+    experience belongs to the client, not to us; we have less control
+    over how Silo's output is rendered. It means the marketplace
+    listings in Claude and ChatGPT app directories are gating
+    distribution: the applications are in review, and until they land,
+    every user has to install the MCP connector manually. But the
+    alternative was worse. A proprietary chat UI no lawyer wants to
+    switch to is not a product. A tool inside the model the lawyer is
+    already using is.
+  </p>
 
   <h2>Premortems</h2>
-  <TodoBlock>List 3-5 things we have explicitly thought could kill Silo, and what we did about each.</TodoBlock>
+  <p>
+    These are the risks we have explicitly thought could kill Silo, and
+    what we are doing about each.
+  </p>
+  <ul>
+    <li>
+      <strong>Frontier models internalize legal reasoning natively.</strong>
+      If the next generation of frontier models can answer structural
+      legal questions without an external graph, the "amplify, don't
+      compete" thesis collapses. <em>Mitigation:</em> the moat is not the
+      reasoning, it is the practitioner-built taxonomy and the structured
+      corpus. A frontier model can reason; it cannot acquire the taxonomy
+      or the cross-tribunal entity resolution from training data alone.
+      We bet on what the frontier cannot scrape.
+    </li>
+    <li>
+      <strong>The sales motion is not validated.</strong> Engineering
+      ahead of demand is a startup graveyard. <em>Mitigation:</em> the
+      next roadmap milestone is explicitly about putting Silo in front of
+      an external lawyer and measuring whether the workflow is preferred
+      over an LLM-only baseline. If the answer is no, we change the
+      product before scaling distribution.
+    </li>
+    <li>
+      <strong>Unit economics break under corpus growth.</strong> As the
+      graph grows from tens of thousands of nodes to millions, the
+      per-query cost on frontier models could outpace revenue.
+      <em>Mitigation:</em> the structuring pipeline uses open-source
+      models rather than frontier models, so the per-chunk cost stays
+      linear. The frontier model is reserved for analysis, where the
+      cost is per case, not per chunk.
+    </li>
+  </ul>
 
   <h2>What this document does not cover</h2>
-  <TodoBlock>Pricing, GTM, customer segmentation — those are not engineering decisions.</TodoBlock>
+  <ul>
+    <li>Pricing and commercial terms</li>
+    <li>Go-to-market strategy and customer segmentation</li>
+    <li>Hiring plans and team composition (covered in the Team chapter)</li>
+    <li>Operational milestones and feature priority (covered in the Roadmap chapter)</li>
+  </ul>
+  <p>
+    The decisions in this chapter are the architectural and strategic
+    calls a reviewer needs to evaluate the engineering. The commercial
+    decisions sit elsewhere — and Diego is happy to walk through them
+    in a working session.
+  </p>
 </InsideLayout>
