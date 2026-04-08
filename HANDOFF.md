@@ -1,4 +1,4 @@
-# Handoff — 2026-04-08 (post content pass — partial)
+# Handoff — 2026-04-08 (content pass complete)
 
 ## How to resume in the next session
 
@@ -6,17 +6,17 @@
 
 Ask explicitly:
 
-`Read /Users/sensdiego/Dev/sens.legal/HANDOFF.md and resume the content pass. 13 slots remain across 4 files.`
+`Read /Users/sensdiego/Dev/sens.legal/HANDOFF.md and continue from the completed content pass. Prioritize runbook follow-ups or reviewer feedback.`
 
 ---
 
 ## Current state
 
 **Project:** sens.legal — single Astro portal at sens.legal hosting Silo's public landing and gated technical data room.
-**Branch:** `main` (content pass draft merged via PR #9, squash commit `4467852`).
+**Branch:** `main` (`5cbd0a1` closes the remaining 13 content slots; `8b58103` bootstraps Diego admin access after OAuth).
 **Stack:** Astro 5 (output: server) + Vercel + Supabase Auth (Google + GitHub) + Resend.
-**Live in production at https://sens.legal** with chapters 01-05 published.
-**Portal tracking issue:** sensdiego/sens.legal#8 (content pass, ~24/37 slots closed, 13 pending).
+**Live in production at https://sens.legal** with chapters 01-07 published and public copy finalized.
+**Portal tracking issue:** sensdiego/sens.legal#8 (content pass complete, 37/37 slots closed).
 
 ### Content pass status
 
@@ -27,14 +27,26 @@ Ask explicitly:
 | 03 | `/inside/proof` | 5/5 | ✓ live (verified live numbers with source provenance) |
 | 04 | `/inside/depth` | 7/7 | ✓ live |
 | 05 | `/inside/decisions` | 5+1/5 | ✓ live (includes a new MCP-first distribution ADR added during the session) |
-| 06 | `/inside/roadmap` | 0/3 | pending |
-| 07 | `/inside/team` | 0/4 | pending |
-| — | `/about` | 0/3 | pending |
-| — | `/` (landing) | 1/4 | partial (proofPoints `source` field shipped; lede, principles voice, and about hook still pending) |
+| 06 | `/inside/roadmap` | 3/3 | ✓ live |
+| 07 | `/inside/team` | 4/4 | ✓ live |
+| — | `/about` | 3/3 | ✓ live |
+| — | `/` (landing) | 4/4 | ✓ live |
 
-All pending `<TodoBlock>` markers are invisible in production by default — `portal/src/components/silo/TodoBlock.astro` now defaults to `hideInProd=true`. Local `astro dev` still shows the markers for review; nothing orange leaks onto the live public surface.
+There are no remaining `<TodoBlock>` markers in `portal/src/pages`. `portal/src/components/silo/TodoBlock.astro` still defaults to `hideInProd=true`, but the content pass no longer depends on it for the current public or gated pages.
 
-### Last session (2026-04-08 — content pass draft via Claude Code)
+### Follow-up session (2026-04-08 later — content pass completion via Codex)
+
+- **Closed the remaining 13 slots** across:
+  - `portal/src/pages/inside/roadmap.astro`
+  - `portal/src/pages/inside/team.astro`
+  - `portal/src/pages/about.astro`
+  - `portal/src/pages/index.astro`
+- **Refined roadmap phase descriptions** in `portal/src/data/constants.ts` so the rendered milestones read in DD voice rather than leftover marketing copy.
+- **Verification:** `npm run check` and `npm run build` both passed after the copy updates.
+- **Production deploy:** Vercel production deploy completed and was aliased back to `https://sens.legal`.
+- **Git:** content pass completion pushed to `main` at commit `5cbd0a1`.
+
+### Previous session (2026-04-08 earlier — content pass draft via Claude Code)
 
 The session ran interactively in slot-by-slot hybrid mode with Claude drafting from project corpus and Diego validating.
 
@@ -61,32 +73,9 @@ The session ran interactively in slot-by-slot hybrid mode with Claude drafting f
 4. **TJSC specifically is not mentioned in the recorded trace** — the reference case is framed as "a Brazilian appellate case" without naming the tribunal. This avoids contradicting the "3 tribunals in graph: STJ, TJPR, TJSP" claim in the live numbers above it.
 5. **Graph-led in production** — means the agent primarily uses graph-traversal MCP tools rather than going through `search_jurisprudence`. It does not mean the `HybridRetriever.graph_led_enabled` feature flag is `True` in production wiring — it isn't. The Chapter 05 "Graph not vectors" ADR frames the decision at the interface level.
 
-### Pending work (13 slots, needs Diego's voice)
+### Pending content work
 
-These are explicitly the slots Diego said need his own voice — all are personal, narrative, or strategic. Do not attempt to draft them from corpus alone.
-
-1. **`portal/src/pages/inside/roadmap.astro`** — 3 slots:
-   - Lede (2 sentences orienting the reader: the next 4-6 months + kill criteria)
-   - Risks (3-5 risks with one-line description and mitigation — note Diego already approved the Premortem framing in Chapter 05 but roadmap risks are a different cut)
-   - Kill criteria (2-3 explicit conditions under which Silo would stop)
-   - Also: the `phases` list already renders from `constants.ts` milestones; refine the descriptions for DD voice if they still feel like marketing.
-
-2. **`portal/src/pages/inside/team.astro`** — 4 slots:
-   - Lede (2 sentences naming the team shape and operating model)
-   - Team (2 paragraphs — who Diego is, who else if any, the practitioner-as-builder bet)
-   - Operating model (2 paragraphs on decision-making cadence, how AI is integrated into the build loop, why a small team can ship at this velocity)
-   - Cadence (concrete numbers — commits/week, releases/month, decisions/sprint)
-   - "What this document does not cover" bullet list (hiring plans, comp, equity)
-
-3. **`portal/src/pages/about.astro`** — 3 slots:
-   - Background (2-3 paragraphs on Diego's bar background, the moment he decided to build Silo, why a practicing lawyer is the right person)
-   - Practitioner advantage (1-2 paragraphs on insight asymmetry vs generalist tech founder)
-   - Current concrete focus (short paragraph naming a recent milestone)
-
-4. **`portal/src/pages/index.astro`** — 3 slots:
-   - Landing lede polish (~2 lines in Diego's voice replacing the current working copy)
-   - Voice confirmation on the 4 principles (they already read well — may only need light editing)
-   - About hook (1-2 more sentences in Diego's voice ending with an invitation to `/about`)
+No content slots remain open in `portal/src/pages`. If the next session is content-oriented, it should be about reviewer edits, factual refreshes, or tightening specific sections after live feedback rather than filling placeholders.
 
 ### Session protocol for the follow-up
 
