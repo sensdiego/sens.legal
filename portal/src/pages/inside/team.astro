@@ -55,20 +55,46 @@ const viewerName = Astro.locals.viewerName ?? '';
   <h2>Cadence</h2>
   <ul>
     <li>
-      On the public surface alone, this repo logged 10 commits between April
-      4 and April 8, 2026. The private engine work sits outside that count.
+      Since the first repository in this stack was created on January 23,
+      2026, 1,522 commits have landed on the current default branches across
+      11 repositories.
     </li>
     <li>
-      The portal project logged 14 production deployments in the last 18
-      days on Vercel, which is roughly 23 production releases per month at
-      the current pace.
+      Across the public-facing web surface, 309 production deployments have
+      landed since those projects were created on Vercel.
     </li>
     <li>
-      A sprint-sized product cycle here usually means 6-8 explicit
-      decisions. The gated portal cycle alone resolved 8 open architecture
-      questions before shipping.
+      The shape of the work is not one application with a thin wrapper. It is
+      a multi-repository system spanning ingestion, extraction, retrieval,
+      agent orchestration, evaluation, and the public review surface.
     </li>
   </ul>
+
+  <h2>What agentic development changed</h2>
+  <p>
+    This would not have been a one-person company without agentic coding.
+    Since January 23, 2026, the stack has grown to 11 repositories, 1,522
+    commits on default branches, roughly 250,000 lines of source and tests,
+    and 309 production deployments across the public web surface. On a
+    conventional path, I would estimate this scope at roughly 12,000 to
+    15,000 engineering hours: something like a 6-8 person team over 18-24
+    months, with a fully loaded cost in roughly the $2M-$6M range.
+  </p>
+  <p>
+    What agentic coding made possible was implementation throughput:
+    scaffolding, refactors, test writing, code review, integration work,
+    and repeated iteration across a wide surface area. What it did not do
+    was the critical work: product direction, legal judgment, ontology and
+    taxonomy design, system architecture, evaluation standards, factual
+    validation, security decisions, and the final call on what ships.
+  </p>
+  <p>
+    Those human steps are the project. If the legal structure is wrong, the
+    graph is useless. If the evaluation standard is weak, the outputs are not
+    trustworthy. If the security and provenance model are wrong, the system is
+    not usable in serious legal work. Agentic coding accelerated construction;
+    it did not replace the judgment that makes Silo defensible.
+  </p>
 
   <h2>What this document does not cover</h2>
   <ul>
