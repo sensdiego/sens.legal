@@ -1,8 +1,7 @@
 ---
 import InsideLayout from '../../layouts/InsideLayout.astro';
 import PageLede from '../../components/silo/PageLede.astro';
-import TodoBlock from '../../components/silo/TodoBlock.astro';
-// import Diagram from '../../components/silo/Diagram.astro';
+import Diagram from '../../components/silo/Diagram.astro';
 
 const viewerName = Astro.locals.viewerName ?? '';
 ---
@@ -23,21 +22,125 @@ const viewerName = Astro.locals.viewerName ?? '';
   next={{ num: '03', title: 'Proof', href: '/inside/proof' }}
 >
   <h1>The system in five minutes</h1>
-  <PageLede>{/* TODO: 2 sentences orienting the reader for the architecture walk */}</PageLede>
+  <PageLede>This chapter walks the system end to end and names each layer. The goal is to give the reader a shared mental model before the deep dives, and to flag the hard problem that sits at the center of the whole thing.</PageLede>
 
   <h2>Why a graph, not a vector store</h2>
-  <TodoBlock>2 paragraphs: vectors find similar passages, graphs answer the actual litigator questions. Concrete examples.</TodoBlock>
+  <p>
+    A vector store indexes embeddings. Its fundamental operation is: given
+    a query, return the K passages whose embeddings look most like it.
+    That is a useful primitive when the task is <em>find me more text like
+    this text</em> — research summarization, duplicate detection, semantic
+    search over a pile of documents. It is not the primitive a litigator
+    needs.
+  </p>
+  <p>
+    A graph indexes relationships. Its fundamental operation is: given a
+    starting node and a traversal pattern, return the paths that match.
+    That is the primitive a litigator needs, because the litigator's
+    questions are structural. Which precedents cite this ruling? What path
+    connects this statute to that judgment? Has this panel ever reversed
+    itself on this doctrine? Every one of those questions is a graph
+    traversal. A vector store alone cannot even start.
+  </p>
 
   <h2>Architecture, end to end</h2>
-  <TodoBlock>Render the Mermaid diagram from docs/legacy/silo-site/architecture.md as SVG to /diagrams/silo-system.svg, then enable the Diagram component below.</TodoBlock>
-  {/* <Diagram src="/diagrams/silo-system.svg" caption="Pipeline → Graph → Surfaces (sourced from silo-site/architecture.md)" /> */}
+  <Diagram
+    src="/diagrams/silo-system.svg"
+    caption="Main interface → case analysis agent → intelligence engine + document intelligence → traceable output"
+  />
 
   <h2>What each layer does</h2>
-  <TodoBlock>5 short subsections — Main interface, Intelligence engine, Legislative grounding, Document intelligence, Evaluation. Each 2-4 sentences. Keep functional names; never use codenames.</TodoBlock>
+  <h3>Main interface</h3>
+  <p>
+    The main interface is not a new app the lawyer has to learn. Silo
+    enters as a set of MCP tools — a connector inside Claude, ChatGPT, and
+    any model client that speaks the Model Context Protocol. The lawyer
+    asks a question in the interface they already use, and the model
+    decides when to call Silo to ground its answer in the graph. No
+    separate login, no new tab, no workflow to rebuild.
+  </p>
+
+  <h3>Case analysis agent</h3>
+  <p>
+    The case analysis agent is the orchestrator. Given a case file, it
+    extracts the structural signals from the documents, queries the
+    intelligence engine for the relevant case law and reasoning, and
+    produces a complete case dossier with every step's provenance
+    preserved. This is the layer that makes the product feel autonomous to
+    the lawyer.
+  </p>
+
+  <h3>Intelligence engine</h3>
+  <p>
+    The intelligence engine is the knowledge graph of case law and the
+    reasoning that runs on top of it. It holds the decisions, the
+    citations between them, the holdings and arguments, and the
+    cross-tribunal identity of the actors who wrote them. Its job is to
+    answer structural questions about the body of case law — which
+    precedents, which overrules, which panels — and to ground every answer
+    in a citation chain a reviewer can follow.
+  </p>
+
+  <h3>Document intelligence</h3>
+  <p>
+    Document intelligence is the upstream layer that turns raw legal PDFs
+    into structured signals. It handles extraction, chunking, quality
+    detection, OCR when needed, and the extraction of claims, arguments,
+    citations, and procedural steps from petitions and rulings. Everything
+    downstream depends on this layer getting the structure out of
+    documents without silently dropping what matters.
+  </p>
+
+  <h3>Legislative grounding</h3>
+  <p>
+    Legislative grounding is how the system holds legislation — as
+    canonical provisions with stable identifiers, not as loose text. It
+    resolves statutes and articles cited in decisions to their canonical
+    form, so that a reference to Article 20 of the CPC in one ruling can
+    be linked to the same article cited in another. Without this, every
+    citation would be a string; with it, citations become edges.
+  </p>
+
+  <h3>Evaluation layer</h3>
+  <p>
+    The evaluation layer is how we know the system is actually useful, not
+    just present. It runs A/B comparisons against an LLM-only baseline,
+    tracks metrics across pipeline versions, and ships test harnesses for
+    every component that reasons. The rule is: we do not ship a reasoning
+    change without numbers that show what it did.
+  </p>
 
   <h2>The hard problem</h2>
-  <TodoBlock>Cross-tribunal entity resolution. ~150 words on why this is the part competitors who index PDFs cannot do.</TodoBlock>
+  <p>
+    The hard problem is not crawling legal PDFs across tribunals — a big
+    enough cluster solves that. The hard problem is that Brazilian case
+    law is hierarchically layered, and no single tribunal contains the
+    whole picture.
+  </p>
+  <p>
+    The STJ is the authoritative interpreter of federal legislation:
+    excellent raw material for a graph, limited on facts. A state court
+    like the TJPR sits one level below, and it is where factual richness
+    and argumentative variety live. Beneath both are first-instance
+    judges, whose rulings are where the law meets the daily reality of the
+    cases a lawyer is actually litigating.
+  </p>
+  <p>
+    A system that indexes all three as separate pools still has the
+    hardest part left: knowing that a concept, a party, an argument chain
+    is the same thing as it travels between them. That is a structural
+    problem, not a parsing one. It is what competitors who stop at PDF
+    extraction cannot do — and it is what is closest to a flywheel in
+    Silo: the coverage that matters is not breadth, it is depth through
+    the hierarchy.
+  </p>
 
   <h2>What this document does not cover</h2>
-  <TodoBlock>Bullet list — internal repo names, private infrastructure, vendor specifics, technical backlog. Borrowed from silo-site convention.</TodoBlock>
+  <ul>
+    <li>Internal repository and service names</li>
+    <li>Private infrastructure, vendor specifics, and deployment topology</li>
+    <li>Internal endpoints and API surface beyond the MCP tool catalog</li>
+    <li>The technical backlog and current sprint work</li>
+    <li>Implementation details of the hard problem — those sit in the Depth chapter</li>
+  </ul>
 </InsideLayout>
