@@ -37,19 +37,22 @@ const viewerName = Astro.locals.viewerName ?? '';
 
   <h2>Operating model</h2>
   <p>
-    The operating model is short-loop by design. I prefer to resolve
-    architecture and product questions close to the code, with a working
-    example, a narrower interface, or a real case run, instead of a long
-    planning ceremony. That keeps decisions falsifiable. If something is not
-    legible in the product, it is usually not clear enough yet.
+    The operating model is short-loop and judgment-heavy by design. I try to
+    resolve architecture and product questions as close as possible to a
+    working artifact: a narrower interface, a real case trace, a graph query,
+    a failing path, or a live reviewer surface. That keeps the system
+    falsifiable. If something cannot be made legible in the product, it is
+    usually not clear enough to keep.
   </p>
   <p>
-    AI is integrated into the build loop as leverage: drafting alternatives,
-    pressure-testing assumptions, reviewing code, and accelerating the
-    boring parts of implementation. The legal and product judgment still
-    stays with me. That is why a one-person team can move quickly here: the
-    system does not need to be re-explained across multiple roles before a
-    change ships.
+    Agentic coding is part of that loop, but not the owner of it. I use it
+    to expand implementation bandwidth: drafting alternatives, reviewing code,
+    pressure-testing decisions, and moving faster across integration work.
+    The critical decisions still stay with me: what counts as a correct legal
+    structure, what standard an output has to meet, which risks are
+    unacceptable, and whether something is ready to ship. That compression of
+    implementation into the same loop as product and legal judgment is the
+    reason a one-person team can move at this pace.
   </p>
 
   <h2>Cadence</h2>
