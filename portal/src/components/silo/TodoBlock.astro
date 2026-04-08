@@ -2,7 +2,11 @@
 interface Props {
   hideInProd?: boolean;
 }
-const { hideInProd = false } = Astro.props;
+// Default: hide in production. TodoBlocks are editorial markers for
+// local review; they should never render on sens.legal live. Opt out
+// per-instance with `hideInProd={false}` if a marker must be visible
+// in prod for some reason.
+const { hideInProd = true } = Astro.props;
 const isProd = import.meta.env.PROD;
 const hidden = hideInProd && isProd;
 ---
