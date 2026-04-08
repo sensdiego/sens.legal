@@ -53,11 +53,13 @@ const viewerName = Astro.locals.viewerName ?? '';
   <h3>Main interface</h3>
   <p>
     The main interface is not a new app the lawyer has to learn. Silo
-    enters as a set of MCP tools — a connector inside Claude, ChatGPT, and
-    any model client that speaks the Model Context Protocol. The lawyer
-    asks a question in the interface they already use, and the model
-    decides when to call Silo to ground its answer in the graph. No
-    separate login, no new tab, no workflow to rebuild.
+    runs as a remote MCP server, and any client that speaks the Model
+    Context Protocol — Claude, ChatGPT, or a custom agent — can be
+    pointed at it and start calling Silo tools alongside the model's own.
+    Once the connector is installed, the lawyer asks questions in the
+    interface they already use, and the model decides when to call Silo
+    to ground its answer in the graph. No separate login, no new tab, no
+    workflow to rebuild.
   </p>
 
   <h3>Case analysis agent</h3>
