@@ -1,7 +1,6 @@
 ---
 import InsideLayout from '../../layouts/InsideLayout.astro';
 import PageLede from '../../components/silo/PageLede.astro';
-import TodoBlock from '../../components/silo/TodoBlock.astro';
 
 // Viewer info pre-loaded by middleware (see portal/src/middleware.ts).
 const viewerName = Astro.locals.viewerName ?? '';
@@ -19,17 +18,86 @@ const viewerName = Astro.locals.viewerName ?? '';
   viewerName={viewerName}
   next={{ num: '02', title: 'System', href: '/inside/system' }}
 >
-  <h1>{/* TODO: 4-6 word headline naming the bet */}</h1>
-  <PageLede>{/* TODO: 2 sentences naming the wedge and what's contrarian about it */}</PageLede>
+  <h1>Legal reasoning is structural.</h1>
+  <PageLede>Vector retrieval finds passages that look similar. But the questions litigators actually ask — which precedents bind, which decisions overrule, which arguments win — live in the structure of legal reasoning itself, not in the text of any single document.</PageLede>
 
   <h2>The problem</h2>
-  <TodoBlock>2-3 paragraphs distilling the legal workflow pain. Use silo-site product-overview.md "Problem" section as starting material — but tighten for a DD reader who has 5 minutes.</TodoBlock>
+  <p>
+    Brazilian litigators work across disconnected silos. Their own document
+    corpus lives in one system. Case law sits behind half a dozen tribunal
+    interfaces. Legislation is consulted in a browser tab, detached from the
+    case context. A general-purpose LLM, if it is in the loop at all, has no
+    memory of the matter, no structural sense of the corpus, and no audit
+    trail a reviewer could inspect.
+  </p>
+  <p>
+    The practical result is a workflow that is slow where it should be fast
+    and loose where it should be rigorous. A litigator spends hours
+    reconstructing context that the system already contains, then ships an
+    argument whose provenance nobody — not even the author — can fully trace.
+  </p>
+  <p>
+    This is the workflow we are replacing. Not the lawyer, not the case
+    strategy, not the judgment call about which argument to run — the
+    plumbing that today forces every one of those to be done from scratch,
+    under time pressure, with no auditable memory.
+  </p>
 
   <h2>What Silo bets on</h2>
-  <TodoBlock>3 paragraphs: (1) the unit of legal reasoning is relationships between decisions, not similarity of text; (2) traceability is non-negotiable; (3) the moat is the graph + the practitioner-built taxonomy.</TodoBlock>
+  <p>
+    The first bet is that legal reasoning is structural at every layer that
+    matters. Inside one case, the structure is what separates a holding from
+    an argument and a fact from a procedural claim. Across the body of case
+    law, the structure is what binds, what overrules, what has been
+    distinguished. Across legislation and doctrine, the structure is what
+    grounds the whole thing. Vector retrieval cannot see any of those layers
+    — it only finds passages that look similar to each other. Legal
+    reasoning is the opposite: it is the graph, not the paragraph.
+  </p>
+  <p>
+    The second bet is that traceability is non-negotiable. A legal answer
+    that cannot be audited is not a legal answer — it is a guess wearing a
+    citation. Every output from Silo has to point back to what was
+    retrieved, what was derived, and what was assumed, in a form a reviewer
+    can follow end to end. Fluency without provenance is worse than silence.
+  </p>
+  <p>
+    The third bet is that the defensible asset is the pipeline that runs end
+    to end: extracting structure from raw legal documents, maintaining it in
+    a graph a litigator's questions can be asked against, and walking that
+    graph with an autonomous agent that knows what a case analysis is
+    supposed to contain. General search engines can index PDFs. Frontier
+    models can summarize them. Neither can extract the claim-by-claim
+    structure of a petition, resolve a citation across six tribunal syntax
+    variants, and return an auditable case analysis — because each of those
+    requires a practitioner-built taxonomy at a different layer. The moat is
+    the whole stack, and the fact that the taxonomy at each layer was built
+    by someone who practices the law.
+  </p>
 
   <h2>Why this bet beats vector retrieval</h2>
-  <TodoBlock>1-2 paragraphs explaining why graph + structure beats RAG for litigation. Concrete example helps.</TodoBlock>
+  <p>
+    Consider a concrete question: "Has this line of reasoning been
+    overruled by a later decision?" Vector retrieval can return cases that
+    look similar to the ruling in question — decisions about the same
+    topic, with overlapping vocabulary. What it cannot do is tell you
+    whether any of those later decisions actually overruled the line.
+    Overruling is not a text property; it is a structural relationship
+    between two rulings, expressed in how the second cites and treats the
+    first. A system that does not model citations as edges cannot answer
+    the question. A system that does model them as edges can — and it can
+    show its work by handing the reviewer the exact citation chain that
+    establishes the overrule.
+  </p>
+  <p>
+    This example generalizes. "Which precedents bind this court?" requires
+    the court hierarchy. "How does this panel tend to rule on this
+    doctrine?" requires decisions grouped by panel composition. "Are there
+    contradictory rulings in the same court?" requires comparing holdings,
+    not passages. Every one of those questions is a structural query.
+    Vector retrieval, at best, returns plausible reading material. It
+    cannot answer.
+  </p>
 
   <h2>Where to go next</h2>
   <p>
