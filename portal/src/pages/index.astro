@@ -5,7 +5,6 @@ import SectionLabel from '../components/silo/SectionLabel.astro';
 import PrincipleList from '../components/silo/PrincipleList.astro';
 import Principle from '../components/silo/Principle.astro';
 import OauthButton from '../components/silo/OauthButton.astro';
-import TodoBlock from '../components/silo/TodoBlock.astro';
 import { proofPoints } from '../data/constants';
 
 const description = 'Verifiable legal reasoning. Silo grounds frontier models in a knowledge graph of how courts actually decide.';
@@ -16,11 +15,11 @@ const description = 'Verifiable legal reasoning. Silo grounds frontier models in
     <span class="pre-label">Silo<span class="dot">·</span>Legal Intelligence</span>
     <h1>Verifiable<br />legal reasoning.</h1>
     <p class="lede">
-      Frontier models hallucinate citations and offer no audit trail.
-      Silo grounds them in a knowledge graph of how courts actually decide —
-      and shows its work.
+      Silo came from a simple frustration: frontier models could write about a
+      case, but not show a reasoning trail I would trust in one. So I built
+      the system I wanted as a practicing lawyer: structural, inspectable,
+      and tied to evidence.
     </p>
-    <TodoBlock>Tighten or replace the lede in Diego's voice. ~2 lines max.</TodoBlock>
   </section>
 
   <section>
@@ -46,27 +45,27 @@ const description = 'Verifiable legal reasoning. Silo grounds frontier models in
 
     <PrincipleList>
       <Principle number="01" title="Better than an LLM-only workflow">
-        Silo does not compete with frontier models. It amplifies them with
-        structured legal data, case context, and traceable evidence the
-        model alone does not have.
+        The point is not to replace frontier models with a closed stack of
+        our own. It is to give them the legal memory, structure, and case
+        context they do not have by default.
       </Principle>
       <Principle number="02" title="Traceability before fluency">
-        A good legal answer must allow inspection. Every output points back
-        to where it came from — what was retrieved, what was derived, what
-        was assumed.
+        If an answer cannot be inspected by another lawyer, it is not ready.
+        Every output has to show what was retrieved, what was derived, and
+        what was assumed.
       </Principle>
       <Principle number="03" title="One product, specialized gears">
-        For users and observers, there is one product: Silo. Internally,
-        the work is organized into specialized modules — main interface,
+        Externally there is one product: Silo. Internally there are
+        specialized gears because the workflow demands them: interface,
         intelligence engine, legislative grounding, document intelligence,
-        evaluation layer.
+        and evaluation.
       </Principle>
       <Principle number="04" title="Utility before feature volume">
-        The focus is to solve real legal workflow pain points, not to pile
-        up AI features with low adoption.
+        Features do not earn their keep by sounding intelligent in a demo.
+        They earn it by shortening a real legal workflow and surviving
+        repeated use.
       </Principle>
     </PrincipleList>
-    <TodoBlock>Diego: confirm voice on these 4 principles, edit if needed.</TodoBlock>
   </section>
 
   <section id="about">
@@ -76,7 +75,11 @@ const description = 'Verifiable legal reasoning. Silo grounds frontier models in
       Silo is built by Diego Sens, a Brazilian corporate and litigation
       attorney writing the system from inside a working firm.
     </p>
-    <TodoBlock>Diego: 1-2 more sentences in your voice. End with subtle invitation to /about.</TodoBlock>
+    <p>
+      I am building it from inside the kind of practice it is meant to
+      serve, which keeps the product close to real legal work and far from
+      demo logic. The longer version is on <a href="/about">/about</a>.
+    </p>
   </section>
 
   <section class="cta" id="cta">

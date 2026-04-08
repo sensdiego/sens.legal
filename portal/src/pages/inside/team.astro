@@ -1,7 +1,6 @@
 ---
 import InsideLayout from '../../layouts/InsideLayout.astro';
 import PageLede from '../../components/silo/PageLede.astro';
-import TodoBlock from '../../components/silo/TodoBlock.astro';
 
 const viewerName = Astro.locals.viewerName ?? '';
 ---
@@ -17,17 +16,65 @@ const viewerName = Astro.locals.viewerName ?? '';
   prev={{ num: '06', title: 'Roadmap & Risks', href: '/inside/roadmap' }}
 >
   <h1>Who decides, how fast we ship</h1>
-  <PageLede>{/* TODO: 2 sentences naming the team shape and the operating model */}</PageLede>
+  <PageLede>Today Silo is a one-person company. I set product direction, write the code, and use AI as leverage inside the build loop rather than as a substitute for judgment.</PageLede>
 
   <h2>Team</h2>
-  <TodoBlock>Diego: 2 paragraphs — who you are, who else (current and planned), the practitioner-as-builder bet.</TodoBlock>
+  <p>
+    I am a practicing Brazilian lawyer, admitted under OAB/PR 96.036, with
+    work across corporate and litigation matters. I am also the person
+    writing the software. That combination is not a branding line. It is the
+    reason the product keeps gravitating toward real workflow pain instead of
+    generic AI demo logic.
+  </p>
+  <p>
+    Today the team is me. There is no management layer being assembled ahead
+    of validation, and there is no artificial org chart to make the company
+    look larger than it is. The practitioner-as-builder bet is that many of
+    the early errors in legal AI are errors of problem definition, not raw
+    execution capacity. I would rather stay small while the core workflow is
+    still hardening, then add people in response to a proved bottleneck.
+  </p>
 
   <h2>Operating model</h2>
-  <TodoBlock>Diego: 2 paragraphs on how you make decisions, how AI is integrated into your build loop, why a 1-person team can ship at this velocity.</TodoBlock>
+  <p>
+    The operating model is short-loop by design. I prefer to resolve
+    architecture and product questions close to the code, with a working
+    example, a narrower interface, or a real case run, instead of a long
+    planning ceremony. That keeps decisions falsifiable. If something is not
+    legible in the product, it is usually not clear enough yet.
+  </p>
+  <p>
+    AI is integrated into the build loop as leverage: drafting alternatives,
+    pressure-testing assumptions, reviewing code, and accelerating the
+    boring parts of implementation. The legal and product judgment still
+    stays with me. That is why a one-person team can move quickly here: the
+    system does not need to be re-explained across multiple roles before a
+    change ships.
+  </p>
 
   <h2>Cadence</h2>
-  <TodoBlock>Diego: concrete numbers — commits per week, releases per month, decisions per sprint. Shows momentum.</TodoBlock>
+  <ul>
+    <li>
+      On the public surface alone, this repo logged 10 commits between April
+      4 and April 8, 2026. The private engine work sits outside that count.
+    </li>
+    <li>
+      The portal project logged 14 production deployments in the last 18
+      days on Vercel, which is roughly 23 production releases per month at
+      the current pace.
+    </li>
+    <li>
+      A sprint-sized product cycle here usually means 6-8 explicit
+      decisions. The gated portal cycle alone resolved 8 open architecture
+      questions before shipping.
+    </li>
+  </ul>
 
   <h2>What this document does not cover</h2>
-  <TodoBlock>Hiring plans, comp structure, equity. Available on request.</TodoBlock>
+  <ul>
+    <li>Detailed hiring plans</li>
+    <li>Compensation structure</li>
+    <li>Equity and ownership details</li>
+  </ul>
+  <p>Those are available on request where they matter to the discussion.</p>
 </InsideLayout>

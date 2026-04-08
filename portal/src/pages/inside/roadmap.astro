@@ -1,7 +1,6 @@
 ---
 import InsideLayout from '../../layouts/InsideLayout.astro';
 import PageLede from '../../components/silo/PageLede.astro';
-import TodoBlock from '../../components/silo/TodoBlock.astro';
 import { milestones } from '../../data/constants';
 
 const viewerName = Astro.locals.viewerName ?? '';
@@ -19,7 +18,7 @@ const viewerName = Astro.locals.viewerName ?? '';
   next={{ num: '07', title: 'Team & Velocity', href: '/inside/team' }}
 >
   <h1>Where Silo is going</h1>
-  <PageLede>{/* TODO: 2 sentences orienting the reader: we name the next 4-6 months, then the kill criteria */}</PageLede>
+  <PageLede>The next 4-6 months are about turning a technically convincing system into a workflow an outside lawyer prefers over an LLM-only baseline. The roadmap below names that sequence, and the kill criteria at the end name the conditions under which Silo stops.</PageLede>
 
   <h2>Phases</h2>
   <ol class="phases">
@@ -34,13 +33,60 @@ const viewerName = Astro.locals.viewerName ?? '';
       </li>
     ))}
   </ol>
-  <TodoBlock>Diego: refine each phase description for DD voice. The current copy comes from constants.ts which was written for the marketing /silo page.</TodoBlock>
 
   <h2>Risks</h2>
-  <TodoBlock>3-5 risks, each with a one-line description and a one-line mitigation. Examples: (a) corpus growth cost, (b) vendor concentration, (c) regulatory shift around legal AI in Brazil, (d) sales motion not validated.</TodoBlock>
+  <ul>
+    <li>
+      <strong>External validation does not convert into preference.</strong>
+      A technically impressive workflow can still fail if outside lawyers do
+      not prefer it over a frontier-model-only baseline in live matters.
+      <em> Mitigation:</em> run narrow comparative cases early, measure the
+      delta, and tighten the workflow before widening the audience.
+    </li>
+    <li>
+      <strong>Corpus growth becomes expensive before it becomes useful.</strong>
+      The graph can absorb large amounts of legal structure without each
+      added layer changing the quality of real case analysis.
+      <em> Mitigation:</em> keep densification focused on the corporate and
+      M&amp;A wedge, and only deepen the corpus where it improves the live 360
+      workflow.
+    </li>
+    <li>
+      <strong>Vendor concentration slows the product.</strong>
+      Today Silo depends on external model providers and on MCP clients as
+      the distribution surface.
+      <em> Mitigation:</em> keep the model layer swappable, keep the core
+      value in the structured corpus and tool surface, and avoid product
+      assumptions that require a single client or provider.
+    </li>
+    <li>
+      <strong>Legal AI adoption tightens before the workflow is proven.</strong>
+      A shift in client expectations, bar guidance, or procurement posture
+      could slow usage even if the system works technically.
+      <em> Mitigation:</em> keep the workflow human-reviewed, provenance-first,
+      and narrow enough that each step can be explained in professional
+      terms rather than AI terms.
+    </li>
+  </ul>
 
   <h2>Kill criteria</h2>
-  <TodoBlock>2-3 explicit conditions under which Silo would stop. The test of credibility is being able to say it.</TodoBlock>
+  <ul>
+    <li>
+      Silo stops if external lawyers do not consistently prefer the 360
+      workflow to an LLM-only baseline after structured validation on live
+      matters.
+    </li>
+    <li>
+      Silo stops if unit economics at the case-analysis layer remain
+      structurally bad even after narrowing scope and keeping corpus growth
+      disciplined.
+    </li>
+    <li>
+      Silo stops if frontier models absorb enough of the structural
+      advantage that the graph and tool layer no longer create a material,
+      inspectable delta in legal work.
+    </li>
+  </ul>
 </InsideLayout>
 
 <style>

@@ -1,7 +1,6 @@
 ---
 import PublicLayout from '../layouts/PublicLayout.astro';
 import SectionLabel from '../components/silo/SectionLabel.astro';
-import TodoBlock from '../components/silo/TodoBlock.astro';
 ---
 
 <PublicLayout title="About" description="A practicing lawyer building Silo from inside a working firm.">
@@ -22,18 +21,63 @@ import TodoBlock from '../components/silo/TodoBlock.astro';
       reflects what a real practice needs from AI — not what a generic
       chatbot can plausibly demo.
     </p>
-
-    <TodoBlock>Diego: write 2-3 paragraphs about your bar background, the moment you decided to build Silo, and why a practicing lawyer is the right person to build this.</TodoBlock>
+    <p>
+      I am a Brazilian lawyer admitted in Parana, under OAB/PR 96.036, and
+      my day job is not adjacent to legal work. It is legal work. My
+      background spans corporate and litigation matters, which means Silo
+      was shaped around the actual pressure points of practice: fragmented
+      corpora, procedural context scattered across systems, and the need to
+      defend every citation to another professional who will read it
+      skeptically.
+    </p>
+    <p>
+      The moment I decided to build Silo was not when models first became
+      impressive. It was when they became useful enough that their failure
+      mode started to matter. I could get fluent prose quickly, but not a
+      reasoning trail I would trust in a filing, an internal memo, or a
+      strategy call. The missing piece was not better wording. It was
+      structure, provenance, and memory.
+    </p>
+    <p>
+      That is why I think a practicing lawyer is the right person to build
+      this category. The hard part is not choosing a model provider. The
+      hard part is knowing which parts of legal reasoning must stay
+      inspectable, where a workflow can safely compress, and which mistakes
+      are merely annoying versus professionally dangerous.
+    </p>
 
     <h2>Why a practitioner, not a generalist</h2>
-    <TodoBlock>Diego: 1-2 paragraphs on the insight asymmetry — what a practicing lawyer sees that a generalist tech founder cannot.</TodoBlock>
+    <p>
+      A generalist founder often sees legal AI as a search problem with a
+      nicer interface. A practitioner sees a chain of professional
+      obligations: court hierarchy, procedural posture, adverse authority,
+      citation treatment, argument quality, and the difference between a
+      paragraph that sounds right and a claim that can survive challenge.
+      Those are not polish details. They determine what the product has to
+      model from the start.
+    </p>
+    <p>
+      The asymmetry shows up just as much in what not to build. If you have
+      practiced, you know that many seductive demo features do not remove
+      the real bottleneck. The real bottleneck is usually context recovery:
+      reconstructing what this case is about, which authorities actually
+      matter, and how the current argument relates to the existing record.
+      That is why Silo is built around structure and traceability rather
+      than surface fluency alone.
+    </p>
 
     <h2>Current phase</h2>
     <p>
       Silo is in private build and validation. Foundations are focused on
       densification of the knowledge graph in the corporate and M&A niche.
     </p>
-    <TodoBlock>Diego: short paragraph naming a current concrete focus or recent milestone.</TodoBlock>
+    <p>
+      The most recent milestone was launching the gated portal at
+      <a href="https://sens.legal">sens.legal</a> with live system numbers,
+      architecture, recorded traces, and reviewer access controls. That
+      work matters because it forced the product to become legible to
+      outside scrutiny, not only operational inside the build loop.
+    </p>
   </section>
 </PublicLayout>
 
