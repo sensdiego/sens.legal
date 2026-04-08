@@ -26,9 +26,8 @@ const description = 'Verifiable legal reasoning. Silo grounds frontier models in
   <section>
     <SectionLabel>What's running today</SectionLabel>
     {proofPoints.map((p) => (
-      <ProofRow value={p.value} label={p.label} />
+      <ProofRow value={p.value} label={p.label} source={p.source} />
     ))}
-    <TodoBlock>Add `source` field per row when constants.ts is updated with provenance — e.g., "live · Apr 2026", "Neo4j Aura", "schema v2.1".</TodoBlock>
   </section>
 
   <section id="approach">

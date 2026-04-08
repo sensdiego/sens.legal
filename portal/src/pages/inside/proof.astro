@@ -3,7 +3,6 @@ import InsideLayout from '../../layouts/InsideLayout.astro';
 import PageLede from '../../components/silo/PageLede.astro';
 import ProofRow from '../../components/silo/ProofRow.astro';
 import SectionLabel from '../../components/silo/SectionLabel.astro';
-import TodoBlock from '../../components/silo/TodoBlock.astro';
 import { proofPoints } from '../../data/constants';
 
 const viewerName = Astro.locals.viewerName ?? '';
@@ -23,20 +22,139 @@ const viewerName = Astro.locals.viewerName ?? '';
   next={{ num: '04', title: 'Depth', href: '/inside/depth' }}
 >
   <h1>What is running today</h1>
-  <PageLede>{/* TODO: 2 sentences framing — "we report what is live, not what is planned" */}</PageLede>
+  <PageLede>This chapter reports what is live, not what is planned. Every capability below has been in production long enough to have a ship date, a source, and — where it matters — a recorded trace you can follow end to end.</PageLede>
 
   <SectionLabel>Live numbers</SectionLabel>
   {proofPoints.map((p) => (
-    <ProofRow value={p.value} label={p.label} />
+    <ProofRow value={p.value} label={p.label} source={p.source} />
   ))}
-  <TodoBlock>Update each ProofRow with a `source` field — provenance line ("live · Apr 2026", "Neo4j Aura", etc.). Requires updating constants.ts to add source.</TodoBlock>
 
   <h2>What's already in production</h2>
-  <TodoBlock>3-5 bullet points naming concrete capabilities that work end-to-end today, with one-line description and the date they shipped.</TodoBlock>
+  <ul>
+    <li>
+      <strong>Knowledge graph at production scale.</strong> 86,522 nodes
+      and 133,404 relationships across STJ, TJPR, and TJSP, running on
+      Neo4j Aura Professional. Verified live April 2026.
+    </li>
+    <li>
+      <strong>MCP remote server with OAuth 2.0 and 45 tools.</strong>
+      Silo runs a production Model Context Protocol server with OAuth 2.0
+      authorization, tier enforcement (free/pro), and daily rate limiting.
+      Any MCP-capable client — Claude, ChatGPT, or a custom agent — can
+      use Silo today by adding the remote endpoint as a custom tool.
+      Shipped April 4, 2026.
+    </li>
+    <li>
+      <strong>Autonomous case analysis pipeline.</strong> The case
+      analysis agent ingests raw legal PDFs, extracts structural signals
+      through document intelligence, queries the graph, and produces a
+      structured case dossier with provenance at every step. Seven real
+      cases processed in production so far. Latest version shipped
+      April 8, 2026.
+    </li>
+    <li>
+      <strong>Document intelligence end-to-end.</strong> Raw Brazilian
+      legal PDFs — text, scanned, <code>.doc</code>, <code>.docx</code> —
+      pass through per-page quality detection, Portuguese OCR, deterministic
+      semantic chunking over nineteen legal landmark patterns, and
+      LLM-based extraction of claims, arguments, rulings, and citations.
+      Semantic chunker and per-page OCR shipped April 4, 2026.
+    </li>
+    <li>
+      <strong>Graph analytics REST surface.</strong> 57 endpoints covering
+      case similarity, citation chains, minister profiles, argument
+      divergence, gap detection, contested criteria, evidence strength,
+      and PageRank. Redis-cached with graceful degradation. Most recent
+      additions shipped April 2, 2026.
+    </li>
+  </ul>
 
   <h2>A recorded trace</h2>
-  <TodoBlock>Walk through one query from input to output, showing each system layer. ~200 words. Screenshot or terminal capture would help — store in /diagrams/.</TodoBlock>
+  <p>
+    <strong>Two pipelines, one query.</strong> This is a multi-PDF case
+    analysis run from March 2026 — a Brazilian appellate case submitted
+    to the production pipeline as three document sources totaling 837
+    pages and roughly 964,000 characters. Behind the trace sit two
+    distinct pipelines. The batch ingestion pipeline built the graph this
+    case was analyzed against. The case analysis pipeline runs per case.
+  </p>
+  <p>
+    <strong>Batch ingestion (F0→F6).</strong> The knowledge graph is
+    built by a six-phase pipeline that runs offline over curated batches
+    of decisions: F0 ingests and validates the raw corpus, F1 segments,
+    F2-F4 run LLM extraction for facts, criteria, defensive theses, and
+    dispositivos, F5 canonicalizes and embeds, and F6 writes the final
+    node-and-edge load into Neo4j Aura. This is what makes the 86,522
+    nodes and 133,404 relationships exist in the first place.
+  </p>
+  <p>
+    <strong>Case analysis, Phase 1 — structuring.</strong> The three
+    PDFs pass through the document intelligence layer — per-page quality
+    detection, OCR where needed, and a deterministic regex chunker over
+    nineteen legal landmark patterns — producing 54 chunks. Each chunk
+    is then run through Qwen3.5-flash in a three-pass extraction that
+    pulls claims, arguments, facts, rulings, and cited proceedings. (An
+    open-source alternative, GPT-OSS 120B via OpenRouter, is currently
+    under A/B evaluation as a candidate replacement, gated by automated
+    prompt-versioning metrics.) Phase 1 deliberately uses open-source
+    models rather than frontier models because the per-chunk cost has to
+    stay linear as cases grow.
+  </p>
+  <p>
+    <strong>Case analysis, Phase 2 — enrichment.</strong> Sonnet 4.6
+    runs in an agentic loop, calling Valter's MCP tools to enrich the
+    structured output with precedents, citation chains, minister
+    profiles, and similar cases from the graph.
+  </p>
+  <p>
+    <strong>Case analysis, Phase 3 — reasoning.</strong> Sonnet 4.6
+    again, still in the agentic loop, now reasoning over the enriched
+    output to produce the final case dossier.
+  </p>
+  <p>
+    <strong>Totals.</strong> 1.73 million input tokens. 23,000 output
+    tokens. 32 minutes 51 seconds wall time. US$5.58. Every chunk, every
+    tool call, every token count is preserved in the canonical run
+    directory for audit.
+  </p>
 
   <h2>What is not yet production</h2>
-  <TodoBlock>Honest list of capabilities that are functional but not stable, and capabilities that are still building. Explicit so reviewer trusts the rest.</TodoBlock>
+  <ul>
+    <li>
+      <strong>Marketplace distribution.</strong> Silo's MCP server runs,
+      but pre-built integrations with Claude and ChatGPT are not yet
+      live. Applications to both directories are in review. Today, any
+      user still has to manually add the remote MCP endpoint as a custom
+      tool in their client.
+    </li>
+    <li>
+      <strong>Legislative grounding and doctrine layers.</strong> Two of
+      the five architecture layers — the canonical resolution of
+      statutes and provisions, and the structured ingestion of legal
+      doctrine — are functional in isolation but not yet integrated into
+      the case analysis pipeline. The current dossier output reasons
+      primarily over case law.
+    </li>
+    <li>
+      <strong>TRF4 coverage.</strong> The federal court TRF4 has 1.43
+      million decisions already classified in the corpus pool, but only
+      a token load (roughly twenty nodes) has been ingested into the
+      graph so far. Expanding TRF4 coverage is part of the next
+      ingestion wave.
+    </li>
+    <li>
+      <strong>Case analysis stability.</strong> Seven real cases have
+      been processed in production so far. The pipeline is functional
+      end to end, but it has not yet been stress-tested at volume —
+      concurrent jobs, long-tail PDFs, or cases outside the initial
+      tribunal mix have not been exercised.
+    </li>
+    <li>
+      <strong>Prompt evaluation framework.</strong> A lightweight A/B
+      harness is in use today for iterating on the structuring prompt.
+      The full evaluation framework — automated rubric, gold standard
+      corpus, regression gates across more than one dimension — is in
+      design and not yet built.
+    </li>
+  </ul>
 </InsideLayout>

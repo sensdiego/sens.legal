@@ -8,15 +8,46 @@ export interface ProofPoint {
   value: string;
   label: string;
   labelPtBr: string;
+  source?: string;
 }
 
 export const proofPoints: ProofPoint[] = [
-  { value: '75K+', label: 'nodes in the graph', labelPtBr: 'nodes no grafo' },
-  { value: '120K+', label: 'relationships', labelPtBr: 'relacoes' },
-  { value: '2.2M', label: 'classified corpus', labelPtBr: 'corpus classificado' },
-  { value: '35+', label: 'MCP tools', labelPtBr: 'MCP tools' },
-  { value: '50+', label: 'REST endpoints', labelPtBr: 'REST endpoints' },
-  { value: '4', label: 'tribunals', labelPtBr: 'tribunais' },
+  {
+    value: '86,522',
+    label: 'nodes in the graph',
+    labelPtBr: 'nodes no grafo',
+    source: 'Neo4j Aura · verified Apr 2026',
+  },
+  {
+    value: '133,404',
+    label: 'relationships',
+    labelPtBr: 'relacoes',
+    source: 'Neo4j Aura · verified Apr 2026',
+  },
+  {
+    value: '2.2M',
+    label: 'LLM-classified decisions',
+    labelPtBr: 'corpus classificado',
+    source: 'corpus pool · TJPR + TJSP + TRF4',
+  },
+  {
+    value: '45',
+    label: 'MCP tools',
+    labelPtBr: 'MCP tools',
+    source: 'mcp remote · live',
+  },
+  {
+    value: '57',
+    label: 'REST endpoints',
+    labelPtBr: 'REST endpoints',
+    source: 'valter-api · live',
+  },
+  {
+    value: '3',
+    label: 'tribunals in graph',
+    labelPtBr: 'tribunais',
+    source: 'STJ · TJPR · TJSP',
+  },
 ];
 
 export type MilestoneStatus = 'done' | 'in_progress' | 'planned';

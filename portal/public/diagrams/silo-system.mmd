@@ -1,0 +1,9 @@
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#ffffff', 'primaryTextColor':'#1a1a1a', 'primaryBorderColor':'#2B579A', 'lineColor':'#666666', 'fontFamily':'system-ui, -apple-system, sans-serif', 'fontSize':'14px'}}}%%
+flowchart LR
+    U["Lawyer"] --> I["Main Interface"]
+    I --> A["Case Analysis Agent"]
+    A --> M["Intelligence Engine"]
+    A --> D["Document Intelligence"]
+    M --> G["Legislative Grounding"]
+    V["Evaluation Layer"] --> M
+    A --> O["Traceable Output"]
