@@ -88,11 +88,16 @@ The protocol Claude used this session is documented in `docs/superpowers/specs/2
 - **Don't re-introduce factually wrong claims.** See the "factual corrections captured" list above.
 - **Read `docs/versions.md` or `docs/pipeline_versions.md` before describing any versioned system.** The lesson persisted in `~/.claude/projects/-Users-sensdiego-Dev-sens-legal/memory/feedback_read_versions_doc_first.md`.
 
-### Runbook follow-ups (unchanged from last HANDOFF, still open)
+### Runbook follow-ups
 
-- **Phase 5:** Vercel teardown of the 4 docs subdomain projects (`sens-legal-{douto,juca,leci,valter}` — currently failing CI on every push because their source paths were deleted in PR #7).
-- **Phase 6:** DNS cleanup of the 4 codename subdomains.
-- **Phase 7:** Archive `~/Dev/silo-site` repo on GitHub.
+**Closed 2026-04-15:**
+
+- ✅ **Phase 5:** Deleted 5 stray Vercel projects (`sens-legal-{douto,juca,leci,valter}` + a duplicate `sens.legal` project that was building the same repo and erroring on every push). Only `sens-legal-portal` remains. CI noise stops at next push.
+- ✅ **Phase 6:** Deleted 5 stale DNS records at Hostinger hPanel (4 codename CNAMEs on `sens.legal` + `valter` on `silo.legal`). Verified GONE against authoritative nameserver. Apex `sens.legal`/`silo.legal` still resolve to Vercel `76.76.21.21`.
+- ✅ **Phase 7:** Archived `github.com/sensdiego/silo` (the local dir is `~/Dev/silo-site`, but the remote repo name was always `silo` — earlier HANDOFFs conflated the two). Main was in sync with origin, one stale merged codex branch preserved inside the archive, untracked local `HANDOFF.md` in the clone untouched.
+
+**Still open:**
+
 - **Phase 8:** Optional comms about the new sens.legal/sign-in link.
 - **Supabase Pro upgrade** ($25/mo) — still recommended before adding any external reviewers (see previous HANDOFF).
 
