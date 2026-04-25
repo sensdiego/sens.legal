@@ -41,6 +41,12 @@ const currentIdx = insideChapters.findIndex((c) => c.num === chapter);
 const currentChapter = currentIdx >= 0 ? insideChapters[currentIdx] : undefined;
 const displayLastUpdated = lastUpdated ?? currentChapter?.lastUpdated ?? dataRoomUpdatedAt;
 const metaDescription = description ?? currentChapter?.description ?? "Silo Technical Data Room — public reviewer access.";
+
+// Absolute URLs for share previews. Astro.site is set in astro.config.mjs.
+const siteBase = Astro.site?.toString().replace(/\/$/, '') ?? 'https://silo.legal';
+const canonicalUrl = `${siteBase}${Astro.url.pathname}`;
+const ogTitle = `${title} — Silo Data Room`;
+const ogImageUrl = `${siteBase}/og.png`;
 ---
 
 <!doctype html>
@@ -49,9 +55,22 @@ const metaDescription = description ?? currentChapter?.description ?? "Silo Tech
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={metaDescription} />
-    <title>{title} — Silo Data Room</title>
+    <title>{ogTitle}</title>
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/png" href="/logo.png" />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Silo" />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImageUrl} />
   </head>
   <body class="inside">
     <header class="inside-topbar">

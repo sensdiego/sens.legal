@@ -156,7 +156,7 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
             from: fromAddr,
             to: notifyTo,
             subject: `New Silo data room access request — ${name}`,
-            text: `${name} <${email}> requested access via ${provider}.\nOrg: ${org ?? '(personal)'}\nReview at https://sens.legal/admin/access`,
+            text: `${name} <${email}> requested access via ${provider}.\nOrg: ${org ?? '(personal)'}\nReview at https://silo.legal/admin/access`,
           }),
         3000,
       );
