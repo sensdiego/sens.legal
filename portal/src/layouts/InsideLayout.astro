@@ -1,17 +1,21 @@
 ---
 import '../styles/global.css';
 import { trackView } from '../lib/track-view';
+import { dataRoomUpdatedAt, insideChapters } from '../data/constants';
+import type { InsideChapterNum } from '../data/constants';
 
 interface Props {
   title: string;
-  chapter: '01' | '02' | '03' | '04' | '05' | '06' | '07';
+  chapter: InsideChapterNum;
   prev?: { num: string; title: string; href: string };
   next?: { num: string; title: string; href: string };
   viewerName?: string;
   expiresAt?: string;
+  lastUpdated?: string;
+  description?: string;
 }
 
-const { title, chapter, prev, next, viewerName = '', expiresAt = '' } = Astro.props;
+const { title, chapter, prev, next, viewerName = '', expiresAt = '', lastUpdated, description } = Astro.props;
 
 // View tracking — awaited so the insert completes before the Vercel
 // serverless function returns. Fire-and-forget loses writes when the
@@ -33,17 +37,10 @@ if (Astro.locals.shouldLogView && Astro.locals.userId && Astro.locals.userEmail)
   });
 }
 
-const chapters = [
-  { num: '01', slug: 'thesis', label: 'Thesis' },
-  { num: '02', slug: 'system', label: 'System' },
-  { num: '03', slug: 'proof', label: 'Proof' },
-  { num: '04', slug: 'depth', label: 'Depth' },
-  { num: '05', slug: 'decisions', label: 'Decisions' },
-  { num: '06', slug: 'roadmap', label: 'Roadmap & Risks' },
-  { num: '07', slug: 'team', label: 'Team & Velocity' },
-];
-
-const currentIdx = chapters.findIndex((c) => c.num === chapter);
+const currentIdx = insideChapters.findIndex((c) => c.num === chapter);
+const currentChapter = currentIdx >= 0 ? insideChapters[currentIdx] : undefined;
+const displayLastUpdated = lastUpdated ?? currentChapter?.lastUpdated ?? dataRoomUpdatedAt;
+const metaDescription = description ?? currentChapter?.description ?? "Silo Technical Data Room — confidential reviewer access.";
 ---
 
 <!doctype html>
@@ -52,6 +49,7 @@ const currentIdx = chapters.findIndex((c) => c.num === chapter);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content={metaDescription} />
     <title>{title} — Silo Data Room</title>
     <link rel="icon" type="image/png" href="/logo.png" />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -72,14 +70,14 @@ const currentIdx = chapters.findIndex((c) => c.num === chapter);
       <aside class="sidebar">
         <div class="side-label">Reviewer Journey</div>
         <ul class="side-nav">
-          {chapters.map((c, i) => (
+          {insideChapters.map((c, i) => (
             <li class:list={[
               { current: c.num === chapter },
               { visited: i < currentIdx },
             ]}>
-              <a href={`/inside/${c.slug}`}>
+              <a href={c.href}>
                 <span class="num">{c.num}</span>
-                <span>{c.label}</span>
+                <span>{c.title}</span>
               </a>
             </li>
           ))}
@@ -87,7 +85,7 @@ const currentIdx = chapters.findIndex((c) => c.num === chapter);
 
         <div class="side-meta">
           {expiresAt && <div class="row"><strong>Access expires</strong><br />{expiresAt}</div>}
-          <div class="row"><strong>Last updated</strong><br />2026-04-07</div>
+          <div class="row"><strong>Last updated</strong><br />{displayLastUpdated}</div>
           <div class="row"><strong>Repo access</strong><br />on request</div>
         </div>
       </aside>
