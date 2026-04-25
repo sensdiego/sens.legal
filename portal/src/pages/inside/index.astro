@@ -1,7 +1,7 @@
 ---
 import InsideLayout from '../../layouts/InsideLayout.astro';
 import WelcomeCard from '../../components/silo/WelcomeCard.astro';
-import { dataRoomLandingUpdatedAt, insideChapters } from '../../data/constants';
+import { dataRoomLandingDescription, dataRoomLandingUpdatedAt, insideChapters } from '../../data/constants';
 
 // Viewer info pre-loaded by middleware (see portal/src/middleware.ts).
 // No per-page Supabase queries needed.
@@ -20,7 +20,7 @@ function firstName(name: string): string {
 
 ---
 
-<InsideLayout title="Data Room" chapter="01" viewerName={viewerName} lastUpdated={dataRoomLandingUpdatedAt} next={{ num: '01', title: 'Thesis', href: '/inside/thesis' }}>
+<InsideLayout title="Data Room" chapter="01" viewerName={viewerName} lastUpdated={dataRoomLandingUpdatedAt} description={dataRoomLandingDescription} next={{ num: '01', title: 'Thesis', href: '/inside/thesis' }}>
   {showWelcome && <WelcomeCard name={firstName(viewerName)} />}
 
   <h1>Silo Technical Data Room</h1>
@@ -36,6 +36,7 @@ function firstName(name: string): string {
         <span class="num">{c.num}</span>
         <span class="title">{c.title}</span>
         <span class="summary">{c.summary}</span>
+        <span class="description">{c.description}</span>
       </a>
     ))}
   </div>
@@ -49,4 +50,5 @@ function firstName(name: string): string {
   .chapter-card .num { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-accent); font-weight: 600; padding-top: 0.25rem; }
   .chapter-card .title { font-weight: 600; font-size: 1.0625rem; color: var(--color-text); display: block; }
   .chapter-card .summary { color: var(--color-text-secondary); font-size: 0.875rem; grid-column: 2; display: block; margin-top: 0.125rem; }
+  .chapter-card .description { color: var(--color-text-tertiary, var(--color-text-secondary)); font-size: 0.8125rem; grid-column: 2; display: block; margin-top: 0.375rem; line-height: 1.45; opacity: 0.78; }
 </style>
