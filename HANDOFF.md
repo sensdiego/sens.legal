@@ -1,21 +1,17 @@
-# Handoff — 2026-04-08 (content pass complete)
+# Handoff — 2026-04-25 (data room going public)
 
 ## How to resume in the next session
 
-**Next session will run via Codex (OpenAI Codex CLI), not Claude Code.**
-
-Ask explicitly:
-
-`Read /Users/sensdiego/Dev/sens.legal/HANDOFF.md and continue from the completed content pass. Prioritize runbook follow-ups or reviewer feedback.`
+`Read /Users/sensdiego/Dev/sens.legal/HANDOFF.md and continue from the public-/inside transition. PR #11 is in review on the Vercel preview; merge it once the visual smoke pass is done.`
 
 ---
 
 ## Current state
 
-**Project:** sens.legal — single Astro portal at sens.legal hosting Silo's public landing and gated technical data room.
-**Branch:** `main` (`5cbd0a1` closes the remaining 13 content slots; `8b58103` bootstraps Diego admin access after OAuth).
-**Stack:** Astro 5 (output: server) + Vercel + Supabase Auth (Google + GitHub) + Resend.
-**Live in production at https://sens.legal** with chapters 01-07 published and public copy finalized.
+**Project:** silo.legal — single Astro portal at silo.legal (canonical) / sens.legal (alias) hosting Silo's public landing and the (now public) technical data room.
+**Branch:** `main` is at `817488d` (PR #10 — chapter description meta wiring + landing card description). `chore/portal-remove-inside-gate` is open as PR #11 (gate removal + silo.legal canonical + OG previews) waiting on visual review of the Vercel preview.
+**Stack:** Astro 5 (output: server) + Vercel + Supabase Auth (still wired but only used by `/admin` going forward) + Resend.
+**Live at https://silo.legal** with chapters 01-07. Once PR #11 merges, `/inside` becomes openly readable and `<meta property="og:*">` + a `/og.png` (1200x630, `@vercel/og`) drive share previews.
 **Portal tracking issue:** sensdiego/sens.legal#8 (content pass complete, 37/37 slots closed).
 
 ### Content pass status
@@ -98,15 +94,18 @@ The protocol Claude used this session is documented in `docs/superpowers/specs/2
 
 **Still open:**
 
-- **Phase 8:** Optional comms about the new sens.legal/sign-in link.
-- **Supabase Pro upgrade** ($25/mo) — still recommended before adding any external reviewers (see previous HANDOFF).
+- **PR #11 visual review** — Vercel preview pending Diego's smoke test. Verify `/inside` opens without sign-in, `/og.png` returns a real PNG, share previews render in Slack/LinkedIn.
+- **Phase 8:** Optional comms about the new silo.legal/sign-in link.
+- **Supabase auto-pause cycle** — free tier confirmed as deliberate cost decision (2026-04-25). Project goes `INACTIVE` after ~7 days of inactivity; restore via `mcp__claude_ai_Supabase__restore_project` (~2 min, preserves data). A keep-alive cron (e.g., GitHub Actions hitting `/auth/v1/health` every 6 days) was offered and not yet implemented.
 
 ### Locked decisions (still in force)
 
 - **EN-only.** No PT-BR anywhere in portal.
-- **Site is gated.** OAuth via Google + GitHub, manual approval.
+- **`/inside` is public** (decided 2026-04-25, shipping via PR #11). The moat is the practitioner-built taxonomy and the structured corpus, not the prose. `/admin` stays gated.
+- **Canonical host: silo.legal.** sens.legal still works as Vercel alias. `astro.config.mjs site` and email link fallbacks point at silo.legal. `@sens.legal` email addresses (`silo@`, `diego@`) stay — those are the firm's mail domain.
+- **Free tier is the chosen Supabase plan.** Auto-pause cycle accepted. Restore manually when it bites.
 - **silo-site is dead.** Content lives in `docs/legacy/silo-site/` permanently.
-- **Single host: sens.legal.** No more subdomain docs sites.
+- **Single host.** No more subdomain docs sites.
 - **Editorial discipline.** Restraint > marketing, functional names not codenames, no emoji, "what this document does not cover" where it helps.
 - **Mockup aesthetic is canonical.** InsideLayout sidebar + accent `#2B579A` + Instrument Sans + JetBrains Mono.
-- **TodoBlock hides in production by default** (new in this session). Opt out per-instance with `hideInProd={false}` if needed.
+- **TodoBlock hides in production by default.** Opt out per-instance with `hideInProd={false}` if needed.
