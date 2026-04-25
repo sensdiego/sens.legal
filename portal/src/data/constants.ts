@@ -29,7 +29,7 @@ export interface InsideChapter {
 export const dataRoomUpdatedAt = '2026-04-08';
 export const dataRoomLandingUpdatedAt = '2026-04-07';
 export const dataRoomLandingDescription =
-  "Silo's technical data room: seven chapters covering thesis, system architecture, production proof, and roadmap. Confidential reviewer access.";
+  "Silo's technical data room: seven chapters covering thesis, system architecture, production proof, and roadmap. Open reviewer access.";
 
 export const insideChapters: InsideChapter[] = [
   {

@@ -1,6 +1,5 @@
 import { defineMiddleware } from 'astro:middleware';
 import { createSupabaseServerClient, supabaseAdmin } from './lib/supabase-server';
-import { ACCESS_STATUS } from './lib/access';
 import { ensureBootstrapAdminAccess } from './lib/bootstrap-admin';
 
 const PUBLIC_PATHS = new Set<string>([
@@ -11,6 +10,7 @@ const PUBLIC_PATHS = new Set<string>([
   '/privacy',
   '/terms',
   '/data-retention',
+  '/inside',
 ]);
 
 const PUBLIC_PREFIXES = [
@@ -22,6 +22,7 @@ const PUBLIC_PREFIXES = [
   '/logo',
   '/robots',
   '/sitemap',
+  '/inside/',
 ];
 
 function isPublic(path: string): boolean {
@@ -79,46 +80,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return next();
   }
 
-  // /inside/* requires approved status. We pre-fetch the viewer's display name
-  // and welcome state and stash them on Astro.locals so the 7 inside pages
-  // (and the inside/index landing) don't each repeat the queries.
-  if (matchesGate(path, '/inside')) {
-    if (!user) return context.redirect('/sign-in');
-    // Service role bypasses RLS on the lookup. The user identity was just
-    // verified via getUser() above, so .eq('user_id', user.id) is safe.
-    const [reqResult, profileResult] = await Promise.all([
-      supabaseAdmin
-        .from('access_requests')
-        .select('status, name, org')
-        .eq('user_id', user.id)
-        .maybeSingle(),
-      supabaseAdmin
-        .from('profiles')
-        .select('welcomed_at')
-        .eq('id', user.id)
-        .maybeSingle(),
-    ]);
-    if (reqResult.error) {
-      console.error('[middleware] access_requests lookup failed', reqResult.error);
-      return context.redirect('/sign-in?error=lookup_failed');
-    }
-    if (profileResult.error) {
-      console.error('[middleware] profiles lookup failed', profileResult.error);
-      return context.redirect('/sign-in?error=lookup_failed');
-    }
-    const req = reqResult.data;
-    const profile = profileResult.data;
-    if (!req || req.status !== ACCESS_STATUS.APPROVED) {
-      return context.redirect('/pending');
-    }
-    context.locals.shouldLogView = true;
-    context.locals.userId = user.id;
-    context.locals.userEmail = user.email ?? '';
-    context.locals.viewerName = req.name ?? user.email ?? 'reviewer';
-    context.locals.viewerOrg = req.org ?? null;
-    context.locals.welcomedAt = profile?.welcomed_at ?? null;
-    return next();
-  }
+  // /inside/* is public — handled at the top of this middleware via PUBLIC_PATHS
+  // and PUBLIC_PREFIXES. The data room is now openly readable.
 
   // /admin/* requires admin role.
   if (matchesGate(path, '/admin')) {

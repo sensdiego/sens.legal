@@ -1,5 +1,37 @@
 # sens.legal — Progress
 
+## 2026-04-25
+
+### /inside vai para acesso publico
+
+Decisao de remover o gate de auth em `/inside` apos analise de moat: o moat eh a taxonomia praticante-construida e o corpus estruturado, nada disso transferivel por leitura de prosa. O gate custava mais (Supabase free auto-pause de 7 em 7 dias, OAuth em dois providers, allowlist manual) do que protegia.
+
+**PR #10 — Centralize inside chapter metadata (mergeado, `817488d`):**
+- `insideChapters` em `portal/src/data/constants.ts` como source of truth (num, slug, title, summary, description, href, lastUpdated)
+- `InsideLayout` e landing consomem o array; sidebar e cards usam `c.href` em vez de string interpolada
+- `<meta name="description">` plugado per-chapter via prop `description?` no `InsideLayout`, fallback chain `prop ?? currentChapter.description ?? default`
+- Card do landing renderiza `description` abaixo de `summary` com 78% opacity / 0.8125rem (subtitulo expandido)
+- `dataRoomLandingDescription` constante adicionada para o landing nao herdar a description de chapter 01
+
+**PR #11 — public /inside + silo.legal canonical + share previews (em review):**
+- Middleware: `/inside` e `/inside/*` em PUBLIC_PATHS/PREFIXES, gate block removido
+- Layout: `noindex, nofollow` removido, badge "Confidential" + footer text "confidential" removidos
+- `inside/index.astro`: WelcomeCard removido (sem audiencia personalizada num /inside publico) + plumbing de viewerName/firstName apagado
+- `proof.astro`: "Seven real cases" suavizado em 2 lugares para framing menos armable em sales conversations sem perder honestidade investidora
+- Canonicalizacao silo.legal: `astro.config.mjs site`, `email-templates.portalBase` fallback, `callback.ts` admin notification link, comentario CSS. Email addresses `@sens.legal` (silo@, diego@) intactos — sao o dominio de email do escritorio.
+- OG/Twitter share previews: `og:*` (type/url/site_name/title/description/image + dimensoes), `twitter:*` (card/title/description/image), `<link rel="canonical">` per page
+- `src/pages/og.png.ts`: endpoint dinamico via `@vercel/og`, 1200x630 PNG, Instrument Sans 700 fetched de Google Fonts e cached em module memory; response com 1y immutable Cache-Control para CDN do Vercel segurar
+- WelcomeCard component file deletado (dead code apos remocao do gate)
+
+**Operacional:**
+- Supabase project `ikywqzcllcmikmaolbij` foi `INACTIVE` no inicio da sessao (auto-pause apos downgrade do plano). Restored via MCP `restore_project`. Diego confirmou que free tier eh decisao consciente — nao empurrar upgrade.
+- Diego logou com `diegomeyersens@gmail.com` em vez de `diego@sens.legal` (admin canonico). Bootstrap allowlist so cobria `diego@sens.legal`. Documentado nas memories.
+
+**Decisoes nao implementadas (deliberadas):**
+- Open Graph dinamico per-chapter ficou single-image. Vercel/og no endpoint ja suporta evoluir, e so trocar JSX/template depois.
+- `/admin` continua gated.
+- `/pending` e `/sign-in` ficaram intactos — vestigial para `/inside`, mas ainda servem o admin flow.
+
 ## 2026-03-29
 
 ### Silo Unification — site redesign completo

@@ -4,7 +4,7 @@ import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://sens.legal',
+  site: 'https://silo.legal',
   output: 'server',
   adapter: vercel(),
   integrations: [sitemap()],
