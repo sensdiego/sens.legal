@@ -1,6 +1,6 @@
 // portal/src/data/constants.ts
 //
-// Shared content tokens used by /index.astro, the gated /inside data room,
+// Shared content tokens used by /index.astro, the public /inside data room,
 // /inside/proof.astro, and /inside/roadmap.astro. Anything that lived here for
 // the deleted DocsLayout (capabilities, navGroups) was removed when the layout
 // went away.

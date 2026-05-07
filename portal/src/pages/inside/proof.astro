@@ -4,8 +4,6 @@ import PageLede from '../../components/silo/PageLede.astro';
 import ProofRow from '../../components/silo/ProofRow.astro';
 import SectionLabel from '../../components/silo/SectionLabel.astro';
 import { proofPoints } from '../../data/constants';
-
-const viewerName = Astro.locals.viewerName ?? '';
 ---
 
 {/*
@@ -17,7 +15,6 @@ const viewerName = Astro.locals.viewerName ?? '';
 <InsideLayout
   title="Proof"
   chapter="03"
-  viewerName={viewerName}
   prev={{ num: '02', title: 'System', href: '/inside/system' }}
   next={{ num: '04', title: 'Depth', href: '/inside/depth' }}
 >

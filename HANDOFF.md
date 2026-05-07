@@ -11,7 +11,7 @@
 **Project:** silo.legal — single Astro portal at silo.legal (canonical) / sens.legal (alias) hosting Silo's public landing and the (now public) technical data room.
 **Branch:** `main` is at `817488d` (PR #10 — chapter description meta wiring + landing card description). `chore/portal-remove-inside-gate` is open as PR #11 (gate removal + silo.legal canonical + OG previews) waiting on visual review of the Vercel preview.
 **Stack:** Astro 5 (output: server) + Vercel + Supabase Auth (still wired but only used by `/admin` going forward) + Resend.
-**Live at https://silo.legal** with chapters 01-07. Once PR #11 merges, `/inside` becomes openly readable and `<meta property="og:*">` + a `/og.png` (1200x630, `@vercel/og`) drive share previews.
+**Live at https://silo.legal** with chapters 01-07. Once PR #11 merges, `/inside` becomes openly readable and `<meta property="og:*">` points at the committed 1200x630 `og-image.png`; `/og.png` stays as a redirect shim for share-preview compatibility.
 **Portal tracking issue:** sensdiego/sens.legal#8 (content pass complete, 37/37 slots closed).
 
 ### Content pass status
@@ -28,7 +28,7 @@
 | — | `/about` | 3/3 | ✓ live |
 | — | `/` (landing) | 4/4 | ✓ live |
 
-There are no remaining `<TodoBlock>` markers in `portal/src/pages`. `portal/src/components/silo/TodoBlock.astro` still defaults to `hideInProd=true`, but the content pass no longer depends on it for the current public or gated pages.
+There are no remaining `<TodoBlock>` markers in `portal/src/pages`. `portal/src/components/silo/TodoBlock.astro` still defaults to `hideInProd=true`, but the content pass no longer depends on it for the current public pages.
 
 ### Follow-up session (2026-04-08 later — content pass completion via Codex)
 
@@ -94,7 +94,7 @@ The protocol Claude used this session is documented in `docs/superpowers/specs/2
 
 **Still open:**
 
-- **PR #11 visual review** — Vercel preview pending Diego's smoke test. Verify `/inside` opens without sign-in, `/og.png` returns a real PNG, share previews render in Slack/LinkedIn.
+- **PR #11 visual review** — Vercel preview pending Diego's smoke test. Verify `/inside` opens without sign-in, `/og.png` redirects to `/og-image.png`, and share previews render in Slack/LinkedIn.
 - **Phase 8:** Optional comms about the new silo.legal/sign-in link.
 - **Supabase auto-pause cycle** — free tier confirmed as deliberate cost decision (2026-04-25). Project goes `INACTIVE` after ~7 days of inactivity; restore via `mcp__claude_ai_Supabase__restore_project` (~2 min, preserves data). A keep-alive cron (e.g., GitHub Actions hitting `/auth/v1/health` every 6 days) was offered and not yet implemented.
 

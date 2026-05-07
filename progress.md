@@ -20,7 +20,7 @@ Decisao de remover o gate de auth em `/inside` apos analise de moat: o moat eh a
 - `proof.astro`: "Seven real cases" suavizado em 2 lugares para framing menos armable em sales conversations sem perder honestidade investidora
 - Canonicalizacao silo.legal: `astro.config.mjs site`, `email-templates.portalBase` fallback, `callback.ts` admin notification link, comentario CSS. Email addresses `@sens.legal` (silo@, diego@) intactos — sao o dominio de email do escritorio.
 - OG/Twitter share previews: `og:*` (type/url/site_name/title/description/image + dimensoes), `twitter:*` (card/title/description/image), `<link rel="canonical">` per page
-- `src/pages/og.png.ts`: endpoint dinamico via `@vercel/og`, 1200x630 PNG, Instrument Sans 700 fetched de Google Fonts e cached em module memory; response com 1y immutable Cache-Control para CDN do Vercel segurar
+- `src/pages/og.png.ts`: redirect 308 para o asset estatico `portal/public/og-image.png`, evitando runtime fetch/parsing de Google Fonts no caminho de share preview
 - WelcomeCard component file deletado (dead code apos remocao do gate)
 
 **Operacional:**
@@ -28,7 +28,7 @@ Decisao de remover o gate de auth em `/inside` apos analise de moat: o moat eh a
 - Diego logou com `diegomeyersens@gmail.com` em vez de `diego@sens.legal` (admin canonico). Bootstrap allowlist so cobria `diego@sens.legal`. Documentado nas memories.
 
 **Decisoes nao implementadas (deliberadas):**
-- Open Graph dinamico per-chapter ficou single-image. Vercel/og no endpoint ja suporta evoluir, e so trocar JSX/template depois.
+- Open Graph per-chapter ficou single-image estatica. Para evoluir depois, gerar novos assets versionados ou reintroduzir geracao dinamica com fallback estatico.
 - `/admin` continua gated.
 - `/pending` e `/sign-in` ficaram intactos — vestigial para `/inside`, mas ainda servem o admin flow.
 

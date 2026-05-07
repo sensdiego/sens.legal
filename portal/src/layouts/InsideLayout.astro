@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css';
-import { trackView } from '../lib/track-view';
 import { dataRoomUpdatedAt, insideChapters } from '../data/constants';
 import type { InsideChapterNum } from '../data/constants';
 
@@ -9,33 +8,11 @@ interface Props {
   chapter: InsideChapterNum;
   prev?: { num: string; title: string; href: string };
   next?: { num: string; title: string; href: string };
-  viewerName?: string;
-  expiresAt?: string;
   lastUpdated?: string;
   description?: string;
 }
 
-const { title, chapter, prev, next, viewerName = '', expiresAt = '', lastUpdated, description } = Astro.props;
-
-// View tracking — awaited so the insert completes before the Vercel
-// serverless function returns. Fire-and-forget loses writes when the
-// container freezes after the response. Astro.clientAddress can throw on
-// some adapters, so guard it.
-if (Astro.locals.shouldLogView && Astro.locals.userId && Astro.locals.userEmail) {
-  let ip: string | undefined;
-  try {
-    ip = Astro.clientAddress;
-  } catch {
-    ip = undefined;
-  }
-  await trackView({
-    userId: Astro.locals.userId,
-    email: Astro.locals.userEmail,
-    page: Astro.url.pathname,
-    ip,
-    userAgent: Astro.request.headers.get('user-agent') ?? undefined,
-  });
-}
+const { title, chapter, prev, next, lastUpdated, description } = Astro.props;
 
 const currentIdx = insideChapters.findIndex((c) => c.num === chapter);
 const currentChapter = currentIdx >= 0 ? insideChapters[currentIdx] : undefined;
@@ -46,7 +23,7 @@ const metaDescription = description ?? currentChapter?.description ?? "Silo Tech
 const siteBase = Astro.site?.toString().replace(/\/$/, '') ?? 'https://silo.legal';
 const canonicalUrl = `${siteBase}${Astro.url.pathname}`;
 const ogTitle = `${title} — Silo Data Room`;
-const ogImageUrl = `${siteBase}/og.png`;
+const ogImageUrl = `${siteBase}/og-image.png`;
 ---
 
 <!doctype html>
@@ -80,7 +57,6 @@ const ogImageUrl = `${siteBase}/og.png`;
         <span class="sub">Technical Data Room</span>
       </div>
       <div class="topbar-spacer"></div>
-      {viewerName && <span class="viewing-as">viewing as <strong>{viewerName}</strong></span>}
     </header>
 
     <div class="shell">
@@ -101,7 +77,6 @@ const ogImageUrl = `${siteBase}/og.png`;
         </ul>
 
         <div class="side-meta">
-          {expiresAt && <div class="row"><strong>Access expires</strong><br />{expiresAt}</div>}
           <div class="row"><strong>Last updated</strong><br />{displayLastUpdated}</div>
           <div class="row"><strong>Repo access</strong><br />on request</div>
         </div>
@@ -151,8 +126,6 @@ const ogImageUrl = `${siteBase}/og.png`;
       .inside-topbar .sep { color: var(--color-text-muted); margin: 0 0.625rem; font-weight: 400; }
       .inside-topbar .sub { color: var(--color-text-secondary); font-weight: 500; }
       .topbar-spacer { flex: 1; }
-      .viewing-as { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-muted); }
-      .viewing-as strong { font-weight: 500; color: var(--color-text-secondary); }
 
       .shell { display: grid; grid-template-columns: 17rem 1fr; min-height: calc(100vh - var(--header-height)); }
 

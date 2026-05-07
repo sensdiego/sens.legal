@@ -4,7 +4,6 @@ import ProofRow from '../components/silo/ProofRow.astro';
 import SectionLabel from '../components/silo/SectionLabel.astro';
 import PrincipleList from '../components/silo/PrincipleList.astro';
 import Principle from '../components/silo/Principle.astro';
-import OauthButton from '../components/silo/OauthButton.astro';
 import { proofPoints } from '../data/constants';
 
 const description = 'Verifiable legal reasoning. Silo grounds frontier models in a knowledge graph of how courts actually decide.';
@@ -86,17 +85,15 @@ const description = 'Verifiable legal reasoning. Silo grounds frontier models in
     <div class="cta-card">
       <h2>Investors and partners evaluating Silo</h2>
       <p>
-        Sign in to request access to the technical data room. We approve
-        manually, usually within a day.
+        The technical data room is public: thesis, architecture, production
+        proof, technical depth, decisions, roadmap, and team.
       </p>
       <div class="cta-buttons">
-        <OauthButton provider="google" />
-        <OauthButton provider="github" />
+        <a class="cta-link" href="/inside">Open the data room →</a>
       </div>
       <p class="cta-fineprint">
-        By signing in, you agree to the <a href="/privacy">privacy policy</a> and
-        <a href="/terms">terms</a>. We do not require an organization, NDA, or
-        sales call.
+        No login, NDA, or sales call required. For private follow-up, write to
+        <a href="mailto:diego@sens.legal">diego@sens.legal</a>.
       </p>
     </div>
   </section>
@@ -118,6 +115,8 @@ const description = 'Verifiable legal reasoning. Silo grounds frontier models in
   .cta-card h2 { font-size: 1.625rem; margin-bottom: 0.75rem; }
   .cta-card p { color: var(--color-text-secondary); max-width: 30rem; margin-bottom: 2rem; }
   .cta-buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .cta-link { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 1rem; border: 1px solid var(--color-border-active); border-radius: 4px; color: var(--color-bg); background: var(--color-text); font-weight: 600; text-decoration: none; }
+  .cta-link:hover { background: var(--color-accent); border-color: var(--color-accent); }
   .cta-fineprint { margin-top: 1.5rem; font-size: 0.8125rem; color: var(--color-text-muted); line-height: 1.55; }
   .cta-fineprint a { color: var(--color-text-secondary); border-bottom: 1px solid var(--color-border); }
   .cta-fineprint a:hover { color: var(--color-text); border-bottom-color: var(--color-text); }
