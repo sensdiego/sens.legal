@@ -6,11 +6,11 @@ Single Astro portal for Silo, a legal intelligence system for Brazilian lawyers.
 
 | Workspace | Purpose | Deploy |
 |-----------|---------|--------|
-| `portal/` | Astro 5 + Vercel adapter — the entire site | sens.legal |
+| `portal/` | Astro 5 + Vercel adapter — the entire site | silo.legal / sens.legal |
 
-The portal is gated behind OAuth (Google + GitHub) with manual approval.
-Public surface: `/`, `/about`, `/sign-in`, `/pending`, `/contact`, plus legal pages.
-Gated surface (`/inside/*`): 7-chapter technical data room for invited reviewers.
+The technical data room at `/inside` is public.
+Public surface: `/`, `/about`, `/inside/*`, `/contact`, plus legal pages.
+Auth/admin surface: `/sign-in`, `/pending`, and `/admin/*` for private follow-up and access management.
 
 ## Local development
 

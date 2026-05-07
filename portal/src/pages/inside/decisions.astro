@@ -1,8 +1,6 @@
 ---
 import InsideLayout from '../../layouts/InsideLayout.astro';
 import PageLede from '../../components/silo/PageLede.astro';
-
-const viewerName = Astro.locals.viewerName ?? '';
 ---
 
 {/*
@@ -14,7 +12,6 @@ const viewerName = Astro.locals.viewerName ?? '';
 <InsideLayout
   title="Decisions"
   chapter="05"
-  viewerName={viewerName}
   prev={{ num: '04', title: 'Depth', href: '/inside/depth' }}
   next={{ num: '06', title: 'Roadmap & Risks', href: '/inside/roadmap' }}
 >

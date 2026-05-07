@@ -2,7 +2,7 @@ import { Resend } from 'resend';
 
 const apiKey = process.env.RESEND_API_KEY;
 const fromAddr = process.env.RESEND_FROM_EMAIL ?? 'silo@sens.legal';
-const portalBase = process.env.PORTAL_BASE_URL ?? 'https://sens.legal';
+const portalBase = process.env.PORTAL_BASE_URL ?? 'https://silo.legal';
 
 function client(): Resend | null {
   if (!apiKey) return null;

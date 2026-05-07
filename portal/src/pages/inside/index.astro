@@ -1,28 +1,9 @@
 ---
 import InsideLayout from '../../layouts/InsideLayout.astro';
-import WelcomeCard from '../../components/silo/WelcomeCard.astro';
 import { dataRoomLandingDescription, dataRoomLandingUpdatedAt, insideChapters } from '../../data/constants';
-
-// Viewer info pre-loaded by middleware (see portal/src/middleware.ts).
-// No per-page Supabase queries needed.
-const viewerName = Astro.locals.viewerName ?? 'reviewer';
-const showWelcome = !Astro.locals.welcomedAt;
-
-// First-name extraction. If the viewer has no real name set on the OAuth
-// profile we fall through to email — in that case strip the @domain instead
-// of returning the whole address ("Welcome, alice." reads better than
-// "Welcome, alice@foo.com.").
-function firstName(name: string): string {
-  if (!name) return 'reviewer';
-  if (name.includes('@')) return name.split('@')[0] || 'reviewer';
-  return name.split(' ')[0] || name;
-}
-
 ---
 
-<InsideLayout title="Data Room" chapter="01" viewerName={viewerName} lastUpdated={dataRoomLandingUpdatedAt} description={dataRoomLandingDescription} next={{ num: '01', title: 'Thesis', href: '/inside/thesis' }}>
-  {showWelcome && <WelcomeCard name={firstName(viewerName)} />}
-
+<InsideLayout title="Data Room" chapter="01" lastUpdated={dataRoomLandingUpdatedAt} description={dataRoomLandingDescription} next={{ num: '01', title: 'Thesis', href: '/inside/thesis' }}>
   <h1>Silo Technical Data Room</h1>
   <p class="lede">
     Seven chapters meant to be read in order. Total reading time is roughly

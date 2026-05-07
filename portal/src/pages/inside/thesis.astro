@@ -1,9 +1,6 @@
 ---
 import InsideLayout from '../../layouts/InsideLayout.astro';
 import PageLede from '../../components/silo/PageLede.astro';
-
-// Viewer info pre-loaded by middleware (see portal/src/middleware.ts).
-const viewerName = Astro.locals.viewerName ?? '';
 ---
 
 {/*
@@ -15,7 +12,6 @@ const viewerName = Astro.locals.viewerName ?? '';
 <InsideLayout
   title="Thesis"
   chapter="01"
-  viewerName={viewerName}
   next={{ num: '02', title: 'System', href: '/inside/system' }}
 >
   <h1>Legal reasoning is structural.</h1>
