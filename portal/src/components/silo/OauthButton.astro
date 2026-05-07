@@ -30,6 +30,29 @@ const { provider, label = provider === 'google' ? 'Continue with Google' : 'Cont
 <script>
   import { supabaseBrowser } from '../../lib/supabase-browser';
 
+  async function assertAuthHostReachable() {
+    try {
+      const response = await fetch('/api/auth/health', {
+        method: 'GET',
+        cache: 'no-store',
+      });
+      const health = await response.json() as { available?: boolean };
+      return health.available === true;
+    } catch {
+      return false;
+    }
+  }
+
+  function showSignInError(message: string) {
+    const status = document.querySelector<HTMLElement>('[data-oauth-status]');
+    if (status) {
+      status.hidden = false;
+      status.textContent = message;
+      return;
+    }
+    console.error(message);
+  }
+
   // Guard against double-binding when this component is rendered multiple
   // times on the same page (sign-in.astro renders both Google and GitHub
   // buttons → script block runs once with two matching elements, but on view
@@ -42,6 +65,12 @@ const { provider, label = provider === 'google' ? 'Continue with Google' : 'Cont
     btn.addEventListener('click', async () => {
       const provider = btn.dataset.provider as 'google' | 'github';
       btn.disabled = true;
+      const authHostReachable = await assertAuthHostReachable();
+      if (!authHostReachable) {
+        btn.disabled = false;
+        showSignInError('Private sign-in is temporarily unavailable. Please email diego@sens.legal for access-management support.');
+        return;
+      }
       const { error } = await supabaseBrowser.auth.signInWithOAuth({
         provider,
         options: {
@@ -50,7 +79,7 @@ const { provider, label = provider === 'google' ? 'Continue with Google' : 'Cont
       });
       if (error) {
         btn.disabled = false;
-        alert('Sign-in failed: ' + error.message);
+        showSignInError('Sign-in failed: ' + error.message);
       }
     });
   });

@@ -34,12 +34,12 @@ const email = req?.email ?? user.email ?? '';
       <>
         <h1>Thanks, {name}.</h1>
         <p>
-          Your request to access the Silo technical data room is under
-          review. We'll email <strong>{email}</strong> when it's approved,
-          usually within a day.
+          Your private follow-up request is under review. We'll email
+          <strong>{email}</strong> when it is approved, usually within a day.
         </p>
         <p class="fineprint">
-          You can close this tab. There's nothing else to do on your end.
+          The public technical data room is already available at
+          <a href="/inside">/inside</a>.
         </p>
       </>
     )}
@@ -47,8 +47,8 @@ const email = req?.email ?? user.email ?? '';
       <>
         <h1>Request not accepted.</h1>
         <p>
-          Your request to access the Silo data room was not accepted at
-          this time. If you believe this is a mistake, write to
+          Your private follow-up request was not accepted at this time. If
+          you believe this is a mistake, write to
           <a href="mailto:diego@sens.legal"> diego@sens.legal</a>.
         </p>
       </>
@@ -56,7 +56,7 @@ const email = req?.email ?? user.email ?? '';
     {status === ACCESS_STATUS.APPROVED && (
       <>
         <h1>You're in.</h1>
-        <p>Head to <a href="/inside">the data room →</a></p>
+        <p>Head to <a href="/inside">the public data room →</a></p>
       </>
     )}
     <form method="POST" action="/api/auth/sign-out" class="signout">
