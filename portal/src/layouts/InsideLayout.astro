@@ -119,6 +119,7 @@ const ogImageUrl = `${siteBase}/og-image.png`;
       .inside p { margin-bottom: 1.25rem; color: var(--color-text); }
       .inside a { color: var(--color-text); text-decoration: none; border-bottom: 1px solid var(--color-border); }
       .inside a:hover { color: var(--color-accent); border-bottom-color: var(--color-accent); }
+      .inside pre, .inside code { overflow-wrap: anywhere; }
 
       .inside-topbar { height: var(--header-height); border-bottom: 1px solid var(--color-border); display: flex; align-items: center; padding: 0 2rem; gap: 2rem; background: var(--color-bg); position: sticky; top: 0; z-index: 10; }
       .inside-topbar .brand { font-weight: 600; }
@@ -156,6 +157,34 @@ const ogImageUrl = `${siteBase}/og-image.png`;
       .pager .next { text-align: right; }
 
       .article-foot { margin-top: 2rem; font-family: var(--font-mono); font-size: 0.6875rem; color: var(--color-text-muted); display: flex; justify-content: space-between; }
+
+      @media (max-width: 56rem) {
+        .inside-topbar { padding: 0 1.25rem; }
+        .shell { display: block; min-height: auto; }
+        .sidebar { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--color-border); padding: 1.5rem 1.25rem; }
+        .side-label { padding-left: 0; margin-bottom: 0.75rem; }
+        .side-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.25rem 0.75rem; }
+        .side-nav li.current { margin-left: 0; margin-right: 0; padding-left: calc(0.5rem - 2px); }
+        .side-nav li a { min-width: 0; padding: 0.5rem 0; gap: 0.625rem; }
+        .side-nav li.current a { padding-left: 0; }
+        .side-nav .num { width: auto; min-width: 1.25rem; }
+        .side-meta { margin-top: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .main { padding: 2.5rem 1.25rem 4rem; display: block; }
+        .article { max-width: none; }
+        .pager { margin-top: 3rem; grid-template-columns: 1fr; }
+        .pager .next { text-align: left; }
+      }
+
+      @media (max-width: 30rem) {
+        .inside h1 { font-size: 2rem; }
+        .inside h2 { font-size: 1.25rem; }
+        .inside-topbar { padding: 0 1rem; }
+        .inside-topbar .brand { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .side-nav { grid-template-columns: 1fr; }
+        .sidebar { padding: 1.25rem 1rem; }
+        .main { padding: 2rem 1rem 3rem; }
+        .article-foot { flex-direction: column; gap: 0.375rem; }
+      }
 
       @media print {
         .inside-topbar, .sidebar, .pager, .article-foot { display: none; }

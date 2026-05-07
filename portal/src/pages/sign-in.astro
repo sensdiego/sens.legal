@@ -30,6 +30,8 @@ const errorMsg = error ? (errorMessages[error] ?? 'Sign-in error.') : null;
       <OauthButton provider="github" />
     </div>
 
+    <p class="oauth-status" data-oauth-status role="alert" aria-live="polite" hidden></p>
+
     <p class="fineprint">
       By signing in, you agree to the <a href="/privacy">privacy policy</a> and
       <a href="/terms">terms</a>.
@@ -43,6 +45,8 @@ const errorMsg = error ? (errorMessages[error] ?? 'Sign-in error.') : null;
   .signin-card p { color: var(--color-text-secondary); margin-bottom: 1.5rem; line-height: 1.6; }
   .signin-card .error { color: #8a1a1a; background: rgba(138, 26, 26, 0.06); border-left: 2px solid #8a1a1a; padding: 0.75rem 1rem; border-radius: 3px; font-size: 0.875rem; }
   .signin-card .buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .signin-card .oauth-status { color: #8a1a1a; background: rgba(138, 26, 26, 0.06); border-left: 2px solid #8a1a1a; padding: 0.75rem 1rem; border-radius: 3px; font-size: 0.875rem; margin-top: -0.75rem; margin-bottom: 1.5rem; }
+  .signin-card .oauth-status[hidden] { display: none; }
   .signin-card .fineprint { font-size: 0.75rem; color: var(--color-text-muted); }
   .signin-card .fineprint a { color: var(--color-text-secondary); border-bottom: 1px solid var(--color-border); }
 </style>

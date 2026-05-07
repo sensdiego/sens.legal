@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://silo.legal/sitemap-index.xml
