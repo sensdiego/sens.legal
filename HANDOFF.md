@@ -1,17 +1,17 @@
-# Handoff — 2026-04-25 (data room going public)
+# Handoff — 2026-05-08 (Supabase retired)
 
 ## How to resume in the next session
 
-`Read /Users/sensdiego/Dev/sens.legal/HANDOFF.md and continue from the public-/inside transition. PR #11 is in review on the Vercel preview; merge it once the visual smoke pass is done.`
+`Read /Users/sensdiego/Dev/sens.legal/HANDOFF.md and continue from the post-Supabase portal cleanup. Runtime auth is built-in signed-cookie admin auth; /inside is public. The remaining work is manual provider teardown/export, not code-path migration.`
 
 ---
 
 ## Current state
 
 **Project:** silo.legal — single Astro portal at silo.legal (canonical) / sens.legal (alias) hosting Silo's public landing and the (now public) technical data room.
-**Branch:** `main` is at `817488d` (PR #10 — chapter description meta wiring + landing card description). `chore/portal-remove-inside-gate` is open as PR #11 (gate removal + silo.legal canonical + OG previews) waiting on visual review of the Vercel preview.
-**Stack:** Astro 5 (output: server) + Vercel + Supabase Auth (still wired but only used by `/admin` going forward) + Resend.
-**Live at https://silo.legal** with chapters 01-07. Once PR #11 merges, `/inside` becomes openly readable and `<meta property="og:*">` points at the committed 1200x630 `og-image.png`; `/og.png` stays as a redirect shim for share-preview compatibility.
+**Branch:** `main` is at `2ba5fab` (PR #13 — replaced Supabase admin auth with built-in signed-cookie admin auth).
+**Stack:** Astro 6 (output: server) + Vercel + built-in admin password/session cookies. Supabase and Resend are not required at runtime.
+**Live at https://silo.legal** with chapters 01-07. `/inside` is openly readable. `<meta property="og:*">` points at the committed 1200x630 `og-image.png`; `/og.png` stays as a redirect shim for share-preview compatibility.
 **Portal tracking issue:** sensdiego/sens.legal#8 (content pass complete, 37/37 slots closed).
 
 ### Content pass status
@@ -92,18 +92,26 @@ The protocol Claude used this session is documented in `docs/superpowers/specs/2
 - ✅ **Phase 6:** Deleted 5 stale DNS records at Hostinger hPanel (4 codename CNAMEs on `sens.legal` + `valter` on `silo.legal`). Verified GONE against authoritative nameserver. Apex `sens.legal`/`silo.legal` still resolve to Vercel `76.76.21.21`.
 - ✅ **Phase 7:** Archived `github.com/sensdiego/silo` (the local dir is `~/Dev/silo-site`, but the remote repo name was always `silo` — earlier HANDOFFs conflated the two). Main was in sync with origin, one stale merged codex branch preserved inside the archive, untracked local `HANDOFF.md` in the clone untouched.
 
+**Closed 2026-05-08:**
+
+- ✅ **PR #13:** Merged Supabase removal for runtime auth. `/inside` is public; `/admin` uses built-in signed-cookie auth; `/sign-in` is operator-only.
+- ✅ **Vercel env cleanup:** Removed Supabase env vars, legacy `ADMIN_TOKEN`, and Resend env vars. The only portal auth env vars left in Vercel are `ADMIN_SESSION_SECRET` and `ADMIN_PASSWORD_HASH` across Production/Preview/Development.
+- ✅ **Production redeploy:** Redeployed production after env cleanup; latest production deployment is `https://sens-legal-portal-i43cjjz8e-diego-meyer-sens-projects.vercel.app`, aliased to `https://silo.legal`.
+- ✅ **Live smoke:** Public pages, `/inside/*`, `/privacy`, `/data-retention`, `/pending`, `/sign-in`, robots, sitemap, auth health, admin login/logout, and final OG PNG were checked live.
+- ✅ **24h canary:** A thread heartbeat canary checks the live site hourly for 24 checks and reports anomalies only.
+
 **Still open:**
 
-- **PR #11 visual review** — Vercel preview pending Diego's smoke test. Verify `/inside` opens without sign-in, `/og.png` redirects to `/og-image.png`, and share previews render in Slack/LinkedIn.
-- **Phase 8:** Optional comms about the new silo.legal/sign-in link.
-- **Supabase auto-pause cycle** — free tier confirmed as deliberate cost decision (2026-04-25). Project goes `INACTIVE` after ~7 days of inactivity; restore via `mcp__claude_ai_Supabase__restore_project` (~2 min, preserves data). A keep-alive cron (e.g., GitHub Actions hitting `/auth/v1/health` every 6 days) was offered and not yet implemented.
+- **Supabase project teardown/export:** The portal no longer talks to Supabase, but deleting/exporting the old project still requires Supabase dashboard/API access. The old project id was `ikywqzcllcmikmaolbij`; DNS for `ikywqzcllcmikmaolbij.supabase.co` currently returns no address from this machine.
+- **OAuth app cleanup:** Delete the old Google OAuth client (`Silo Portal` in the `paidproject` Google Cloud project) and the old GitHub OAuth App (`Silo Portal` under the `sensdiego` account) from their provider dashboards. Current CLI auth does not expose a safe deletion path for either.
+- **Share-preview spot checks:** Optional manual checks in Slack/LinkedIn are still useful because third-party preview caches can lag even when `/og.png` and `/og-image.png` are healthy.
 
 ### Locked decisions (still in force)
 
 - **EN-only.** No PT-BR anywhere in portal.
 - **`/inside` is public** (decided 2026-04-25, shipping via PR #11). The moat is the practitioner-built taxonomy and the structured corpus, not the prose. `/admin` stays gated.
 - **Canonical host: silo.legal.** sens.legal still works as Vercel alias. `astro.config.mjs site` and email link fallbacks point at silo.legal. `@sens.legal` email addresses (`silo@`, `diego@`) stay — those are the firm's mail domain.
-- **Free tier is the chosen Supabase plan.** Auto-pause cycle accepted. Restore manually when it bites.
+- **Supabase is retired from runtime.** Do not add keep-alives or restore logic for the portal path; only export/delete legacy records if needed.
 - **silo-site is dead.** Content lives in `docs/legacy/silo-site/` permanently.
 - **Single host.** No more subdomain docs sites.
 - **Editorial discipline.** Restraint > marketing, functional names not codenames, no emoji, "what this document does not cover" where it helps.
