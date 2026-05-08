@@ -3,7 +3,7 @@ import '../styles/global.css';
 
 interface Props {
   title: string;
-  active?: 'index' | 'access' | 'views';
+  active?: 'index';
 }
 
 const { title, active = 'index' } = Astro.props;
@@ -31,8 +31,6 @@ const { title, active = 'index' } = Astro.props;
       <aside class="sidebar">
         <ul>
           <li class:list={[{ active: active === 'index' }]}><a href="/admin">Overview</a></li>
-          <li class:list={[{ active: active === 'access' }]}><a href="/admin/access">Access requests</a></li>
-          <li class:list={[{ active: active === 'views' }]}><a href="/admin/views">Views</a></li>
         </ul>
       </aside>
       <main class="main">

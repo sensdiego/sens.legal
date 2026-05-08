@@ -10,7 +10,7 @@ Single Astro portal for Silo, a legal intelligence system for Brazilian lawyers.
 
 The technical data room at `/inside` is public.
 Public surface: `/`, `/about`, `/inside/*`, `/contact`, plus legal pages.
-Auth/admin surface: `/sign-in`, `/pending`, and `/admin/*` for private follow-up and access management.
+Admin surface: `/sign-in` and `/admin/*`, protected by the portal's built-in signed-cookie admin auth. Supabase is not required at runtime.
 
 ## Local development
 
@@ -18,6 +18,21 @@ Auth/admin surface: `/sign-in`, `/pending`, and `/admin/*` for private follow-up
 npm install
 npm run dev
 # opens http://localhost:4321
+```
+
+Admin auth needs:
+
+| Variable | Purpose |
+|----------|---------|
+| `ADMIN_SESSION_SECRET` | HMAC secret for the admin session cookie |
+| `ADMIN_PASSWORD` | Plain env password for simple deployments |
+| `ADMIN_PASSWORD_HASH` | Optional `scrypt$...` hash; preferred when configured |
+| `ADMIN_TOKEN` | Legacy fallback used only when the new admin env vars are absent |
+
+Generate a hash with:
+
+```bash
+npm -w portal run hash:admin-password -- "your-password"
 ```
 
 ## Spec and plan

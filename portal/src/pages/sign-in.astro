@@ -1,52 +1,69 @@
 ---
 import MinimalLayout from '../layouts/MinimalLayout.astro';
-import OauthButton from '../components/silo/OauthButton.astro';
+import { adminAuthStatus, isAdminAuthenticated } from '../lib/admin-session';
+
+const rawNext = Astro.url.searchParams.get('next') ?? '/admin';
+const next = rawNext === '/admin' || rawNext.startsWith('/admin/') ? rawNext : '/admin';
+if (isAdminAuthenticated(Astro.cookies)) {
+  return Astro.redirect(next);
+}
 
 const error = Astro.url.searchParams.get('error');
 const errorMessages: Record<string, string> = {
-  missing_code: 'Sign-in did not complete. Please try again.',
-  exchange_failed: 'Sign-in could not be verified. Please try again.',
-  no_user: 'Sign-in succeeded but no profile was found. Please contact diego@sens.legal.',
-  insert_failed: 'We could not create your access request. Please try again.',
-  update_failed: 'We could not sync your access right now. Please try again.',
-  lookup_failed: 'We could not verify your access right now. Please try again.',
-  status_check_failed: 'Sign-in completed, but access status could not be confirmed. Please try again.',
+  invalid_password: 'Password not accepted.',
+  not_configured: 'Admin sign-in is not configured yet.',
 };
 const errorMsg = error ? (errorMessages[error] ?? 'Sign-in error.') : null;
+const status = adminAuthStatus();
 ---
 
-<MinimalLayout title="Sign in">
+<MinimalLayout title="Admin sign in">
   <div class="signin-card">
-    <h1>Sign in</h1>
+    <h1>Admin sign in</h1>
     <p>
       The Silo technical data room is public at <a href="/inside">/inside</a>.
-      Sign in only if you need private follow-up or access-management support.
+      This route is only for operator access.
     </p>
 
     {errorMsg && <p class="error">{errorMsg}</p>}
+    {!status.available && (
+      <p class="error">Set <code>ADMIN_SESSION_SECRET</code> and <code>ADMIN_PASSWORD</code> or <code>ADMIN_PASSWORD_HASH</code> before using admin sign-in. A legacy <code>ADMIN_TOKEN</code> can also keep existing deployments online during rotation.</p>
+    )}
 
-    <div class="buttons">
-      <OauthButton provider="google" />
-      <OauthButton provider="github" />
-    </div>
-
-    <p class="oauth-status" data-oauth-status role="alert" aria-live="polite" hidden></p>
+    <form method="POST" action="/api/auth/admin-login" class="signin-form">
+      <input type="hidden" name="next" value={next} />
+      <label>
+        <span>Password</span>
+        <input
+          type="password"
+          name="password"
+          autocomplete="current-password"
+          required
+          autofocus
+          disabled={!status.available}
+        />
+      </label>
+      <button type="submit" disabled={!status.available}>Sign in</button>
+    </form>
 
     <p class="fineprint">
-      By signing in, you agree to the <a href="/privacy">privacy policy</a> and
-      <a href="/terms">terms</a>.
+      Public diligence readers do not need an account.
     </p>
   </div>
 </MinimalLayout>
 
 <style>
-  .signin-card { max-width: 26rem; }
+  .signin-card { max-width: 26rem; width: 100%; }
   .signin-card h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem; }
   .signin-card p { color: var(--color-text-secondary); margin-bottom: 1.5rem; line-height: 1.6; }
+  .signin-card a { color: var(--color-text); border-bottom: 1px solid var(--color-border); text-decoration: none; }
+  .signin-card a:hover { color: var(--color-accent); border-bottom-color: var(--color-accent); }
   .signin-card .error { color: #8a1a1a; background: rgba(138, 26, 26, 0.06); border-left: 2px solid #8a1a1a; padding: 0.75rem 1rem; border-radius: 3px; font-size: 0.875rem; }
-  .signin-card .buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2rem; }
-  .signin-card .oauth-status { color: #8a1a1a; background: rgba(138, 26, 26, 0.06); border-left: 2px solid #8a1a1a; padding: 0.75rem 1rem; border-radius: 3px; font-size: 0.875rem; margin-top: -0.75rem; margin-bottom: 1.5rem; }
-  .signin-card .oauth-status[hidden] { display: none; }
+  .signin-form { display: grid; gap: 1rem; margin: 1.5rem 0; }
+  .signin-form label { display: grid; gap: 0.5rem; font-size: 0.8125rem; font-weight: 600; color: var(--color-text-secondary); }
+  .signin-form input { width: 100%; border: 1px solid var(--color-border-active); border-radius: 4px; padding: 0.75rem 0.875rem; background: var(--color-bg); color: var(--color-text); font: inherit; }
+  .signin-form input:disabled { opacity: 0.55; cursor: not-allowed; }
+  .signin-form button { border: 1px solid var(--color-text); border-radius: 4px; padding: 0.75rem 1rem; background: var(--color-text); color: var(--color-bg); font: inherit; font-weight: 700; cursor: pointer; }
+  .signin-form button:disabled { opacity: 0.55; cursor: not-allowed; }
   .signin-card .fineprint { font-size: 0.75rem; color: var(--color-text-muted); }
-  .signin-card .fineprint a { color: var(--color-text-secondary); border-bottom: 1px solid var(--color-border); }
 </style>

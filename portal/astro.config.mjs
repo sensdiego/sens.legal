@@ -27,7 +27,7 @@ export default defineConfig({
     }),
   ],
   // CSRF protection: reject cross-origin POST/PATCH/DELETE based on Origin header.
-  // Mitigates CSRF on /api/admin/access/[id], /api/auth/welcome, /api/auth/sign-out.
+  // Mitigates CSRF on admin login/logout endpoints.
   security: {
     checkOrigin: true,
   },
