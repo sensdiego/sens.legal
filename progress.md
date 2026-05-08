@@ -1,5 +1,40 @@
 # sens.legal — Progress
 
+## 2026-05-08
+
+### Supabase retirado do runtime do portal
+
+Fechamento da migracao iniciada quando `/inside` virou publico: o portal agora roda sem Supabase e sem Resend no caminho de runtime. O auth administrativo ficou local ao app, com cookie assinado HttpOnly e senha configurada por `ADMIN_PASSWORD_HASH`.
+
+**PR #13 — replace Supabase admin auth (mergeado, `2ba5fab`):**
+- `/inside` e todos os capitulos continuam publicos.
+- `/sign-in` virou login apenas de operador/admin.
+- `/admin` usa sessao assinada por `ADMIN_SESSION_SECRET`.
+- Rotas, migrations, libs e packages de Supabase foram removidos do app.
+- Copy legal/admin foi alinhada para dizer que o data room publico nao cria `dd_views` novos.
+
+**Pos-merge operacional:**
+- `ADMIN_TOKEN` legado removido do Vercel depois de validar `ADMIN_SESSION_SECRET` + `ADMIN_PASSWORD_HASH`.
+- Env vars Supabase removidas: `PUBLIC_SUPABASE_URL`, `PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_URL`.
+- Env vars Resend removidas: `RESEND_FROM_EMAIL`, `RESEND_AUDIENCE_ID`, `RESEND_API_KEY`.
+- Vercel ficou apenas com `ADMIN_SESSION_SECRET` e `ADMIN_PASSWORD_HASH` em Production, Preview e Development.
+- Producao redeployada e aliasada para `https://silo.legal`.
+
+**Validacao live:**
+- `npm run check` passou com 0 erros.
+- `npm run build` passou; unico aviso local foi Node 25 versus runtime Vercel Node 24.
+- Smoke live confirmou `200` em `/`, `/inside`, todos os `/inside/*`, `/privacy`, `/data-retention`, `/pending`, `/sign-in`, `/robots.txt`, `/sitemap-0.xml`.
+- `/og.png` redireciona para `/og-image.png` e entrega `200 image/png`.
+- `/api/auth/health` retorna `provider: "builtin"` e `legacyAdminTokenConfigured: false`.
+- Fluxo admin confirmado: `/admin` anonimo redireciona para `/sign-in`, login redireciona para `/admin`, `/admin` autenticado retorna `200`, sign-out redireciona para `/`, e `/admin` volta a exigir login.
+- Canary headless criou screenshots de producao e nao encontrou console errors reais.
+- Canary de 24h criado na thread para checar producao de hora em hora.
+
+**Ainda manual:**
+- Exportar/deletar o projeto Supabase legado `ikywqzcllcmikmaolbij`, se houver dados que Diego queira preservar.
+- Deletar o OAuth Client antigo do Google Cloud (`Silo Portal` em `paidproject`).
+- Deletar o GitHub OAuth App antigo (`Silo Portal` na conta `sensdiego`).
+
 ## 2026-04-25
 
 ### /inside vai para acesso publico
