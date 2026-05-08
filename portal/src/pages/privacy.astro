@@ -2,22 +2,21 @@
 import LegalLayout from '../layouts/LegalLayout.astro';
 ---
 
-<LegalLayout title="Privacy Policy" description="How Silo handles service data, request telemetry, uploaded content, and support requests." lastUpdated="2026-04-25">
+<LegalLayout title="Privacy Policy" description="How Silo handles service data, request telemetry, uploaded content, and support requests." lastUpdated="2026-05-07">
   <p>Silo is operated by Diego Sens. This page explains, at a high level, what data Silo processes, why it is processed, and how to request support or deletion.</p>
 
-  <h2>Public data room and optional sign-in</h2>
-  <p>The technical data room at <code>/inside</code> is public. Reading it does not require Google or GitHub OAuth and does not create an <code>access_requests</code> row.</p>
-  <p>If you sign in for an admin, private-access, or follow-up workflow, Silo receives:</p>
+  <h2>Public data room and admin sign-in</h2>
+  <p>The technical data room at <code>/inside</code> is public. Reading it does not require Google, GitHub, Supabase, or any other third-party OAuth provider.</p>
+  <p>The <code>/sign-in</code> route is now an operator-only admin login. If you use that admin workflow, Silo processes:</p>
   <ul>
-    <li>your email address (verified by the OAuth provider);</li>
-    <li>your display name and avatar URL as provided by the OAuth provider;</li>
-    <li>your provider identity (Google account ID or GitHub user handle);</li>
-    <li>a session cookie that keeps you signed in to sens.legal.</li>
+    <li>the submitted admin password for verification only;</li>
+    <li>a signed, HTTP-only session cookie that keeps the admin browser signed in;</li>
+    <li>standard request metadata such as IP address, user agent, route, timestamp, and errors if the hosting platform logs the request.</li>
   </ul>
-  <p>This optional sign-in data is stored in the <code>access_requests</code> table on Silo's Supabase project and is used for admin review, private follow-up, or operational access management. It is no longer required to read the data room.</p>
+  <p>The admin password is not stored in browser-readable storage, and the current portal runtime no longer uses Supabase for authentication or access management.</p>
 
-  <h2>Data room view logs</h2>
-  <p>Public visits to <code>/inside/*</code> are served without per-user data room view logging. The legacy <code>dd_views</code> table may retain authenticated reviewer view logs from the earlier gated data-room period until they expire or are deleted on request.</p>
+  <h2>Retired gated data-room records</h2>
+  <p>Public visits to <code>/inside/*</code> are served without per-user data room view logging. Legacy <code>access_requests</code> and <code>dd_views</code> rows from the earlier gated data-room period may remain in archived or retired infrastructure until they are exported, deleted, or expire under the retention policy.</p>
 
   <h2>What data Silo may process</h2>
   <p>Depending on the feature you use, Silo may process:</p>
@@ -67,7 +66,7 @@ import LegalLayout from '../layouts/LegalLayout.astro';
   </ul>
 
   <h2>Requesting deletion</h2>
-  <p>To delete any <code>access_requests</code> or legacy <code>dd_views</code> rows associated with you, write to <a href="mailto:diego@sens.legal">diego@sens.legal</a> with the subject "Silo data deletion".</p>
+  <p>To delete any legacy gated-data-room rows associated with you, write to <a href="mailto:diego@sens.legal">diego@sens.legal</a> with the subject "Silo data deletion".</p>
 
   <h2>Changes</h2>
   <p>This policy may be updated as Silo's product surface, infrastructure, or compliance posture evolves. The latest version will be published at this URL.</p>

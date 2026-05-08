@@ -2,18 +2,18 @@
 import LegalLayout from '../layouts/LegalLayout.astro';
 ---
 
-<LegalLayout title="Data Retention Policy" description="Operational retention guidance for logs, memories, conversations, workflow artifacts, support records, and legacy data room view logs." lastUpdated="2026-04-25">
+<LegalLayout title="Data Retention Policy" description="Operational retention guidance for logs, memories, conversations, workflow artifacts, support records, and legacy data room view logs." lastUpdated="2026-05-07">
   <p>This page explains how Silo approaches data retention at an operational level. Exact retention can vary by deployment, contract, or legal hold, but the categories below describe the default model used by the product.</p>
 
-  <h2>Access requests and legacy view logs</h2>
-  <p>Two categories remain from the earlier gated data-room launch:</p>
+  <h2>Admin session and retired gated records</h2>
+  <p>The public data room no longer has a reader approval queue. The current portal uses a signed admin session cookie only for operator access to <code>/admin</code>.</p>
   <table>
     <thead>
       <tr><th>Category</th><th>Default retention</th></tr>
     </thead>
     <tbody>
-      <tr><td><code>access_requests</code> — optional sign-in identity and approval status</td><td>Retained while the portal is operational; deleted on user request.</td></tr>
-      <tr><td><code>dd_views</code> — legacy per-page view logs of authenticated reviewers</td><td>Retained for 12 months from the date of view, then anonymized (user_id and IP cleared). Public <code>/inside</code> visits are no longer logged here.</td></tr>
+      <tr><td>Admin session cookie</td><td>Expires automatically, currently after 12 hours.</td></tr>
+      <tr><td>Legacy gated-data-room records, including retired <code>access_requests</code> and <code>dd_views</code> rows</td><td>Retained only while needed for archive, support, or deletion handling; deleted or anonymized on request where feasible.</td></tr>
     </tbody>
   </table>
 
@@ -77,5 +77,5 @@ import LegalLayout from '../layouts/LegalLayout.astro';
 
   <h2>Requesting deletion</h2>
   <p>For deletion or retention questions, write to <a href="mailto:diego@sens.legal">diego@sens.legal</a>.</p>
-  <p>Please do not post sensitive data in a public ticket. If you need a private path and do not have one yet, request a private follow-up first.</p>
+  <p>Please do not post sensitive data in a public ticket. For private follow-up, write to <a href="mailto:diego@sens.legal">diego@sens.legal</a>.</p>
 </LegalLayout>
